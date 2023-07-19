@@ -1,8 +1,3 @@
-
-![image](https://github.com/mawaskow/finfeasprof/assets/61253606/9dc395f6-0bff-46d6-8e7c-ed5451bfe52c)
-
-
-
 # Financial feasibility and pricing model 
 
 ## Directories:
@@ -18,3 +13,5 @@ Generating samples
 Reading inputs
 
 The tool itself
+
+![image](https://github.com/mawaskow/finfeasprof/assets/61253606/668e7709-6768-4a66-84d8-6bd32b838038)
