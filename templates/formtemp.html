@@ -5,17 +5,17 @@
 {% block content %}
 <h3>Model Parameters</h3>
 
-<p>Current settings are populated into the below form. Change values as needed then press submit to update.</p>
-<form method=post enctype=multipart/form-data>
+<p>Default settings are populated into the below form. Change values as needed then press submit to update.</p>
+<form method="POST" enctype=multipart/form-data>
     {{ form.csrf_token }}
     <ul class="optns">
-      <li>{{form.cred_p_hect_p_yr.label}}{{form.cred_p_hect_p_yr}}</li>
-    {% if form.cred_p_hect_p_yr.errors %}
-        <ul class="errors">
-          {% for error in form.name.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+        <li>{{form.cred_p_hect_p_yr.label}}{{form.cred_p_hect_p_yr}}</li>
+          {% if form.cred_p_hect_p_yr.errors %}
+            <ul class="errors">
+              {% for error in form.name.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
         {% endif %}
         <li>{{form.nom_interest_rt.label}}{{form.nom_interest_rt}}</li>
         <li>{{form.inflation_rt.label}}{{form.inflation_rt}}</li>
