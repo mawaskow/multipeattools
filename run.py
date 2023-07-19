@@ -34,14 +34,20 @@ ROUTES
 def landingpage():
     return redirect(url_for('homepage'))
     
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def homepage():
-    return render_template("home.html")
+    submitted = False
+    form = ConfigForm()
+    if form.validate_on_submit():
+        populate_config(form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data)
+        submitted = True
+    form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data = parse_config("./static/initial_assumptions.json")
+    return render_template('home.html', form=form, submitted=submitted)
 
 @app.route('/about')
 def about():
     return render_template("about.html")
-
+'''
 @app.route('/formtemp', methods=['GET', 'POST'])
 def engage_json():
     submitted = False
@@ -51,7 +57,7 @@ def engage_json():
         submitted = True
     form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data = parse_config("./static/initial_assumptions.json")
     return render_template('formtemp.html', form=form, submitted=submitted)
-
+'''
 '''
 Error Handling
 '''
