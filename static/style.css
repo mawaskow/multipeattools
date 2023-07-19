@@ -1,0 +1,101 @@
+html {
+    margin: 10px 10px 10px 10px;
+    padding: 0px;
+    border: 0px;
+    color: rgb(7, 4, 48);
+    background: rgb(190, 255, 219);
+}
+
+html, body, p, th, td, li, dd, dt {
+    font: 1em Arial, Helvetica, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, Helvetica, serif;
+}
+
+nav {
+    margin: 0px 0px 0px 0px;
+    padding: 0;
+}
+
+body ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+  
+body ul li {
+    float: none;
+    margin: 0;
+}
+
+li h2 {
+    margin: 0px 10px 0px 0px;
+    display: block;
+}
+  
+nav li a {
+    display: block;
+    text-align: center;
+    padding: 7px 10px;
+    text-decoration: none;
+    background-color: rgb(143, 252, 219);
+}
+
+nav li a:hover {background-color: rgb(108, 253, 156);}
+nav li a:visited { color: rgb(7, 4, 48); }
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em ; }
+h4 { font-size: 1.0em; }
+h5 { font-size: 0.9em; }
+h6 { font-size: 0.8em; }
+
+a:link { color: rgb(255, 102, 0); }
+a:visited { color: rgb(255, 17, 17); }
+a:hover { color: rgb(255, 208, 0); }
+a:active { color: rgb(184, 153, 50); }
+
+.sidebar {
+    background: rgb(205, 223, 255);
+    position: static;
+    float: left;
+    top: auto;
+    left: 0px;
+    width: auto;
+    height: 250px;
+    margin: 0px 10px 0px 0px;
+    transition: all 0.5s ease;
+}
+
+.sidebar h4 {
+    color: rgb(0, 99, 53);
+    margin: 10px 5px 0px 5px;
+}
+
+.sidebar p {
+    color: rgb(0, 179, 75);
+    margin: 5px 15px;
+}
+
+.report {
+    background: rgb(255, 255, 255);
+    position: static;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+h2.report {
+    margin-left: 20px;
+}
+
+h4.report {
+    margin:20px,0px,0px,20px;
+}
+
+p.report {
+    margin:20px,0px,10px,0px;
+}

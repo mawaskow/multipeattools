@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Model{% endblock %}
+
+{% block content %}
+<h3>Model Parameters</h3>
+
+<p>Current settings are populated into the below form. Change values as needed then press submit to update.</p>
+<form method=post enctype=multipart/form-data>
+    {{ form.csrf_token }}
+    <ul class="optns">
+      <li>{{form.cred_p_hect_p_yr.label}}{{form.cred_p_hect_p_yr}}</li>
+    {% if form.cred_p_hect_p_yr.errors %}
+        <ul class="errors">
+          {% for error in form.name.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <li>{{form.nom_interest_rt.label}}{{form.nom_interest_rt}}</li>
+        <li>{{form.inflation_rt.label}}{{form.inflation_rt}}</li>
+        <li>{{form.reg_acct_opening_fee.label}}{{form.reg_acct_opening_fee}}</li>
+        <li>{{form.reg_lsting_cost_p_credit.label}}{{form.reg_lsting_cost_p_credit}}</li>
+        <li>{{form.reg_conv_cost_fee_p_inspect.label}}{{form.reg_conv_cost_fee_p_inspect}}</li>
+        <li>{{form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.label}}{{form.reg_conv_cost_p_credit_abv_min_thresh_of_credit}}</li>
+        <li>{{form.reg_levy_cost_p_credit.label}}{{form.reg_levy_cost_p_credit}}</li>
+        <li>{{form.valid_and_verif_app_cost_p_inspect.label}}{{form.valid_and_verif_app_cost_p_inspect}}</li>
+        <li>{{form.valid_and_verif_stmt_cost_p_inspect.label}}{{form.valid_and_verif_stmt_cost_p_inspect}}</li>
+        <li>{{form.valid_and_verif_inspctr_travel_costs_p_inspect.label}}{{form.valid_and_verif_inspctr_travel_costs_p_inspect}}</li>
+        <li>{{form.inspect_cycle_length.label}}{{form.inspect_cycle_length}}</li>
+        <li>{{form.min_thresh_of_credits.label}}{{form.min_thresh_of_credits}}</li>
+        <li>{{form.interest_rate.label}}{{form.interest_rate}}</li>
+        <li>{{form.payments_p_yr.label}}{{form.payments_p_yr}}</li>
+        <li>{{ form.submit }}</li>
+    </ul>
+</form>
+{% if submitted %}
+<p>Submission was successful!</p>
+{% endif %}
+
+{% endblock %}

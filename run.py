@@ -17,14 +17,7 @@ app = Flask(__name__)
 '''
 APP CONFIGURATION
 '''
-UPLOAD_FOLDER = './uploads'
-UPLOAD_C_FOLDER = './uploads/config'
-ALLOWED_EXTENSIONS = {'txt', 'nc', 'cfg', 'json'}
-app.config['UPLOAD_C_FOLDER'] = UPLOAD_C_FOLDER
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-app.add_url_rule("/uploads/<name>", endpoint="download_file", build_only=True)
-app.add_url_rule("/uploads/config/<name>", endpoint="download_c_file", build_only=True)
+ALLOWED_EXTENSIONS = {'txt', 'json'}
 
 SECRET_KEY = "please_dont_hack_us_thanks"
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -32,20 +25,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 '''
 Internal Functions
 '''
-# this function courtesy of https://flask.palletsprojects.com/
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def c_dir_listing():
-    filenames = os.listdir(UPLOAD_C_FOLDER)
-    clean_files = []
-    for i in filenames:
-        if i[-4:] == ".cfg":
-            clean_files.append(i)
-        elif i[-5:] == ".json":
-            clean_files.append(i)
-    return clean_files
 
 '''
 ROUTES
@@ -58,60 +38,19 @@ def landingpage():
 def homepage():
     return render_template("home.html")
 
-@app.route('/config', methods=['POST', 'GET'])
-def config():
-    if c_dir_listing():
-        filenames = c_dir_listing()
-    else:
-        filenames = None
-    return render_template("config.html", filenames= filenames)
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
-# this function structure courtesy of https://flask.palletsprojects.com/
-@app.route('/config/upload', methods=['GET', 'POST'])
-def upload_conf_file():
-    if c_dir_listing():
-        filenames = c_dir_listing()
-    else:
-        filenames = None
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            return redirect(request.url)
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_C_FOLDER'], filename))
-            return redirect(url_for('upload_conf_file', name=filename, filenames = filenames))
-    return render_template('upload_conf.html', filenames = filenames)
-
-
-@app.route('/uploads/<name>')
-def download_file(name):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
-
-@app.route('/uploads/config/<name>')
-def download_c_file(name):
-    return send_from_directory(app.config["UPLOAD_C_FOLDER"], name)
-
-@app.route('/config/configjson', methods=['GET', 'POST'])
-def engage_jsonconf():
-    found = False
+@app.route('/formtemp', methods=['GET', 'POST'])
+def engage_json():
     submitted = False
-    if c_dir_listing():
-        filenames = c_dir_listing()
-        if "config.json" in filenames:
-            found = True
-    if found:
-        form = ConfigForm()
-        if form.validate_on_submit():
-            populate_config(form.proc_batch.data, form.stream_batch.data, form.flow_method.data, form.flow_winsize.data, form.sparsematch_quality.data, form.pointsred_maxdist.data, form.pointsred_winsize.data)
-            submitted = True
-        form.proc_batch.data, form.stream_batch.data, form.flow_method.data, form.flow_winsize.data, form.sparsematch_quality.data, form.pointsred_maxdist.data, form.pointsred_winsize.data = parse_config(UPLOAD_C_FOLDER+"/config.json")
-    return render_template('configjson.html', found=found, form=form, submitted=submitted)
+    form = ConfigForm()
+    if form.validate_on_submit():
+        populate_config(form.cred_p_hect_p_yr, form.nom_interest_rt, form.inflation_rt, form.reg_acct_opening_fee, form.reg_lsting_cost_p_credit, form.reg_conv_cost_fee_p_inspect, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit, form.reg_levy_cost_p_credit, form.valid_and_verif_app_cost_p_inspect, form.valid_and_verif_stmt_cost_p_inspect, form.valid_and_verif_inspctr_travel_costs_p_inspect, form.inspect_cycle_length, form.min_thresh_of_credits, form.interest_rate, form.payments_p_yr)
+        submitted = True
+    form.cred_p_hect_p_yr, form.nom_interest_rt, form.inflation_rt, form.reg_acct_opening_fee, form.reg_lsting_cost_p_credit, form.reg_conv_cost_fee_p_inspect, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit, form.reg_levy_cost_p_credit, form.valid_and_verif_app_cost_p_inspect, form.valid_and_verif_stmt_cost_p_inspect, form.valid_and_verif_inspctr_travel_costs_p_inspect, form.inspect_cycle_length, form.min_thresh_of_credits, form.interest_rate, form.payments_p_yr = parse_config("./static/initial_assumptions.json")
+    return render_template('formtemp.html', form=form, submitted=submitted)
 
 '''
 Error Handling
