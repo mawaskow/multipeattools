@@ -1,4 +1,4 @@
-# Financial Feasability and Profitability Tool
+# Financial feasibility and pricing model 
 
 ## Directories:
 ### Data
