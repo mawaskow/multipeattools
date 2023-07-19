@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+        {% block head %}
+        {% if title %}
+        <title>{% block title %}{% endblock %} - FinFeasProf</title>
+        {% else %}
+        <title>FinFeasProf</title>
+        {% endif %}
+        {% endblock %}
+    </head>
+    <body>
+        <ul>
+            <li style="float: left;"><h2>Financial Feasability and Profit Model</h2></li> 
+            <nav>
+            <li style="float: left;"><a href="{{ url_for('homepage') }}">Home</a></li>
+            <li style="float: left;"><a href="{{ url_for('config') }}">Config</a></li>
+            </nav>
+        </ul>
+        <hr>
+        <div id="sidebar">{% block sidebar %}{% endblock %}</div>
+        <div id="content">{% block content %}{% endblock %}</div>
+    </body>
+</html>

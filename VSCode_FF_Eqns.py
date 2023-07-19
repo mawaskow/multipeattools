@@ -1,63 +1,39 @@
-# %% [markdown]
 # Equation 1
-
-# %%
 def Exponent_Year(period_of_years):
     exponent_year = period_of_years - 1
     return exponent_year
 
-# %% [markdown]
 # Equation 2
-
-# %%
 def Calendar_Year_End(calendar_year_start, exponent_year):
     calendar_year_end = calendar_year_start + exponent_year
     return calendar_year_end
 
-# %% [markdown]
 # Equation 3
-
-# %%
 def Real_Interest_Rate(nominal_interest_rate, inflation_rate):
     real_interest_rate = nominal_interest_rate - inflation_rate
     return real_interest_rate
 
-# %% [markdown]
 # Equation 4
-
-# %%
 def Credits_Generated(period_of_years, hectares_restored, credits_per_hectare_per_year):
     credits_generated = period_of_years*hectares_restored*credits_per_hectare_per_year
     return credits_generated
 
-# %% [markdown]
 # Equation 5
-
-# %%
 def Generation_Cost_per_Credit(investment_amount, total_project_costs, credits_generated):
     generation_cost_per_credit = (investment_amount + total_project_costs)/credits_generated
     return generation_cost_per_credit
 
-# %% [markdown]
 # Equation 6
-
-# %%
 def Beginning_Value(credits_generated, generation_cost_per_credit):
     beginning_value = credits_generated*generation_cost_per_credit
     return beginning_value
 
-# %% [markdown]
 # Equation 7
-
-# %%
 def Ending_Value_Undiscounted(credits_generated, price_per_credit):
     ending_value_undiscounted = credits_generated*price_per_credit
     return ending_value_undiscounted
 
-# %% [markdown]
 # Equation 8
-
-# %%
 def Carbon_Investment_Cost_per_Payment(interest_rate, payments_per_year, period_of_years, investment_amount):
     rate = interest_rate/payments_per_year
     n = payments_per_year*period_of_years
@@ -66,57 +42,36 @@ def Carbon_Investment_Cost_per_Payment(interest_rate, payments_per_year, period_
     carbon_investment_cost_per_payment = x/y
     return carbon_investment_cost_per_payment
 
-
-# %% [markdown]
 # Equation 9
-
-# %%
 def Carbon_Investment_Annual_Costs(carbon_investment_cost_per_payment, payments_per_year):
     carbon_investment_annual_costs = carbon_investment_cost_per_payment*payments_per_year
     return carbon_investment_annual_costs
 
-# %% [markdown]
 # Equation 10
-
-# %%
 def Total_Investment_Costs(carbon_investment_annual_costs, period_of_years):
     total_investment_costs = carbon_investment_annual_costs*period_of_years
     return total_investment_costs
 
-# %% [markdown]
 # Equation 11
-
-# %%
 def Number_of_Inspections(period_of_years, years_per_inspection_cycle):
     number_of_inspections = period_of_years/years_per_inspection_cycle
     return number_of_inspections
 
-# %% [markdown]
 # Equation 12
 
-# %%
 
 
-# %% [markdown]
 # Equation 13
-
-# %%
 def Recurring_Registry_Costs(validation_application_fee, validation_statement_fee, inspector_travel_fees, minimum_conversion_cost, number_of_inspections):
     recurring_registry_costs = (validation_application_fee + validation_statement_fee + inspector_travel_fees + minimum_conversion_cost)*number_of_inspections
     return recurring_registry_costs
 
-# %% [markdown]
 # Equation 14
-
-# %%
 def Registry_Costs_On_All_Credits(credit_listing_cost, credit_levy_cost, credits_generated):
     registry_costs_on_all_credits = (credit_listing_cost + credit_levy_cost)*credits_generated
     return registry_costs_on_all_credits
 
-# %% [markdown]
 # Equation 15
-
-# %%
 def Registry_Costs_On_Credits_Over_Min_Threshold(conversion_cost_per_credit_over_min_threshold, credits_generated, minimum_threshold):
     if credits_generated > minimum_threshold:
         registry_costs_on_credits_over_min_threshold = (conversion_cost_per_credit_over_min_threshold)*(credits_generated - minimum_threshold)
@@ -124,121 +79,83 @@ def Registry_Costs_On_Credits_Over_Min_Threshold(conversion_cost_per_credit_over
         registry_costs_on_credits_over_min_threshold = 0
     return registry_costs_on_credits_over_min_threshold
 
-# %% [markdown]
 # Equation 16
-
-# %%
 def Total_Registry_Costs(recurring_registry_costs, registry_costs_on_all_credits, registry_costs_on_credits_over_min_threshold):
     total_registry_costs = recurring_registry_costs + registry_costs_on_all_credits + registry_costs_on_credits_over_min_threshold
     return total_registry_costs
 
-# %% [markdown]
 # Equation 17
-
-# %%
 def Exponent_Factor_for_CARG(exponent_year):
     exponent_factor_for_CARG = 1/exponent_year
     return exponent_factor_for_CARG
 
-# %% [markdown]
 # Equation 18
-
-# %%
 def Total_Project_Costs_Undiscounted(total_investment_costs, total_registry_costs):
     total_project_costs_undiscounted = total_investment_costs + total_registry_costs
     return total_project_costs_undiscounted
 
-# %% [markdown]
 # Equation 19
-
-# %%
 def Ending_Value_Discounted(ending_value_undiscounted, real_interest_rate, exponent_year):
     x = (1+real_interest_rate)**(exponent_year)
     ending_value_discounted = ending_value_undiscounted/x
     return ending_value_discounted
 
-# %% [markdown]
 # Equation 20
-
-# %%
 def Total_Project_Costs_Discounted(total_project_costs_undiscounted, real_interest_rate, exponent_year):
     x = (1+real_interest_rate)**(exponent_year)
     total_project_costs_discounted = total_project_costs_undiscounted/x
     return total_project_costs_discounted
 
-# %% [markdown]
 # Equation 21
-
-# %%
 def Rate_of_Return(ending_value_discounted, beginning_value):
     rate_of_return = ((ending_value_discounted-beginning_value)/beginning_value)*100
     return rate_of_return
 
-# %% [markdown]
 # Equation 22
-
-# %%
 def Compound_Annualised_Rate_of_Growth(ending_value_undiscounted, beginning_value, exponent_factor_of_CARG):
     compound_annualised_rate_of_growth = ((ending_value_undiscounted/beginning_value)**(exponent_factor_of_CARG-1))*100
     return compound_annualised_rate_of_growth
 
-# %% [markdown]
 # Equation 23
-
-# %%
 def Gross_Present_Value(ending_value_discounted, beginning_value):
     gross_present_value = ending_value_discounted - beginning_value
     return gross_present_value
 
-# %% [markdown]
 # Equation 24
-
-# %%
 def Net_Present_Value(gross_product_value, total_project_costs_discounted):
     net_present_value = gross_product_value - total_project_costs_discounted
     return net_present_value
 
-# %% [markdown]
 # Equation 25
-
-# %%
 def Profitable(profit_per_credit, profit_per_hectare_per_year, rate_of_return, compound_annualised_rate_of_growth, gross_present_value, net_present_value):
     profitable = 'No'
     if profit_per_credit > 0 and profit_per_hectare_per_year > 0 and rate_of_return > 0 and compound_annualised_rate_of_growth > 0 and gross_present_value > 0 and net_present_value > 0:
         profitable = 'Yes'
     return profitable
 
-# %% [markdown]
 # Equation 26
-
-# %%
 def Profit_per_Credit(net_present_value, credits_generated):
     profit_per_credit = net_present_value/credits_generated
     return profit_per_credit
 
-# %% [markdown]
 # Equation 27
-
-# %%
 def Profit_per_Hectare_per_Year(net_present_value, hectares_restored, period_of_years):
     profit_per_hectare_per_year = (net_present_value/hectares_restored)/period_of_years
     return profit_per_hectare_per_year
 
-# %% [markdown]
 # This function converts a python dictionary to a json file
 
-# %%
 import json
 
 def Convert_to_Json(dic, filename):
     json.dumps(dic, indent = 1)
     with open(filename, "w") as outfile:
         print(json.dumps(dic, indent = 1), file = outfile)
+    outfile.close()
 
-# %% [markdown]
+
 # This function converts the user input data into a labeled dictionary
 
-# %%
 def UserData(data):
     user_data = {'Period of Years': None, 'Credits per Hectare per Year': None, 'Hectares Restored': None, 
                  'Investment Amount': None, 'Start Year': None, 'Price per Credit': None}
@@ -250,10 +167,8 @@ def UserData(data):
     
     return user_data
 
-# %% [markdown]
 # This function creates a dictionary of the basic assumptions that the toolkit makes when user input is not given
 
-# %%
 def Create_Assumptions():
     assumptions = {'Credits per Hectare per Year': 20, 'Nominal Interest Rate': 0.0235, 'Inflation Rate': 0.021,
                    'Registry Account Opening Fee': 0, 'Registry Listing Cost per Credit': 0.05, 
@@ -272,10 +187,8 @@ def Create_Assumptions():
     
     return assumptions
 
-# %% [markdown]
 # This function takes a list of user input edits to the basic assumptions and changes the assumptions accordingly. The updates to the basic assumptions must take the form of a list where every item is either the new value for the assumption, or None.
 
-# %%
 def Edit_Assumptions(assumptions, assumption_updates):
     for i in range(0, len(assumptions)):
         if assumption_updates[i] != None:
@@ -286,10 +199,8 @@ def Edit_Assumptions(assumptions, assumption_updates):
     
     return assumptions
 
-# %% [markdown]
 # This function prints the final output summary of the toolkit 
 
-# %%
 def Summary(simple_output):
     print('Credits generated by restored area: ', simple_output['Credits Generated'] , '\n')
     print('Cost of generating each credit: ', simple_output['Generation Cost per Credit'] , '\n')
@@ -300,10 +211,8 @@ def Summary(simple_output):
     print('Profit per hectare per year: ', simple_output['Profit per Hectare per Year'] , '\n')
     print('Profit across project duration: ', simple_output['Net Present Value'])
 
-# %% [markdown]
 # This is the main function of the toolkit. It applies all of the calculations to the given data and stores the results of the calculations in two dictionaries; a detailed dictionary for in-depth technical summaries, and a simple dictionary for the final output summary.
 
-# %%
 def Output(user_data, assumption_updates):
     #Convert user input data to dictionary and apply any user input updates to the assumptions
     user_data = UserData(user_data)
@@ -378,11 +287,11 @@ def Output(user_data, assumption_updates):
     #Save the simple output in a separate json file
     Convert_to_Json(simple_output, "simple_output.json")
 
-# %%
-user = [50, 20, 1, 74700, 2023, 561]
-assumption_updates = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
+def main():
+    user = [50, 20, 1, 74700, 2023, 561]
+    assumption_updates = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
 
-# %%
-Output(user, assumption_updates)
+    Output(user, assumption_updates)
 
-
+if __name__ == "__main__":
+    main()
