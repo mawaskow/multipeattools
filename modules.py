@@ -4,8 +4,6 @@ from wtforms import StringField, SubmitField, IntegerField, FloatField, RadioFie
 from wtforms.validators import ValidationError, DataRequired, Length, NumberRange, InputRequired
 import json
 
-INIT_CONFIG_FILE = "./static/initial_assumptions.json"
-
 '''
 Class Definitions
 '''
@@ -56,9 +54,9 @@ class ConfigForm(FlaskForm):
 Function Definitions
 '''
 
-def parse_config(INIT_CONFIG_FILE):
+def parse_config(CONFIG_FILE):
     # reads the json file into a list of values
-    config_json = Configuration.load_json(INIT_CONFIG_FILE)
+    config_json = Configuration.load_json(CONFIG_FILE)
     cred_p_hect_p_yr = config_json.avg_cred_p_hect_p_yr
     nom_interest_rt = config_json.nom_int_rt
     inflation_rt = config_json.inflation_rt
@@ -74,11 +72,14 @@ def parse_config(INIT_CONFIG_FILE):
     min_thresh_of_credits = config_json.min_thresh_of_credits
     interest_rate = config_json.interest_rt
     payments_p_yr = config_json.payments_p_yr
+    # pack values into list
+    jsondata = [cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr]
+    return jsondata
 
-    return cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr
-
-def populate_config(cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr):
-    with open(INIT_CONFIG_FILE, "r") as config_json:
+def populate_config(CONFIG_FILE, formdata):
+    # unpack values from list
+    [cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr] = formdata
+    with open(CONFIG_FILE, "r") as config_json:
         data = json.load(config_json)
     data["avg_cred_p_hect_p_yr"] = cred_p_hect_p_yr
     data["nom_int_rt"] = nom_interest_rt
@@ -96,5 +97,5 @@ def populate_config(cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_op
     data["interest_rt"] = interest_rate
     data["payments_p_yr"] = payments_p_yr
     
-    with open(INIT_CONFIG_FILE, "w") as config_json:
+    with open(CONFIG_FILE, "w") as config_json:
         json.dump(data, config_json)

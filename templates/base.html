@@ -4,18 +4,19 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
         {% block head %}
         {% if title %}
-        <title>{% block title %}{% endblock %} - FinFeasPricing</title>
+        <title>{% block title %}{% endblock %} - Multipeat Toolkit</title>
         {% else %}
-        <title>FinFeasPricing</title>
+        <title>Multipeat Toolkit</title>
         {% endif %}
         {% endblock %}
     </head>
     <body>
         <ul>
-            <li style="float: left;"><h2>Financial Feasibility and Pricing Model</h2></li> 
+            <li style="float: left;"><h2>Multipeat Toolkit</h2></li> 
             <nav>
             <li style="float: left;"><a href="{{ url_for('homepage') }}">Home</a></li>
-            <li style="float: left;"><a href="{{ url_for('about') }}">About</a></li>
+            <li style="float: left;"><a href="{{ url_for('ffp_tool') }}">FFP Tool</a></li>
+            <li style="float: left;"><a href="{{ url_for('set_tool') }}">SET Tool</a></li>    
             </nav>
         </ul>
         <hr>

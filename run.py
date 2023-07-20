@@ -22,10 +22,15 @@ ALLOWED_EXTENSIONS = {'txt', 'json'}
 SECRET_KEY = "please_dont_hack_us_thanks"
 app.config['SECRET_KEY'] = SECRET_KEY
 
+INIT_CONFIG_FILE = "./static/initial_assumptions.json"
+FIN_CONFIG_FILE = "./inputs/final_assumptions.json"
+
 '''
 Internal Functions
 '''
-
+# initialize final config file with default values
+jsondata = parse_config(INIT_CONFIG_FILE)
+populate_config(FIN_CONFIG_FILE, jsondata)
 
 '''
 ROUTES
@@ -34,30 +39,29 @@ ROUTES
 def landingpage():
     return redirect(url_for('homepage'))
     
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/home')
 def homepage():
-    submitted = False
-    form = ConfigForm()
-    if form.validate_on_submit():
-        populate_config(form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data)
-        submitted = True
-    form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data = parse_config("./static/initial_assumptions.json")
-    return render_template('home.html', form=form, submitted=submitted)
+    return render_template('home.html')
 
-@app.route('/about')
-def about():
-    return render_template("about.html")
-'''
-@app.route('/formtemp', methods=['GET', 'POST'])
-def engage_json():
-    submitted = False
+@app.route('/ffptool', methods=['GET', 'POST'])
+def ffp_tool():
     form = ConfigForm()
     if form.validate_on_submit():
-        populate_config(form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data)
-        submitted = True
-    form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data = parse_config("./static/initial_assumptions.json")
-    return render_template('formtemp.html', form=form, submitted=submitted)
-'''
+        formdata = [form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data]
+        populate_config(FIN_CONFIG_FILE, formdata)
+        return redirect(url_for('results'))
+    formdata = parse_config(FIN_CONFIG_FILE)
+    [form.cred_p_hect_p_yr.data, form.nom_interest_rt.data, form.inflation_rt.data, form.reg_acct_opening_fee.data, form.reg_lsting_cost_p_credit.data, form.reg_conv_cost_fee_p_inspect.data, form.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, form.reg_levy_cost_p_credit.data, form.valid_and_verif_app_cost_p_inspect.data, form.valid_and_verif_stmt_cost_p_inspect.data, form.valid_and_verif_inspctr_travel_costs_p_inspect.data, form.inspect_cycle_length.data, form.min_thresh_of_credits.data, form.interest_rate.data, form.payments_p_yr.data] = formdata
+    return render_template("ffp_tool.html", form=form)
+
+@app.route('/settool', methods=['GET', 'POST'])
+def set_tool():
+    return render_template("set_tool.html")
+
+@app.route('/results')
+def results():
+    return render_template("results.html")
+
 '''
 Error Handling
 '''
