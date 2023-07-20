@@ -1,8 +1,1 @@
-{
- "Period of Years": 50,
- "Credits per Hectare per Year": 20,
- "Hectares Restored": 1,
- "Investment Amount": 74700,
- "Start Year": 2023,
- "Price per Credit": 561
-}
+{"num_yrs": 50.0, "cred_p_hect_p_yr": 20.0, "hect_restored": 1.0, "invest_amt": 74700.0, "start_yr": 2023, "price_p_cred": 561.0}
