@@ -347,9 +347,6 @@ def Output_From_Json(user_input_json, assumption_json):
     simple_output['cred_p_hect_p_yr'] = usr_inp['cred_p_hect_p_yr']
     simple_output['price_p_cred'] = usr_inp['price_p_cred']
 
-    #Print Final Summary
-    Summary(simple_output)
-
     #Save the detailed output in a separate json file
     Convert_to_Json(detailed_output, "outputs/detailed_output.json")
 

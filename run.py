@@ -4,9 +4,10 @@ from flask import Flask
 from flask import url_for, render_template, flash, request, redirect, send_from_directory, abort, send_file
 from werkzeug.utils import secure_filename
 import glob
+import json
 #
 from modules import parse_assum, update_assum, FFPAssumForm, FFPUserInputForm, parse_usrinp, update_usrinp
-# temp until analysis can be in modules
+from VSCode_FF_Eqns import Output_From_Json
 
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -77,7 +78,12 @@ def set_tool():
 
 @app.route('/results')
 def results():
-    return render_template("results.html")
+    # this doesn't have any route to it yet but it takes the calculation function and runs it on whatever is in the inputs file
+    Output_From_Json(FFP_FIN_USR_INP_FILE, FFP_FIN_ASSUM_FILE)
+    FFP_SIMPLE_RESULT = "./outputs/simple_output.json"
+    with open(FFP_SIMPLE_RESULT, "r") as result_json:
+        result_json_text = json.load(result_json)
+    return render_template("results.html", result_json_text = result_json_text)
 
 '''
 Error Handling
