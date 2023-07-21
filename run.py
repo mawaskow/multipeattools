@@ -58,7 +58,7 @@ def ffp_tool():
     aform = FFPAssumForm()
     uform = FFPUserInputForm()
     if aform.validate_on_submit():
-        aformdata = [aform.avg_cred_p_hect_p_yr.data, aform.nom_interest_rt.data, aform.inflation_rt.data, aform.reg_acct_opening_fee.data, aform.reg_lsting_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, aform.reg_levy_cost_p_credit.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_costs_p_inspect.data, aform.inspect_cycle_length.data, aform.min_thresh_of_credits.data, aform.interest_rate.data, aform.payments_p_yr.data]
+        aformdata = [aform.avg_cred_p_hect_p_yr.data, aform.nom_int_rt.data, aform.inflation_rt.data, aform.reg_acct_open_fee.data, aform.reg_listing_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.data, aform.reg_levy_cost_p_cred.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmnt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_cost_p_inspect.data, aform.inspect_cycle_len.data, aform.min_thresh_of_credits.data, aform.interest_rt.data, aform.payments_p_yr.data]
         update_assum(FFP_FIN_ASSUM_FILE, aformdata)
         asubmitted=True
     if uform.validate_on_submit():
@@ -66,7 +66,7 @@ def ffp_tool():
         update_usrinp(FFP_FIN_USR_INP_FILE, uformdata)
         usubmitted=True
     aformdata = parse_assum(FFP_FIN_ASSUM_FILE)
-    [aform.avg_cred_p_hect_p_yr.data, aform.nom_interest_rt.data, aform.inflation_rt.data, aform.reg_acct_opening_fee.data, aform.reg_lsting_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_credit_abv_min_thresh_of_credit.data, aform.reg_levy_cost_p_credit.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_costs_p_inspect.data, aform.inspect_cycle_length.data, aform.min_thresh_of_credits.data, aform.interest_rate.data, aform.payments_p_yr.data] = aformdata
+    [aform.avg_cred_p_hect_p_yr.data, aform.nom_int_rt.data, aform.inflation_rt.data, aform.reg_acct_open_fee.data, aform.reg_listing_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.data, aform.reg_levy_cost_p_cred.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmnt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_cost_p_inspect.data, aform.inspect_cycle_len.data, aform.min_thresh_of_credits.data, aform.interest_rt.data, aform.payments_p_yr.data] = aformdata
     uformdata = parse_usrinp(FFP_FIN_USR_INP_FILE)
     [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data] = uformdata
     return render_template("ffp_tool.html", aform=aform, asubmitted=asubmitted, uform=uform, usubmitted=usubmitted)

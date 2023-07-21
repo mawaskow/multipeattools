@@ -46,19 +46,19 @@ class FFPAssumForm(FlaskForm):
     Creates form for modifying the FFP Tool's assumptions
     '''
     avg_cred_p_hect_p_yr = FloatField(label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    nom_interest_rt = FloatField(label= ('Nominal Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
+    nom_int_rt = FloatField(label= ('Nominal Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
     inflation_rt = FloatField(label= ('Inflation Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
-    reg_acct_opening_fee = FloatField(label= ('Registry Account Opening Fee: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    reg_lsting_cost_p_credit = FloatField(label= ('Registry Listing Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    reg_acct_open_fee = FloatField(label= ('Registry Account Opening Fee: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    reg_listing_cost_p_credit = FloatField(label= ('Registry Listing Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     reg_conv_cost_fee_p_inspect = FloatField(label= ('Registry Conversion Cost Fee per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    reg_conv_cost_p_credit_abv_min_thresh_of_credit = FloatField(label= ('Registry Conversion Cost per Credit above Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
-    reg_levy_cost_p_credit = FloatField(label= ('Registry Levy Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
+    reg_conv_cost_p_cred_abv_min_thresh_of_credits = FloatField(label= ('Registry Conversion Cost per Credit above Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
+    reg_levy_cost_p_cred = FloatField(label= ('Registry Levy Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
     valid_and_verif_app_cost_p_inspect = FloatField(label= ('Validation and Verification Application Cost per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    valid_and_verif_stmt_cost_p_inspect = FloatField(label= ('Validation and Verification Statement Cost per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    valid_and_verif_inspctr_travel_costs_p_inspect = FloatField(label= ('Validation and Verification Inspector Travel Costs per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    inspect_cycle_length = FloatField(label= ('Inspection Cycle Length: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    valid_and_verif_stmnt_cost_p_inspect = FloatField(label= ('Validation and Verification Statement Cost per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    valid_and_verif_inspctr_travel_cost_p_inspect = FloatField(label= ('Validation and Verification Inspector Travel Costs per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    inspect_cycle_len = FloatField(label= ('Inspection Cycle Length: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     min_thresh_of_credits = FloatField(label= ('Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    interest_rate = FloatField(label= ('Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
+    interest_rt = FloatField(label= ('Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
     payments_p_yr = IntegerField(label= ('Payments per Year: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     submit=SubmitField("Update")
 
@@ -93,22 +93,22 @@ def parse_assum(ASSUM_FILE):
     '''
     assum_json = Configuration.load_json(ASSUM_FILE)
     avg_cred_p_hect_p_yr = assum_json.avg_cred_p_hect_p_yr
-    nom_interest_rt = assum_json.nom_int_rt
+    nom_int_rt = assum_json.nom_int_rt
     inflation_rt = assum_json.inflation_rt
-    reg_acct_opening_fee = assum_json.reg_acct_open_fee
-    reg_lsting_cost_p_credit = assum_json.reg_listing_cost_p_credit
+    reg_acct_open_fee = assum_json.reg_acct_open_fee
+    reg_listing_cost_p_credit = assum_json.reg_listing_cost_p_credit
     reg_conv_cost_fee_p_inspect = assum_json.reg_conv_cost_fee_p_inspect
-    reg_conv_cost_p_credit_abv_min_thresh_of_credit = assum_json.reg_conv_cost_p_cred_abv_min_thresh_of_credits
-    reg_levy_cost_p_credit = assum_json.reg_levy_cost_p_cred
+    reg_conv_cost_p_cred_abv_min_thresh_of_credits = assum_json.reg_conv_cost_p_cred_abv_min_thresh_of_credits
+    reg_levy_cost_p_cred = assum_json.reg_levy_cost_p_cred
     valid_and_verif_app_cost_p_inspect = assum_json.valid_and_verif_app_cost_p_inspect
-    valid_and_verif_stmt_cost_p_inspect = assum_json.valid_and_verif_stmnt_cost_p_inspect
-    valid_and_verif_inspctr_travel_costs_p_inspect = assum_json.valid_and_verif_inspectr_travel_cost_p_inspect
-    inspect_cycle_length = assum_json.inspect_cycle_len
+    valid_and_verif_stmnt_cost_p_inspect = assum_json.valid_and_verif_stmnt_cost_p_inspect
+    valid_and_verif_inspctr_travel_cost_p_inspect = assum_json.valid_and_verif_inspectr_travel_cost_p_inspect
+    inspect_cycle_len = assum_json.inspect_cycle_len
     min_thresh_of_credits = assum_json.min_thresh_of_credits
-    interest_rate = assum_json.interest_rt
+    interest_rt = assum_json.interest_rt
     payments_p_yr = assum_json.payments_p_yr
     # pack values into list
-    jsondata = [avg_cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr]
+    jsondata = [avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee, reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr]
     return jsondata
 
 def update_assum(ASSUM_FILE, formdata):
@@ -116,24 +116,24 @@ def update_assum(ASSUM_FILE, formdata):
     Updates the FFP Tool assumption json with a list of values from a form
     '''
     # unpack values from list
-    [avg_cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr] = formdata
+    [avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee, reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr] = formdata
     # load the data from the current assumption file [for structure]
     with open(ASSUM_FILE, "r") as assum_json:
         data = json.load(assum_json)
     data["avg_cred_p_hect_p_yr"] = avg_cred_p_hect_p_yr
-    data["nom_int_rt"] = nom_interest_rt
+    data["nom_int_rt"] = nom_int_rt
     data["inflation_rt"] = inflation_rt
-    data["reg_acct_open_fee"] = reg_acct_opening_fee
-    data["reg_listing_cost_p_credit"] = reg_lsting_cost_p_credit
+    data["reg_acct_open_fee"] = reg_acct_open_fee
+    data["reg_listing_cost_p_credit"] = reg_listing_cost_p_credit
     data["reg_conv_cost_fee_p_inspect"] = reg_conv_cost_fee_p_inspect
-    data["reg_conv_cost_p_cred_abv_min_thresh_of_credits"] = reg_conv_cost_p_credit_abv_min_thresh_of_credit
-    data["reg_levy_cost_p_cred"] = reg_levy_cost_p_credit
+    data["reg_conv_cost_p_cred_abv_min_thresh_of_credits"] = reg_conv_cost_p_cred_abv_min_thresh_of_credits
+    data["reg_levy_cost_p_cred"] = reg_levy_cost_p_cred
     data["valid_and_verif_app_cost_p_inspect"] = valid_and_verif_app_cost_p_inspect
-    data["valid_and_verif_stmnt_cost_p_inspect"] = valid_and_verif_stmt_cost_p_inspect
-    data["valid_and_verif_inspectr_travel_cost_p_inspect"] = valid_and_verif_inspctr_travel_costs_p_inspect
-    data["inspect_cycle_len"] = inspect_cycle_length
+    data["valid_and_verif_stmnt_cost_p_inspect"] = valid_and_verif_stmnt_cost_p_inspect
+    data["valid_and_verif_inspectr_travel_cost_p_inspect"] = valid_and_verif_inspctr_travel_cost_p_inspect
+    data["inspect_cycle_len"] = inspect_cycle_len
     data["min_thresh_of_credits"] = min_thresh_of_credits
-    data["interest_rt"] = interest_rate
+    data["interest_rt"] = interest_rt
     data["payments_p_yr"] = payments_p_yr
     # overwrite the file with new data values
     with open(ASSUM_FILE, "w") as assum_json:
