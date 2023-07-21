@@ -12,14 +12,7 @@
 <form action="" method="POST" enctype=multipart/aform-data>
     {{ aform.csrf_token }}
     <ul class="optns">
-        <li>{{aform.cred_p_hect_p_yr.label}}{{aform.cred_p_hect_p_yr}}</li>
-          {% if aform.cred_p_hect_p_yr.errors %}
-            <ul class="errors">
-              {% for error in aform.name.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-        {% endif %}
+        <li>{{aform.avg_cred_p_hect_p_yr.label}}{{aform.avg_cred_p_hect_p_yr}}</li>
         <li>{{aform.nom_interest_rt.label}}{{aform.nom_interest_rt}}</li>
         <li>{{aform.inflation_rt.label}}{{aform.inflation_rt}}</li>
         <li>{{aform.reg_acct_opening_fee.label}}{{aform.reg_acct_opening_fee}}</li>
@@ -49,13 +42,6 @@
     {{ uform.csrf_token }}
     <ul class="optns">
         <li>{{uform.num_yrs.label}}{{uform.num_yrs}}</li>
-          {% if uform.num_yrs.errors %}
-            <ul class="errors">
-              {% for error in uform.name.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-        {% endif %}
         <li>{{uform.cred_p_hect_p_yr.label}}{{uform.cred_p_hect_p_yr}}</li>
         <li>{{uform.hect_restored.label}}{{uform.hect_restored}}</li>
         <li>{{uform.invest_amt.label}}{{uform.invest_amt}}</li>

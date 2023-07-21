@@ -37,11 +37,15 @@ class Configuration(object):
 ###   FFP TOOL   ###
 ####################
 
+'''
+FORMS
+'''
+
 class FFPAssumForm(FlaskForm):
     '''
     Creates form for modifying the FFP Tool's assumptions
     '''
-    cred_p_hect_p_yr = FloatField(label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    avg_cred_p_hect_p_yr = FloatField(label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     nom_interest_rt = FloatField(label= ('Nominal Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
     inflation_rt = FloatField(label= ('Inflation Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
     reg_acct_opening_fee = FloatField(label= ('Registry Account Opening Fee: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
@@ -56,7 +60,7 @@ class FFPAssumForm(FlaskForm):
     min_thresh_of_credits = FloatField(label= ('Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     interest_rate = FloatField(label= ('Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
     payments_p_yr = IntegerField(label= ('Payments per Year: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    submit=SubmitField("Submit")
+    submit=SubmitField("Update")
 
 class FFPUserInputForm(FlaskForm):
     '''
@@ -68,7 +72,7 @@ class FFPUserInputForm(FlaskForm):
     invest_amt = FloatField(label=("Investment Amount: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     start_yr = IntegerField(label= ('Start Year: '), validators=[DataRequired(), NumberRange(min=1900, max=3000)])
     price_p_cred = FloatField(label=("Price per Credit: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    submit=SubmitField("Submit")
+    submit=SubmitField("Update")
 
 ####################
 ###   SET TOOL   ###
@@ -88,7 +92,7 @@ def parse_assum(ASSUM_FILE):
     Parses the FFP Tool's assumption json file into a list of values
     '''
     assum_json = Configuration.load_json(ASSUM_FILE)
-    cred_p_hect_p_yr = assum_json.avg_cred_p_hect_p_yr
+    avg_cred_p_hect_p_yr = assum_json.avg_cred_p_hect_p_yr
     nom_interest_rt = assum_json.nom_int_rt
     inflation_rt = assum_json.inflation_rt
     reg_acct_opening_fee = assum_json.reg_acct_open_fee
@@ -104,7 +108,7 @@ def parse_assum(ASSUM_FILE):
     interest_rate = assum_json.interest_rt
     payments_p_yr = assum_json.payments_p_yr
     # pack values into list
-    jsondata = [cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr]
+    jsondata = [avg_cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr]
     return jsondata
 
 def update_assum(ASSUM_FILE, formdata):
@@ -112,11 +116,11 @@ def update_assum(ASSUM_FILE, formdata):
     Updates the FFP Tool assumption json with a list of values from a form
     '''
     # unpack values from list
-    [cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr] = formdata
+    [avg_cred_p_hect_p_yr, nom_interest_rt, inflation_rt, reg_acct_opening_fee, reg_lsting_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_credit_abv_min_thresh_of_credit, reg_levy_cost_p_credit, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmt_cost_p_inspect, valid_and_verif_inspctr_travel_costs_p_inspect, inspect_cycle_length, min_thresh_of_credits, interest_rate, payments_p_yr] = formdata
     # load the data from the current assumption file [for structure]
     with open(ASSUM_FILE, "r") as assum_json:
         data = json.load(assum_json)
-    data["avg_cred_p_hect_p_yr"] = cred_p_hect_p_yr
+    data["avg_cred_p_hect_p_yr"] = avg_cred_p_hect_p_yr
     data["nom_int_rt"] = nom_interest_rt
     data["inflation_rt"] = inflation_rt
     data["reg_acct_open_fee"] = reg_acct_opening_fee
@@ -167,6 +171,11 @@ def update_usrinp(USRINP_FILE, formdata):
     # overwrite the file with new data values
     with open(USRINP_FILE, "w") as usrinp_json:
         json.dump(data, usrinp_json)
+
+'''
+CALCULATIONS
+'''
+
 
 ####################
 ###   SET TOOL   ###
