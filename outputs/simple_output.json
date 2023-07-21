@@ -3,8 +3,8 @@
  "prof_p_hect_p_yr": 3.211933204671368,
  "profitable": "Yes",
  "net_pres_val": 160.5966602335684,
- "cred_generated": 1000,
+ "cred_generated": 1000.0,
  "gen_cost_p_cred": 298.3449963095466,
- "cred_p_hect_p_yr": 20,
- "price_p_cred": 561
+ "cred_p_hect_p_yr": 20.0,
+ "price_p_cred": 561.0
 }

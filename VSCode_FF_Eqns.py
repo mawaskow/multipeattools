@@ -287,11 +287,83 @@ def Output(user_data, assumption_updates):
     #Save the simple output in a separate json file
     Convert_to_Json(simple_output, "outputs/simple_output.json")
 
-def main():
-    user = [50, 20, 1, 74700, 2023, 561]
-    assumption_updates = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
+def Output_From_Json(user_input_json, assumption_json):
+    with open(user_input_json, "r") as usrinp_json:
+        usr_inp = json.load(usrinp_json)
+    with open(assumption_json, "r") as assum_json:
+        assum = json.load(assum_json)
 
-    Output(user, assumption_updates)
+    #Initialise output dictionaries for detailed and simple outputs
+    detailed_output = {}
+    
+    #Save values from Equations 1-4
+    detailed_output['exp_yr'] = Exponent_Year(usr_inp['num_yrs'])
+    detailed_output['cal_yr_end'] = Calendar_Year_End(usr_inp['start_yr'], detailed_output['exp_yr'])
+    detailed_output['real_interest_rt'] = Real_Interest_Rate(assum['nom_int_rt'], assum['inflation_rt'])
+    detailed_output['cred_generated'] = Credits_Generated(usr_inp['num_yrs'], usr_inp['hect_restored'], usr_inp['cred_p_hect_p_yr'])
+
+    #Save values from Equations 8-10
+    detailed_output['c_invest_cost_p_paymt'] = Carbon_Investment_Cost_per_Payment(assum['interest_rt'], assum['payments_p_yr'], usr_inp['num_yrs'], usr_inp['invest_amt'])
+    detailed_output['c_invest_ann_cost'] = Carbon_Investment_Annual_Costs(detailed_output['c_invest_cost_p_paymt'], assum['payments_p_yr'])
+    detailed_output['tot_invest_cost'] = Total_Investment_Costs(detailed_output['c_invest_ann_cost'], usr_inp['num_yrs'])
+
+    #Save values from Equations 11-16
+    detailed_output['num_inspect'] = Number_of_Inspections(usr_inp['num_yrs'], assum['inspect_cycle_len'])
+    detailed_output['recur_reg_cost'] = Recurring_Registry_Costs(assum['valid_and_verif_app_cost_p_inspect'], assum['valid_and_verif_stmnt_cost_p_inspect'], assum['valid_and_verif_inspectr_travel_cost_p_inspect'], assum['reg_conv_cost_fee_p_inspect'], detailed_output['num_inspect'])
+    detailed_output['reg_conv_cost_all_cred'] = Registry_Costs_On_All_Credits(assum['reg_listing_cost_p_credit'], assum['reg_levy_cost_p_cred'], detailed_output['cred_generated'])
+    detailed_output['reg_cost_cred_ovr_min_thresh'] = Registry_Costs_On_Credits_Over_Min_Threshold(assum['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], detailed_output['cred_generated'], assum['min_thresh_of_credits'])
+    detailed_output['tot_reg_cost'] = Total_Registry_Costs(detailed_output['recur_reg_cost'], detailed_output['reg_conv_cost_all_cred'], detailed_output['reg_cost_cred_ovr_min_thresh'])
+
+    #Save values from Equations 17-18
+    detailed_output['exp_fact_carg'] = Exponent_Factor_for_CARG(detailed_output['exp_yr'])
+    detailed_output['tot_proj_cost_nodiscount'] = Total_Project_Costs_Undiscounted(detailed_output['tot_invest_cost'], detailed_output['tot_reg_cost'])
+
+    #Save values from Equations 5-7
+    detailed_output['gen_cost_p_cred'] = Generation_Cost_per_Credit(usr_inp['invest_amt'], detailed_output['tot_proj_cost_nodiscount'], detailed_output['cred_generated'])
+    detailed_output['begin_val'] = Beginning_Value(detailed_output['cred_generated'], detailed_output['gen_cost_p_cred'])
+    detailed_output['end_val_nodiscount'] = Ending_Value_Undiscounted(detailed_output['cred_generated'], usr_inp['price_p_cred'])
+
+    #Save values from Equations 19-20
+    detailed_output['end_val_discount'] = Ending_Value_Discounted(detailed_output['end_val_nodiscount'], detailed_output['real_interest_rt'], detailed_output['exp_yr'])
+    detailed_output['tot_proj_cost_discount'] = Total_Project_Costs_Discounted(detailed_output['tot_proj_cost_nodiscount'], detailed_output['real_interest_rt'], detailed_output['exp_yr'])
+
+    #Save values from Equations 21-24
+    detailed_output['rate_return'] = Rate_of_Return(detailed_output['end_val_discount'], detailed_output['begin_val'])
+    detailed_output['comp_ann_rate_growth'] = Compound_Annualised_Rate_of_Growth(detailed_output['end_val_nodiscount'], detailed_output['begin_val'], detailed_output['exp_fact_carg'])
+    detailed_output['gross_pres_val'] = Gross_Present_Value(detailed_output['end_val_discount'], detailed_output['begin_val'])
+    detailed_output['net_pres_val'] = Net_Present_Value(detailed_output['gross_pres_val'], detailed_output['tot_proj_cost_discount'])
+
+    simple_output = {}
+
+    #Save values from Equations 25-27 as simple output
+    simple_output['prof_p_cred'] = Profit_per_Credit(detailed_output['net_pres_val'], detailed_output['cred_generated'])
+    simple_output['prof_p_hect_p_yr'] = Profit_per_Hectare_per_Year(detailed_output['net_pres_val'], usr_inp['hect_restored'], usr_inp['num_yrs'])
+    simple_output['profitable'] = Profitable(simple_output['prof_p_cred'], simple_output['prof_p_hect_p_yr'], detailed_output['rate_return'], detailed_output['comp_ann_rate_growth'], detailed_output['gross_pres_val'], detailed_output['net_pres_val'])
+
+    #Add net_pres_val, cred_generated, Cost of generation per credit, price_p_cred, and number of cred_p_hect_p_yr to simple output
+    simple_output['net_pres_val'] = detailed_output['net_pres_val']
+    simple_output['cred_generated'] = detailed_output['cred_generated']
+    simple_output['gen_cost_p_cred'] = detailed_output['gen_cost_p_cred']
+    simple_output['cred_p_hect_p_yr'] = usr_inp['cred_p_hect_p_yr']
+    simple_output['price_p_cred'] = usr_inp['price_p_cred']
+
+    #Print Final Summary
+    Summary(simple_output)
+
+    #Save the detailed output in a separate json file
+    Convert_to_Json(detailed_output, "outputs/detailed_output.json")
+
+    #Save the simple output in a separate json file
+    Convert_to_Json(simple_output, "outputs/simple_output.json")
+
+def main():
+    #user = [50, 20, 1, 74700, 2023, 561]
+    #assumption_updates = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
+    #Output(user, assumption_updates)
+
+    USER_INPUT_JSON = "./inputs/user_input_data.json"
+    ASSUMPTIONS_JSON = "./inputs/final_assumptions.json"
+    Output_From_Json(USER_INPUT_JSON,ASSUMPTIONS_JSON)
 
 if __name__ == "__main__":
     main()
