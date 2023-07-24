@@ -2,56 +2,69 @@
 
 {% block title %}FFP Tool{% endblock %}
 {% block content %}
-<p>Welcome to the Financial Feasibility and Pricing Tool.</p>
-<p>With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
+<div class="container" id="input-form">
+    <p>Welcome to the Financial Feasibility and Pricing Tool.</p>
+    <p>With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
 
-<h3>Model Assumptions</h3>
+    <h3>User Input</h3>
 
-<p>Default settings are populated into the below form.</p>
-<p>Change values if needed then press submit to update.</p>
-<form action="" method="POST" enctype=multipart/aform-data>
-    {{ aform.csrf_token }}
-    <ul class="optns">
-        <li>{{aform.avg_cred_p_hect_p_yr.label}}{{aform.avg_cred_p_hect_p_yr}}</li>
-        <li>{{aform.nom_int_rt.label}}{{aform.nom_int_rt}}</li>
-        <li>{{aform.inflation_rt.label}}{{aform.inflation_rt}}</li>
-        <li>{{aform.reg_acct_open_fee.label}}{{aform.reg_acct_open_fee}}</li>
-        <li>{{aform.reg_listing_cost_p_credit.label}}{{aform.reg_listing_cost_p_credit}}</li>
-        <li>{{aform.reg_conv_cost_fee_p_inspect.label}}{{aform.reg_conv_cost_fee_p_inspect}}</li>
-        <li>{{aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.label}}{{aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits}}</li>
-        <li>{{aform.reg_levy_cost_p_cred.label}}{{aform.reg_levy_cost_p_cred}}</li>
-        <li>{{aform.valid_and_verif_app_cost_p_inspect.label}}{{aform.valid_and_verif_app_cost_p_inspect}}</li>
-        <li>{{aform.valid_and_verif_stmnt_cost_p_inspect.label}}{{aform.valid_and_verif_stmnt_cost_p_inspect}}</li>
-        <li>{{aform.valid_and_verif_inspctr_travel_cost_p_inspect.label}}{{aform.valid_and_verif_inspctr_travel_cost_p_inspect}}</li>
-        <li>{{aform.inspect_cycle_len.label}}{{aform.inspect_cycle_len}}</li>
-        <li>{{aform.min_thresh_of_credits.label}}{{aform.min_thresh_of_credits}}</li>
-        <li>{{aform.interest_rt.label}}{{aform.interest_rt}}</li>
-        <li>{{aform.payments_p_yr.label}}{{aform.payments_p_yr}}</li>
-        <li>{{aform.submit}}</li>
-    </ul>
-</form>
-{% if asubmitted %}
-<p>Assumptions successfully updated!</p>
-{% endif %}
+    <p>Default settings are populated into the below form.</p>
+    <p>Change values if needed then press submit to update.</p>
+    <form action="" method="POST" enctype=multipart/aform-data>
+        {{ uform.csrf_token }}
+        <ul class="optns">
+            <li>{{uform.num_yrs.label}}{{uform.num_yrs}}</li>
+            <li>{{uform.cred_p_hect_p_yr.label}}{{uform.cred_p_hect_p_yr}}</li>
+            <li>{{uform.hect_restored.label}}{{uform.hect_restored}}</li>
+            <li>{{uform.invest_amt.label}}{{uform.invest_amt}}</li>
+            <li>{{uform.start_yr.label}}{{uform.start_yr}}</li>
+            <li>{{uform.price_p_cred.label}}{{uform.price_p_cred}}</li>
+            <li>{{uform.submit}}</li>
+        </ul>
+    </form>
+    {% if usubmitted %}
+    <p>Assumptions successfully updated!</p>
+    {% endif %}
+</div>
+<div class="container" id="assum-form">
+    <h3>Model Assumptions</h3>
 
-<h3>User Input</h3>
-
-<p>Default settings are populated into the below form.</p>
-<p>Change values if needed then press submit to update.</p>
-<form action="" method="POST" enctype=multipart/aform-data>
-    {{ uform.csrf_token }}
-    <ul class="optns">
-        <li>{{uform.num_yrs.label}}{{uform.num_yrs}}</li>
-        <li>{{uform.cred_p_hect_p_yr.label}}{{uform.cred_p_hect_p_yr}}</li>
-        <li>{{uform.hect_restored.label}}{{uform.hect_restored}}</li>
-        <li>{{uform.invest_amt.label}}{{uform.invest_amt}}</li>
-        <li>{{uform.start_yr.label}}{{uform.start_yr}}</li>
-        <li>{{uform.price_p_cred.label}}{{uform.price_p_cred}}</li>
-        <li>{{uform.submit}}</li>
-    </ul>
-</form>
-{% if usubmitted %}
-<p>Assumptions successfully updated!</p>
-{% endif %}
-
+    <p>Default settings are populated into the below form.</p>
+    <p>Change values if needed then press submit to update.</p>
+    <form action="" method="POST" enctype=multipart/aform-data>
+        {{ aform.csrf_token }}
+        <ul class="optns">
+            <li>{{aform.avg_cred_p_hect_p_yr.label}}{{aform.avg_cred_p_hect_p_yr}}</li>
+            <li>{{aform.nom_int_rt.label}}{{aform.nom_int_rt}}</li>
+            <li>{{aform.inflation_rt.label}}{{aform.inflation_rt}}</li>
+            <li>{{aform.reg_acct_open_fee.label}}{{aform.reg_acct_open_fee}}</li>
+            <li>{{aform.reg_listing_cost_p_credit.label}}{{aform.reg_listing_cost_p_credit}}</li>
+            <li>{{aform.reg_conv_cost_fee_p_inspect.label}}{{aform.reg_conv_cost_fee_p_inspect}}</li>
+            <li>{{aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.label}}{{aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits}}</li>
+            <li>{{aform.reg_levy_cost_p_cred.label}}{{aform.reg_levy_cost_p_cred}}</li>
+            <li>{{aform.valid_and_verif_app_cost_p_inspect.label}}{{aform.valid_and_verif_app_cost_p_inspect}}</li>
+            <li>{{aform.valid_and_verif_stmnt_cost_p_inspect.label}}{{aform.valid_and_verif_stmnt_cost_p_inspect}}</li>
+            <li>{{aform.valid_and_verif_inspctr_travel_cost_p_inspect.label}}{{aform.valid_and_verif_inspctr_travel_cost_p_inspect}}</li>
+            <li>{{aform.inspect_cycle_len.label}}{{aform.inspect_cycle_len}}</li>
+            <li>{{aform.min_thresh_of_credits.label}}{{aform.min_thresh_of_credits}}</li>
+            <li>{{aform.interest_rt.label}}{{aform.interest_rt}}</li>
+            <li>{{aform.payments_p_yr.label}}{{aform.payments_p_yr}}</li>
+            <li>{{aform.submit}}</li>
+        </ul>
+    </form>
+    {% if asubmitted %}
+    <p>Assumptions successfully updated!</p>
+    {% endif %}
+</div>
+<div id="results">
+    <h3>Results</h3>
+    <p>Profit per credit: {{result_json_text.prof_p_cred}}</p>
+    <p>Profit per hectacre per credit: {{result_json_text.prof_p_hect_p_yr}}</p>
+    <p>Profitable?: {{result_json_text.profitable}}</p>
+    <p>Net present value: {{result_json_text.net_pres_val}}</p>
+    <p>Credits generated: {{result_json_text.cred_generated}}</p>
+    <p>General cost per credit: {{result_json_text.gen_cost_p_cred}}</p>
+    <p>Credit per hectacre per year: {{result_json_text.cred_p_hect_p_yr}}</p>
+    <p>Price per credit: {{result_json_text.price_p_cred}}</p>
+</div>
 {% endblock %}

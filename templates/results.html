@@ -3,5 +3,12 @@
 {% block title %}Results{% endblock %}
 {% block content %}
 <h3>Results</h3>
-<p>{{result_json_text}}</p>
+<p>Profit per credit: {{result_json_text.prof_p_cred}}</p>
+<p>Profit per hectacre per credit: {{result_json_text.prof_p_hect_p_yr}}</p>
+<p>Profitable?: {{result_json_text.profitable}}</p>
+<p>Net present value: {{result_json_text.net_pres_val}}</p>
+<p>Credits generated: {{result_json_text.cred_generated}}</p>
+<p>General cost per credit: {{result_json_text.gen_cost_p_cred}}</p>
+<p>Credit per hectacre per year: {{result_json_text.cred_p_hect_p_yr}}</p>
+<p>Price per credit: {{result_json_text.price_p_cred}}</p>
 {% endblock %}

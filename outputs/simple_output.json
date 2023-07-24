@@ -1,10 +1,10 @@
 {
- "prof_p_cred": -1914.7872588543846,
- "prof_p_hect_p_yr": -38295.745177087694,
- "profitable": "No",
- "net_pres_val": -191478.72588543847,
- "cred_generated": 100.0,
- "gen_cost_p_cred": 1612.9086919245726,
- "cred_p_hect_p_yr": 20.0,
- "price_p_cred": 561.0
+ "prof_p_cred": 0.1605966602335684,
+ "prof_p_hect_p_yr": 3.211933204671368,
+ "profitable": "Yes",
+ "net_pres_val": 160.5966602335684,
+ "cred_generated": 1000,
+ "gen_cost_p_cred": 298.3449963095466,
+ "cred_p_hect_p_yr": 20,
+ "price_p_cred": 561
 }
