@@ -97,15 +97,6 @@ def ffp_tool():
 def set_tool():
     return render_template("set_tool.html")
 
-@app.route('/results')
-def results():
-    # this doesn't have any route to it yet but it takes the calculation function and runs it on whatever is in the inputs file
-    Output_From_Json(FFP_FIN_USR_INP_FILE, FFP_FIN_ASSUM_FILE)
-    FFP_SIMPLE_RESULT = "./outputs/simple_output.json"
-    with open(FFP_SIMPLE_RESULT, "r") as result_json:
-        result_json_text = json.load(result_json)
-    return render_template("results.html", result_json_text = result_json_text)
-
 '''
 Error Handling
 '''
