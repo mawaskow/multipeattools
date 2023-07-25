@@ -48,8 +48,11 @@ def Carbon_Investment_Annual_Costs(carbon_investment_cost_per_payment, payments_
     return carbon_investment_annual_costs
 
 # Equation 10
-def Total_Investment_Costs(carbon_investment_annual_costs, period_of_years):
-    total_investment_costs = carbon_investment_annual_costs*period_of_years
+def Total_Investment_Costs(carbon_investment_annual_costs, period_of_years, investment_costs_included):
+    if investment_costs_included == "True":
+        total_investment_costs = carbon_investment_annual_costs*period_of_years
+    else:
+        total_investment_costs = 0
     return total_investment_costs
 
 # Equation 11
@@ -80,8 +83,11 @@ def Registry_Costs_On_Credits_Over_Min_Threshold(conversion_cost_per_credit_over
     return registry_costs_on_credits_over_min_threshold
 
 # Equation 16
-def Total_Registry_Costs(recurring_registry_costs, registry_costs_on_all_credits, registry_costs_on_credits_over_min_threshold):
-    total_registry_costs = recurring_registry_costs + registry_costs_on_all_credits + registry_costs_on_credits_over_min_threshold
+def Total_Registry_Costs(recurring_registry_costs, registry_costs_on_all_credits, registry_costs_on_credits_over_min_threshold, registry_account_open_fee, registry_costs_included):
+    if registry_costs_included == "True":
+        total_registry_costs = recurring_registry_costs + registry_costs_on_all_credits + registry_costs_on_credits_over_min_threshold + registry_account_open_fee
+    else:
+        total_registry_costs = 0
     return total_registry_costs
 
 # Equation 17
@@ -238,14 +244,14 @@ def Output(user_data, assumption_updates):
     #Save values from Equations 8-10
     detailed_output['c_invest_cost_p_paymt'] = Carbon_Investment_Cost_per_Payment(detailed_output['interest_rt'], detailed_output['payments_p_yr'], detailed_output['num_yrs'], detailed_output['invest_amt'])
     detailed_output['c_invest_ann_cost'] = Carbon_Investment_Annual_Costs(detailed_output['c_invest_cost_p_paymt'], detailed_output['payments_p_yr'])
-    detailed_output['tot_invest_cost'] = Total_Investment_Costs(detailed_output['c_invest_ann_cost'], detailed_output['num_yrs'])
+    detailed_output['tot_invest_cost'] = Total_Investment_Costs(detailed_output['c_invest_ann_cost'], detailed_output['num_yrs'], detailed_output['invest_costs_inc'])
 
     #Save values from Equations 11-16
     detailed_output['num_inspect'] = Number_of_Inspections(detailed_output['num_yrs'], detailed_output['inspect_cycle_len'])
     detailed_output['recur_reg_cost'] = Recurring_Registry_Costs(detailed_output['valid_and_verif_app_cost_p_inspect'], detailed_output['valid_and_verif_stmnt_cost_p_inspect'], detailed_output['valid_and_verif_inspectr_travel_cost_p_inspect'], detailed_output['reg_conv_cost_fee_p_inspect'], detailed_output['num_inspect'])
     detailed_output['reg_conv_cost_all_cred'] = Registry_Costs_On_All_Credits(detailed_output['reg_listing_cost_p_credit'], detailed_output['reg_levy_cost_p_cred'], detailed_output['cred_generated'])
     detailed_output['reg_cost_cred_ovr_min_thresh'] = Registry_Costs_On_Credits_Over_Min_Threshold(detailed_output['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], detailed_output['cred_generated'], detailed_output['min_thresh_of_credits'])
-    detailed_output['tot_reg_cost'] = Total_Registry_Costs(detailed_output['recur_reg_cost'], detailed_output['reg_conv_cost_all_cred'], detailed_output['reg_cost_cred_ovr_min_thresh'])
+    detailed_output['tot_reg_cost'] = Total_Registry_Costs(detailed_output['recur_reg_cost'], detailed_output['reg_conv_cost_all_cred'], detailed_output['reg_cost_cred_ovr_min_thresh'], detailed_output['reg_acct_open_fee'], detailed_output['reg_costs_inc'])
 
     #Save values from Equations 17-18
     detailed_output['exp_fact_carg'] = Exponent_Factor_for_CARG(detailed_output['exp_yr'])
@@ -305,14 +311,14 @@ def Output_From_Json(user_input_json, assumption_json):
     #Save values from Equations 8-10
     detailed_output['c_invest_cost_p_paymt'] = Carbon_Investment_Cost_per_Payment(assum['interest_rt'], assum['payments_p_yr'], usr_inp['num_yrs'], usr_inp['invest_amt'])
     detailed_output['c_invest_ann_cost'] = Carbon_Investment_Annual_Costs(detailed_output['c_invest_cost_p_paymt'], assum['payments_p_yr'])
-    detailed_output['tot_invest_cost'] = Total_Investment_Costs(detailed_output['c_invest_ann_cost'], usr_inp['num_yrs'])
+    detailed_output['tot_invest_cost'] = Total_Investment_Costs(detailed_output['c_invest_ann_cost'], usr_inp['num_yrs'], usr_inp['invest_costs_inc'])
 
     #Save values from Equations 11-16
     detailed_output['num_inspect'] = Number_of_Inspections(usr_inp['num_yrs'], assum['inspect_cycle_len'])
     detailed_output['recur_reg_cost'] = Recurring_Registry_Costs(assum['valid_and_verif_app_cost_p_inspect'], assum['valid_and_verif_stmnt_cost_p_inspect'], assum['valid_and_verif_inspectr_travel_cost_p_inspect'], assum['reg_conv_cost_fee_p_inspect'], detailed_output['num_inspect'])
     detailed_output['reg_conv_cost_all_cred'] = Registry_Costs_On_All_Credits(assum['reg_listing_cost_p_credit'], assum['reg_levy_cost_p_cred'], detailed_output['cred_generated'])
     detailed_output['reg_cost_cred_ovr_min_thresh'] = Registry_Costs_On_Credits_Over_Min_Threshold(assum['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], detailed_output['cred_generated'], assum['min_thresh_of_credits'])
-    detailed_output['tot_reg_cost'] = Total_Registry_Costs(detailed_output['recur_reg_cost'], detailed_output['reg_conv_cost_all_cred'], detailed_output['reg_cost_cred_ovr_min_thresh'])
+    detailed_output['tot_reg_cost'] = Total_Registry_Costs(detailed_output['recur_reg_cost'], detailed_output['reg_conv_cost_all_cred'], detailed_output['reg_cost_cred_ovr_min_thresh'], assum['reg_acct_open_fee'], usr_inp['reg_costs_inc'])
 
     #Save values from Equations 17-18
     detailed_output['exp_fact_carg'] = Exponent_Factor_for_CARG(detailed_output['exp_yr'])
