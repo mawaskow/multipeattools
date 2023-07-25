@@ -11,6 +11,10 @@
     <p>Default settings are populated into the below form.</p>
     <p>Change values if needed then press submit to update.</p>
     <form action="" method="POST" enctype=multipart/aform-data>
+        <!--{% if uform.errors %}
+        {{ uform.errors }}
+        {% endif %}-->
+        {{ uform.hidden_tag() }}
         {{ uform.csrf_token }}
         <ul class="optns">
             <li>{{uform.num_yrs.label}}{{uform.num_yrs}}</li>
@@ -19,7 +23,7 @@
             <li>{{uform.invest_amt.label}}{{uform.invest_amt}}</li>
             <li>{{uform.start_yr.label}}{{uform.start_yr}}</li>
             <li>{{uform.price_p_cred.label}}{{uform.price_p_cred}}</li>
-            <li>{{uform.submit}}</li>
+            <button class="form__button" type="submit">Update</button>
         </ul>
     </form>
     {% if usubmitted %}
@@ -32,6 +36,10 @@
     <p>Default settings are populated into the below form.</p>
     <p>Change values if needed then press submit to update.</p>
     <form action="" method="POST" enctype=multipart/aform-data>
+        <!--{% if aform.errors %}
+        {{ aform.errors }}
+        {% endif %}-->
+        {{ aform.hidden_tag() }}
         {{ aform.csrf_token }}
         <ul class="optns">
             <li>{{aform.avg_cred_p_hect_p_yr.label}}{{aform.avg_cred_p_hect_p_yr}}</li>
@@ -49,7 +57,7 @@
             <li>{{aform.min_thresh_of_credits.label}}{{aform.min_thresh_of_credits}}</li>
             <li>{{aform.interest_rt.label}}{{aform.interest_rt}}</li>
             <li>{{aform.payments_p_yr.label}}{{aform.payments_p_yr}}</li>
-            <li>{{aform.submit}}</li>
+            <button class="form__button" type="submit">Update</button>
         </ul>
     </form>
     {% if asubmitted %}

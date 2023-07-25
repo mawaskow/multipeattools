@@ -46,21 +46,21 @@ class FFPAssumForm(FlaskForm):
     Creates form for modifying the FFP Tool's assumptions
     '''
     avg_cred_p_hect_p_yr = FloatField(label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    nom_int_rt = FloatField(label= ('Nominal Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
-    inflation_rt = FloatField(label= ('Inflation Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
+    nom_int_rt = FloatField(label= ('Nominal Interest Rate: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
+    inflation_rt = FloatField(label= ('Inflation Rate: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
     reg_acct_open_fee = FloatField(label= ('Registry Account Opening Fee: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     reg_listing_cost_p_credit = FloatField(label= ('Registry Listing Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     reg_conv_cost_fee_p_inspect = FloatField(label= ('Registry Conversion Cost Fee per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     reg_conv_cost_p_cred_abv_min_thresh_of_credits = FloatField(label= ('Registry Conversion Cost per Credit above Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
-    reg_levy_cost_p_cred = FloatField(label= ('Registry Levy Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
+    reg_levy_cost_p_cred = FloatField(label= ('Registry Levy Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
     valid_and_verif_app_cost_p_inspect = FloatField(label= ('Validation and Verification Application Cost per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     valid_and_verif_stmnt_cost_p_inspect = FloatField(label= ('Validation and Verification Statement Cost per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     valid_and_verif_inspctr_travel_cost_p_inspect = FloatField(label= ('Validation and Verification Inspector Travel Costs per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     inspect_cycle_len = FloatField(label= ('Inspection Cycle Length: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     min_thresh_of_credits = FloatField(label= ('Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    interest_rt = FloatField(label= ('Interest Rate: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
+    interest_rt = FloatField(label= ('Interest Rate: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
     payments_p_yr = IntegerField(label= ('Payments per Year: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    submit=SubmitField("Update")
+    #submit=SubmitField("Update")
 
 class FFPUserInputForm(FlaskForm):
     '''
@@ -72,7 +72,7 @@ class FFPUserInputForm(FlaskForm):
     invest_amt = FloatField(label=("Investment Amount: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     start_yr = IntegerField(label= ('Start Year: '), validators=[DataRequired(), NumberRange(min=1900, max=3000)])
     price_p_cred = FloatField(label=("Price per Credit: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    submit=SubmitField("Update")
+    #submit=SubmitField("Update")
 
 ####################
 ###   SET TOOL   ###

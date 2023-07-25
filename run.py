@@ -67,6 +67,9 @@ def ffp_tool():
         # and update the assumption json file with the information
         update_assum(FFP_FIN_ASSUM_FILE, aformdata)
         asubmitted=True
+    else:
+        print(aform.validate_on_submit())
+        print(aform.validate())
     # if the user input form is submitted
     if uform.validate_on_submit():
         # store the information from the form into a list
