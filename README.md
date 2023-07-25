@@ -12,6 +12,8 @@ Generating samples
 
 Reading inputs
 
+
 The tool itself
 
-![image](https://github.com/mawaskow/finfeasprof/assets/61253606/668e7709-6768-4a66-84d8-6bd32b838038)
+![Screenshot 2023-07-25 111900](https://github.com/mawaskow/finfeasprof/assets/61253606/54411a0a-c24e-4a04-b012-ef615a4da3e2)
+![Screenshot 2023-07-25 111950](https://github.com/mawaskow/finfeasprof/assets/61253606/26b63065-921b-431c-9bbc-9683ca868d44)
