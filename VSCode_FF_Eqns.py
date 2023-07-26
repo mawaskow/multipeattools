@@ -359,6 +359,10 @@ def Output_From_Json(user_input_json, assumption_json):
     #Save the simple output in a separate json file
     Convert_to_Json(simple_output, "outputs/simple_output.json")
 
+    print(simple_output)
+    print(assum)
+    print(usr_inp)
+
 def main():
     #user = [50, 20, 1, 74700, 2023, 561]
     #assumption_updates = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]

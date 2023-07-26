@@ -85,7 +85,6 @@ def ffp_tool():
     # displays results beneath forms
     # calculates the result of the input files
     Output_From_Json(FFP_FIN_USR_INP_FILE, FFP_FIN_ASSUM_FILE)
-    print("updated")
     FFP_SIMPLE_RESULT = "./outputs/simple_output.json"
     with open(FFP_SIMPLE_RESULT, "r") as result_json:
         result_json_text = json.load(result_json)
