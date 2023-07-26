@@ -66,14 +66,14 @@ class FFPUserInputForm(FlaskForm):
     '''
     Creates form for modifying the FFP Tool's user input
     '''
-    num_yrs = FloatField(label=("Period of Years: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    cred_p_hect_p_yr = FloatField(label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    hect_restored = FloatField(label=("Hectares Restored: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    invest_amt = FloatField(label=("Investment Amount: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    start_yr = IntegerField(label= ('Start Year: '), validators=[DataRequired(), NumberRange(min=1900, max=3000)])
-    price_p_cred = FloatField(label=("Price per Credit: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    invest_costs_inc = BooleanField(label=("Include Investment Costs: "))
-    reg_costs_inc = BooleanField(label=("Include Registration Costs: "))
+    num_yrs = FloatField(name="num_yrs", label=("Period of Years: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    cred_p_hect_p_yr = FloatField(name="cred_p_hect_p_yr", label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    hect_restored = FloatField(name="hect_restored", label=("Hectares Restored: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    invest_amt = FloatField(name="invest_amt", label=("Investment Amount: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    start_yr = IntegerField(name="start_yr", label= ('Start Year: '), validators=[DataRequired(), NumberRange(min=1900, max=3000)])
+    price_p_cred = FloatField(name="price_p_cred", label=("Price per Credit: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    invest_costs_inc = BooleanField(name="invest_costs_inc", label=("Include Investment Costs: "))
+    reg_costs_inc = BooleanField(name="reg_costs_inc", label=("Include Registration Costs: "))
     #submit=SubmitField("Update")
 
 ####################
