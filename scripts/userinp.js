@@ -7,8 +7,3 @@ $('#update-usrinpt').on('click', function(event){
 
     send_form(form, form_id, url, type, modular_ajax, formData);
 });
-
-function getInputFormData(form_id) {
-    var formData = new FormData(document.getElementById(form_id));
-    return formData
-}

@@ -1,6 +1,6 @@
 //https://javascript.plainenglish.io/how-to-form-submissions-with-flask-and-ajax-dfde9891c620
 
-function send_assum(form, form_id, url, type, inner_ajax, formData) {
+function send_form(form, form_id, url, type, inner_ajax, formData) {
     // form validation and sending of form items
 
     if ( form[0].checkValidity() && isFormDataEmpty(formData) == false ) { // checks if form is empty

@@ -97,37 +97,18 @@ def ffp_tool():
 @app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
     if request.method=="POST":
-        msg = "Formdata is {0} {1}.\n".format(request.form['interest_rt'], request.form['nom_int_rt'])
-        resp = {'feedback': msg}
-        return make_response(jsonify(resp), 200)
+        request.form['interest_rt']
+        aformdata = [request.form["avg_cred_p_hect_p_yr"], request.form["nom_int_rt"], request.form["inflation_rt"], request.form["reg_acct_open_fee"], request.form["reg_listing_cost_p_credit"], request.form["reg_conv_cost_fee_p_inspect"], request.form["reg_conv_cost_p_cred_abv_min_thresh_of_credits"], request.form["reg_levy_cost_p_cred"], request.form["valid_and_verif_app_cost_p_inspect"], request.form["valid_and_verif_stmnt_cost_p_inspect"], request.form["valid_and_verif_inspctr_travel_cost_p_inspect"], request.form["inspect_cycle_len"], request.form["min_thresh_of_credits"], request.form["interest_rt"], request.form["payments_p_yr"]]
+        update_assum(FFP_FIN_ASSUM_FILE, aformdata)
+        return make_response({"success":"great"}, 200)
     elif request.method =="GET":
-        #initialize forms from modules.py -defined classes
         aform = FFPAssumForm()
         uform = FFPUserInputForm()
-        # if assumption form is submitted
-        if aform.validate_on_submit():
-            # store the information from the form into a list
-            aformdata = [aform.avg_cred_p_hect_p_yr.data, aform.nom_int_rt.data, aform.inflation_rt.data, aform.reg_acct_open_fee.data, aform.reg_listing_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.data, aform.reg_levy_cost_p_cred.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmnt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_cost_p_inspect.data, aform.inspect_cycle_len.data, aform.min_thresh_of_credits.data, aform.interest_rt.data, aform.payments_p_yr.data]
-            # and update the assumption json file with the information
-            update_assum(FFP_FIN_ASSUM_FILE, aformdata)
-            asubmitted=True
-        # if the user input form is submitted
-        if uform.validate_on_submit():
-            # store the information from the form into a list
-            uformdata = [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data, uform.invest_costs_inc.data, uform.reg_costs_inc.data]
-            # and update the user input json file with the information
-            update_usrinp(FFP_FIN_USR_INP_FILE, uformdata)
-            usubmitted=True
-        # read the assumption information from the json (to display default values and updated values)
         aformdata = parse_assum(FFP_FIN_ASSUM_FILE)
-        # unpack the information so it can be sent to the html
         [aform.avg_cred_p_hect_p_yr.data, aform.nom_int_rt.data, aform.inflation_rt.data, aform.reg_acct_open_fee.data, aform.reg_listing_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.data, aform.reg_levy_cost_p_cred.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmnt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_cost_p_inspect.data, aform.inspect_cycle_len.data, aform.min_thresh_of_credits.data, aform.interest_rt.data, aform.payments_p_yr.data] = aformdata
-        # read the user input information from the json (to display default values and updated values)
         uformdata = parse_usrinp(FFP_FIN_USR_INP_FILE)
         # unpack the information so it can be sent to the html
         [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data, uform.invest_costs_inc.data, uform.reg_costs_inc.data] = uformdata
-        # displays results beneath forms
-        # calculates the result of the input files
         Output_From_Json(FFP_FIN_USR_INP_FILE, FFP_FIN_ASSUM_FILE)
         FFP_SIMPLE_RESULT = "./outputs/simple_output.json"
         with open(FFP_SIMPLE_RESULT, "r") as result_json:
@@ -149,6 +130,10 @@ def not_found_error(error):
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('500.html'), 500
+
+@app.errorhandler(400)
+def bad_request_error(error):
+    return render_template('400.html'), 400
 
 if __name__ == "__main__":
     app.run()

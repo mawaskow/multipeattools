@@ -3,12 +3,12 @@ $('#update-assum').on('click', function(event){
     var form_id = 'assum-form';
     var url = form.prop('action');
     var type = form.prop('method');
-    var formData = getAssumFormData(form_id);
+    var formData = getFormData(form_id);
 
-    send_assum(form, form_id, url, type, modular_ajax, formData);
+    send_form(form, form_id, url, type, modular_ajax, formData);
 });
 
-function getAssumFormData(form_id) {
+function getFormData(form_id) {
     var formData = new FormData(document.getElementById(form_id));
     return formData
 }
