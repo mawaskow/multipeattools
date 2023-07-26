@@ -52,7 +52,7 @@ def landingpage():
 @app.route('/home')
 def homepage():
     return render_template('home.html')
-'''
+
 @app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
     #initialize submission notification variables
@@ -68,9 +68,6 @@ def ffp_tool():
         # and update the assumption json file with the information
         update_assum(FFP_FIN_ASSUM_FILE, aformdata)
         asubmitted=True
-    else:
-        print(aform.validate_on_submit())
-        print(aform.validate())
     # if the user input form is submitted
     if uform.validate_on_submit():
         # store the information from the form into a list
@@ -89,32 +86,11 @@ def ffp_tool():
     # displays results beneath forms
     # calculates the result of the input files
     Output_From_Json(FFP_FIN_USR_INP_FILE, FFP_FIN_ASSUM_FILE)
+    print("updated")
     FFP_SIMPLE_RESULT = "./outputs/simple_output.json"
     with open(FFP_SIMPLE_RESULT, "r") as result_json:
         result_json_text = json.load(result_json)
     return render_template("ffp_tool.html", aform=aform, asubmitted=asubmitted, uform=uform, usubmitted=usubmitted, result_json_text = result_json_text)
-'''
-@app.route('/ffptool', methods=['GET', 'POST'])
-def ffp_tool():
-    if request.method=="POST":
-        request.form['interest_rt']
-        aformdata = [request.form["avg_cred_p_hect_p_yr"], request.form["nom_int_rt"], request.form["inflation_rt"], request.form["reg_acct_open_fee"], request.form["reg_listing_cost_p_credit"], request.form["reg_conv_cost_fee_p_inspect"], request.form["reg_conv_cost_p_cred_abv_min_thresh_of_credits"], request.form["reg_levy_cost_p_cred"], request.form["valid_and_verif_app_cost_p_inspect"], request.form["valid_and_verif_stmnt_cost_p_inspect"], request.form["valid_and_verif_inspctr_travel_cost_p_inspect"], request.form["inspect_cycle_len"], request.form["min_thresh_of_credits"], request.form["interest_rt"], request.form["payments_p_yr"]]
-        update_assum(FFP_FIN_ASSUM_FILE, aformdata)
-        return make_response({"success":"great"}, 200)
-    elif request.method =="GET":
-        aform = FFPAssumForm()
-        uform = FFPUserInputForm()
-        aformdata = parse_assum(FFP_FIN_ASSUM_FILE)
-        [aform.avg_cred_p_hect_p_yr.data, aform.nom_int_rt.data, aform.inflation_rt.data, aform.reg_acct_open_fee.data, aform.reg_listing_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.data, aform.reg_levy_cost_p_cred.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmnt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_cost_p_inspect.data, aform.inspect_cycle_len.data, aform.min_thresh_of_credits.data, aform.interest_rt.data, aform.payments_p_yr.data] = aformdata
-        uformdata = parse_usrinp(FFP_FIN_USR_INP_FILE)
-        # unpack the information so it can be sent to the html
-        [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data, uform.invest_costs_inc.data, uform.reg_costs_inc.data] = uformdata
-        Output_From_Json(FFP_FIN_USR_INP_FILE, FFP_FIN_ASSUM_FILE)
-        FFP_SIMPLE_RESULT = "./outputs/simple_output.json"
-        with open(FFP_SIMPLE_RESULT, "r") as result_json:
-            result_json_text = json.load(result_json)
-        return render_template("ffp_tool.html", aform=aform, asumbmitted=False, usubmitted=False, uform=uform, result_json_text = result_json_text)
-
 
 @app.route('/settool', methods=['GET', 'POST'])
 def set_tool():
