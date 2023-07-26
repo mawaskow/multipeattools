@@ -1,7 +1,7 @@
 import os
 from sys import exit
 from flask import Flask
-from flask import url_for, render_template, flash, request, redirect, send_from_directory, abort, send_file
+from flask import url_for, render_template, flash, request, redirect
 from werkzeug.utils import secure_filename
 import glob
 import json
@@ -73,7 +73,7 @@ def ffp_tool():
     # if the user input form is submitted
     if uform.validate_on_submit():
         # store the information from the form into a list
-        uformdata = [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data]
+        uformdata = [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data, uform.invest_costs_inc.data, uform.reg_costs_inc.data]
         # and update the user input json file with the information
         update_usrinp(FFP_FIN_USR_INP_FILE, uformdata)
         usubmitted=True
@@ -84,7 +84,7 @@ def ffp_tool():
     # read the user input information from the json (to display default values and updated values)
     uformdata = parse_usrinp(FFP_FIN_USR_INP_FILE)
     # unpack the information so it can be sent to the html
-    [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data] = uformdata
+    [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data, uform.invest_costs_inc.data, uform.reg_costs_inc.data] = uformdata
     # displays results beneath forms
     # calculates the result of the input files
     Output_From_Json(FFP_FIN_USR_INP_FILE, FFP_FIN_ASSUM_FILE)

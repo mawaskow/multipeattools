@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, FloatField, RadioField
+from wtforms import StringField, SubmitField, IntegerField, FloatField, RadioField, BooleanField
 from wtforms.validators import ValidationError, DataRequired, Length, NumberRange, InputRequired
 import json
 
@@ -72,6 +72,8 @@ class FFPUserInputForm(FlaskForm):
     invest_amt = FloatField(label=("Investment Amount: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
     start_yr = IntegerField(label= ('Start Year: '), validators=[DataRequired(), NumberRange(min=1900, max=3000)])
     price_p_cred = FloatField(label=("Price per Credit: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
+    invest_costs_inc = BooleanField(label=("Include Investment Costs: "))
+    reg_costs_inc = BooleanField(label=("Include Registration Costs: "))
     #submit=SubmitField("Update")
 
 ####################
@@ -150,7 +152,9 @@ def parse_usrinp(USRINP_FILE):
     invest_amt = usrinp_json.invest_amt
     start_yr = usrinp_json.start_yr
     price_p_cred = usrinp_json.price_p_cred
-    jsondata = [num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred]
+    invest_costs_inc = usrinp_json.invest_costs_inc
+    reg_costs_inc = usrinp_json.reg_costs_inc
+    jsondata = [num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc]
     return jsondata
 
 def update_usrinp(USRINP_FILE, formdata):
@@ -158,7 +162,7 @@ def update_usrinp(USRINP_FILE, formdata):
     Updates the FFP Tool user input json with a list of values from a form
     '''
     # unpack values from list
-    [num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred] = formdata
+    [num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc] = formdata
     # load the data from the current user input file [for structure]
     with open(USRINP_FILE, "r") as usrinp_json:
         data = json.load(usrinp_json)
@@ -168,6 +172,8 @@ def update_usrinp(USRINP_FILE, formdata):
     data["invest_amt"] = invest_amt
     data["start_yr"] = start_yr
     data["price_p_cred"] = price_p_cred
+    data["invest_costs_inc"] = invest_costs_inc
+    data["reg_costs_inc"] = reg_costs_inc
     # overwrite the file with new data values
     with open(USRINP_FILE, "w") as usrinp_json:
         json.dump(data, usrinp_json)

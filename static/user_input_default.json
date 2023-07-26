@@ -4,5 +4,7 @@
  "hect_restored": 1,
  "invest_amt": 74700,
  "start_yr": 2023,
- "price_p_cred": 561
+ "price_p_cred": 561,
+ "invest_costs_inc": false,
+ "reg_costs_inc": false
 }
