@@ -5,7 +5,7 @@ $('#update-assum').on('click', function(event){
     var type = form.prop('method');
     var formData = getAssumFormData(form_id);
 
-    send_form(form, form_id, url, type, modular_ajax, formData);
+    send_assum(form, form_id, url, type, modular_ajax, formData);
 });
 
 function getAssumFormData(form_id) {
