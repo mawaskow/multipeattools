@@ -1,9 +1,9 @@
 import os
 from sys import exit
 from flask import Flask
-from flask import url_for, render_template, request, redirect, jsonify, make_response
-from flask_wtf.csrf import CSRFProtect
+from flask import url_for, render_template, flash, request, redirect
 from werkzeug.utils import secure_filename
+import glob
 import json
 #
 from modules import parse_assum, update_assum, FFPAssumForm, FFPUserInputForm, parse_usrinp, update_usrinp
@@ -15,7 +15,6 @@ from VSCode_FF_Eqns import Output_From_Json
 
 app = Flask(__name__)
 
-csrf=CSRFProtect(app)
 '''
 APP CONFIGURATION
 '''
