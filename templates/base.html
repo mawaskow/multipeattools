@@ -1,15 +1,28 @@
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+        {% block links %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+            <!--jquery script-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        {% endblock %}
         {% block head %}
-        {% if title %}
-        <title>{% block title %}{% endblock %} - Multipeat Toolkit</title>
-        {% else %}
-        <title>Multipeat Toolkit</title>
-        {% endif %}
+            {% if title %}
+            <title>{% block title %}{% endblock %} - Multipeat Toolkit</title>
+            {% else %}
+            <title>Multipeat Toolkit</title>
+            {% endif %}
         {% endblock %}
     </head>
+
+    {% block scripts %}
+    <!--execute jquery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <!--jquery validation-->
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {% endblock %}
+    
     <body>
         <ul>
             <li style="float: left;"><h2>Multipeat Toolkit</h2></li> 

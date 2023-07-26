@@ -25,12 +25,14 @@
             <li>{{uform.price_p_cred.label}}{{uform.price_p_cred}}</li>
             <li>{{uform.invest_costs_inc.label}}{{uform.invest_costs_inc}}</li>
             <li>{{uform.reg_costs_inc.label}}{{uform.reg_costs_inc}}</li>
-            <button class="form__button" type="submit">Update</button>
+            <button class="form__button" type="submit" id="update-usrinpt">Update</button>
         </ul>
     </form>
-    {% if usubmitted %}
-    <p>Assumptions successfully updated!</p>
-    {% endif %}
+    <div id="uform-resp">
+        {% if usubmitted %}
+        <p>Assumptions successfully updated!</p>
+        {% endif %} 
+    </div>
 </div>
 <div class="container" id="assum-form">
     <h3>Model Assumptions</h3>
@@ -59,12 +61,14 @@
             <li>{{aform.min_thresh_of_credits.label}}{{aform.min_thresh_of_credits}}</li>
             <li>{{aform.interest_rt.label}}{{aform.interest_rt}}</li>
             <li>{{aform.payments_p_yr.label}}{{aform.payments_p_yr}}</li>
-            <button class="form__button" type="submit">Update</button>
+            <button class="form__button" type="submit" id="update-assum">Update</button>
         </ul>
     </form>
-    {% if asubmitted %}
-    <p>Assumptions successfully updated!</p>
-    {% endif %}
+    <div id="aform-resp">
+        {% if asubmitted %}
+        <p>Assumptions successfully updated!</p>
+        {% endif %}
+    </div>
 </div>
 <div id="results">
     <h3>Results</h3>
