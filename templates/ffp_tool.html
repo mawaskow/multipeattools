@@ -25,8 +25,11 @@
             <li>{{uform.price_p_cred.label}}{{uform.price_p_cred}}</li>
             <li>{{uform.invest_costs_inc.label}}{{uform.invest_costs_inc}}</li>
             <li>{{uform.reg_costs_inc.label}}{{uform.reg_costs_inc}}</li>
-            <button class="form__button" type="submit" id="update-usrinpt">Update</button>
+            <button class="form__button" type="submit" name="update-usrinpt" id="update-usrinpt">Update</button>
         </ul>
+    </form>
+    <form action="" method="POST">
+        <input type="reset" name="reset-usrinpt" id="reset-usrinpt" value="Reset to Defaults"></input>
     </form>
     <div id="uform-resp">
         {% if usubmitted %}
@@ -61,7 +64,8 @@
             <li>{{aform.min_thresh_of_credits.label}}{{aform.min_thresh_of_credits}}</li>
             <li>{{aform.interest_rt.label}}{{aform.interest_rt}}</li>
             <li>{{aform.payments_p_yr.label}}{{aform.payments_p_yr}}</li>
-            <button class="form__button" type="submit" id="update-assum">Update</button>
+            <button class="form__button" type="submit" name="update-assum" id="update-assum">Update</button>
+            <input type="submit" name="reset_assum" value="Reset to Defaults">
         </ul>
     </form>
     <div id="aform-resp">
@@ -70,8 +74,7 @@
         {% endif %}
     </div>
 </div>
-{% block assum %}
-{% endblock %}
+
 <div id="results">
     <h3>Results</h3>
     <p>Profitable?: {{results_dict["profitable"]}}</p>
