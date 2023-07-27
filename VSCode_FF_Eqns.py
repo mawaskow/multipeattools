@@ -164,7 +164,7 @@ def Convert_to_Json(dic, filename):
 
 def UserData(data):
     user_data = {'num_yrs': None, 'cred_p_hect_p_yr': None, 'hect_restored': None, 
-                 'invest_amt': None, 'start_yr': None, 'price_p_cred': None}
+                 'invest_amt': None, 'start_yr': None, 'price_p_cred': None, 'invest_costs_inc':None, 'reg_costs_inc':None}
     for i in range(0, len(data)):
         user_data[list(user_data.keys())[i]] = data[i]
 
@@ -364,13 +364,14 @@ def Output_From_Json(user_input_json, assumption_json):
     print(usr_inp)
 
 def main():
-    #user = [50, 20, 1, 74700, 2023, 561]
-    #assumption_updates = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
-    #Output(user, assumption_updates)
-
+    user = [50, 20, 1, 74700, 2023, 561]
+    assumption_updates = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
+    Output(user, assumption_updates)
+    '''
     USER_INPUT_JSON = "./inputs/user_input_data.json"
     ASSUMPTIONS_JSON = "./inputs/final_assumptions.json"
     Output_From_Json(USER_INPUT_JSON,ASSUMPTIONS_JSON)
+    '''
 
 if __name__ == "__main__":
     main()

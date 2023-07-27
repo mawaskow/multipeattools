@@ -5,6 +5,6 @@
  "invest_amt": 74700,
  "start_yr": 2023,
  "price_p_cred": 561,
- "invest_costs_inc": false,
- "reg_costs_inc": false
+ "invest_costs_inc": true,
+ "reg_costs_inc": true
 }

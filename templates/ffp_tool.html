@@ -72,13 +72,11 @@
 </div>
 <div id="results">
     <h3>Results</h3>
-    <p>Profit per credit: {{result_json_text.prof_p_cred}}</p>
-    <p>Profit per hectacre per credit: {{result_json_text.prof_p_hect_p_yr}}</p>
-    <p>Profitable?: {{result_json_text.profitable}}</p>
-    <p>Net present value: {{result_json_text.net_pres_val}}</p>
-    <p>Credits generated: {{result_json_text.cred_generated}}</p>
-    <p>General cost per credit: {{result_json_text.gen_cost_p_cred}}</p>
-    <p>Credit per hectacre per year: {{result_json_text.cred_p_hect_p_yr}}</p>
-    <p>Price per credit: {{result_json_text.price_p_cred}}</p>
+    <p>Profitable?: {{results_dict["profitable"]}}</p>
+    <p>Profit per credit: {{results_dict["profit_per_credit"]}}</p>
+    <p>Profit per hectare per year: {{results_dict["profit_per_hectare_per_year"]}}</p>
+    <p>Beginning Value: {{results_dict["beginning_value"]}}</p>
+    <p>Ending Value: {{results_dict["ending_value_undisc"]}}</p>
+    <p>Rate of Return: {{results_dict["rate_of_return"]}}</p>
 </div>
 {% endblock %}
