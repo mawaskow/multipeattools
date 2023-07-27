@@ -93,6 +93,10 @@ def ffp_tool():
 def set_tool():
     return render_template("set_tool.html")
 
+@app.route('/ffptool/assum', methods=['GET', 'POST'])
+def sep_assum():
+    return render_template("assum.html")
+
 '''
 Error Handling
 '''
