@@ -14,28 +14,35 @@
         <!--{% if uform.errors %}
         {{ uform.errors }}
         {% endif %}-->
-        {{ uform.hidden_tag() }}
-        {{ uform.csrf_token }}
-        <ul class="optns">
-            <li>{{uform.num_yrs.label}}{{uform.num_yrs}}</li>
-            <li>{{uform.cred_p_hect_p_yr.label}}{{uform.cred_p_hect_p_yr}}</li>
-            <li>{{uform.hect_restored.label}}{{uform.hect_restored}}</li>
-            <li>{{uform.invest_amt.label}}{{uform.invest_amt}}</li>
-            <li>{{uform.start_yr.label}}{{uform.start_yr}}</li>
-            <li>{{uform.price_p_cred.label}}{{uform.price_p_cred}}</li>
-            <li>{{uform.invest_costs_inc.label}}{{uform.invest_costs_inc}}</li>
-            <li>{{uform.reg_costs_inc.label}}{{uform.reg_costs_inc}}</li>
-            <button class="form__button" type="submit" name="update-usrinpt" id="update-usrinpt">Update</button>
-        </ul>
-    </form>
-    <form action="" method="POST">
+        
+        <!--hidden_tag and csrf_token-->
+        <label for="num_yrs">Period of Years:</label>
+        <input type="number" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}">
+        <br>
+        <label for="cred_p_hect_p_yr">Credits per Hectare per Year:</label>
+        <input type="number" id="cred_p_hect_p_yr" name="cred_p_hect_p_yr" value="{{uform['cred_p_hect_p_yr']}}">
+        <br>
+        <label for="hect_restored">Hectares Restored:</label>
+        <input type="number" id="hect_restored" name="hect_restored" value="{{uform['hect_restored']}}">
+        <br>
+        <label for="invest_amt">Investment Amount:</label>
+        <input type="number" id="invest_amt" name="invest_amt" value="{{uform['invest_amt']}}">
+        <br>
+        <label for="start_yr">Start Year:</label>
+        <input type="number" id="start_yr" name="start_yr" value="{{uform['start_yr']}}">
+        <br>
+        <label for="price_p_cred">Price per Credit:</label>
+        <input type="number" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}">
+        <br>
+        <label for="invest_costs_inc">Include Investment Costs:</label>
+        <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}">
+        <br>
+        <label for="reg_costs_inc">Include Registration Costs:</label>
+        <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}">
+        <br>
         <input type="reset" name="reset-usrinpt" id="reset-usrinpt" value="Reset to Defaults"></input>
+        <input type="submit" name="submit-usrinpt" id="submit-usrinpt" value="Submit"></input>
     </form>
-    <div id="uform-resp">
-        {% if usubmitted %}
-        <p>Assumptions successfully updated!</p>
-        {% endif %} 
-    </div>
 </div>
 <div class="container" id="assum-form">
     <h3>Model Assumptions</h3>
@@ -46,33 +53,55 @@
         <!--{% if aform.errors %}
         {{ aform.errors }}
         {% endif %}-->
-        {{ aform.hidden_tag() }}
-        {{ aform.csrf_token }}
-        <ul class="optns">
-            <li>{{aform.avg_cred_p_hect_p_yr.label}}{{aform.avg_cred_p_hect_p_yr}}</li>
-            <li>{{aform.nom_int_rt.label}}{{aform.nom_int_rt}}</li>
-            <li>{{aform.inflation_rt.label}}{{aform.inflation_rt}}</li>
-            <li>{{aform.reg_acct_open_fee.label}}{{aform.reg_acct_open_fee}}</li>
-            <li>{{aform.reg_listing_cost_p_credit.label}}{{aform.reg_listing_cost_p_credit}}</li>
-            <li>{{aform.reg_conv_cost_fee_p_inspect.label}}{{aform.reg_conv_cost_fee_p_inspect}}</li>
-            <li>{{aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.label}}{{aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits}}</li>
-            <li>{{aform.reg_levy_cost_p_cred.label}}{{aform.reg_levy_cost_p_cred}}</li>
-            <li>{{aform.valid_and_verif_app_cost_p_inspect.label}}{{aform.valid_and_verif_app_cost_p_inspect}}</li>
-            <li>{{aform.valid_and_verif_stmnt_cost_p_inspect.label}}{{aform.valid_and_verif_stmnt_cost_p_inspect}}</li>
-            <li>{{aform.valid_and_verif_inspctr_travel_cost_p_inspect.label}}{{aform.valid_and_verif_inspctr_travel_cost_p_inspect}}</li>
-            <li>{{aform.inspect_cycle_len.label}}{{aform.inspect_cycle_len}}</li>
-            <li>{{aform.min_thresh_of_credits.label}}{{aform.min_thresh_of_credits}}</li>
-            <li>{{aform.interest_rt.label}}{{aform.interest_rt}}</li>
-            <li>{{aform.payments_p_yr.label}}{{aform.payments_p_yr}}</li>
-            <button class="form__button" type="submit" name="update-assum" id="update-assum">Update</button>
-            <input type="submit" name="reset_assum" value="Reset to Defaults">
-        </ul>
+        <!--hidden_tag and csrf_token-->
+        <label for="avg_cred_p_hect_p_yr">Credits per Hectare per Year:</label>
+        <input type="number" id="avg_cred_p_hect_p_yr" name="avg_cred_p_hect_p_yr" value="{{aform['avg_cred_p_hect_p_yr']}}">
+        <br>
+        <label for="nom_int_rt">Nominal Interest Rate:</label>
+        <input type="number" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}">
+        <br>
+        <label for="inflation_rt">Inflation Rate:</label>
+        <input type="number" id="inflation_rt" name="inflation_rt" value="{{aform['inflation_rt']}}">
+        <br>
+        <label for="reg_acct_open_fee">Registry Account Opening Fee:</label>
+        <input type="number" id="reg_acct_open_fee" name="reg_acct_open_fee" value="{{aform['reg_acct_open_fee']}}">
+        <br>
+        <label for="reg_listing_cost_p_credit">Registry Listing Cost per Credit:</label>
+        <input type="number" id="reg_listing_cost_p_credit" name="reg_listing_cost_p_credit" value="{{aform['reg_listing_cost_p_credit']}}">
+        <br>
+        <label for="reg_conv_cost_fee_p_inspect">Registry Conversion Cost Fee per Inspection:</label>
+        <input type="number" id="reg_conv_cost_fee_p_inspect" name="reg_conv_cost_fee_p_inspect" value="{{aform['reg_conv_cost_fee_p_inspect']}}">
+        <br>
+        <label for="reg_conv_cost_p_cred_abv_min_thresh_of_credits">Registry Conversion Cost per Credit above Minimum Threshold of Credits:</label>
+        <input type="number" id="reg_conv_cost_p_cred_abv_min_thresh_of_credits" name="reg_conv_cost_p_cred_abv_min_thresh_of_credits" value="{{aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits']}}">
+        <br>
+        <label for="reg_levy_cost_p_cred">Registry Levy Cost per Credit:</label>
+        <input type="number" id="reg_levy_cost_p_cred" name="reg_levy_cost_p_cred" value="{{aform['reg_levy_cost_p_cred']}}">
+        <br>
+        <label for="valid_and_verif_app_cost_p_inspect">Validation and Verification Application Cost per Inspection:</label>
+        <input type="number" id="valid_and_verif_app_cost_p_inspect" name="valid_and_verif_app_cost_p_inspect" value="{{aform['valid_and_verif_app_cost_p_inspect']}}">
+        <br>
+        <label for="valid_and_verif_stmnt_cost_p_inspect">Validation and Verification Statement Cost per Inspection:</label>
+        <input type="number" id="valid_and_verif_stmnt_cost_p_inspect" name="valid_and_verif_stmnt_cost_p_inspect" value="{{aform['valid_and_verif_stmnt_cost_p_inspect']}}">
+        <br>
+        <label for="valid_and_verif_inspctr_travel_cost_p_inspect">Validation and Verification Inspector Travel Costs per Inspection:</label>
+        <input type="number" id="valid_and_verif_inspctr_travel_cost_p_inspect" name="valid_and_verif_inspctr_travel_cost_p_inspect" value="{{aform['valid_and_verif_inspctr_travel_cost_p_inspect']}}">
+        <br>
+        <label for="inspect_cycle_len">Inspection Cycle Length:</label>
+        <input type="number" id="inspect_cycle_len" name="inspect_cycle_len" value="{{aform['inspect_cycle_len']}}">
+        <br>
+        <label for="min_thresh_of_credits">Minimum Threshold of Credits:</label>
+        <input type="number" id="min_thresh_of_credits" name="min_thresh_of_credits" value="{{aform['min_thresh_of_credits']}}">
+        <br>
+        <label for="interest_rt">Interest Rate:</label>
+        <input type="number" id="interest_rt" name="interest_rt" value="{{aform['interest_rt']}}">
+        <br>
+        <label for="payments_p_yr">Payments per Year:</label>
+        <input type="number" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}">
+        <br>
+        <input type="reset" name="reset_assum" id="reset_assum" value="Reset to Defaults">
+        <input type="submit" name="submit_assum" id="submit_assum" value="Submit">
     </form>
-    <div id="aform-resp">
-        {% if asubmitted %}
-        <p>Assumptions successfully updated!</p>
-        {% endif %}
-    </div>
 </div>
 
 <div id="results">

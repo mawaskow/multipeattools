@@ -5,8 +5,9 @@ from flask import url_for, render_template, flash, request, redirect
 from werkzeug.utils import secure_filename
 import glob
 import json
+from flask_wtf.csrf import CSRFProtect
 #
-from modules import parse_assum, update_assum, FFPAssumForm, FFPUserInputForm, parse_usrinp, update_usrinp
+from modules import parse_assum, update_assum, FFPAssumForm, FFPUserInputForm, parse_usrinp, update_usrinp, assum_to_dict, usrinp_to_dict
 from VSCode_FF_Eqns import Output_From_Json, Convert_to_Json
 from Python_FeasibilityModel import Conditional_Executor
 
@@ -15,6 +16,7 @@ from Python_FeasibilityModel import Conditional_Executor
 # flask run
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
 
 '''
 APP CONFIGURATION
@@ -52,7 +54,7 @@ def landingpage():
 @app.route('/home')
 def homepage():
     return render_template('home.html')
-
+'''
 @app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
     #initialize submission notification variables
@@ -80,11 +82,6 @@ def ffp_tool():
         if request.form.get('reset_usrinpt') == "Reset to Defaults":
             userdata = parse_usrinp(FFP_INIT_USR_INP_FILE)
             update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
-        '''
-        if request.form['reset_assum'] == "Reset to Defaults":
-            assumdata = parse_assum(FFP_INIT_ASSUM_FILE)
-            update_assum(FFP_FIN_ASSUM_FILE, assumdata)
-        '''
     # read the assumption information from the json (to display default values and updated values)
     assumdata = parse_assum(FFP_FIN_ASSUM_FILE)
     # unpack the information so it can be sent to the html
@@ -98,6 +95,26 @@ def ffp_tool():
     results_dict = Conditional_Executor(userdata, assumdata)
     Convert_to_Json(results_dict, "./outputs/results.json")
     return render_template("ffp_tool.html", aform=aform, asubmitted=asubmitted, uform=uform, usubmitted=usubmitted, results_dict = results_dict)
+'''
+
+@app.route('/ffptool', methods=['GET', 'POST'])
+def ffp_tool():
+    if request.method == 'POST':
+        if 'submit_assum' in request.form:
+            assumdata = [aform.avg_cred_p_hect_p_yr.data, aform.nom_int_rt.data, aform.inflation_rt.data, aform.reg_acct_open_fee.data, aform.reg_listing_cost_p_credit.data, aform.reg_conv_cost_fee_p_inspect.data, aform.reg_conv_cost_p_cred_abv_min_thresh_of_credits.data, aform.reg_levy_cost_p_cred.data, aform.valid_and_verif_app_cost_p_inspect.data, aform.valid_and_verif_stmnt_cost_p_inspect.data, aform.valid_and_verif_inspctr_travel_cost_p_inspect.data, aform.inspect_cycle_len.data, aform.min_thresh_of_credits.data, aform.interest_rt.data, aform.payments_p_yr.data]
+            update_assum(FFP_FIN_ASSUM_FILE, assumdata)
+        elif 'submit_usrinpt' in request.form:
+            userdata = [uform.num_yrs.data, uform.cred_p_hect_p_yr.data, uform.hect_restored.data, uform.invest_amt.data, uform.start_yr.data, uform.price_p_cred.data, uform.invest_costs_inc.data, uform.reg_costs_inc.data]
+            update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
+    elif request.method == 'GET':
+        aform = assum_to_dict(FFP_FIN_ASSUM_FILE)
+        assumdata = [aform['avg_cred_p_hect_p_yr'], aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
+        uform = usrinp_to_dict(FFP_FIN_USR_INP_FILE)
+        userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
+        results_dict = Conditional_Executor(userdata, assumdata)
+        Convert_to_Json(results_dict, "./outputs/results.json")
+        return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
+
 
 @app.route('/settool', methods=['GET', 'POST'])
 def set_tool():
