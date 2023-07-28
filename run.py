@@ -108,16 +108,13 @@ def ffp_tool():
     Convert_to_Json(results_dict, "./outputs/results.json")
     if request.method == 'POST':
         if request.form.get('submit_usrinpt') == "Update":
-            #userdata = [request.form['num_yrs'], request.form['cred_p_hect_p_yr'], request.form['hect_restored'], request.form['invest_amt'], request.form['start_yr'], request.form['price_p_cred'], request.form['invest_costs_inc'], request.form['reg_costs_inc']]
             uform = usrinp_form_to_dict(request.form)
             userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
             update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
-        
             results_dict = Conditional_Executor(userdata, assumdata)
             Convert_to_Json(results_dict, "./outputs/results.json")
             return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
         elif request.form.get('submit_assum') == "Update":
-            #assumdata = [request.form['avg_cred_p_hect_p_yr'], request.form['nom_int_rt'], request.form['inflation_rt'], request.form['reg_acct_open_fee'], request.form['reg_listing_cost_p_credit'], request.form['reg_conv_cost_fee_p_inspect'], request.form['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], request.form['reg_levy_cost_p_cred'], request.form['valid_and_verif_app_cost_p_inspect'], request.form['valid_and_verif_stmnt_cost_p_inspect'], request.form['valid_and_verif_inspctr_travel_cost_p_inspect'], request.form['inspect_cycle_len'], request.form['min_thresh_of_credits'], request.form['interest_rt'], request.form['payments_p_yr']]
             aform = assum_form_to_dict(request.form)
             assumdata = [aform['avg_cred_p_hect_p_yr'], aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
             update_assum(FFP_FIN_ASSUM_FILE, assumdata)

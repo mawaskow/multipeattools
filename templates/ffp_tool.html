@@ -58,7 +58,10 @@
         <input type="submit" name="submit_usrinpt" id="submit_usrinpt" value="Update">
     </form>
 </div>
-<div class="container" id="assum-form-div">
+
+<button onclick="toggle_display()">Edit Assumptions</button>
+
+<div class="content_section" id="assum-form-div" style="display:none">
     <h3>Model Assumptions</h3>
 
     <p>Default settings are populated into the below form.</p>
@@ -129,4 +132,5 @@
     <p>Ending Value: {{results_dict["ending_value_undisc"]}}</p>
     <p>Rate of Return: {{results_dict["rate_of_return"]}}</p>
 </div>
+
 {% endblock %}
