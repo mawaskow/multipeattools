@@ -10,12 +10,14 @@
 
     <p>Default settings are populated into the below form.</p>
     <p>Change values if needed then press submit to update.</p>
-    <form action="" method="POST" enctype=multipart/form-data>
+    <form action="/ffptool" method="POST" enctype=multipart/form-data>
         <!--{% if uform.errors %}
         {{ uform.errors }}
         {% endif %}-->
         
         <!--hidden_tag and csrf_token-->
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
         <label for="num_yrs">Period of Years:</label>
         <input type="number" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}">
         <br>
@@ -61,11 +63,13 @@
 
     <p>Default settings are populated into the below form.</p>
     <p>Change values if needed then press submit to update.</p>
-    <form action="" method="POST" enctype=multipart/form-data>
+    <form action="/ffptool" method="POST" enctype=multipart/form-data>
         <!--{% if aform.errors %}
         {{ aform.errors }}
         {% endif %}-->
         <!--hidden_tag and csrf_token-->
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
         <label for="avg_cred_p_hect_p_yr">Credits per Hectare per Year:</label>
         <input type="number" id="avg_cred_p_hect_p_yr" name="avg_cred_p_hect_p_yr" value="{{aform['avg_cred_p_hect_p_yr']}}">
         <br>
