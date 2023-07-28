@@ -1,5 +1,5 @@
 function toggle_display(){
-    el = document.querySelector('.content_section');
+    el = document.selectElementByID("assum-form-div");
     
     if(el.style.display == 'none'){
         el.style.display = 'block'
