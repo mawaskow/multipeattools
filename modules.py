@@ -229,8 +229,10 @@ def usrinp_form_to_dict(uform_request):
     usrinp_dict['invest_amt'] = float(uform_request['invest_amt'])
     usrinp_dict['start_yr'] = int(uform_request['start_yr'])
     usrinp_dict['price_p_cred'] = float(uform_request['price_p_cred'])
-    usrinp_dict['invest_costs_inc'] = bool(uform_request['invest_costs_inc'])
-    usrinp_dict['reg_costs_inc'] = bool(uform_request['reg_costs_inc'])
+    #usrinp_dict['invest_costs_inc'] = bool(uform_request['invest_costs_inc'])
+    #usrinp_dict['reg_costs_inc'] = bool(uform_request['reg_costs_inc'])
+    usrinp_dict['invest_costs_inc'] = uform_request.get('invest_costs_inc')
+    usrinp_dict['reg_costs_inc'] = uform_request.get('reg_costs_inc')
     return usrinp_dict
 
 def update_usrinp(USRINP_FILE, formdata):
