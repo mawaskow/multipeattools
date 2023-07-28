@@ -34,12 +34,24 @@
         <label for="price_p_cred">Price per Credit:</label>
         <input type="number" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}">
         <br>
-        <label for="invest_costs_inc">Include Investment Costs:</label>
-        <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}">
-        <br>
-        <label for="reg_costs_inc">Include Registration Costs:</label>
-        <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}">
-        <br>
+        {% if uform['invest_costs_inc'] %}
+            <label for="invest_costs_inc">Include Investment Costs:</label>
+            <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" checked>
+            <br>
+        {% else %}
+            <label for="invest_costs_inc">Include Investment Costs:</label>
+            <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}">
+            <br>
+        {% endif %}
+        {% if uform['reg_costs_inc'] %}
+            <label for="reg_costs_inc">Include Registration Costs:</label>
+            <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" checked>
+            <br>
+        {% else %}
+            <label for="reg_costs_inc">Include Registration Costs:</label>
+            <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}">
+            <br>
+        {% endif %}
         <input type="reset" name="reset-usrinpt" id="reset-usrinpt" value="Reset to Defaults"></input>
         <input type="submit" name="submit-usrinpt" id="submit-usrinpt" value="Submit"></input>
     </form>
