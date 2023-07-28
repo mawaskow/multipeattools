@@ -58,19 +58,6 @@
         <input type="submit" name="submit_usrinpt" id="submit_usrinpt" value="Update">
     </form>
 </div>
-<div id="assum-form-show">
-    {% if not show_assum_form %}
-    <form>
-        <input type="submit" name="show_assum_form" id="show_assum_form" value="Edit Assumptions">
-    </form>
-    {% else %}
-    <form>
-        <input type="submit" name="show_assum_form" id="show_assum_form" value="Hide Assumptions">
-    </form>
-    {%endif%}
-</div>
-
-{% if show_assum_form %}
 <div class="container" id="assum-form-div">
     <h3>Model Assumptions</h3>
 
@@ -132,7 +119,6 @@
         <input type="submit" name="submit_assum" id="submit_assum" value="Update">
     </form>
 </div>
-{% endif %}
 
 <div id="results">
     <h3>Results</h3>
