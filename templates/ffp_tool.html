@@ -75,49 +75,49 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
         <label for="avg_cred_p_hect_p_yr">Credits per Hectare per Year:</label>
-        <input type="number" id="avg_cred_p_hect_p_yr" name="avg_cred_p_hect_p_yr" value="{{aform['avg_cred_p_hect_p_yr']}}">
+        <input type="number" class="validate" id="avg_cred_p_hect_p_yr" name="avg_cred_p_hect_p_yr" value="{{aform['avg_cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="nom_int_rt">Nominal Interest Rate:</label>
-        <input type="number" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}">
+        <input type="number" class="validate" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}" min="0" max="0.999999" step="0.000001" required>
         <br>
         <label for="inflation_rt">Inflation Rate:</label>
-        <input type="number" id="inflation_rt" name="inflation_rt" value="{{aform['inflation_rt']}}">
+        <input type="number" class="validate" id="inflation_rt" name="inflation_rt" value="{{aform['inflation_rt']}}" min="0" max="0.999999" step="0.000001" required>
         <br>
         <label for="reg_acct_open_fee">Registry Account Opening Fee:</label>
-        <input type="number" id="reg_acct_open_fee" name="reg_acct_open_fee" value="{{aform['reg_acct_open_fee']}}">
+        <input type="number" class="validate" id="reg_acct_open_fee" name="reg_acct_open_fee" value="{{aform['reg_acct_open_fee']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="reg_listing_cost_p_credit">Registry Listing Cost per Credit:</label>
-        <input type="number" id="reg_listing_cost_p_credit" name="reg_listing_cost_p_credit" value="{{aform['reg_listing_cost_p_credit']}}">
+        <input type="number" class="validate" id="reg_listing_cost_p_credit" name="reg_listing_cost_p_credit" value="{{aform['reg_listing_cost_p_credit']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="reg_conv_cost_fee_p_inspect">Registry Conversion Cost Fee per Inspection:</label>
-        <input type="number" id="reg_conv_cost_fee_p_inspect" name="reg_conv_cost_fee_p_inspect" value="{{aform['reg_conv_cost_fee_p_inspect']}}">
+        <input type="number" class="validate" id="reg_conv_cost_fee_p_inspect" name="reg_conv_cost_fee_p_inspect" value="{{aform['reg_conv_cost_fee_p_inspect']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="reg_conv_cost_p_cred_abv_min_thresh_of_credits">Registry Conversion Cost per Credit above Minimum Threshold of Credits:</label>
-        <input type="number" id="reg_conv_cost_p_cred_abv_min_thresh_of_credits" name="reg_conv_cost_p_cred_abv_min_thresh_of_credits" value="{{aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits']}}">
+        <input type="number" class="validate" id="reg_conv_cost_p_cred_abv_min_thresh_of_credits" name="reg_conv_cost_p_cred_abv_min_thresh_of_credits" value="{{aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits']}}" min="0" max="0.999999" step="0.000001" required>
         <br>
         <label for="reg_levy_cost_p_cred">Registry Levy Cost per Credit:</label>
-        <input type="number" id="reg_levy_cost_p_cred" name="reg_levy_cost_p_cred" value="{{aform['reg_levy_cost_p_cred']}}">
+        <input type="number" class="validate" id="reg_levy_cost_p_cred" name="reg_levy_cost_p_cred" value="{{aform['reg_levy_cost_p_cred']}}" min="0" max="0.999999" step="0.000001" required>
         <br>
         <label for="valid_and_verif_app_cost_p_inspect">Validation and Verification Application Cost per Inspection:</label>
-        <input type="number" id="valid_and_verif_app_cost_p_inspect" name="valid_and_verif_app_cost_p_inspect" value="{{aform['valid_and_verif_app_cost_p_inspect']}}">
+        <input type="number" class="validate" id="valid_and_verif_app_cost_p_inspect" name="valid_and_verif_app_cost_p_inspect" value="{{aform['valid_and_verif_app_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="valid_and_verif_stmnt_cost_p_inspect">Validation and Verification Statement Cost per Inspection:</label>
-        <input type="number" id="valid_and_verif_stmnt_cost_p_inspect" name="valid_and_verif_stmnt_cost_p_inspect" value="{{aform['valid_and_verif_stmnt_cost_p_inspect']}}">
+        <input type="number" class="validate" id="valid_and_verif_stmnt_cost_p_inspect" name="valid_and_verif_stmnt_cost_p_inspect" value="{{aform['valid_and_verif_stmnt_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="valid_and_verif_inspctr_travel_cost_p_inspect">Validation and Verification Inspector Travel Costs per Inspection:</label>
-        <input type="number" id="valid_and_verif_inspctr_travel_cost_p_inspect" name="valid_and_verif_inspctr_travel_cost_p_inspect" value="{{aform['valid_and_verif_inspctr_travel_cost_p_inspect']}}">
+        <input type="number" class="validate" id="valid_and_verif_inspctr_travel_cost_p_inspect" name="valid_and_verif_inspctr_travel_cost_p_inspect" value="{{aform['valid_and_verif_inspctr_travel_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="inspect_cycle_len">Inspection Cycle Length:</label>
-        <input type="number" id="inspect_cycle_len" name="inspect_cycle_len" value="{{aform['inspect_cycle_len']}}">
+        <input type="number" class="validate" id="inspect_cycle_len" name="inspect_cycle_len" value="{{aform['inspect_cycle_len']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="min_thresh_of_credits">Minimum Threshold of Credits:</label>
-        <input type="number" id="min_thresh_of_credits" name="min_thresh_of_credits" value="{{aform['min_thresh_of_credits']}}">
+        <input type="number" class="validate" id="min_thresh_of_credits" name="min_thresh_of_credits" value="{{aform['min_thresh_of_credits']}}" min="0" max="1000000000" step="0.001" required>
         <br>
         <label for="interest_rt">Interest Rate:</label>
-        <input type="number" id="interest_rt" name="interest_rt" value="{{aform['interest_rt']}}">
+        <input type="number" class="validate" id="interest_rt" name="interest_rt" value="{{aform['interest_rt']}}" min="0" max="0.999999" step="0.000001" required>
         <br>
         <label for="payments_p_yr">Payments per Year:</label>
-        <input type="number" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}">
+        <input type="number" class="validate" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.001" required>
         <br>
         <!--<input type="reset" name="reset_assum" id="reset_assum" value="Reset to Defaults">-->
         <input type="submit" name="submit_assum" id="submit_assum" value="Update">
