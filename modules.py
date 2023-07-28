@@ -113,7 +113,7 @@ def parse_assum(ASSUM_FILE):
     jsondata = [avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee, reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr]
     return jsondata
 
-def assum_to_dict(ASSUM_FILE):
+def assum_json_to_dict(ASSUM_FILE):
     '''
     Parses the FFP Tool's assumption json file into a dictionary
     '''
@@ -134,6 +134,28 @@ def assum_to_dict(ASSUM_FILE):
     assum_dct['min_thresh_of_credits'] = assum_json.min_thresh_of_credits
     assum_dct['interest_rt'] = assum_json.interest_rt
     assum_dct['payments_p_yr'] = assum_json.payments_p_yr
+    return assum_dct
+
+def assum_form_to_dict(aform_request):
+    '''
+    Parses the FFP Tool's assumption json file into a dictionary
+    '''
+    assum_dct={}
+    assum_dct['avg_cred_p_hect_p_yr'] = float(aform_request['avg_cred_p_hect_p_yr'])
+    assum_dct['nom_int_rt'] = float(aform_request['nom_int_rt'])
+    assum_dct['inflation_rt'] = float(aform_request['inflation_rt'])
+    assum_dct['reg_acct_open_fee'] = float(aform_request['reg_acct_open_fee'])
+    assum_dct['reg_listing_cost_p_credit'] = float(aform_request['reg_listing_cost_p_credit'])
+    assum_dct['reg_conv_cost_fee_p_inspect'] = float(aform_request['reg_conv_cost_fee_p_inspect'])
+    assum_dct['reg_conv_cost_p_cred_abv_min_thresh_of_credits'] = float(aform_request['reg_conv_cost_p_cred_abv_min_thresh_of_credits'])
+    assum_dct['reg_levy_cost_p_cred'] = float(aform_request['reg_levy_cost_p_cred'])
+    assum_dct['valid_and_verif_app_cost_p_inspect'] = float(aform_request['valid_and_verif_app_cost_p_inspect'])
+    assum_dct['valid_and_verif_stmnt_cost_p_inspect'] = float(aform_request['valid_and_verif_stmnt_cost_p_inspect'])
+    assum_dct['valid_and_verif_inspctr_travel_cost_p_inspect'] = float(aform_request['valid_and_verif_inspctr_travel_cost_p_inspect'])
+    assum_dct['inspect_cycle_len'] = float(aform_request['inspect_cycle_len'])
+    assum_dct['min_thresh_of_credits'] = float(aform_request['min_thresh_of_credits'])
+    assum_dct['interest_rt'] = float(aform_request['interest_rt'])
+    assum_dct['payments_p_yr'] = float(aform_request['payments_p_yr'])
     return assum_dct
 
 def update_assum(ASSUM_FILE, formdata):
@@ -180,7 +202,7 @@ def parse_usrinp(USRINP_FILE):
     jsondata = [num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc]
     return jsondata
 
-def usrinp_to_dict(USRINP_FILE):
+def usrinp_json_to_dict(USRINP_FILE):
     '''
     Parses the FFP Tool's user input json file into a list of values
     '''
@@ -194,6 +216,21 @@ def usrinp_to_dict(USRINP_FILE):
     usrinp_dict['price_p_cred'] = usrinp_json.price_p_cred
     usrinp_dict['invest_costs_inc'] = usrinp_json.invest_costs_inc
     usrinp_dict['reg_costs_inc'] = usrinp_json.reg_costs_inc
+    return usrinp_dict
+
+def usrinp_form_to_dict(uform_request):
+    '''
+    Parses the FFP Tool's user input json file into a list of values
+    '''
+    usrinp_dict={}
+    usrinp_dict['num_yrs'] = float(uform_request['num_yrs'])
+    usrinp_dict['cred_p_hect_p_yr'] = float(uform_request['cred_p_hect_p_yr'])
+    usrinp_dict['hect_restored'] = float(uform_request['hect_restored'])
+    usrinp_dict['invest_amt'] = float(uform_request['invest_amt'])
+    usrinp_dict['start_yr'] = int(uform_request['start_yr'])
+    usrinp_dict['price_p_cred'] = float(uform_request['price_p_cred'])
+    usrinp_dict['invest_costs_inc'] = bool(uform_request['invest_costs_inc'])
+    usrinp_dict['reg_costs_inc'] = bool(uform_request['reg_costs_inc'])
     return usrinp_dict
 
 def update_usrinp(USRINP_FILE, formdata):
