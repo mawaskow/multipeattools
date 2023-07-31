@@ -58,7 +58,6 @@ def homepage():
 
 @app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
-    #(it may be redundant to declare these twice but these variables need to be included in the POST requests so this is how we're doing that for now)
     #initializes values for populating each the user input and assumptions forms with default variables
     #and loads the dictionary values into a list for passing through Erica's function that calculates results
     aform = assum_json_to_dict(FFP_FIN_ASSUM_FILE)
@@ -66,7 +65,7 @@ def ffp_tool():
     uform = usrinp_json_to_dict(FFP_FIN_USR_INP_FILE)
     userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
     results_dict = Conditional_Executor(userdata, assumdata)
-    Convert_to_Json(results_dict, "./outputs/results.json")
+    ### Convert_to_Json(results_dict, "./outputs/results.json")
     #if one of the forms is submitted, checks which form based on the submit button name/id
     if request.method == 'POST':
         if request.form.get('submit_usrinpt') == "Update":
@@ -74,26 +73,26 @@ def ffp_tool():
             # loads the dictionary into a list for passing to Erica's function that calculates results
             uform = usrinp_form_to_dict(request.form)
             userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
-            update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
+            ### update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
             results_dict = Conditional_Executor(userdata, assumdata)
-            Convert_to_Json(results_dict, "./outputs/results.json")
+            ###Convert_to_Json(results_dict, "./outputs/results.json")
             # renders the page
             return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
         elif request.form.get('submit_assum') == "Update":
             aform = assum_form_to_dict(request.form)
             assumdata = [aform['avg_cred_p_hect_p_yr'], aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
-            update_assum(FFP_FIN_ASSUM_FILE, assumdata)
+            ### update_assum(FFP_FIN_ASSUM_FILE, assumdata)
             results_dict = Conditional_Executor(userdata, assumdata)
-            Convert_to_Json(results_dict, "./outputs/results.json")
+            ### Convert_to_Json(results_dict, "./outputs/results.json")
             return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
     if request.method == 'GET':
-        # may be redundant, but not worried about it for now
+        # refreshes to original default values
         aform = assum_json_to_dict(FFP_INIT_ASSUM_FILE)
         assumdata = [aform['avg_cred_p_hect_p_yr'], aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
         uform = usrinp_json_to_dict(FFP_INIT_USR_INP_FILE)
         userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
         results_dict = Conditional_Executor(userdata, assumdata)
-        Convert_to_Json(results_dict, "./outputs/results.json")
+        ### Convert_to_Json(results_dict, "./outputs/results.json")
         return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
 
 
