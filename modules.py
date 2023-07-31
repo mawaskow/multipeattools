@@ -32,50 +32,6 @@ class Configuration(object):
             result = Configuration.__load__(json.loads(f.read()))
         return result
 
-
-####################
-###   FFP TOOL   ###
-####################
-
-'''
-FORMS
-'''
-
-class FFPAssumForm(FlaskForm):
-    '''
-    Creates form for modifying the FFP Tool's assumptions
-    '''
-    avg_cred_p_hect_p_yr = FloatField(name= "avg_cred_p_hect_p_yr", label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    nom_int_rt = FloatField(name= "nom_int_rt", label= ('Nominal Interest Rate: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
-    inflation_rt = FloatField(name= "inflation_rt", label= ('Inflation Rate: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
-    reg_acct_open_fee = FloatField(name= "reg_acct_open_fee", label= ('Registry Account Opening Fee: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    reg_listing_cost_p_credit = FloatField(name= "reg_listing_cost_p_credit", label= ('Registry Listing Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    reg_conv_cost_fee_p_inspect = FloatField(name= "reg_conv_cost_fee_p_inspect", label= ('Registry Conversion Cost Fee per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    reg_conv_cost_p_cred_abv_min_thresh_of_credits = FloatField(name= "reg_conv_cost_p_cred_abv_min_thresh_of_credits", label= ('Registry Conversion Cost per Credit above Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0.000000001, max=0.999999)])
-    reg_levy_cost_p_cred = FloatField(name= "reg_levy_cost_p_cred", label= ('Registry Levy Cost per Credit: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
-    valid_and_verif_app_cost_p_inspect = FloatField(name= "valid_and_verif_app_cost_p_inspect", label= ('Validation and Verification Application Cost per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    valid_and_verif_stmnt_cost_p_inspect = FloatField(name= "valid_and_verif_stmnt_cost_p_inspect", label= ('Validation and Verification Statement Cost per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    valid_and_verif_inspctr_travel_cost_p_inspect = FloatField(name= "valid_and_verif_inspctr_travel_cost_p_inspect", label= ('Validation and Verification Inspector Travel Costs per Inspection: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    inspect_cycle_len = FloatField(name= "inspect_cycle_len", label= ('Inspection Cycle Length: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    min_thresh_of_credits = FloatField(name= "min_thresh_of_credits", label= ('Minimum Threshold of Credits: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    interest_rt = FloatField(name= "interest_rt", label= ('Interest Rate: '), validators=[DataRequired(), NumberRange(min=0, max=0.999999)])
-    payments_p_yr = IntegerField(name= "payments_p_yr", label= ('Payments per Year: '), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    #submit=SubmitField("Update")
-
-class FFPUserInputForm(FlaskForm):
-    '''
-    Creates form for modifying the FFP Tool's user input
-    '''
-    num_yrs = FloatField(name="num_yrs", label=("Period of Years: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    cred_p_hect_p_yr = FloatField(name="cred_p_hect_p_yr", label=("Credits per Hectare per Year: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    hect_restored = FloatField(name="hect_restored", label=("Hectares Restored: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    invest_amt = FloatField(name="invest_amt", label=("Investment Amount: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    start_yr = IntegerField(name="start_yr", label= ('Start Year: '), validators=[DataRequired(), NumberRange(min=1900, max=3000)])
-    price_p_cred = FloatField(name="price_p_cred", label=("Price per Credit: "), validators=[DataRequired(), NumberRange(min=0, max=9999999)])
-    invest_costs_inc = BooleanField(name="invest_costs_inc", label=("Include Investment Costs: "))
-    reg_costs_inc = BooleanField(name="reg_costs_inc", label=("Include Registration Costs: "))
-    #submit=SubmitField("Update")
-
 ####################
 ###   SET TOOL   ###
 ####################
