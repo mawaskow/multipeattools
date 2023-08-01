@@ -156,6 +156,18 @@ function Profitable(profit_per_credit, profit_per_hectare_per_year, rate_of_retu
 }
 
 function Conditional_Executor(period_of_years, credits_per_hectares_per_year, hectares_restored, investment_amount, start_year, price_per_credit, investment_costs_included, registry_costs_included, credits_per_hectare_per_year, nominal_interest_rate, inflation_rate, registry_account_opening_fee, listing_cost, inspection_conversion_fee, conversion_cost_above_threshold, levy_cost, validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_cycle_lenght, minimum_threshold, interest_rate, payments_per_year){
+        // Handle variables defined in conditionals
+        let carbon_investment_cost_per_payment=0;
+        let carbon_investment_annual_costs=0;
+        let total_investment_costs=0;
+        //
+        let number_of_inspections=0;
+        let registry_cost_recurring=0;
+        let registry_cost_per_credit=0;
+        let registry_cost_credits_above_threshold=0;
+        let total_registry_costs=0;
+        
+        // start calculations
         let exponent_year=Final_Year_exponent(period_of_years); // Eq.1
         let calendar_year_end=Year_End(start_year, exponent_year); // Eq.2
         let real_interest_rate=Real_Interest_Rate(nominal_interest_rate, inflation_rate); // Eq.3
@@ -163,26 +175,17 @@ function Conditional_Executor(period_of_years, credits_per_hectares_per_year, he
         let ending_value_undisc=Ending_Value_Undiscounted(credits_generated, price_per_credit); // Eq.7
         
         if(investment_costs_included){            
-            let carbon_investment_cost_per_payment=Carbon_Investment_Cost_Per_Payment(interest_rate, payments_per_year, period_of_years, investment_amount); // Eq.8
-            let carbon_investment_annual_costs=Carbon_Investment_Annual_Costs(carbon_investment_cost_per_payment, payments_per_year); // Eq.9
-            let total_investment_costs=Total_Investment_Costs(carbon_investment_annual_costs, period_of_years); // Eq.10
-        }else{
-            let carbon_investment_cost_per_payment= None;
-            let carbon_investment_annual_costs = None;
-            let total_investment_costs = 0;
+            carbon_investment_cost_per_payment=Carbon_Investment_Cost_Per_Payment(interest_rate, payments_per_year, period_of_years, investment_amount); // Eq.8
+            carbon_investment_annual_costs=Carbon_Investment_Annual_Costs(carbon_investment_cost_per_payment, payments_per_year); // Eq.9
+            total_investment_costs=Total_Investment_Costs(carbon_investment_annual_costs, period_of_years); // Eq.10
         }
+
         if(registry_costs_included){
-            let number_of_inspections=Number_Of_Inspections(period_of_years, inspection_cycle_lenght); // Eq.11
-            let registry_cost_recurring=Registry_Cost_Recurring(validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_conversion_fee, number_of_inspections); // Eq.13
-            let registry_cost_per_credit=Registry_Cost_Per_Credit(listing_cost,levy_cost, credits_generated ); // Eq.14
-            let registry_cost_credits_above_threshold=Registry_Cost_Credits_Above_Threshold(conversion_cost_above_threshold, credits_generated, minimum_threshold); // Eq. 15
-            let total_registry_costs=Total_Registry_Costs(registry_cost_recurring, registry_cost_per_credit, registry_cost_credits_above_threshold, registry_account_opening_fee); // Eq. 16   
-        }else{
-            let number_of_inspections= None;
-            let registry_cost_recurring= None;
-            let registry_cost_per_credit=None;
-            let registry_cost_credits_above_threshold=None;
-            let total_registry_costs=0;
+            number_of_inspections=Number_Of_Inspections(period_of_years, inspection_cycle_lenght); // Eq.11
+            registry_cost_recurring=Registry_Cost_Recurring(validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_conversion_fee, number_of_inspections); // Eq.13
+            registry_cost_per_credit=Registry_Cost_Per_Credit(listing_cost,levy_cost, credits_generated ); // Eq.14
+            registry_cost_credits_above_threshold=Registry_Cost_Credits_Above_Threshold(conversion_cost_above_threshold, credits_generated, minimum_threshold); // Eq. 15
+            total_registry_costs=Total_Registry_Costs(registry_cost_recurring, registry_cost_per_credit, registry_cost_credits_above_threshold, registry_account_opening_fee); // Eq. 16   
         }
 
         let total_project_costs_undisc=Total_Project_Costs_Undiscounted(total_investment_costs, total_registry_costs); // Eq. 18  
@@ -236,15 +239,15 @@ function Conditional_Executor(period_of_years, credits_per_hectares_per_year, he
 
 // new
 
-// grab result p elements
-let is_prof= document.getElementById("is_prof");
-let prof_p_cred= document.getElementById("prof_p_cred");
-let prof_phpy= document.getElementById("prof_phpy");
-let beg_val= document.getElementById("beg_val");
-let end_val= document.getElementById("end_val");
-let rate_ret= document.getElementById("rate_ret");
-
 function update_results(results_dict){
+    // grab result p elements
+    let is_prof= document.getElementById("is_prof");
+    let prof_p_cred= document.getElementById("prof_p_cred");
+    let prof_phpy= document.getElementById("prof_phpy");
+    let beg_val= document.getElementById("beg_val");
+    let end_val= document.getElementById("end_val");
+    let rate_ret= document.getElementById("rate_ret");
+    //
     is_prof.innerHTML = results_dict["profitable"];
     prof_p_cred.innerHTML = results_dict["profit_per_credit"];
     prof_phpy.innerHTML = results_dict["profit_per_hectare_per_year"];
@@ -255,33 +258,33 @@ function update_results(results_dict){
 
 // MAIN
 
-// initialize values from each form
-let num_yrs= document.getElementById("num_yrs").value;
-let cred_p_hect_p_yr= document.getElementById("cred_p_hect_p_yr").value;
-let hect_restored= document.getElementById("hect_restored").value;
-let invest_amt= document.getElementById("invest_amt").value;
-let start_yr= document.getElementById("start_yr").value;
-let price_p_cred= document.getElementById("price_p_cred").value;
-let invest_costs_inc= document.getElementById("invest_costs_inc").checked;
-let reg_costs_inc= document.getElementById("reg_costs_inc").checked;
-//
-let avg_cred_p_hect_p_yr= document.getElementById("avg_cred_p_hect_p_yr").value;
-let nom_int_rt= document.getElementById("nom_int_rt").value;
-let inflation_rt= document.getElementById("inflation_rt").value;
-let reg_acct_open_fee= document.getElementById("reg_acct_open_fee").value;
-let reg_listing_cost_p_credit= document.getElementById("reg_listing_cost_p_credit").value;
-let reg_conv_cost_fee_p_inspect= document.getElementById("reg_conv_cost_fee_p_inspect").value;
-let reg_conv_cost_p_cred_abv_min_thresh_of_credits= document.getElementById("reg_conv_cost_p_cred_abv_min_thresh_of_credits").value;
-let reg_levy_cost_p_cred= document.getElementById("reg_levy_cost_p_cred").value;
-let valid_and_verif_app_cost_p_inspect= document.getElementById("valid_and_verif_app_cost_p_inspect").value;
-let valid_and_verif_stmnt_cost_p_inspect= document.getElementById("valid_and_verif_stmnt_cost_p_inspect").value;
-let valid_and_verif_inspctr_travel_cost_p_inspect= document.getElementById("valid_and_verif_inspctr_travel_cost_p_inspect").value;
-let inspect_cycle_len= document.getElementById("inspect_cycle_len").value;
-let min_thresh_of_credits= document.getElementById("min_thresh_of_credits").value;
-let interest_rt= document.getElementById("interest_rt").value;
-let payments_p_yr= document.getElementById("payments_p_yr").value;
-
 function ffp_calculation(){
+    // initialize values from each form
+    let num_yrs= document.getElementById("num_yrs").value;
+    let cred_p_hect_p_yr= document.getElementById("cred_p_hect_p_yr").value;
+    let hect_restored= document.getElementById("hect_restored").value;
+    let invest_amt= document.getElementById("invest_amt").value;
+    let start_yr= document.getElementById("start_yr").value;
+    let price_p_cred= document.getElementById("price_p_cred").value;
+    let invest_costs_inc= document.getElementById("invest_costs_inc").checked;
+    let reg_costs_inc= document.getElementById("reg_costs_inc").checked;
+    //
+    let avg_cred_p_hect_p_yr= document.getElementById("avg_cred_p_hect_p_yr").value;
+    let nom_int_rt= document.getElementById("nom_int_rt").value;
+    let inflation_rt= document.getElementById("inflation_rt").value;
+    let reg_acct_open_fee= document.getElementById("reg_acct_open_fee").value;
+    let reg_listing_cost_p_credit= document.getElementById("reg_listing_cost_p_credit").value;
+    let reg_conv_cost_fee_p_inspect= document.getElementById("reg_conv_cost_fee_p_inspect").value;
+    let reg_conv_cost_p_cred_abv_min_thresh_of_credits= document.getElementById("reg_conv_cost_p_cred_abv_min_thresh_of_credits").value;
+    let reg_levy_cost_p_cred= document.getElementById("reg_levy_cost_p_cred").value;
+    let valid_and_verif_app_cost_p_inspect= document.getElementById("valid_and_verif_app_cost_p_inspect").value;
+    let valid_and_verif_stmnt_cost_p_inspect= document.getElementById("valid_and_verif_stmnt_cost_p_inspect").value;
+    let valid_and_verif_inspctr_travel_cost_p_inspect= document.getElementById("valid_and_verif_inspctr_travel_cost_p_inspect").value;
+    let inspect_cycle_len= document.getElementById("inspect_cycle_len").value;
+    let min_thresh_of_credits= document.getElementById("min_thresh_of_credits").value;
+    let interest_rt= document.getElementById("interest_rt").value;
+    let payments_p_yr= document.getElementById("payments_p_yr").value;
+
     // make sure the values are present
     if (num_yrs.length === 0 || 
         cred_p_hect_p_yr.length === 0 ||
