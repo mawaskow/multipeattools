@@ -234,3 +234,113 @@ function Conditional_Executor(period_of_years, credits_per_hectares_per_year, he
         return results_dict
 }
 
+// new
+
+// grab result p elements
+let is_prof= document.getElementById("is_prof");
+let prof_p_cred= document.getElementById("prof_p_cred");
+let prof_phpy= document.getElementById("prof_phpy");
+let beg_val= document.getElementById("beg_val");
+let end_val= document.getElementById("end_val");
+let rate_ret= document.getElementById("rate_ret");
+
+function update_results(results_dict){
+    is_prof.innerHTML = results_dict["profitable"];
+    prof_p_cred.innerHTML = results_dict["profit_per_credit"];
+    prof_phpy.innerHTML = results_dict["profit_per_hectare_per_year"];
+    beg_val.innerHTML = results_dict["beginning_value"];
+    end_val.innerHTML = results_dict["ending_value_undisc"];
+    rate_ret.innerHTML = results_dict["rate_of_return"];
+}
+
+// MAIN
+
+// initialize values from each form
+let num_yrs= document.getElementById("num_yrs").value;
+let cred_p_hect_p_yr= document.getElementById("cred_p_hect_p_yr").value;
+let hect_restored= document.getElementById("hect_restored").value;
+let invest_amt= document.getElementById("invest_amt").value;
+let start_yr= document.getElementById("start_yr").value;
+let price_p_cred= document.getElementById("price_p_cred").value;
+let invest_costs_inc= document.getElementById("invest_costs_inc").checked;
+let reg_costs_inc= document.getElementById("reg_costs_inc").checked;
+//
+let avg_cred_p_hect_p_yr= document.getElementById("avg_cred_p_hect_p_yr").value;
+let nom_int_rt= document.getElementById("nom_int_rt").value;
+let inflation_rt= document.getElementById("inflation_rt").value;
+let reg_acct_open_fee= document.getElementById("reg_acct_open_fee").value;
+let reg_listing_cost_p_credit= document.getElementById("reg_listing_cost_p_credit").value;
+let reg_conv_cost_fee_p_inspect= document.getElementById("reg_conv_cost_fee_p_inspect").value;
+let reg_conv_cost_p_cred_abv_min_thresh_of_credits= document.getElementById("reg_conv_cost_p_cred_abv_min_thresh_of_credits").value;
+let reg_levy_cost_p_cred= document.getElementById("reg_levy_cost_p_cred").value;
+let valid_and_verif_app_cost_p_inspect= document.getElementById("valid_and_verif_app_cost_p_inspect").value;
+let valid_and_verif_stmnt_cost_p_inspect= document.getElementById("valid_and_verif_stmnt_cost_p_inspect").value;
+let valid_and_verif_inspctr_travel_cost_p_inspect= document.getElementById("valid_and_verif_inspctr_travel_cost_p_inspect").value;
+let inspect_cycle_len= document.getElementById("inspect_cycle_len").value;
+let min_thresh_of_credits= document.getElementById("min_thresh_of_credits").value;
+let interest_rt= document.getElementById("interest_rt").value;
+let payments_p_yr= document.getElementById("payments_p_yr").value;
+
+function ffp_calculation(){
+    // make sure the values are present
+    if (num_yrs.length === 0 || 
+        cred_p_hect_p_yr.length === 0 ||
+        hect_restored.length === 0 ||
+        invest_amt.length === 0 ||
+        start_yr.length === 0 ||
+        price_p_cred.length === 0 ||
+        // except the checkboxes
+        avg_cred_p_hect_p_yr.length === 0 ||
+        nom_int_rt.length === 0 ||
+        inflation_rt.length === 0 ||
+        reg_acct_open_fee.length === 0 ||
+        reg_listing_cost_p_credit.length === 0 ||
+        reg_conv_cost_fee_p_inspect.length === 0 ||
+        reg_conv_cost_p_cred_abv_min_thresh_of_credits.length === 0 ||
+        reg_levy_cost_p_cred.length === 0 ||
+        valid_and_verif_app_cost_p_inspect.length === 0 ||
+        valid_and_verif_stmnt_cost_p_inspect.length === 0 ||
+        valid_and_verif_inspctr_travel_cost_p_inspect.length === 0 ||
+        inspect_cycle_len.length === 0 ||
+        min_thresh_of_credits.length === 0 ||
+        interest_rt.length === 0 ||
+        payments_p_yr.length === 0
+        ){
+            return;
+        }
+    // num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr
+    //
+    // 
+    /*
+    let results_dict = {
+        "exponent_year": "",
+        "calendar_year_end": "",
+        "real_interest_rate": "",
+        "credits_generated": "",
+        "cost_per_credit": "",
+        "beginning_value": "",
+        "ending_value_undisc": "",
+        "carbon_investment_cost_per_payment": "",
+        "carbon_investment_annual_costs": "",
+        "total_investment_costs": "",
+        "number_of_inspections": "",
+        "registry_cost_recurring": "",
+        "registry_cost_per_credit": "",
+        "registry_cost_credits_above_threshold": "",
+        "total_registry_costs": "",
+        "CARG_exponent": "",
+        "total_project_costs_undisc": "",
+        "ending_value_discounted": "",
+        "total_project_costs_disc": "",
+        "rate_of_return": "",
+        "CARG": "",
+        "gross_present_value": "",
+        "net_present_value": "",
+        "profit_per_credit": "",
+        "profit_per_hectare_per_year": "",
+        "profitable": ""
+        };*/
+    
+    let results_dict = Conditional_Executor(num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr)
+    update_results(results_dict)
+}

@@ -127,12 +127,12 @@
 
 <div id="results">
     <h3>Results</h3>
-    <p>Profitable?: {{results_dict["profitable"]}}</p>
-    <p>Profit per credit: {{results_dict["profit_per_credit"]}}</p>
-    <p>Profit per hectare per year: {{results_dict["profit_per_hectare_per_year"]}}</p>
-    <p>Beginning Value: {{results_dict["beginning_value"]}}</p>
-    <p>Ending Value: {{results_dict["ending_value_undisc"]}}</p>
-    <p>Rate of Return: {{results_dict["rate_of_return"]}}</p>
+    <p>Profitable?: </p><p id="is_prof">{{results_dict["profitable"]}}</p>
+    <p>Profit per credit: </p><p id="prof_p_cred">{{results_dict["profit_per_credit"]}}</p>
+    <p>Profit per hectare per year: </p><p id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</p>
+    <p>Beginning Value: </p><p id="beg_val">{{results_dict["beginning_value"]}}</p>
+    <p>Ending Value: </p><p id="end_val">{{results_dict["ending_value_undisc"]}}</p>
+    <p>Rate of Return: </p><p id="rate_ret">{{results_dict["rate_of_return"]}}</p>
 </div>
 
 {% endblock %}
