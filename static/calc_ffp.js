@@ -156,6 +156,31 @@ function Profitable(profit_per_credit, profit_per_hectare_per_year, rate_of_retu
 }
 
 function Conditional_Executor(period_of_years, credits_per_hectares_per_year, hectares_restored, investment_amount, start_year, price_per_credit, investment_costs_included, registry_costs_included, credits_per_hectare_per_year, nominal_interest_rate, inflation_rate, registry_account_opening_fee, listing_cost, inspection_conversion_fee, conversion_cost_above_threshold, levy_cost, validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_cycle_lenght, minimum_threshold, interest_rate, payments_per_year){
+        // Parse stringified inputs
+        period_of_years = parseFloat(period_of_years);
+        credits_per_hectares_per_year = parseFloat(credits_per_hectares_per_year);
+        hectares_restored = parseFloat(hectares_restored);
+        investment_amount = parseFloat(investment_amount);
+        start_year = parseFloat(start_year);
+        price_per_credit = parseFloat(price_per_credit);
+        //investment_costs_included
+        //registry_costs_included
+        credits_per_hectare_per_year = parseFloat(credits_per_hectare_per_year);
+        nominal_interest_rate = parseFloat(nominal_interest_rate);
+        inflation_rate = parseFloat(inflation_rate);
+        registry_account_opening_fee = parseFloat(registry_account_opening_fee);
+        listing_cost = parseFloat(listing_cost);
+        inspection_conversion_fee = parseFloat(inspection_conversion_fee);
+        conversion_cost_above_threshold = parseFloat(conversion_cost_above_threshold);
+        levy_cost = parseFloat(levy_cost);
+        validation_application_cost = parseFloat(validation_application_cost);
+        validation_statement_cost = parseFloat(validation_statement_cost);
+        inspector_travel_cost = parseFloat(inspector_travel_cost );
+        inspection_cycle_lenght = parseFloat(inspection_cycle_lenght);
+        minimum_threshold = parseFloat(minimum_threshold);
+        interest_rate = parseFloat(interest_rate);
+        payments_per_year = parseFloat(payments_per_year);
+    
         // Handle variables defined in conditionals
         let carbon_investment_cost_per_payment=0;
         let carbon_investment_annual_costs=0;
@@ -174,6 +199,8 @@ function Conditional_Executor(period_of_years, credits_per_hectares_per_year, he
         let credits_generated=Credits_Generated(period_of_years, hectares_restored,credits_per_hectare_per_year); // Eq.4
         let ending_value_undisc=Ending_Value_Undiscounted(credits_generated, price_per_credit); // Eq.7
         
+        console.log(investment_costs_included, registry_costs_included, period_of_years, calendar_year_end)
+
         if(investment_costs_included){            
             carbon_investment_cost_per_payment=Carbon_Investment_Cost_Per_Payment(interest_rate, payments_per_year, period_of_years, investment_amount); // Eq.8
             carbon_investment_annual_costs=Carbon_Investment_Annual_Costs(carbon_investment_cost_per_payment, payments_per_year); // Eq.9
@@ -203,7 +230,6 @@ function Conditional_Executor(period_of_years, credits_per_hectares_per_year, he
         let profit_per_credit=Profit_Per_Credit(net_present_value, credits_generated); // Eq. 26
         let profit_per_hectare_per_year=Profit_Per_Hectare_Per_Year(net_present_value, hectares_restored, period_of_years); // Eq. 27
         let profitable=Profitable( profit_per_credit,profit_per_hectare_per_year, rate_of_return, CARG, gross_present_value,net_present_value  ); // Eq.25
-        
       
         let results_dict = {
         "exponent_year": exponent_year,
@@ -233,7 +259,7 @@ function Conditional_Executor(period_of_years, credits_per_hectares_per_year, he
         "profit_per_hectare_per_year": profit_per_hectare_per_year,
         "profitable": profitable
         }        
-    
+
         return results_dict
 }
 
@@ -311,6 +337,7 @@ function ffp_calculation(){
         ){
             return;
         }
+
     // num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr
     //
     // 
@@ -345,5 +372,8 @@ function ffp_calculation(){
         };*/
     
     let results_dict = Conditional_Executor(num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr)
+    
+    //console.log(results_dict["profit_per_credit"])
+
     update_results(results_dict)
 }
