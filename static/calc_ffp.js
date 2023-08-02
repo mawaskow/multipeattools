@@ -199,8 +199,6 @@ function Conditional_Executor(period_of_years, credits_per_hectares_per_year, he
         let credits_generated=Credits_Generated(period_of_years, hectares_restored,credits_per_hectare_per_year); // Eq.4
         let ending_value_undisc=Ending_Value_Undiscounted(credits_generated, price_per_credit); // Eq.7
         
-        console.log(investment_costs_included, registry_costs_included, period_of_years, calendar_year_end)
-
         if(investment_costs_included){            
             carbon_investment_cost_per_payment=Carbon_Investment_Cost_Per_Payment(interest_rate, payments_per_year, period_of_years, investment_amount); // Eq.8
             carbon_investment_annual_costs=Carbon_Investment_Annual_Costs(carbon_investment_cost_per_payment, payments_per_year); // Eq.9
@@ -337,43 +335,8 @@ function ffp_calculation(){
         ){
             return;
         }
-
-    // num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr
-    //
-    // 
-    /*
-    let results_dict = {
-        "exponent_year": "",
-        "calendar_year_end": "",
-        "real_interest_rate": "",
-        "credits_generated": "",
-        "cost_per_credit": "",
-        "beginning_value": "",
-        "ending_value_undisc": "",
-        "carbon_investment_cost_per_payment": "",
-        "carbon_investment_annual_costs": "",
-        "total_investment_costs": "",
-        "number_of_inspections": "",
-        "registry_cost_recurring": "",
-        "registry_cost_per_credit": "",
-        "registry_cost_credits_above_threshold": "",
-        "total_registry_costs": "",
-        "CARG_exponent": "",
-        "total_project_costs_undisc": "",
-        "ending_value_discounted": "",
-        "total_project_costs_disc": "",
-        "rate_of_return": "",
-        "CARG": "",
-        "gross_present_value": "",
-        "net_present_value": "",
-        "profit_per_credit": "",
-        "profit_per_hectare_per_year": "",
-        "profitable": ""
-        };*/
     
-    let results_dict = Conditional_Executor(num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr)
-    
-    //console.log(results_dict["profit_per_credit"])
+    let results_dict = Conditional_Executor(num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr);
 
     update_results(results_dict)
 }
