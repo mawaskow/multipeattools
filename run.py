@@ -116,4 +116,5 @@ def bad_request_error(error):
     return render_template('400.html'), 400
 
 if __name__ == "__main__":
-    app.run(debug=True, passthrough_errors=True, use_debugger=False, use_reloader=False)
+    #app.run(debug=True, passthrough_errors=True, use_debugger=False, use_reloader=False)
+    app.run(host='0.0.0.0', port=8000)
