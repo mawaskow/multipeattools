@@ -25,9 +25,21 @@ a.navbar-brand{
 }
 
 div.textchunk{
-    padding: 5px 0px 0px 15px;
+    padding: 5px 0px 0px 50px;
 }
 
 body{
     background-color: whitesmoke;
+}
+
+button.btn-primary{
+    background: rgb(126, 202, 130);
+    border-color: transparent;
+    color: black;
+}
+
+button.btn-primary:hover{
+    background: rgb(146, 216, 150);
+    border-color: transparent;
+    color: green;
 }
