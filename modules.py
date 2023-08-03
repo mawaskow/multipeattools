@@ -50,7 +50,6 @@ def parse_assum(ASSUM_FILE):
     Parses the FFP Tool's assumption json file into a list of values
     '''
     assum_json = Configuration.load_json(ASSUM_FILE)
-    avg_cred_p_hect_p_yr = assum_json.avg_cred_p_hect_p_yr
     nom_int_rt = assum_json.nom_int_rt
     inflation_rt = assum_json.inflation_rt
     reg_acct_open_fee = assum_json.reg_acct_open_fee
@@ -66,7 +65,7 @@ def parse_assum(ASSUM_FILE):
     interest_rt = assum_json.interest_rt
     payments_p_yr = assum_json.payments_p_yr
     # pack values into list
-    jsondata = [avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee, reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr]
+    jsondata = [nom_int_rt, inflation_rt, reg_acct_open_fee, reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr]
     return jsondata
 
 def assum_json_to_dict(ASSUM_FILE):
@@ -75,7 +74,7 @@ def assum_json_to_dict(ASSUM_FILE):
     '''
     assum_json = Configuration.load_json(ASSUM_FILE)
     assum_dct={}
-    assum_dct['avg_cred_p_hect_p_yr'] = assum_json.avg_cred_p_hect_p_yr
+    #assum_dct['avg_cred_p_hect_p_yr'] = assum_json.avg_cred_p_hect_p_yr
     assum_dct['nom_int_rt'] = assum_json.nom_int_rt
     assum_dct['inflation_rt'] = assum_json.inflation_rt
     assum_dct['reg_acct_open_fee'] = assum_json.reg_acct_open_fee
@@ -97,7 +96,7 @@ def assum_form_to_dict(aform_request):
     Parses the FFP Tool's assumption json file into a dictionary
     '''
     assum_dct={}
-    assum_dct['avg_cred_p_hect_p_yr'] = float(aform_request['avg_cred_p_hect_p_yr'])
+    #assum_dct['avg_cred_p_hect_p_yr'] = float(aform_request['avg_cred_p_hect_p_yr'])
     assum_dct['nom_int_rt'] = float(aform_request['nom_int_rt'])
     assum_dct['inflation_rt'] = float(aform_request['inflation_rt'])
     assum_dct['reg_acct_open_fee'] = float(aform_request['reg_acct_open_fee'])
@@ -119,11 +118,11 @@ def update_assum(ASSUM_FILE, formdata):
     Updates the FFP Tool assumption json with a list of values from a form
     '''
     # unpack values from list
-    [avg_cred_p_hect_p_yr, nom_int_rt, inflation_rt, reg_acct_open_fee, reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr] = formdata
+    [nom_int_rt, inflation_rt, reg_acct_open_fee, reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred, valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr] = formdata
     # load the data from the current assumption file [for structure]
     with open(ASSUM_FILE, "r") as assum_json:
         data = json.load(assum_json)
-    data["avg_cred_p_hect_p_yr"] = avg_cred_p_hect_p_yr
+    #data["avg_cred_p_hect_p_yr"] = avg_cred_p_hect_p_yr
     data["nom_int_rt"] = nom_int_rt
     data["inflation_rt"] = inflation_rt
     data["reg_acct_open_fee"] = reg_acct_open_fee

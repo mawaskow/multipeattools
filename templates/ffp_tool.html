@@ -75,9 +75,6 @@
         <!--hidden_tag and csrf_token-->
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-        <label for="avg_cred_p_hect_p_yr">Credits per Hectare per Year:</label>
-        <input type="number" class="validate" id="avg_cred_p_hect_p_yr" name="avg_cred_p_hect_p_yr" value="{{aform['avg_cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
-        <br>
         <label for="nom_int_rt">Nominal Interest Rate:</label>
         <input type="number" class="validate" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
         <br>

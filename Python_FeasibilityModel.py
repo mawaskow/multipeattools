@@ -220,7 +220,6 @@ def read_assumptions_file():
         assumptions_data = json.load(file)
 
     # Assumptions values are assigned to the variables that will be used in the equations.
-    credits_per_hectare_per_year = int(assumptions_data['Credits per Hectare per Year'])
     nominal_interest_rate = float(assumptions_data['Nominal Interest Rate'])
     inflation_rate = float(assumptions_data['Inflation Rate'])
     registry_account_opening_fee = float(assumptions_data['Registry Account Opening Fee'])
@@ -236,7 +235,7 @@ def read_assumptions_file():
     interest_rate = float(assumptions_data['Interest Rate'])
     payments_per_year = int(assumptions_data['Payments per Year'])
 
-    assum_list = [credits_per_hectare_per_year, nominal_interest_rate, inflation_rate, registry_account_opening_fee, listing_cost, inspection_conversion_fee, conversion_cost_above_threshold, levy_cost, validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_cycle_lenght, minimum_threshold, interest_rate, payments_per_year]
+    assum_list = [nominal_interest_rate, inflation_rate, registry_account_opening_fee, listing_cost, inspection_conversion_fee, conversion_cost_above_threshold, levy_cost, validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_cycle_lenght, minimum_threshold, interest_rate, payments_per_year]
     return assum_list
 
 # **Model Setup**
@@ -246,12 +245,12 @@ def read_assumptions_file():
 
 def Conditional_Executor(user_list, assum_list):
         [period_of_years, credits_per_hectares_per_year, hectares_restored, investment_amount, start_year, price_per_credit, investment_costs_included, registry_costs_included] = user_list
-        [credits_per_hectare_per_year, nominal_interest_rate, inflation_rate, registry_account_opening_fee, listing_cost, inspection_conversion_fee, conversion_cost_above_threshold, levy_cost, validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_cycle_lenght, minimum_threshold, interest_rate, payments_per_year] = assum_list
+        [nominal_interest_rate, inflation_rate, registry_account_opening_fee, listing_cost, inspection_conversion_fee, conversion_cost_above_threshold, levy_cost, validation_application_cost, validation_statement_cost, inspector_travel_cost, inspection_cycle_lenght, minimum_threshold, interest_rate, payments_per_year] = assum_list
         
         exponent_year=Final_Year_exponent(period_of_years) # Eq.1
         calendar_year_end=Year_End(start_year, exponent_year) # Eq.2
         real_interest_rate=Real_Interest_Rate(nominal_interest_rate, inflation_rate) # Eq.3
-        credits_generated=Credits_Generated(period_of_years, hectares_restored,credits_per_hectare_per_year) # Eq.4
+        credits_generated=Credits_Generated(period_of_years, hectares_restored,credits_per_hectares_per_year) # Eq.4
         ending_value_undisc=Ending_Value_Undiscounted(credits_generated, price_per_credit) # Eq.7
         
         if investment_costs_included:
