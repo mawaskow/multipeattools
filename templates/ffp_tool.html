@@ -54,11 +54,11 @@
             <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()">
             <br>
         {% endif %}
-        <!--<input type="reset" name="reset_usrinpt" id="reset_usrinpt" value="Reset to Defaults">-->
-        <input type="submit" name="submit_usrinpt" id="submit_usrinpt" value="Update">
+        <!--<input type="submit" name="submit_usrinpt" id="submit_usrinpt" value="Update">-->
     </form>
 </div>
 
+<p></p>
 <label for="assum_disp_btn">To Edit Assumptions: </label>
 <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
 <button id="assum_disp_btn">Assumptions</button>
@@ -120,19 +120,30 @@
         <label for="payments_p_yr">Payments per Year:</label>
         <input type="number" class="validate" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.001" onkeyup="ffp_calculation()" required>
         <br>
-        <!--<input type="reset" name="reset_assum" id="reset_assum" value="Reset to Defaults">-->
-        <input type="submit" name="submit_assum" id="submit_assum" value="Update">
+        <!--<input type="submit" name="submit_assum" id="submit_assum" value="Update">-->
     </form>
 </div>
 
-<div id="results">
+<div style="display: inline;" id="results">
     <h3>Results</h3>
-    <p>Profitable?: </p><p id="is_prof">{{results_dict["profitable"]}}</p>
-    <p>Profit per credit: </p><p id="prof_p_cred">{{results_dict["profit_per_credit"]}}</p>
-    <p>Profit per hectare per year: </p><p id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</p>
-    <p>Beginning Value: </p><p id="beg_val">{{results_dict["beginning_value"]}}</p>
-    <p>Ending Value: </p><p id="end_val">{{results_dict["ending_value_undisc"]}}</p>
-    <p>Rate of Return: </p><p id="rate_ret">{{results_dict["rate_of_return"]}}</p>
+    <p>
+        <span>Profitable?: </span><span id="is_prof">{{results_dict["profitable"]}}</span>
+    </p>
+    <p>
+        <span>Profit per credit: </span><span id="prof_p_cred">{{results_dict["profit_per_credit"]}}</span>
+    </p>
+    <p>
+        <span>Profit per hectare per year: </span><span id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</span>
+    </p>
+    <p>
+        <span>Beginning Value: </span><span id="beg_val">{{results_dict["beginning_value"]}}</span>
+    </p>
+    <p>
+        <span>Ending Value: </span><span id="end_val">{{results_dict["ending_value_undisc"]}}</span>
+    </p>
+    <p>
+        <span>Rate of Return: </span><span id="rate_ret">{{results_dict["rate_of_return"]}}</span>
+    </p>
 </div>
 
 {% endblock %}

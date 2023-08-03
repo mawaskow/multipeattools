@@ -273,11 +273,11 @@ function update_results(results_dict){
     let rate_ret= document.getElementById("rate_ret");
     //
     is_prof.innerHTML = results_dict["profitable"];
-    prof_p_cred.innerHTML = results_dict["profit_per_credit"];
-    prof_phpy.innerHTML = results_dict["profit_per_hectare_per_year"];
-    beg_val.innerHTML = results_dict["beginning_value"];
-    end_val.innerHTML = results_dict["ending_value_undisc"];
-    rate_ret.innerHTML = results_dict["rate_of_return"];
+    prof_p_cred.innerHTML = parseFloat(results_dict["profit_per_credit"]).toFixed(2);
+    prof_phpy.innerHTML = parseFloat(results_dict["profit_per_hectare_per_year"]).toFixed(2);
+    beg_val.innerHTML = parseFloat(results_dict["beginning_value"]).toFixed(2);
+    end_val.innerHTML = parseFloat(results_dict["ending_value_undisc"]).toFixed(2);
+    rate_ret.innerHTML = parseFloat(results_dict["rate_of_return"]).toFixed(2);
 }
 
 // MAIN
