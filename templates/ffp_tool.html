@@ -2,77 +2,100 @@
 
 {% block title %}FFP Tool{% endblock %}
 {% block content %}
-<div class="container" id="input-form-div">
-    <p>Welcome to the Financial Feasibility and Pricing Tool.</p>
+<div class="textchunk" id="ffp_intro">
+    <h4>
+    The Financial Feasibility and Pricing Tool
+    <img src="{{url_for('static', filename='ffp_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
+    <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
+    </h4>
     <p>With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
 
-    <h3>User Input</h3>
+    <h5>User Input</h5>
 
     <p>Default settings are populated into the below form.</p>
     <p>Change values if needed then press submit to update.</p>
-    <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
-        <!--{% if uform.errors %}
-        {{ uform.errors }}
-        {% endif %}-->
-        
-        <!--hidden_tag and csrf_token-->
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+</div>
+<div class="container-fluid textchunk">
+    <div class="row">
+        <div class="col" id="input-form-div">
+            <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-        <label for="num_yrs">Period of Years:</label>
-        <input type="number" class="validate" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}" min="0" max="9999" step="0.001" onkeyup="ffp_calculation()" required>
-        <br>
-        <label for="cred_p_hect_p_yr">Credits per Hectare per Year:</label>
-        <input type="number" class="validate" id="cred_p_hect_p_yr" name="cred_p_hect_p_yr" value="{{uform['cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
-        <br>
-        <label for="hect_restored">Hectares Restored:</label>
-        <input type="number" class="validate" id="hect_restored" name="hect_restored" value="{{uform['hect_restored']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
-        <br>
-        <label for="invest_amt">Investment Amount:</label>
-        <input type="number" class="validate" id="invest_amt" name="invest_amt" value="{{uform['invest_amt']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
-        <br>
-        <label for="start_yr">Start Year:</label>
-        <input type="number" class="validate" id="start_yr" name="start_yr" value="{{uform['start_yr']}}" min="1900" max="3000" onkeyup="ffp_calculation()" required>
-        <br>
-        <label for="price_p_cred">Price per Credit:</label>
-        <input type="number" class="validate" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
-        <br>
-        {% if uform['invest_costs_inc'] %}
-            <label for="invest_costs_inc">Include Investment Costs:</label>
-            <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" checked>
-            <br>
-        {% else %}
-            <label for="invest_costs_inc">Include Investment Costs:</label>
-            <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()">
-            <br>
-        {% endif %}
-        {% if uform['reg_costs_inc'] %}
-            <label for="reg_costs_inc">Include Registration Costs:</label>
-            <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()" checked>
-            <br>
-        {% else %}
-            <label for="reg_costs_inc">Include Registration Costs:</label>
-            <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()">
-            <br>
-        {% endif %}
-        <!--<input type="submit" name="submit_usrinpt" id="submit_usrinpt" value="Update">-->
-    </form>
+                <label for="num_yrs">Period of Years:</label>
+                <input type="number" class="validate" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}" min="0" max="9999" step="0.001" onkeyup="ffp_calculation()" required>
+                <br>
+                <label for="cred_p_hect_p_yr">Credits per Hectare per Year:</label>
+                <input type="number" class="validate" id="cred_p_hect_p_yr" name="cred_p_hect_p_yr" value="{{uform['cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                <br>
+                <label for="hect_restored">Hectares Restored:</label>
+                <input type="number" class="validate" id="hect_restored" name="hect_restored" value="{{uform['hect_restored']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                <br>
+                <label for="invest_amt">Investment Amount:</label>
+                <input type="number" class="validate" id="invest_amt" name="invest_amt" value="{{uform['invest_amt']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                <br>
+                <label for="start_yr">Start Year:</label>
+                <input type="number" class="validate" id="start_yr" name="start_yr" value="{{uform['start_yr']}}" min="1900" max="3000" onkeyup="ffp_calculation()" required>
+                <br>
+                <label for="price_p_cred">Price per Credit:</label>
+                <input type="number" class="validate" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                <br>
+                {% if uform['invest_costs_inc'] %}
+                    <label for="invest_costs_inc">Include Investment Costs:</label>
+                    <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" checked>
+                    <br>
+                {% else %}
+                    <label for="invest_costs_inc">Include Investment Costs:</label>
+                    <input type="checkbox" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()">
+                    <br>
+                {% endif %}
+                {% if uform['reg_costs_inc'] %}
+                    <label for="reg_costs_inc">Include Registration Costs:</label>
+                    <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()" checked>
+                    <br>
+                {% else %}
+                    <label for="reg_costs_inc">Include Registration Costs:</label>
+                    <input type="checkbox" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()">
+                    <br>
+                {% endif %}
+            </form>
+        </div>
+
+        <div class="col" style="display: inline;" id="results">
+            <h5>Results</h5>
+            <p>
+                <span>Profitable?: </span><span id="is_prof">{{results_dict["profitable"]}}</span>
+            </p>
+            <p>
+                <span>Profit per credit: </span><span id="prof_p_cred">{{results_dict["profit_per_credit"]}}</span>
+            </p>
+            <p>
+                <span>Profit per hectare per year: </span><span id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</span>
+            </p>
+            <p>
+                <span>Beginning Value: </span><span id="beg_val">{{results_dict["beginning_value"]}}</span>
+            </p>
+            <p>
+                <span>Ending Value: </span><span id="end_val">{{results_dict["ending_value_undisc"]}}</span>
+            </p>
+            <p>
+                <span>Rate of Return: </span><span id="rate_ret">{{results_dict["rate_of_return"]}}</span>
+            </p>
+        </div>
+    </div>
 </div>
 
-<p></p>
+<div class="textchunk">
 <label for="assum_disp_btn">To Edit Assumptions: </label>
 <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
 <button id="assum_disp_btn">Assumptions</button>
+</div>
 
-<div class="content_section" id="assum-form-div" style="display:none">
-    <h3>Model Assumptions</h3>
+<div class="content_section textchunk" id="assum-form-div" style="display:none">
+    <h5>Model Assumptions</h5>
 
     <p>Default settings are populated into the below form.</p>
     <p>Change values if needed then press submit to update.</p>
     <form action="/ffptool" method="POST" id="assum-form" enctype=multipart/form-data>
-        <!--{% if aform.errors %}
-        {{ aform.errors }}
-        {% endif %}-->
-        <!--hidden_tag and csrf_token-->
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
         <label for="nom_int_rt">Nominal Interest Rate:</label>
@@ -117,30 +140,7 @@
         <label for="payments_p_yr">Payments per Year:</label>
         <input type="number" class="validate" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.001" onkeyup="ffp_calculation()" required>
         <br>
-        <!--<input type="submit" name="submit_assum" id="submit_assum" value="Update">-->
     </form>
-</div>
-
-<div style="display: inline;" id="results">
-    <h3>Results</h3>
-    <p>
-        <span>Profitable?: </span><span id="is_prof">{{results_dict["profitable"]}}</span>
-    </p>
-    <p>
-        <span>Profit per credit: </span><span id="prof_p_cred">{{results_dict["profit_per_credit"]}}</span>
-    </p>
-    <p>
-        <span>Profit per hectare per year: </span><span id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</span>
-    </p>
-    <p>
-        <span>Beginning Value: </span><span id="beg_val">{{results_dict["beginning_value"]}}</span>
-    </p>
-    <p>
-        <span>Ending Value: </span><span id="end_val">{{results_dict["ending_value_undisc"]}}</span>
-    </p>
-    <p>
-        <span>Rate of Return: </span><span id="rate_ret">{{results_dict["rate_of_return"]}}</span>
-    </p>
 </div>
 
 {% endblock %}
