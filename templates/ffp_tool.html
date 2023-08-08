@@ -2,18 +2,18 @@
 
 {% block title %}FFP Tool{% endblock %}
 {% block content %}
-<div class="textchunk" id="ffp_intro">
-    <h4>
-    The Financial Feasibility and Pricing Tool
-    <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
-    <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
-    </h4>
-    <p>With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
-    <p>Default values are populated into the form but can be amended, as can the default assumptions below.</p>
-</div>
-<div class="container-fluid textchunk">
+<div class="container textchunk">
+    <div class="col-sm" id="ffp_intro">
+        <h4>
+        The Financial Feasibility and Pricing Tool
+        <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
+        <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
+        </h4>
+        <p>With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
+        <p>Default values are populated into the form but can be amended, as can the default assumptions below.</p>
+    </div>
     <div class="row justify-content-center">
-        <div class="col-md-6" id="input-form-div">
+        <div class="col-sm" id="input-form-div">
             <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
@@ -62,7 +62,7 @@
             </form>
         </div>
 
-        <div class="col-md-6 align-self-center" style="display: inline;" id="results">
+        <div class="col-sm align-self-center" style="display: inline; padding-top: 20px;" id="results">
             <p>
                 <span style="font-weight: 500;">Profitable?: </span><span id="is_prof">{{results_dict["profitable"]}}</span>
             </p>
@@ -83,19 +83,21 @@
             </p>
         </div>
     </div>
+    <div class="col-sm" style="padding-top: 20px; align-self: flex-end;">
+        <label for="assum_disp_btn">To Edit Assumptions: </label>
+        <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
+        <button id="assum_disp_btn" class="btn btn-primary btn-sm">Assumptions</button>
+    </div>
 </div>
 
-<div class="textchunk" style="padding-top: 20px; padding-left: 100px;">
-    <label for="assum_disp_btn">To Edit Assumptions: </label>
-    <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
-    <button id="assum_disp_btn" class="btn btn-primary btn-sm">Assumptions</button>
-</div>
+<div class="container content_section" id="assum-form-div" style="display:none; padding-top: 20px; padding-bottom: 20px;">
+    <div class="col-sm" id="assum-descrip">
+        <h5>Model Assumptions</h5>
 
-<div class="content_section textchunk col" id="assum-form-div" style="display:none">
-    <h5>Model Assumptions</h5>
-
-    <p>Default settings are populated into the below form.</p>
-    <p>Change values if needed then press submit to update.</p>
+        <p>Default settings are populated into the below form.</p>
+        <p>Change values if needed then press submit to update.</p>
+    </div>
+    <div class="col-sm">
     <form action="/ffptool" method="POST" id="assum-form" enctype=multipart/form-data>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
@@ -156,6 +158,7 @@
         <label for="payments_p_yr" class="form-label">Payments per Year:</label>
         <input type="number" class="validate form-control w-25" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.001" onkeyup="ffp_calculation()" required>
     </form>
+    </div>
 </div>
 
 {% endblock %}
