@@ -32,14 +32,37 @@ body{
     background-color: whitesmoke;
 }
 
-button.btn-primary{
+button.btn-success{
     background: rgb(126, 202, 130);
     border-color: transparent;
     color: black;
 }
 
-button.btn-primary:hover{
+button.btn-success:hover{
     background: rgb(146, 216, 150);
     border-color: transparent;
     color: green;
 }
+
+/*dont think this works*/
+button.btn-success:active{
+    background: green;
+    background-color: brown;
+    border-color: transparent;
+    color: rgb(146, 216, 150);
+}
+
+
+.form-switch > .form-check-input{
+    /*box-shadow: transparent 0 0 0.2rem 0.2rem rgb(146, 216, 150);*/
+    border-color: transparent;
+    fill: rgb(146, 216, 150);
+}
+
+.form-switch > .form-check-input:checked{
+    background-color: green;
+    /*box-shadow: transparent 0 0 0.2rem 0.2rem rgb(146, 216, 150);*/
+    border-color: transparent;
+}
+
+
