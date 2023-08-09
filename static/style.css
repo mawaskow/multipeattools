@@ -1,5 +1,15 @@
+
+h4, h5, p{
+    color:  #1a1a1a;
+}
+
+p.text-descr{
+    font-size: 15px;
+    color:  #747474;
+}
+
 .nav-pills > .nav-item >a {
-    color: black;
+    color: #1a1a1a;
     font-size: 17px;
     font-weight: 400;
     padding: 5px 15px;
@@ -22,6 +32,7 @@ nav.navbar.bg-body-tertiary{
 a.navbar-brand{
     font-size: 25px;
     font-weight: 500;
+    color: #1a1a1a;
 }
 
 div.textchunk{
@@ -33,36 +44,57 @@ body{
 }
 
 button.btn-success{
-    background: rgb(126, 202, 130);
+    background: #5C93AC;
     border-color: transparent;
-    color: black;
 }
 
 button.btn-success:hover{
-    background: rgb(146, 216, 150);
+    background: #91c0d6;
     border-color: transparent;
-    color: green;
+    color: #396d85;
 }
 
 /*dont think this works*/
 button.btn-success:active{
-    background: green;
-    background-color: brown;
+    background: #396d85;
+    background-color: #396d85;
     border-color: transparent;
     color: rgb(146, 216, 150);
 }
 
-
 .form-switch > .form-check-input{
     /*box-shadow: transparent 0 0 0.2rem 0.2rem rgb(146, 216, 150);*/
     border-color: transparent;
-    fill: rgb(146, 216, 150);
+    width: 3em;
+    height: 1.5em;
 }
 
 .form-switch > .form-check-input:checked{
-    background-color: green;
+    background-color: #72CAC3;
     /*box-shadow: transparent 0 0 0.2rem 0.2rem rgb(146, 216, 150);*/
     border-color: transparent;
 }
 
+.form-label{
+    color: #1a1a1a;
+}
 
+.container.user-input-div{
+    background-color: #DCF0F6;   
+    border-radius: 20px;
+}
+
+.form-control{
+    border: transparent;
+    border-radius: 0;
+}
+
+.input-group-text{
+    border: transparent;
+    border-radius: 0;
+}
+
+.container.assum-form-div{
+    background-color: #DCF0F6;   
+    border-radius: 20px;
+}

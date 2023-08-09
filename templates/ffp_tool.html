@@ -2,17 +2,15 @@
 
 {% block title %}FFP Tool{% endblock %}
 {% block content %}
-<div class="container textchunk">
-    <div class="col-md" id="ffp_intro">
-        <h4>
-        The Financial Feasibility and Pricing Tool
+<div class="empty-spacing" style="padding-top: 10px;"></div>
+<div class="container textchunk user-input-div">
+    <h4 style="font-weight: bold;">
+        FEASIBILITY & PRICING TOOL FOR CARBON FARMING
         <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
         <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
-        </h4>
-        <p>With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
-        <p>Default values are populated into the form but can be amended, as can the default assumptions below.</p>
-    </div>
-    <div class="row justify-content-center">
+    </h4>
+    <p class="text-descr">With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme. Default values are populated into the form but can be amended, as can the default assumptions below.</p>
+    <div class="row justify-content-center" style="padding-top: 5px;">
         <div class="col-md" id="input-form-div">
             <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -70,22 +68,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-check form-switch mb-1">
+                <div class="form-check form-switch mb-2">
                     {% if uform['invest_costs_inc'] %}
                         <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" checked>
-                        <label for="invest_costs_inc" class="form-check-label">Investment Costs Included</label>
+                        <label for="invest_costs_inc" class="form-check-label" style="padding-left: 5px;">Investment Costs Included</label>
                     {% else %}
                         <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()">
-                        <label for="invest_costs_inc" class="form-check-label">Investment Costs Included</label>
+                        <label for="invest_costs_inc" class="form-check-label" style="padding-left: 5px;">Investment Costs Included</label>
                     {% endif %}
                 </div>
-                <div class="form-check form-switch mb-1">
+                <div class="form-check form-switch mb-2">
                     {% if uform['reg_costs_inc'] %}
                         <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()" checked>
-                        <label for="reg_costs_inc" class="form-check-label">Registration Costs Included</label>
+                        <label for="reg_costs_inc" class="form-check-label" style="padding-left: 5px;">Registration Costs Included</label>
                     {% else %}
                         <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()">
-                        <label for="reg_costs_inc" class="form-check-label">Registration Costs Included</label>
+                        <label for="reg_costs_inc" class="form-check-label" style="padding-left: 5px;">Registration Costs Included</label>
                     {% endif %}
                 </div>
             </form>
@@ -112,19 +110,17 @@
             </p>
         </div>
     </div>
-    <div class="col-md" style="padding-top: 20px; align-self: flex-end;">
+    <div class="col-md" style="padding-top: 20px; padding-bottom: 10px; align-self: flex-end;">
         <label for="assum_disp_btn">To Edit Assumptions: </label>
         <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
-        <button id="assum_disp_btn" class="btn btn-success btn-sm">Assumptions</button>
+        <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
     </div>
 </div>
-
-<div class="container content_section" id="assum-form-div" style="display:none; padding-top: 20px; padding-bottom: 20px;">
+<div class="empty-spacing" style="padding-top: 10px;"></div>
+<div class="container content_section assum-form-div textchunk" id="assum-form-div" style="display:none; padding-top: 10px; padding-bottom: 10px;">
     <div class="col-md" id="assum-descrip">
-        <h5>Model Assumptions</h5>
-
-        <p>Default settings are populated into the below form.</p>
-        <p>Change values if needed then press submit to update.</p>
+        <h5 style="font-weight: bold;">MODEL ASSUMPTIONS</h5>
+        <p class="text-descr">Default settings are populated into the below form. Change values if needed then press submit to update.</p>
     </div>
     <div class="col-md">
     <form action="/ffptool" method="POST" id="assum-form" enctype=multipart/form-data>
