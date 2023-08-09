@@ -1,0 +1,47 @@
+{
+     "General Site Data": {
+          "Site Name": "Dutch Example",
+          "Total Area": 1,
+          "Coordinates": [
+               0,
+               0
+          ],
+          "Elevation": 0,
+          "Peat Type": "Sphagnum",
+          "Peat Thickness": 100,
+          "Year Rewetting Started": 2022
+     },
+     "Baseline": {
+          "Median Groundwater Level in Summer": -10,
+          "Vegetation Class": "G5s:Wet Grassland with Shunt Species",
+          "Animal Maunre Applied": 150,
+          "Organic Fertilizer Applied": 0,
+          "Synthetic Fertilizer": "Nitrate Based",
+          "Amount Applied": 0,
+          "Grazing Animals": "No Animal",
+          "Average Number of Grazing Animals": 0,
+          "Average Number of Grazing Days per Year": 0,
+          "Crop Yield": 12,
+          "Crop Residue": "No",
+          "Crop": "Cattail (Typha Sp.)",
+          "Litres of Diesel per Site": 0,
+          "Electricity per Site": 0
+     },
+     "Rewetting": {
+          "Median Groundwater Level in Summer": -10,
+          "Vegetation Class": "G5s:Wet Grassland with Shunt Species",
+          "Animal Maunre Applied": 150,
+          "Organic Fertilizer Applied": 0,
+          "Synthetic Fertilizer": "Nitrate Based",
+          "Amount Applied": 0,
+          "Grazing Animals": "No Animal",
+          "Average Number of Grazing Animals": 0,
+          "Average Number of Grazing Days per Year": 0,
+          "Crop Yield": 12,
+          "Crop Residue": "No",
+          "Crop": "Cattail (Typha Sp.)",
+          "Litres of Diesel per Site": 0,
+          "Electricity per Site": 0,
+          "Crop Use": "Paper"
+     }
+}
