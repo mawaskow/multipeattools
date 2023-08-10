@@ -8,6 +8,14 @@ p.text-descr{
     color:  #747474;
 }
 
+hr{
+    margin: 5px 0px;
+}
+
+.form-label, .form-check-label{
+    margin: 2px 2px 2px 2px;
+}
+
 .nav-pills > .nav-item >a {
     color: #1a1a1a;
     font-size: 17px;
@@ -36,7 +44,7 @@ a.navbar-brand{
 }
 
 div.textchunk{
-    padding: 5px 0px 0px 25px;
+    padding: 20px 20px 20px 20px;
 }
 
 body{
@@ -62,24 +70,27 @@ button.btn-success:active{
     color: rgb(146, 216, 150);
 }
 
-.form-switch > .form-check-input{
+.form-check .form-check-input{
     /*box-shadow: transparent 0 0 0.2rem 0.2rem rgb(146, 216, 150);*/
     border-color: transparent;
     width: 3em;
     height: 1.5em;
 }
 
-.form-switch > .form-check-input:checked{
+.form-check .form-check-input:checked{
     background-color: #72CAC3;
     /*box-shadow: transparent 0 0 0.2rem 0.2rem rgb(146, 216, 150);*/
     border-color: transparent;
 }
 
-.form-label{
+.form-check .form-check-input {
+    float: right;}
+
+.form-label, .form-check-label{
     color: #1a1a1a;
 }
 
-.container.user-input-div{
+.user-input-div, .assum-form-div{
     background-color: #DCF0F6;   
     border-radius: 20px;
 }
@@ -94,7 +105,3 @@ button.btn-success:active{
     border-radius: 0;
 }
 
-.container.assum-form-div{
-    background-color: #DCF0F6;   
-    border-radius: 20px;
-}
