@@ -270,10 +270,10 @@ function update_results(results_dict){
     let end_val= document.getElementById("end_val");
     //
     if(results_dict["profitable"]){
-        is_prof.innerHTML = "Yes";
+        is_prof.innerHTML = "YES";
         is_prof.className = "badge rounded-pill text-bg-success";
     }else{
-        is_prof.innerHTML = "No";
+        is_prof.innerHTML = "NO";
         is_prof.className = "badge rounded-pill text-bg-danger";
     }
 
