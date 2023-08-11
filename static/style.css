@@ -1,19 +1,27 @@
-
-h4, h5, p{
+/* text */
+h4, h5, p, .form-label, .form-check-label{
     color:  #1a1a1a;
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+
+.form-label, .form-check-label{
+    font-size: 16px;
 }
 
 p.text-descr{
-    font-size: 15px;
+    font-size: 16px;
     color:  #747474;
-}
-
-hr{
-    margin: 5px 0px;
 }
 
 .form-label, .form-check-label{
     margin: 2px 2px 2px 2px;
+}
+
+/* navbar */ 
+a.navbar-brand{
+    font-size: 25px;
+    font-weight: 500;
+    color: #1a1a1a;
 }
 
 .nav-pills > .nav-item >a {
@@ -37,19 +45,21 @@ nav.navbar.bg-body-tertiary{
     padding-left: 5px;
 }
 
-a.navbar-brand{
-    font-size: 25px;
-    font-weight: 500;
-    color: #1a1a1a;
-}
+/* general */
 
 div.textchunk{
     padding: 20px 20px 20px 20px;
 }
 
+hr{
+    margin: 5px 0px;
+}
+
 body{
     background-color: whitesmoke;
 }
+
+/* button */
 
 button.btn-success{
     background: #5C93AC;
@@ -62,19 +72,39 @@ button.btn-success:hover{
     color: #396d85;
 }
 
-/*dont think this works*/
-button.btn-success:active{
-    background: #396d85;
-    background-color: #396d85;
-    border-color: transparent;
-    color: rgb(146, 216, 150);
+.btn.btn-success.active,
+.btn.btn-success:active {
+  color: #396d85;
+  background-color: #91c0d6;
+  border-color: transparent;
+  outline: none;
+}
+.btn.btn-success.active.focus,
+.btn.btn-success.active:focus,
+.btn.btn-success.active:hover,
+.btn.btn-success:active.focus,
+.btn.btn-success:active:focus,
+.btn.btn-success:active:hover {
+  color: #1c4558;
+  background-color: #5d8fa7;
+  border-color: transparent;
+  outline: none;
+  box-shadow: none;
 }
 
+
+/* switches */
 .form-check .form-check-input{
     /*box-shadow: transparent 0 0 0.2rem 0.2rem rgb(146, 216, 150);*/
     border-color: transparent;
-    width: 3em;
-    height: 1.5em;
+    width: 3.3em;
+    height: 2em;
+    border-radius: 20px;
+    display: grid;
+    float:right;
+    justify-self: center;
+    margin: 0 0 0 0;
+    border: 0px;
 }
 
 .form-check .form-check-input:checked{
@@ -83,13 +113,18 @@ button.btn-success:active{
     border-color: transparent;
 }
 
-.form-check .form-check-input {
-    float: right;}
-
-.form-label, .form-check-label{
-    color: #1a1a1a;
+.form-switch{
+    /*
+    padding-top:0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;*/
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
 }
 
+
+/* rest of forms */
 .user-input-div, .assum-form-div{
     background-color: #DCF0F6;   
     border-radius: 20px;
