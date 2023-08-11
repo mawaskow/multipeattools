@@ -12,7 +12,7 @@ p{
     margin-bottom: 0;
 }
 
-p.text-descr{
+p.text-descr, label.text-descr{
     font-size: 16px;
     color:  #747474;
 }

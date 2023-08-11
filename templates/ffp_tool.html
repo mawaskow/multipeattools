@@ -3,14 +3,14 @@
 {% block title %}FFP Tool{% endblock %}
 {% block content %}
 <div class="empty-spacing" style="padding-top: 10px;"></div>
-<div class="container-sm textchunk user-input-div">
+<div class="container textchunk user-input-div" style="max-width: 900px;">
     <h4 style="font-weight: bold;">
         FEASIBILITY & PRICING TOOL FOR CARBON FARMING
         <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
         <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
     </h4>
     <p class="text-descr">With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
-    <div class="row justify-content-center" style="padding-top: 5px;">
+    <div class="row gx-5 justify-content-center" style="padding-top: 5px;">
         <div class="col-sm-6" id="input-form-div">
             <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -143,16 +143,22 @@
                     <p id="end_val">{{results_dict["ending_value_undisc"]}}</p>
                 </div>
             </div>
+            <div class="empty-spacing" style="padding-top: 20px;"></div>
+            <hr>
+            <div class="row g-2 align-items-center align-self-end" style="padding-top: 25px;">
+                <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
+                <div class="col-auto">
+                    <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
+                </div>
+                <div class="col-auto">
+                    <p class="text-descr">Click here to view or amend the assumptions.</p>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-sm" style="padding-top: 20px; padding-bottom: 10px;">
-        <label for="assum_disp_btn">To Edit Assumptions: </label>
-        <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
-        <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
     </div>
 </div>
 <div class="empty-spacing" style="padding-top: 10px;"></div>
-<div class="container content_section assum-form-div textchunk" id="assum-form-div" style="display:none; padding-top: 10px; padding-bottom: 10px;">
+<div class="container content_section assum-form-div textchunk" id="assum-form-div" style="display:none; padding-top: 10px; padding-bottom: 10px; max-width: 900px;">
     <div class="col-sm" id="assum-descrip">
         <h5 style="font-weight: bold;">MODEL ASSUMPTIONS</h5>
     </div>
