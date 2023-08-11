@@ -148,9 +148,9 @@ function Profit_Per_Hectare_Per_Year(net_present_value, hectares_restored, perio
 
 //Equation 25
 function Profitable(profit_per_credit, profit_per_hectare_per_year, rate_of_return, CARG, gross_present_value, net_present_value){
-    let profitable = 'No';
+    let profitable = false;
     if(profit_per_credit > 0 && profit_per_hectare_per_year > 0 && rate_of_return > 0 && CARG > 0 && gross_present_value > 0 && net_present_value > 0){
-        profitable = 'Yes';
+        profitable = true;
     }
     return profitable;
 }
@@ -269,7 +269,14 @@ function update_results(results_dict){
     let prof_phpy= document.getElementById("prof_phpy");
     let end_val= document.getElementById("end_val");
     //
-    is_prof.innerHTML = results_dict["profitable"];
+    if(results_dict["profitable"]){
+        is_prof.innerHTML = "Yes";
+        is_prof.className = "badge rounded-pill text-bg-success";
+    }else{
+        is_prof.innerHTML = "No";
+        is_prof.className = "badge rounded-pill text-bg-danger";
+    }
+
     prof_p_cred.innerHTML = parseFloat(results_dict["profit_per_credit"]).toFixed(2);
     prof_phpy.innerHTML = parseFloat(results_dict["profit_per_hectare_per_year"]).toFixed(2);
     end_val.innerHTML = parseFloat(results_dict["ending_value_undisc"]).toFixed(2);

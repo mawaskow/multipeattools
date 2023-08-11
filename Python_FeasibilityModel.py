@@ -148,9 +148,9 @@ def Profit_Per_Hectare_Per_Year(net_present_value, hectares_restored, period_of_
 
 #Equation 25
 def Profitable(profit_per_credit, profit_per_hectare_per_year, rate_of_return, CARG, gross_present_value, net_present_value):
-    profitable = 'No'
+    profitable = False
     if profit_per_credit > 0 and profit_per_hectare_per_year > 0 and rate_of_return > 0 and CARG > 0 and gross_present_value > 0 and net_present_value > 0:
-        profitable = 'Yes'
+        profitable = True
     return profitable
 
 # **User Inputs**

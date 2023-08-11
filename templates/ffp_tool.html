@@ -112,8 +112,16 @@
                 <div class="col-8">
                     <p style="font-weight: 600;">Profitable?</p>
                 </div>
-                <div class="col-4">
-                    <p id="is_prof" style="font-weight: 600;">{{results_dict["profitable"]}}</p>
+                <!--
+                <div class="col-auto">
+                    <p id="is_prof" style="font-weight: 600; justify-self: center; float: right;">{{results_dict["profitable"]}}</p>
+                </div>-->
+                <div class="col-auto">
+                    {% if results_dict["profitable"] %}
+                    <span class="badge rounded-pill text-bg-success" id="is_prof">True</span>
+                    {% else %}
+                    <span class="badge rounded-pill text-bg-danger" id="is_prof">False</span>
+                    {% endif %}
                 </div>
             </div>
             <hr>

@@ -96,6 +96,14 @@ button.btn-success:hover{
   box-shadow: none;
 }
 
+/* labels */
+.text-bg-success{
+    background-color: rgb(75, 200, 75);
+}
+
+.text-bg-danger{
+    background-color: rgb(200, 75, 75);
+}
 
 /* switches */
 .form-check .form-check-input{
