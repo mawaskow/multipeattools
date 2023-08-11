@@ -95,33 +95,57 @@
                     </div>
                 </div>
                 <hr>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="price_p_cred" class="form-label" style="padding-right: 5px; font-weight: 500;">Selling price of a carbon credit (€)</label>
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
-                    </div>
-                </div>
             </form>
         </div>
 
-        <div class="col-sm-6" style="display: inline; padding-top: 20px;" id="results">
-            <p>
-                <span style="font-weight: 500;">Profitable? </span><span id="is_prof">{{results_dict["profitable"]}}</span>
-            </p>
-            <p>
-                <span style="font-weight: 500;">Profit per carbon credit (€) </span><span id="prof_p_cred">{{results_dict["profit_per_credit"]}}</span>
-            </p>
-            <p>
-                <span style="font-weight: 500;">Profit per hectare per year (€) </span><span id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</span>
-            </p>
-            <p>
-                <span style="font-weight: 500;">Ending Value (€) </span><span id="end_val">{{results_dict["ending_value_undisc"]}}</span>
-            </p>
+        <div class="col-sm-6" style="display: inline;" id="results">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="price_p_cred" class="form-label" style="padding-right: 5px; font-weight: 500;">Selling price of a carbon credit (€)</label>
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                </div>
+            </div>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <p style="font-weight: 600;">Profitable?</p>
+                </div>
+                <div class="col-4">
+                    <p id="is_prof" style="font-weight: 600;">{{results_dict["profitable"]}}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <p style="font-weight: 500;">Profit per carbon credit (€)</p>
+                </div>
+                <div class="col-4 justify-content-center">
+                    <p id="prof_p_cred">{{results_dict["profit_per_credit"]}}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <p style="font-weight: 500;">Profit per hectare per year (€)</p>
+                </div>
+                <div class="col-4">
+                    <p id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <p style="font-weight: 500;">Ending Value (€)</p>
+                </div>
+                <div class="col-4">
+                    <p id="end_val">{{results_dict["ending_value_undisc"]}}</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-sm" style="padding-top: 20px; padding-bottom: 10px; justify-content: flex-end;">
+    <div class="col-sm" style="padding-top: 20px; padding-bottom: 10px;">
         <label for="assum_disp_btn">To Edit Assumptions: </label>
         <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
         <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
