@@ -10,7 +10,7 @@
         <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
     </h4>
     <p class="text-descr">With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
-    <div class="row gx-5 justify-content-center" style="padding-top: 5px;">
+    <div class="row gx-5 justify-content-center" style="padding-top: 15px;">
         <div class="col-sm-6" id="input-form-div">
             <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -117,11 +117,13 @@
                     <p id="is_prof" style="font-weight: 600; justify-self: center; float: right;">{{results_dict["profitable"]}}</p>
                 </div>-->
                 <div class="col-auto">
+                    <h4>
                     {% if results_dict["profitable"] %}
-                    <span class="badge rounded-pill text-bg-success" id="is_prof">True</span>
+                    <span class="badge rounded-pill text-bg-success" id="is_prof">Yes</span>
                     {% else %}
-                    <span class="badge rounded-pill text-bg-danger" id="is_prof">False</span>
+                    <span class="badge rounded-pill text-bg-danger" id="is_prof">No</span>
                     {% endif %}
+                    </h4>
                 </div>
             </div>
             <hr>
