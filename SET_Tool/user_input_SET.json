@@ -29,7 +29,7 @@
      },
      "Rewetting": {
           "Median Groundwater Level in Summer": -55,
-          "Vegetation Class": "G5s:Wet Grassland with Shunt Species",
+          "Vegetation Class": "G2:Moist Grassland",
           "Animal Manure Applied": 100,
           "Organic Fertilizer Applied": 50,
           "Synthetic Fertilizer": "Nitrate Based",
