@@ -4,67 +4,78 @@
 {% block content %}
 <div class="empty-spacing" style="padding-top: 10px;"></div>
 <div class="container textchunk user-input-div" style="max-width: 900px;">
-    <h4 style="font-weight: bold;">
-        FEASIBILITY & PRICING TOOL FOR CARBON FARMING
-        <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
-        <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
-    </h4>
-    <p class="text-descr">With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
+    <div style="margin-left: 25px;">
+        <h4 style="font-weight: bold;">
+            FEASIBILITY & PRICING TOOL FOR CARBON FARMING
+            <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
+            <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
+        </h4>
+        <p class="text-descr">With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
+    </div>
     <div class="row gx-5 justify-content-center" style="padding-top: 15px;">
         <div class="col-sm-6" id="input-form-div">
             <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-8">
-                        <label for="start_yr" class="form-label">Start year</label> 
+                        <label for="start_yr" class="form-label" style="margin-left: 25px;">Start year</label> 
                     </div>
                     <div class="col-4">
                         <input type="number" class="validate form-control" id="start_yr" name="start_yr" value="{{uform['start_yr']}}" min="1900" max="3000" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
-                <hr>
+                <hr class="inf">
                 <div class="row align-items-center">
                     <div class="col-8">
+                        <svg height="20" width="20">
+                            <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="How many years will the project take to restore the wetlands to your chosen soil moisture class. See the Site Emissions Tool for further information.">
+                                <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                            </a>
+                        </svg>
                         <label for="num_yrs" class="form-label">Project duration</label>
                     </div>
                     <div class="col-4" style="align-items: end;">
                         <input type="number" class="validate form-control" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}" min="0" max="9999" step="0.001" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
-                <hr>
-                <svg height="20" width="20">
-                    <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Info">
-                        <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
-                    </a>
-                </svg>
-                <hr>
+                <hr class="inf">
                 <div class="row align-items-center">
                     <div class="col-8 float-start">
+                        <svg height="20" width="20">
+                            <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Average credits generated per hectares per year can be taken from the literature or similar projects and are only needed as an initial non-technical indicative input. A more technical input can be taken from the SET tool.">
+                                <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                            </a>
+                        </svg>
                         <label for="cred_p_hect_p_yr" class="form-label">Avg. credits/ha/annum</label>
                     </div>
                     <div class="col-4 float-end">
                         <input type="number" class="validate form-control" id="cred_p_hect_p_yr" name="cred_p_hect_p_yr" value="{{uform['cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>    
-                <hr>
+                <hr class="inf">
                 <div class="row align-items-center">
                     <div class="col-8">
-                        <label for="hect_restored" class="form-label">Hectares of potential restoration</label>
+                        <label for="hect_restored" class="form-label" style="margin-left: 25px;">Hectares of potential restoration</label>
                     </div>
                     <div class="col-4">
                         <input type="number" class="validate form-control" id="hect_restored" name="hect_restored" value="{{uform['hect_restored']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
-                <hr>
+                <hr class="inf">
                 <div class="row align-items-center">
                     <div class="col-8">
+                        <svg height="20" width="20">
+                            <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="This is the total cost of servicing a loan or an investment over the duration of the project. It may, or may not, include the Interest due to service the loan, or the Registry costs. It does not include labour.">
+                                <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                            </a>
+                        </svg>
                         <label for="invest_amt" class="form-label" style="padding-right: 5px;">Investment / Financial inputs (€)</label>
                     </div>
                     <div class="col-4">
                         <input type="number" class="validate form-control" id="invest_amt" name="invest_amt" value="{{uform['invest_amt']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
-                <hr>
+                <hr class="inf">
                 <div class="form-check form-switch" style="display: grid;">
                     <div class="row align-items-center justify-content-center">
                         {% if uform['invest_costs_inc'] %}
@@ -82,7 +93,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <hr>
+                <hr class="inf">
                 <div class="form-check form-switch" style="display: grid;">
                     <div class="row align-items-center justify-content-center">
                         {% if uform['reg_costs_inc'] %}
@@ -100,23 +111,28 @@
                         {% endif %}
                     </div>
                 </div>
-                <hr>
+                <hr class="inf">
             </form>
         </div>
 
         <div class="col-sm-6" style="display: inline;" id="results">
             <div class="row align-items-center">
                 <div class="col-8">
+                    <svg height="20" width="20">
+                        <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Adjust this amount so that the profitable box below shows 'YES'. This is the threshold above which your project will be profitable.">
+                            <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                        </a>
+                    </svg>
                     <label for="price_p_cred" class="form-label" style="padding-right: 5px; font-weight: 500;">Selling price of a carbon credit (€)</label>
                 </div>
                 <div class="col-4">
                     <input type="number" class="validate form-control" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
-            <hr>
+            <div class="empty-spacing" style="padding-top: 20px;"></div>
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p style="font-weight: 600;">Profitable?</p>
+                    <p style="font-weight: 600; margin-left: 25px;">Profitable?</p>
                 </div>
                 <!--
                 <div class="col-auto">
@@ -132,36 +148,36 @@
                     </h4>
                 </div>
             </div>
-            <hr>
+            <div class="empty-spacing" style="padding-top: 20px;"></div>
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p style="font-weight: 500;">Profit per carbon credit (€)</p>
+                    <p style="margin-left: 25px;">Profit per carbon credit (€)</p>
                 </div>
                 <div class="col-4 justify-content-center">
                     <p id="prof_p_cred">{{results_dict["profit_per_credit"]}}</p>
                 </div>
             </div>
-            <hr>
+            <hr class="inf">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p style="font-weight: 500;">Profit per hectare per year (€)</p>
+                    <p style="margin-left: 25px;">Profit per hectare per year (€)</p>
                 </div>
                 <div class="col-4">
                     <p id="prof_phpy">{{results_dict["profit_per_hectare_per_year"]}}</p>
                 </div>
             </div>
-            <hr>
+            <hr class="inf">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p style="font-weight: 500;">Ending Value (€)</p>
+                    <p style="margin-left: 25px;">Ending Value (€)</p>
                 </div>
                 <div class="col-4">
                     <p id="end_val">{{results_dict["ending_value_undisc"]}}</p>
                 </div>
             </div>
             <div class="empty-spacing" style="padding-top: 20px;"></div>
-            <hr>
-            <div class="row g-2 align-items-center align-self-end" style="padding-top: 25px;">
+            <hr class="inf">
+            <div class="row g-2 align-items-center align-self-end" style="padding-top: 25px; margin-left: 25px;">
                 <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
                 <div class="col-auto">
                     <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
@@ -175,30 +191,57 @@
 </div>
 <div class="empty-spacing" style="padding-top: 10px;"></div>
 <div class="container content_section assum-form-div textchunk" id="assum-form-div" style="display:none; padding-top: 10px; padding-bottom: 10px; max-width: 900px;">
-    <div class="col-sm" id="assum-descrip">
+    <div class="col-sm" id="assum-descrip" style="margin-left: 25px;">
         <h5 style="font-weight: bold;">MODEL ASSUMPTIONS</h5>
+        <div class="empty-spacing" style="padding-top: 10px;"></div>
+        <p class="text-descr">This area allows you to amend the inbuilt assumptions this tool uses for calculations.</p>
     </div>
     <div class="col-sm">
     <form action="/ffptool" method="POST" id="assum-form" enctype=multipart/form-data>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="nom_int_rt" class="form-label">Nominal interest rate (%)</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+        <div class="empty-spacing" style="padding-top: 20px;"></div>
+        <p style="font-weight: 600;">
+            <svg height="20" width="20">
+                <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Use long-term nominal interest rate and inflation rate for amending the value of money. Long-term fifty-year nominal interest rate and inflation rate are publicised by central banks.">
+                    <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                </a>
+            </svg>
+            Value of money</p>
+        <hr class="inf">
+        <div style="margin-left: 25px;">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="nom_int_rt" class="form-label">Nominal interest rate (%)</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="inflation_rt" class="form-label">Inflation rate (%)</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="inflation_rt" name="inflation_rt" value="{{aform['inflation_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="inflation_rt" class="form-label">Inflation rate (%)</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="inflation_rt" name="inflation_rt" value="{{aform['inflation_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                </div>
             </div>
+            <hr>
         </div>
-        <hr>
+        <div class="empty-spacing" style="padding-top: 20px;"></div>
+        <p style="font-weight: 600;">
+            <svg height="20" width="20">
+                <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Use the carbon registry costs associated with the specific certification organisation that is anticipated to process and verify the sale of carbon credits from your specific project.">
+                    <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                </a>
+            </svg>
+            Carbon registry costs</p>
+        <hr class="inf">
         <div class="row align-items-center justify-content-between">
             <div class="col-8">
+                <svg height="20" width="20">
+                    <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="This a once-off fee when you open your chosen registry account.">
+                        <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                    </a>
+                </svg>
                 <label for="reg_acct_open_fee" class="form-label">Registry account opening fee</label>
             </div><div class="col-4">
                 <div class="input-group">
@@ -207,104 +250,116 @@
                 </div>
             </div>
         </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="reg_listing_cost_p_credit" class="form-label">Registry listing cost per credit</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="reg_listing_cost_p_credit" name="reg_listing_cost_p_credit" value="{{aform['reg_listing_cost_p_credit']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
-            </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="reg_conv_cost_fee_p_inspect" class="form-label">Registry conversion cost fee per inspection</label>
-            </div><div class="col-4">
-                <div class="input-group">
-                    <span class="input-group-text">€</span>
-                    <input type="number" class="validate form-control" id="reg_conv_cost_fee_p_inspect" name="reg_conv_cost_fee_p_inspect" value="{{aform['reg_conv_cost_fee_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+        <hr class="inf">
+        <div style="margin-left: 25px;">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="reg_listing_cost_p_credit" class="form-label">Registry listing cost per credit</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="reg_listing_cost_p_credit" name="reg_listing_cost_p_credit" value="{{aform['reg_listing_cost_p_credit']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="reg_conv_cost_p_cred_abv_min_thresh_of_credits" class="form-label">Registry conversion cost per credit above min threshold of credits</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="reg_conv_cost_p_cred_abv_min_thresh_of_credits" name="reg_conv_cost_p_cred_abv_min_thresh_of_credits" value="{{aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
-            </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="reg_levy_cost_p_cred" class="form-label">Registry levy cost per credit</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="reg_levy_cost_p_cred" name="reg_levy_cost_p_cred" value="{{aform['reg_levy_cost_p_cred']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
-            </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="valid_and_verif_app_cost_p_inspect" class="form-label">Validation & verification application cost per inspection</label>
-            </div><div class="col-4">
-                <div class="input-group">
-                    <span class="input-group-text">€</span>
-                    <input type="number" class="validate form-control" id="valid_and_verif_app_cost_p_inspect" name="valid_and_verif_app_cost_p_inspect" value="{{aform['valid_and_verif_app_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="reg_conv_cost_fee_p_inspect" class="form-label">Registry conversion cost fee per inspection</label>
+                </div><div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-text">€</span>
+                        <input type="number" class="validate form-control" id="reg_conv_cost_fee_p_inspect" name="reg_conv_cost_fee_p_inspect" value="{{aform['reg_conv_cost_fee_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    </div>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="valid_and_verif_stmnt_cost_p_inspect" class="form-label">Validation & verification statement cost per inspection</label>
-            </div><div class="col-4">
-                <div class="input-group">
-                    <span class="input-group-text">€</span>
-                    <input type="number" class="validate form-control" id="valid_and_verif_stmnt_cost_p_inspect" name="valid_and_verif_stmnt_cost_p_inspect" value="{{aform['valid_and_verif_stmnt_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="reg_conv_cost_p_cred_abv_min_thresh_of_credits" class="form-label">Registry conversion cost per credit above min threshold of credits</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="reg_conv_cost_p_cred_abv_min_thresh_of_credits" name="reg_conv_cost_p_cred_abv_min_thresh_of_credits" value="{{aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="valid_and_verif_inspctr_travel_cost_p_inspect" class="form-label">Validation & verification inspector travel costs per inspection</label>
-            </div><div class="col-4">
-                <div class="input-group">
-                    <span class="input-group-text">€</span>
-                    <input type="number" class="validate form-control" id="valid_and_verif_inspctr_travel_cost_p_inspect" name="valid_and_verif_inspctr_travel_cost_p_inspect" value="{{aform['valid_and_verif_inspctr_travel_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="reg_levy_cost_p_cred" class="form-label">Registry levy cost per credit</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="reg_levy_cost_p_cred" name="reg_levy_cost_p_cred" value="{{aform['reg_levy_cost_p_cred']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="valid_and_verif_app_cost_p_inspect" class="form-label">Validation & verification application cost per inspection</label>
+                </div><div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-text">€</span>
+                        <input type="number" class="validate form-control" id="valid_and_verif_app_cost_p_inspect" name="valid_and_verif_app_cost_p_inspect" value="{{aform['valid_and_verif_app_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="valid_and_verif_stmnt_cost_p_inspect" class="form-label">Validation & verification statement cost per inspection</label>
+                </div><div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-text">€</span>
+                        <input type="number" class="validate form-control" id="valid_and_verif_stmnt_cost_p_inspect" name="valid_and_verif_stmnt_cost_p_inspect" value="{{aform['valid_and_verif_stmnt_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="valid_and_verif_inspctr_travel_cost_p_inspect" class="form-label">Validation & verification inspector travel costs per inspection</label>
+                </div><div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-text">€</span>
+                        <input type="number" class="validate form-control" id="valid_and_verif_inspctr_travel_cost_p_inspect" name="valid_and_verif_inspctr_travel_cost_p_inspect" value="{{aform['valid_and_verif_inspctr_travel_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    </div>
+                </div>
+            </div>
+            <hr>
         </div>
-        <hr>
         <div class="row align-items-center justify-content-between">
             <div class="col-8">
+                <svg height="20" width="20">
+                    <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="One inspection per cycle.">
+                        <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                    </a>
+                </svg>
                 <label for="inspect_cycle_len" class="form-label">Inspection cycle duration in years</label>
             </div><div class="col-4">
                 <input type="number" class="validate form-control" id="inspect_cycle_len" name="inspect_cycle_len" value="{{aform['inspect_cycle_len']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
             </div>
         </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="min_thresh_of_credits" class="form-label">Min. threshold of credits above which registry conversion costs apply</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="min_thresh_of_credits" name="min_thresh_of_credits" value="{{aform['min_thresh_of_credits']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+        <hr class="inf">
+        <div class="empty-spacing" style="padding-top: 20px;"></div>
+        <p style="font-weight: 600; margin-left: 25px;">Investment servicing arrangements</p>
+        <hr class="inf">
+        <div style="margin-left: 25px;">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="min_thresh_of_credits" class="form-label">Min. threshold of credits above which registry conversion costs apply</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="min_thresh_of_credits" name="min_thresh_of_credits" value="{{aform['min_thresh_of_credits']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="interest_rt" class="form-label">Interest rate (%)</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="interest_rt" name="interest_rt" value="{{aform['interest_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="interest_rt" class="form-label">Interest rate (%)</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="interest_rt" name="interest_rt" value="{{aform['interest_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-8">
-                <label for="payments_p_yr" class="form-label">Number of payments per year</label>
-            </div><div class="col-4">
-                <input type="number" class="validate form-control" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.001" onkeyup="ffp_calculation()" required>
+            <hr>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-8">
+                    <label for="payments_p_yr" class="form-label">Number of payments per year</label>
+                </div><div class="col-4">
+                    <input type="number" class="validate form-control" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.001" onkeyup="ffp_calculation()" required>
+                </div>
             </div>
         </div>
         </form>

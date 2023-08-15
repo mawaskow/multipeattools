@@ -60,6 +60,10 @@ hr{
     margin: 7px 0px;
 }
 
+hr.inf{
+    margin: 7px 0px 7px 25px;
+}
+
 body{
     background-color: whitesmoke;
 }
