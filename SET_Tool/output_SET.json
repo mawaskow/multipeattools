@@ -1,52 +1,54 @@
 {
-     "Site Characteristics": {
-          "Site Name": "Dutch Example",
-          "Coordinates": [
+     "site_data": {
+          "site_name": "Dutch Example",
+          "coords": [
                0,
                0
           ],
-          "Total Area": 1,
-          "Peat Type": "Sphagnum",
-          "Peat Thickness": 100,
-          "Year Rewetting Started": 2022,
-          "Baseline Soil Moisture Class": "5+ (Wet (upper eulittoral))",
-          "Rewetting Soil Moisture Class": "2+ (Moderate moist)",
-          "Baseline Vegetation Class": "G5s:Wet Grassland with Shunt Species",
-          "Rewetting Vegetation Class": "G2:Moist Grassland"
+          "tot_area": 1,
+          "peat_type": "Sphagnum",
+          "peat_thick": 100,
+          "year_start": 2022,
+          "sm_class_base": "5+ (Wet (upper eulittoral))",
+          "sm_class_rewet": "2+ (Moderate moist)",
+          "base veg_class": "G5s:Wet Grassland with Shunt Species",
+          "rewet_veg_class": "G2:Moist Grassland"
      },
-     "Baseline Outcomes": {
+     "base_outcomes": {
           "CH4": 2.93,
           "CO2": -3.89,
-          "C-Emission GWP Subtotal": -0.96,
-          "N2O Direct": 2.4115,
-          "N2O Indirect": 819.5314285714285,
-          "N2O-Emission GWP Subtotal": 821.9429285714285,
-          "Activity GWP Subtotal": 0.0,
-          "GWP Total": 820.9829285714285
+          "c_emission_gwp_subtotal": -0.96,
+          "n2o_direct": 3.5775,
+          "n2o_indirect": 0.7658121428571429,
+          "n2o_emission_gwp_subtotal": 4.343312142857143,
+          "activity_gwp_subtotal": 0.0,
+          "gwp_total": 3.383312142857143
      },
-     "Rewetting Outcomes": {
+     "rewet_outcomes": {
           "CH4": 0.01,
           "CO2": 19.37,
-          "C-Emission GWP Subtotal": 19.380000000000003,
-          "N2O Direct": 3.2651785714285717,
-          "N2O Indirect": 1033.7839285714285,
-          "N2O-Emission GWP Subtotal": 1037.049107142857,
-          "Activity GWP Subtotal": 0.039310000000000005,
-          "Product GWP Subtotal": -41.79999999999999,
-          "GWP Total": 1014.6684171428569
+          "c_emission_gwp_subtotal": 19.380000000000003,
+          "n2o_direct": 3.2651785714285717,
+          "n2o_indirect": 0.9209317857142857,
+          "n2o_emission_gwp_subtotal": 4.186110357142858,
+          "activity_gwp_subtotal": 0.039310000000000005,
+          "product_gwp_subtotal": -41.79999999999999,
+          "gwp_total": -18.194579642857132
      },
-     "Carbon Savings": {
-          "GHG Savings Total per Year per Site": -193.68548857142844,
-          "GHG Savings Total per Year per Hectare": -193.68548857142844,
-          "GHG Savings Stock per Year per Site": -20.34,
-          "GHG Savings Stock per Year per Hectare": -20.34,
-          "GHG Savings Product Use per Year per Site": -0.039310000000000005,
-          "GHG Savings Product Use per Year per Hectare": -0.039310000000000005,
-          "Carbon Stock Peat Soil at Start Year (tCO2-eq/site)": 1281.8666666666668,
-          "Carbon Stock Peat Soil at Start Year (ton C/site)": 349.6,
-          "Carbon Stock Peat Soil at Start Year (tCO2-eq/ha)": 1281.8666666666668,
-          "Carbon Stock Peat Soil at Start Year (ton C/ha)": 349.6,
-          "Time until Peat is Lost (Baseline Scenario)": -359.2977735422447,
-          "Time until Peat is Lost (Rewetting Scenario)": 66.17418043718051
+     "carbon_savings": {
+          "ghg_savings_total_per_year_per_site": 21.577891785714275,
+          "ghg_savings_total_per_year_per_ha": 21.577891785714275,
+          "ghg_savings_stock_per_year_per_site": -20.34,
+          "ghg_savings_stock_per_year_per_ha": -20.34,
+          "ghg_savings_flow_per_year_per_site": -0.039310000000000005,
+          "ghg_savings_flow_per_year_per_ha": -0.039310000000000005,
+          "ghg_savings_product_use_per_year_per_site": 41.79999999999999,
+          "ghg_savings_product_use_per_year_per_ha": 41.79999999999999,
+          "carbon_stock_peat_soil_start_year_tco2_per_site": 1281.8666666666668,
+          "carbon_stock_peat_soil_start_year_ton_c_per_site": 349.6,
+          "carbon_stock_peat_soil_start_year_tco2_per_ha": 1281.8666666666668,
+          "carbon_stock_peat_soil_start_year_ton_c_per_ha": 349.6,
+          "time_til_peat_is_lost_base_scenario": -359.2977735422447,
+          "time_til_peat_is_lost_rewet_scenario)": 66.17418043718051
      }
 }
