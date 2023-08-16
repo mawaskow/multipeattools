@@ -1,47 +1,47 @@
 {
-     "General Site Data": {
-          "Site Name": "Dutch Example",
-          "Total Area": 1,
-          "Coordinates": [
+     "gen_site_data": {
+          "site_name": "Dutch Example",
+          "tot_area": 1,
+          "coords": [
                0,
                0
           ],
-          "Elevation": 0,
-          "Peat Type": "Sphagnum",
-          "Peat Thickness": 100,
-          "Year Rewetting Started": 2022
+          "elevation": 0,
+          "peat_type": "Sphagnum",
+          "peat_thick": 100,
+          "year_start": 2022
      },
-     "Baseline": {
-          "Median Groundwater Level in Summer": -10,
-          "Vegetation Class": "G5s:Wet Grassland with Shunt Species",
-          "Animal Manure Applied": 150,
-          "Organic Fertilizer Applied": 10,
-          "Synthetic Fertilizer": "Nitrate Based",
-          "Amount Applied": 20,
-          "Grazing Animals": "No Animal",
-          "Average Number of Grazing Animals": 0,
-          "Average Number of Grazing Days per Year": 0,
-          "Crop Yield": 12,
-          "Crop Residue": "No",
-          "Crop": "Cattail (Typha Sp.)",
-          "Litres of Diesel per Site": 0,
-          "Electricity per Site": 0
+     "base": {
+          "med_gw_level_summer": -10,
+          "veg_class": "G5s:Wet Grassland with Shunt Species",
+          "amount_manure": 150,
+          "amount_org_fert": 10,
+          "type_synth_fert": "Nitrate Based",
+          "amount_synth_fert": 20,
+          "type_animals": "No Animals",
+          "avg_num_animals": 0,
+          "avg_num_days": 0,
+          "crop_yield": 12,
+          "crop_resid": "No",
+          "crop_name": "Cattail (Typha Sp.)",
+          "diesel_per_site": 0,
+          "elec_per_site": 0
      },
-     "Rewetting": {
-          "Median Groundwater Level in Summer": -55,
-          "Vegetation Class": "G2:Moist Grassland",
-          "Animal Manure Applied": 100,
-          "Organic Fertilizer Applied": 50,
-          "Synthetic Fertilizer": "Nitrate Based",
-          "Amount Applied": 50,
-          "Grazing Animals": "Sheep",
-          "Average Number of Grazing Animals": 10,
-          "Average Number of Grazing Days per Year": 100,
-          "Crop Yield": 24,
-          "Crop Residue": "Yes",
-          "Crop": "Alder (Alnus Sp.)",
-          "Litres of Diesel per Site": 10,
-          "Electricity per Site": 10,
-          "Crop Use": "Paper"
+     "rewet": {
+          "med_gw_level_summer": -55,
+          "veg_class": "G2:Moist Grassland",
+          "amount_manure": 100,
+          "amount_org_fert": 50,
+          "type_synth_fert": "Nitrate Based",
+          "amount_synth_fert": 50,
+          "type_animals": "Sheep",
+          "avg_num_animals": 10,
+          "avg_num_days": 100,
+          "crop_yield": 24,
+          "crop_resid": "Yes",
+          "crop_name": "Alder (Alnus Sp.)",
+          "diesel_per_site": 10,
+          "elec_per_site": 10,
+          "crop_use": "Paper"
      }
 }
