@@ -21,7 +21,7 @@
                         <label for="start_yr" class="form-label">Start year</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="start_yr" name="start_yr" value="{{uform['start_yr']}}" min="1900" max="3000" onkeyup="ffp_calculation()" required>
+                        <input type="number" class="validate form-control" id="start_yr" name="start_yr" value="{{uform['start_yr']}}" min="1900" max="3000" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -35,7 +35,7 @@
                         <label for="num_yrs" class="form-label" style="margin-left: 2px;">Project duration</label>
                     </div>
                     <div class="col-4" style="align-items: end;">
-                        <input type="number" class="validate form-control" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}" min="0" max="9999" step="0.001" onkeyup="ffp_calculation()" required>
+                        <input type="number" class="validate form-control" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}" min="0" max="9999" step="0.001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -49,7 +49,7 @@
                         <label for="cred_p_hect_p_yr" class="form-label" style="margin-left: 2px;">Avg. credits/ha/annum</label>
                     </div>
                     <div class="col-4 float-end">
-                        <input type="number" class="validate form-control" id="cred_p_hect_p_yr" name="cred_p_hect_p_yr" value="{{uform['cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                        <input type="number" class="validate form-control" id="cred_p_hect_p_yr" name="cred_p_hect_p_yr" value="{{uform['cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>    
                 <hr class="inf">
@@ -58,7 +58,7 @@
                         <label for="hect_restored" class="form-label">Hectares of potential restoration</label>
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="hect_restored" name="hect_restored" value="{{uform['hect_restored']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                        <input type="number" class="validate form-control" id="hect_restored" name="hect_restored" value="{{uform['hect_restored']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -72,7 +72,7 @@
                         <label for="invest_amt" class="form-label" style="margin-left: 2px; padding-right: 5px;">Investment / Financial inputs (€)</label>
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="invest_amt" name="invest_amt" value="{{uform['invest_amt']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                        <input type="number" class="validate form-control" id="invest_amt" name="invest_amt" value="{{uform['invest_amt']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -82,7 +82,7 @@
                         <div class="col-8">
                             <label for="invest_costs_inc" class="form-check-label">Interest on finance included</label>
                         </div><div class="col-2 justify-content-center" style="justify-content: center;">
-                            <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" checked>
+                            <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" onkeyup="ffp_calculation()" checked>
                         </div>
                         {% else %}
                         <div class="col-8">
@@ -126,7 +126,7 @@
                     <label for="price_p_cred" class="form-label" style="margin-left: 2px; padding-right: 5px; font-weight: 500;">Selling price of a carbon credit (€)</label>
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <div class="empty-spacing" style="padding-top: 20px;"></div>
@@ -213,7 +213,7 @@
                 <div class="col-8">
                     <label for="nom_int_rt" class="form-label">Nominal interest rate (%)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="nom_int_rt" name="nom_int_rt" value="{{aform['nom_int_rt']}}" min="0" max="0.999999" step="0.0001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -221,7 +221,7 @@
                 <div class="col-8">
                     <label for="inflation_rt" class="form-label">Inflation rate (%)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="inflation_rt" name="inflation_rt" value="{{aform['inflation_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="inflation_rt" name="inflation_rt" value="{{aform['inflation_rt']}}" min="0" max="0.999999" step="0.0001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -247,7 +247,7 @@
                         Registry account opening fee (€)</label>
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="reg_acct_open_fee" name="reg_acct_open_fee" value="{{aform['reg_acct_open_fee']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="reg_acct_open_fee" name="reg_acct_open_fee" value="{{aform['reg_acct_open_fee']}}" min="0" max="1000000000" step="0.001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -255,7 +255,7 @@
                 <div class="col-8">
                     <label for="reg_listing_cost_p_credit" class="form-label">Registry listing cost per credit (€)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="reg_listing_cost_p_credit" name="reg_listing_cost_p_credit" value="{{aform['reg_listing_cost_p_credit']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="reg_listing_cost_p_credit" name="reg_listing_cost_p_credit" value="{{aform['reg_listing_cost_p_credit']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -264,7 +264,7 @@
                     <label for="reg_conv_cost_fee_p_inspect" class="form-label">Registry conversion cost fee per inspection (€)</label>
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="reg_conv_cost_fee_p_inspect" name="reg_conv_cost_fee_p_inspect" value="{{aform['reg_conv_cost_fee_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="reg_conv_cost_fee_p_inspect" name="reg_conv_cost_fee_p_inspect" value="{{aform['reg_conv_cost_fee_p_inspect']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -272,7 +272,7 @@
                 <div class="col-8">
                     <label for="reg_conv_cost_p_cred_abv_min_thresh_of_credits" class="form-label">Registry conversion cost per credit above min threshold of credits (€)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="reg_conv_cost_p_cred_abv_min_thresh_of_credits" name="reg_conv_cost_p_cred_abv_min_thresh_of_credits" value="{{aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="reg_conv_cost_p_cred_abv_min_thresh_of_credits" name="reg_conv_cost_p_cred_abv_min_thresh_of_credits" value="{{aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits']}}" min="0" max="0.999999" step="0.0001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -280,7 +280,7 @@
                 <div class="col-8">
                     <label for="reg_levy_cost_p_cred" class="form-label">Registry levy cost per credit (€)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="reg_levy_cost_p_cred" name="reg_levy_cost_p_cred" value="{{aform['reg_levy_cost_p_cred']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="reg_levy_cost_p_cred" name="reg_levy_cost_p_cred" value="{{aform['reg_levy_cost_p_cred']}}" min="0" max="0.999999" step="0.0001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -288,7 +288,7 @@
                 <div class="col-8">
                     <label for="valid_and_verif_app_cost_p_inspect" class="form-label">Validation & verification application cost per inspection (€)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="valid_and_verif_app_cost_p_inspect" name="valid_and_verif_app_cost_p_inspect" value="{{aform['valid_and_verif_app_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="valid_and_verif_app_cost_p_inspect" name="valid_and_verif_app_cost_p_inspect" value="{{aform['valid_and_verif_app_cost_p_inspect']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -296,7 +296,7 @@
                 <div class="col-8">
                     <label for="valid_and_verif_stmnt_cost_p_inspect" class="form-label">Validation & verification statement cost per inspection (€)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="valid_and_verif_stmnt_cost_p_inspect" name="valid_and_verif_stmnt_cost_p_inspect" value="{{aform['valid_and_verif_stmnt_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="valid_and_verif_stmnt_cost_p_inspect" name="valid_and_verif_stmnt_cost_p_inspect" value="{{aform['valid_and_verif_stmnt_cost_p_inspect']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -304,7 +304,7 @@
                 <div class="col-8">
                     <label for="valid_and_verif_inspctr_travel_cost_p_inspect" class="form-label">Validation & verification inspector travel costs per inspection (€)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="valid_and_verif_inspctr_travel_cost_p_inspect" name="valid_and_verif_inspctr_travel_cost_p_inspect" value="{{aform['valid_and_verif_inspctr_travel_cost_p_inspect']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="valid_and_verif_inspctr_travel_cost_p_inspect" name="valid_and_verif_inspctr_travel_cost_p_inspect" value="{{aform['valid_and_verif_inspctr_travel_cost_p_inspect']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -317,7 +317,7 @@
                     </svg>
                     <label for="inspect_cycle_len" class="form-label" style="margin-left: 2px;">Inspection cycle duration in years</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="inspect_cycle_len" name="inspect_cycle_len" value="{{aform['inspect_cycle_len']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="inspect_cycle_len" name="inspect_cycle_len" value="{{aform['inspect_cycle_len']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -331,7 +331,7 @@
                 <div class="col-8">
                     <label for="min_thresh_of_credits" class="form-label">Min. threshold of credits above which registry conversion costs apply</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="min_thresh_of_credits" name="min_thresh_of_credits" value="{{aform['min_thresh_of_credits']}}" min="0" max="1000000000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="min_thresh_of_credits" name="min_thresh_of_credits" value="{{aform['min_thresh_of_credits']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -339,7 +339,7 @@
                 <div class="col-8">
                     <label for="interest_rt" class="form-label">Interest rate (%)</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="interest_rt" name="interest_rt" value="{{aform['interest_rt']}}" min="0" max="0.999999" step="0.000001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="interest_rt" name="interest_rt" value="{{aform['interest_rt']}}" min="0" max="0.999999" step="0.0001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -347,7 +347,7 @@
                 <div class="col-8">
                     <label for="payments_p_yr" class="form-label">Number of payments per year</label>
                 </div><div class="col-4">
-                    <input type="number" class="validate form-control" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.001" onkeyup="ffp_calculation()" required>
+                    <input type="number" class="validate form-control" id="payments_p_yr" name="payments_p_yr" value="{{aform['payments_p_yr']}}" min="0" max="1000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
             </div>
         </div>
