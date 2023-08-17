@@ -1,47 +1,47 @@
 {
      "gen_site_data": {
-          "site_name": "Dutch Example",
-          "tot_area": 1,
+          "site_name": "Test Site",
+          "tot_area": 5,
           "coords": [
-               0,
-               0
+               -56,
+               100
           ],
-          "elevation": 0,
-          "peat_type": "Sphagnum",
-          "peat_thick": 100,
-          "year_start": 2022
+          "elevation": 30,
+          "peat_type": "Woody",
+          "peat_thick": 50,
+          "year_start": 2050
      },
      "base": {
-          "med_gw_level_summer": -10,
-          "veg_class": "G5s:Wet Grassland with Shunt Species",
-          "amount_manure": 150,
-          "amount_org_fert": 10,
-          "type_synth_fert": "Nitrate Based",
-          "amount_synth_fert": 20,
-          "type_animals": "No Animals",
-          "avg_num_animals": 0,
-          "avg_num_days": 0,
-          "crop_yield": 12,
-          "crop_resid": "No",
-          "crop_name": "Cattail (Typha Sp.)",
-          "diesel_per_site": 0,
-          "elec_per_site": 0
-     },
-     "rewet": {
-          "med_gw_level_summer": -55,
-          "veg_class": "G2:Moist Grassland",
-          "amount_manure": 100,
-          "amount_org_fert": 50,
-          "type_synth_fert": "Nitrate Based",
-          "amount_synth_fert": 50,
+          "med_gw_level_summer": -70,
+          "veg_class": "G1:Dry to Moderate Moist Grassland",
+          "amount_manure": 50,
+          "amount_org_fert": 30,
+          "type_synth_fert": "Ammonium Based",
+          "amount_synth_fert": 100,
           "type_animals": "Sheep",
           "avg_num_animals": 10,
-          "avg_num_days": 100,
-          "crop_yield": 24,
+          "avg_num_days": 200,
+          "crop_yield": 50,
           "crop_resid": "Yes",
-          "crop_name": "Alder (Alnus Sp.)",
-          "diesel_per_site": 10,
-          "elec_per_site": 10,
-          "crop_use": "Paper"
+          "crop_name": "Peat Moss (Sphagnum Sp.)",
+          "diesel_per_site": 50,
+          "elec_per_site": 70
+     },
+     "rewet": {
+          "med_gw_level_summer": 0,
+          "veg_class": "U18:Very Wet Phragmites Reeds",
+          "amount_manure": 75,
+          "amount_org_fert": 60,
+          "type_synth_fert": "Ammonium Based",
+          "amount_synth_fert": 60,
+          "type_animals": "Sheep",
+          "avg_num_animals": 20,
+          "avg_num_days": 100,
+          "crop_yield": 100,
+          "crop_resid": "Yes",
+          "crop_name": "Reed (Phragmites australis)",
+          "diesel_per_site": 75,
+          "elec_per_site": 50,
+          "crop_use": "Food Application"
      }
 }
