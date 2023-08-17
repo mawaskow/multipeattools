@@ -209,7 +209,6 @@ gest = dict_of_csvs['GEST_2_Static_Values.csv']
 
 # %%
 data_tab = Create_Data_Tab('user_input_SET.json', gest)
-data_tab
 
 # %% [markdown]
 # Create the Data tab by calling information from the Input json and the Data Tab dataframe. This function takes two parameters. The first is a string of the name of the json file where the user input data is stored, the second is the dataframe which contains the Data Tab dataframe. This function returns a pandas dataframe which contains the output provided in the data tab of the excel file.
@@ -243,7 +242,6 @@ def Create_crop_Use_Tab(user_input, data):
 
 # %%
 crop_use_tab = Create_crop_Use_Tab('user_input_SET.json', data_tab)
-crop_use_tab
 
 # %% [markdown]
 # Create the C Content Soil Tab by using information from the User Input json.
@@ -284,7 +282,6 @@ def Create_C_Content_Soil_Tab(user_input):
 
 # %%
 c_content_tab = Create_C_Content_Soil_Tab('user_input_SET.json')
-c_content_tab
 
 # %% [markdown]
 # Create the Soil Moisture Classes Tab by using information from the User Input json.
@@ -355,7 +352,6 @@ def Create_Soil_Moisture_Classes_Tab(user_input):
 
 # %%
 sm_classes = Create_Soil_Moisture_Classes_Tab('user_input_SET.json')
-sm_classes
 
 # %% [markdown]
 # Functions corresponding to calculations used in the N2O fertilizer tab
@@ -488,8 +484,6 @@ def N_Oxide_Base(manure_applied_base, fert_applied_base, N_amount_base, avg_anim
     N2O_site=N2O_ha*tot_area
     CO2_site_NOxide_base=N2O_site*N2O_CO2eq
 
-    print(CO2_site_NOxide_base)
-    
     return CO2_site_NOxide_base
 
 def Nitrate_Base(manure_applied_base, organic_applied_base, cropresidue_fraction_tot_yield_b, crop_yield, fert_applied_base, tot_area, rewet):
@@ -589,7 +583,6 @@ def Create_Outcome_Tab(user_input, data, crop_use, c_content, gest):
 
 # %%
 outcome = Create_Outcome_Tab('user_input_SET.json', data_tab, crop_use_tab, c_content_tab, gest)
-outcome
 
 # %% [markdown]
 # Create Timeline tab using information from the user input json, GEST 2.0 csv, and the outcome and C content soil tabs.
@@ -654,7 +647,6 @@ def Create_Timeline_tab(user_input, outcome, c_content, gest):
 
 # %%
 timeline = Create_Timeline_tab('user_input_SET.json', outcome, c_content_tab, gest)
-timeline
 
 # %% [markdown]
 # Create Output tab using information from the user input json, soil moisture classes, data, outcome, and C content soil tabs.
