@@ -80,19 +80,13 @@ button.btn-success:hover{
     color: #396d85;
 }
 
-.btn.btn-success.active,
 .btn.btn-success:active {
   color: #396d85;
   background-color: #91c0d6;
   border-color: transparent;
   outline: none;
 }
-.btn.btn-success.active.focus,
-.btn.btn-success.active:focus,
-.btn.btn-success.active:hover,
-.btn.btn-success:active.focus,
-.btn.btn-success:active:focus,
-.btn.btn-success:active:hover,
+
 .btn.btn-success:focus {
   color: #1c4558;
   background-color: #5d8fa7;
@@ -131,11 +125,6 @@ button.btn-success:hover{
 }
 
 .form-switch{
-    /*
-    padding-top:0;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;*/
     padding: 0 0 0 0;
     margin: 0 0 0 0;
 }
@@ -157,32 +146,42 @@ button.btn-success:hover{
     border-radius: 0;
 }
 
-.info-icon:active, 
-.info-icon:focus,
-.info-icon.active.focus,
-.info-icon.active:focus,
-.info-icon:active.focus,
-.info-icon:active:focus{
-    border-color: aqua;
-    background-color: yellow;
-    background: red;
-}
-
-svg > a > image:focus,
-svg > a:focus,
-svg:focus{
+/*removes black border when click on info box*/
+svg > a:focus{
     outline: transparent none 0px;
 }
 
-/*
-.custom-tooltip.tooltip > .tooltip-inner
+.tooltip > .tooltip-inner
 {
     text-align: left;
     color: #1A1A1A;
-    background: whitesmoke;
+    background: white;
+    padding: 10px;
+    margin: 9px;
+    /*border: 2px solid;*/
+    box-shadow: 3px 3px 5px rgb(175, 175, 175);
+}
+
+.tooltip{
     opacity: 1 !important;
 }
-.custom-tooltip.tooltip > .tooltip-arrow::before{
-    border-color: whitesmoke;
+
+.tooltip .tooltip-arrow::before{
+    /*border-right-color: white !important;
+    border-left-color: white !important;*/
+    border-width: .6rem !important;
 }
-*/
+
+.tooltip.bs-tooltip-left .tooltip-arrow::before{
+    border-left-color: white !important;
+}
+
+.bs-tooltip-left .arrow::before{
+    border-left-color: white !important;
+}
+
+.tooltip .tooltip-arrow{
+    width: .9rem !important;
+    height: .45rem !important;
+}
+
