@@ -92,7 +92,8 @@ button.btn-success:hover{
 .btn.btn-success.active:hover,
 .btn.btn-success:active.focus,
 .btn.btn-success:active:focus,
-.btn.btn-success:active:hover {
+.btn.btn-success:active:hover,
+.btn.btn-success:focus {
   color: #1c4558;
   background-color: #5d8fa7;
   border-color: transparent;
@@ -156,3 +157,32 @@ button.btn-success:hover{
     border-radius: 0;
 }
 
+.info-icon:active, 
+.info-icon:focus,
+.info-icon.active.focus,
+.info-icon.active:focus,
+.info-icon:active.focus,
+.info-icon:active:focus{
+    border-color: aqua;
+    background-color: yellow;
+    background: red;
+}
+
+svg > a > image:focus,
+svg > a:focus,
+svg:focus{
+    outline: transparent none 0px;
+}
+
+/*
+.custom-tooltip.tooltip > .tooltip-inner
+{
+    text-align: left;
+    color: #1A1A1A;
+    background: whitesmoke;
+    opacity: 1 !important;
+}
+.custom-tooltip.tooltip > .tooltip-arrow::before{
+    border-color: whitesmoke;
+}
+*/

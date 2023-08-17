@@ -28,8 +28,8 @@
                 <div class="row align-items-center">
                     <div class="col-8">
                         <svg height="20" width="20">
-                            <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="How many years will the project take to restore the wetlands to your chosen soil moisture class. See the Site Emissions Tool for further information.">
-                                <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                            <a data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="left" data-bs-html="true" data-bs-title="How many years the project will take to restore the wetlands to your chosen soil moisture class. See the <a href={{ url_for('set_tool') }}>Site Emissions Tool</a> for further information.">
+                                <image class="info-icon" xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
                             </a>
                         </svg>
                         <label for="num_yrs" class="form-label" style="margin-left: 2px;">Project duration</label>
@@ -42,7 +42,7 @@
                 <div class="row align-items-center">
                     <div class="col-8 float-start">
                         <svg height="20" width="20">
-                            <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Average credits generated per hectares per year can be taken from the literature or similar projects and are only needed as an initial non-technical indicative input. A more technical input can be taken from the SET tool.">
+                            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" data-bs-title="Average credits generated per hectares per year can be taken from the literature or similar projects and are only needed as an initial non-technical indicative input. A more technical input can be taken from the <a href={{ url_for('set_tool') }}>SET tool</a>.">
                                 <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
                             </a>
                         </svg>
@@ -65,7 +65,7 @@
                 <div class="row align-items-center">
                     <div class="col-8">
                         <svg height="20" width="20">
-                            <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="This is the total cost of servicing a loan or an investment over the duration of the project. It may, or may not, include the Interest due to service the loan, or the Registry costs. It does not include labour.">
+                            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="This is the total cost of servicing a loan or an investment over the duration of the project. It may, or may not, include the Interest due to service the loan, or the Registry costs. It does not include labour.">
                                 <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
                             </a>
                         </svg>
@@ -119,7 +119,7 @@
             <div class="row align-items-center">
                 <div class="col-8">
                     <svg height="20" width="20">
-                        <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Adjust this amount so that the profitable box below shows 'YES'. This is the threshold above which your project will be profitable.">
+                        <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Adjust this amount so that the profitable box below shows 'YES'. This is the threshold above which your project will be profitable.">
                             <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
                         </a>
                     </svg>
@@ -202,7 +202,7 @@
         <div class="empty-spacing" style="padding-top: 20px;"></div>
         <p style="font-weight: 600;">
             <svg height="20" width="20">
-                <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Use long-term nominal interest rate and inflation rate for amending the value of money. Long-term fifty-year nominal interest rate and inflation rate are publicised by central banks.">
+                <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Use long-term nominal interest rate and inflation rate for amending the value of money. Long-term fifty-year nominal interest rate and inflation rate are publicised by central banks.">
                     <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
                 </a>
             </svg>
@@ -229,7 +229,7 @@
         <div class="empty-spacing" style="padding-top: 20px;"></div>
         <p style="font-weight: 600;">
             <svg height="20" width="20">
-                <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Use the carbon registry costs associated with the specific certification organisation that is anticipated to process and verify the sale of carbon credits from your specific project.">
+                <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Use the carbon registry costs associated with the specific certification organisation that is anticipated to process and verify the sale of carbon credits from your specific project.">
                     <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
                 </a>
             </svg>
@@ -238,12 +238,12 @@
         <div style="margin-left: 25px;">
             <div class="row align-items-center">
                 <div class="col-8">
+                    <svg height="20" width="20">
+                        <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="This a once-off fee when you open your chosen registry account.">
+                            <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                        </a>
+                    </svg>
                     <label for="reg_acct_open_fee" class="form-label" style="margin-left: 2px;">
-                        <svg height="20" width="20">
-                            <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="This a once-off fee when you open your chosen registry account.">
-                                <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
-                            </a>
-                        </svg>
                         Registry account opening fee (€)</label>
                 </div>
                 <div class="col-4">
@@ -311,7 +311,7 @@
             <div class="row align-items-center justify-content-between">
                 <div class="col-8">
                     <svg height="20" width="20">
-                        <a data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="One inspection per cycle.">
+                        <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="One inspection per cycle.">
                             <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
                         </a>
                     </svg>
