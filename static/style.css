@@ -67,6 +67,15 @@ body{
     background-color: whitesmoke;
 }
 
+/*
+    _________   _________   __________
+    |  ______|  |  ______|  |   ___   |
+    |  |_____   |  |_____   |  |___|  |
+    |  ______|  |  ______|  |   ______|
+    |  |        |  |        |  |
+    |__|        |__|        |__|
+*/
+
 /* button */
 
 button.btn-success{
@@ -200,5 +209,61 @@ svg > a:focus{
 .tooltip .tooltip-arrow{
     width: .9rem !important;
     height: .45rem !important;
+}
+*/
+
+/*
+    _________   _________   __________
+    |  ______|  |  ______|  |___   ___|
+    |  |_____   |  |_____       |  |
+    |____   |   |  ______|      |  |
+    _____|  |   |  |_____       |  |
+    |_______|   |________|      |__|
+*/
+
+.set-input-div{
+    background-color: #b8cede;   
+    border-radius: 20px;
+}
+
+.set-base-div{
+    background-color: #cbdfe9;   
+    border-radius: 20px;
+}
+
+.set-rewet-div{
+    background-color: #b1c8cf;   
+    border-radius: 20px;
+}
+
+/*
+.set_submit{
+
+}
+
+button.btn-success{
+    background: #5C93AC;
+    border-color: transparent;
+}
+
+button.btn-success:hover{
+    background: #91c0d6;
+    border-color: transparent;
+    color: #396d85;
+}
+
+.btn.btn-success:active {
+  color: #396d85;
+  background-color: #91c0d6;
+  border-color: transparent;
+  outline: none;
+}
+
+.btn.btn-success:focus {
+  color: #1c4558;
+  background-color: #5d8fa7;
+  border-color: transparent;
+  outline: none;
+  box-shadow: none;
 }
 */

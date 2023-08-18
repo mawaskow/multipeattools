@@ -2,13 +2,514 @@
 
 {% block title %}SET Tool{% endblock %}
 {% block content %}
-<div class="textchunk">
-<h4>The SET Tool</h4>
-<p>With this tool, you have the ability to predict Site Emissions.</p>
-
-<h5>Model Parameters</h5>
-
-<p>Default settings are populated into the below form.</p>
-<p>Change values if needed then press submit to run the model.</p>
+<div class="empty-spacing" style="padding-top: 10px;"></div>
+<div class="container textchunk set-input-div" style="max-width: 900px; display: grid;">
+    <div style="margin-left: 25px;">
+        <h4 style="font-weight: bold; justify-content: center;">
+            SITE EMISSIONS TOOL
+            <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center" style="padding-left: 10px;">
+        </h4>
+        <p style="padding-top: 10px; color:#00705e" class="text-descr">SET determines the amount of carbon in the soil at the start of your project and subtracts the carbon that <i>would</i> be emitted each year as the peat degrades. It uses 'avoidance' rather than 'sequestration' to assess carbon.</p>
+    </div>
+    <div class="empty-spacing" style="padding-top: 15px;"></div>
+    <form action="/settool" method="POST" id="set-form" enctype=multipart/form-data>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <label for="site_name" class="form-label">Site Name</label> 
+            </div>
+            <div class="col-4">
+                <input type="text" class="validate form-control" id="site_name" name="site_name" required>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <label for="tot_area" class="form-label">Total area in ha.</label> 
+            </div>
+            <div class="col-4">
+                <input type="number" class="validate form-control" id="tot_area" name="tot_area" min="0" max="9999" step="0.01" required>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <svg height="20" width="20">
+                    <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Coordinates of site.">
+                        <image xlink:href="{{ url_for('static', filename='info-square-fill.svg') }}"></image>
+                    </a>
+                </svg>
+                <label for="coords" class="form-label" style="margin-left: 2px;">Coordinates</label> 
+            </div>
+            <div class="col-4">
+                <input type="text" class="validate form-control" id="coords" name="coords" required>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <label for="peat_type" class="form-label">Peat type</label> 
+            </div>
+            <div class="col-4">
+                <select class="validate form-select" id="peat_type" name="peat_type" required>
+                    <option selected>Select peat type</option>
+                    <option value="sphag">Sphagnum</option>
+                    <option value="herbac">Herbaceous</option>
+                    <option value="woody">Woody</option>
+                    <option value="bromo">Brown moss</option>
+                    <option value="unkno">Unknown</option>
+                    <option value="humidif">Humidified</option>
+                </select>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <label for="peat_thick" class="form-label">Peat thickness (cm)</label> 
+            </div>
+            <div class="col-4">
+                <input type="number" class="validate form-control" id="peat_thick" name="peat_thick" min="0" max="9999" step="0.01" required>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-8">
+                <label for="year_start" class="form-label">Year rewetting started</label> 
+            </div>
+            <div class="col-4">
+                <input type="number" class="validate form-control" id="year_start" name="year_start" min="1900" max="3000" required>
+            </div>
+        </div>
+        <div class="empty-spacing" style="padding-top: 15px;"></div>
+        <div class="container textchunk set-base-div">
+            <h5 style="font-weight: bold;">Baseline: groundwater and vegetation</h5>
+            <div class="empty-spacing" style="padding-top: 10px;"></div>
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="med_gw_level_summer" class="form-label">Median groundwater level in summer (cm)</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="med_gw_level_summer" name="med_gw_level_summer" min="-999" max="999" step="0.001" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="veg_class" class="form-label">Vegetation class</label> 
+                </div>
+                <div class="col-4">
+                    <select class="validate form-select" id="veg_class" name="veg_class" required>
+                        <option selected>Select class</option>
+                        <option value="G1">Dry to moderately moist grassland</option>
+                        <option value="G2">Moist grassland</option>
+                        <option value="G3">Moist to very moist grassland</option>
+                        <option value="G3f">Periodically flooded grasslands</option>
+                        <option value="G3s">Moist to very moist grassland with shunt species</option>
+                        <option value="G3m">Moist to very moist acidic Molinia meadows</option>
+                        <option value="G4">Very moist grassland</option>
+                        <option value="G4s">Very moist grassland with shunt species</option>
+                        <option value="G5">Wet grassland</option>
+                        <option value="G5s">Wet grassland with shunt species</option>
+                        <option value="A1">Dry to moderately moist arable land</option>
+                        <option value="A2">Moist arable land</option>
+                        <option value="U1">Moist bare peat</option>
+                        <option value="U2">Moist bog heath</option>
+                        <option value="U3">Moist Reeds</option>
+                        <option value="U6">Very moist bog heath</option>
+                        <option value="U7">Very moist forbs and sedges</option>
+                        <option value="U8">Very moist Sphagnum lawn</option>
+                        <option value="U9">Very moist tall sedges</option>
+                        <option value="U10">Wet bare peat</option>
+                        <option value="U11">Wet meadows and forbs</option>
+                        <option value="U12">Wet small sedges with mosses</option>
+                        <option value="U13">Wet sphagnum lawn</option>
+                        <option value="U14">Wet tall reeds</option>
+                        <option value="U15">Wet tall sedges</option>
+                        <option value="U16">Wet bog heath</option>
+                        <option value="U17">Very wet tall sedges and Typha</option>
+                        <option value="U18">Very wet Phragmites reeds</option>
+                        <option value="U19">Wet to very wet Sphagnum hollows</option>
+                        <option value="U20">Flooded tall reeds (> 20 cm above surface)</option>
+                        <option value="S1">Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                        <option value="S2">Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                        <option value="S3">Cropland (2+) flooded in summer (wet year)</option>
+                        <option value="S4">Grassland (2+/3+) flooded in summer (wet year)</option>
+                        <option value="S5">Simulated harvest (Paludiculture)</option>
+                        <option value="S6">Wet tall reeds (dry year)</option>
+                        <option value="S7">Very wet reeds with lateral import of organic matter</option>
+                        <option value="S8">Ditches in low intensity grassland</option>
+                    </select>
+                </div>
+            </div>
+            <div class="empty-spacing" style="padding-top: 15px;"></div>
+            <div class="container textchunk set-rewet-div">
+                <h5 style="font-weight: bold;">After rewetting: groundwater and vegetation</h5>
+                <div class="empty-spacing" style="padding-top: 10px;"></div>
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="med_gw_level_summer" class="form-label">Median groundwater level in summer (cm)</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="med_gw_level_summer" name="med_gw_level_summer" min="-999" max="999" step="0.001" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="veg_class" class="form-label">Vegetation class</label> 
+                    </div>
+                    <div class="col-4">
+                        <select class="validate form-select" id="veg_class" name="veg_class" required>
+                            <option selected>Select class</option>
+                            <option value="G1">Dry to moderately moist grassland</option>
+                            <option value="G2">Moist grassland</option>
+                            <option value="G3">Moist to very moist grassland</option>
+                            <option value="G3f">Periodically flooded grasslands</option>
+                            <option value="G3s">Moist to very moist grassland with shunt species</option>
+                            <option value="G3m">Moist to very moist acidic Molinia meadows</option>
+                            <option value="G4">Very moist grassland</option>
+                            <option value="G4s">Very moist grassland with shunt species</option>
+                            <option value="G5">Wet grassland</option>
+                            <option value="G5s">Wet grassland with shunt species</option>
+                            <option value="A1">Dry to moderately moist arable land</option>
+                            <option value="A2">Moist arable land</option>
+                            <option value="U1">Moist bare peat</option>
+                            <option value="U2">Moist bog heath</option>
+                            <option value="U3">Moist Reeds</option>
+                            <option value="U6">Very moist bog heath</option>
+                            <option value="U7">Very moist forbs and sedges</option>
+                            <option value="U8">Very moist Sphagnum lawn</option>
+                            <option value="U9">Very moist tall sedges</option>
+                            <option value="U10">Wet bare peat</option>
+                            <option value="U11">Wet meadows and forbs</option>
+                            <option value="U12">Wet small sedges with mosses</option>
+                            <option value="U13">Wet sphagnum lawn</option>
+                            <option value="U14">Wet tall reeds</option>
+                            <option value="U15">Wet tall sedges</option>
+                            <option value="U16">Wet bog heath</option>
+                            <option value="U17">Very wet tall sedges and Typha</option>
+                            <option value="U18">Very wet Phragmites reeds</option>
+                            <option value="U19">Wet to very wet Sphagnum hollows</option>
+                            <option value="U20">Flooded tall reeds (> 20 cm above surface)</option>
+                            <option value="S1">Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                            <option value="S2">Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                            <option value="S3">Cropland (2+) flooded in summer (wet year)</option>
+                            <option value="S4">Grassland (2+/3+) flooded in summer (wet year)</option>
+                            <option value="S5">Simulated harvest (Paludiculture)</option>
+                            <option value="S6">Wet tall reeds (dry year)</option>
+                            <option value="S7">Very wet reeds with lateral import of organic matter</option>
+                            <option value="S8">Ditches in low intensity grassland</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="empty-spacing" style="padding-top: 15px;"></div>
+        <div class="container textchunk set-base-div">
+            <h5 style="font-weight: bold;">Baseline: fertiliser use</h5>
+            <div class="empty-spacing" style="padding-top: 15px;"></div>
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="amount_manure" class="form-label">Animal manure applied (k N/h)</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="amount_manure" name="amount_manure" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="amount_org_fert" class="form-label">Organic fertilizer applied (k N/h)</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="amount_org_fert" name="amount_org_fert" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                </div>
+                <div class="col-4">
+                    <select class="validate form-select" id="type_synth_fert" name="type_synth_fert" required>
+                        <option selected>Select type</option>
+                        <option value="nitrate">Nitrate based</option>
+                        <option value="ammonium">Ammonium based</option>
+                    </select>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="amount_synth_fert" name="amount_synth_fert" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="type_animals" class="form-label">Grazing animals</label> 
+                </div>
+                <div class="col-4">
+                    <select class="validate form-select" id="type_animals" name="type_animals" required>
+                        <option selected>Select type</option>
+                        <option value="none">No animal</option>
+                        <option value="dairy">Dairy cows</option>
+                        <option value="beef">Beef cattle</option>
+                        <option value="sheep">Sheep</option>
+                        <option value="goat">Goat</option>
+                        <option value="buff">Water buffalo</option>
+                    </select>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="avg_num_animals" name="avg_num_animals" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="avg_num_days" class="form-label">Average grazing days per year</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="avg_num_days" name="avg_num_days" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="crop_yield" name="crop_yield" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="form-check form-switch" style="display: grid;">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-8">
+                        <label for="crop_resid" class="form-check-label">Crop residues</label>
+                    </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                        <input type="checkbox" class="form-check-input" role="switch" id="crop_resid" name="crop_resid" checked>
+                    </div>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="crop_name" class="form-label">Crop</label> 
+                </div>
+                <div class="col-4">
+                    <select class="validate form-select" id="crop_name" name="crop_name" required>
+                        <option selected>Select type</option>
+                        <option value="cat">Cattail (Typha sp.)</option>
+                        <option value="reed">Reed (Phragmites australis)</option>
+                        <option value="sphag">Peat moss (Sphagnum sp.)</option>
+                        <option value="grass">Grasses like reed canary grass</option>
+                        <option value="alder">Alder (Alnus sp.)</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="empty-spacing" style="padding-top: 15px;"></div>
+            <div class="container textchunk set-rewet-div">
+                <h5 style="font-weight: bold;">After rewetting: fertiliser use</h5>
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="amount_manure" class="form-label">Animal manure applied (k N/h)</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="amount_manure" name="amount_manure" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="amount_org_fert" class="form-label">Organic fertilizer applied (k N/h)</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="amount_org_fert" name="amount_org_fert" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                    </div>
+                    <div class="col-4">
+                        <select class="validate form-select" id="type_synth_fert" name="type_synth_fert" required>
+                            <option selected>Select type</option>
+                            <option value="nitrate">Nitrate based</option>
+                            <option value="ammonium">Ammonium based</option>
+                        </select>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="amount_synth_fert" name="amount_synth_fert" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="type_animals" class="form-label">Grazing animals</label> 
+                    </div>
+                    <div class="col-4">
+                        <select class="validate form-select" id="type_animals" name="type_animals" required>
+                            <option selected>Select type</option>
+                            <option value="none">No animal</option>
+                            <option value="dairy">Dairy cows</option>
+                            <option value="beef">Beef cattle</option>
+                            <option value="sheep">Sheep</option>
+                            <option value="goat">Goat</option>
+                            <option value="buff">Water buffalo</option>
+                        </select>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="avg_num_animals" name="avg_num_animals" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="avg_num_days" class="form-label">Average grazing days per year</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="avg_num_days" name="avg_num_days" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="crop_yield" name="crop_yield" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="form-check form-switch" style="display: grid;">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-8">
+                            <label for="crop_resid" class="form-check-label">Crop residues</label>
+                        </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                            <input type="checkbox" class="form-check-input" role="switch" id="crop_resid" name="crop_resid" checked>
+                        </div>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="crop_name" class="form-label">Crop</label> 
+                    </div>
+                    <div class="col-4">
+                        <select class="validate form-select" id="crop_name" name="crop_name" required>
+                            <option selected>Select type</option>
+                            <option value="cat">Cattail (Typha sp.)</option>
+                            <option value="reed">Reed (Phragmites australis)</option>
+                            <option value="sphag">Peat moss (Sphagnum sp.)</option>
+                            <option value="grass">Grasses like reed canary grass</option>
+                            <option value="alder">Alder (Alnus sp.)</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="empty-spacing" style="padding-top: 15px;"></div>
+        <div class="container textchunk set-base-div">
+            <h5 style="font-weight: bold;">Baseline: land management activity</h5>
+            <div class="empty-spacing" style="padding-top: 15px;"></div>
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="diesel_per_site" class="form-label">Diesel Use</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="diesel_per_site" name="diesel_per_site" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="elec_per_site" class="form-label">Electricity Use (kW)</label> 
+                </div>
+                <div class="col-4">
+                    <input type="number" class="validate form-control" id="elec_per_site" name="elec_per_site" min="0" max="9999" step="0.01" required>
+                </div>
+            </div>
+            <div class="empty-spacing" style="padding-top: 15px;"></div>
+            <div class="container textchunk set-rewet-div">
+                <h5 style="font-weight: bold;">After rewetting: land management activity</h5>
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="diesel_per_site" class="form-label">Diesel Use</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="diesel_per_site" name="diesel_per_site" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+                <hr class="inf">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="elec_per_site" class="form-label">Electricity Use (kW)</label> 
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="validate form-control" id="elec_per_site" name="elec_per_site" min="0" max="9999" step="0.01" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="empty-spacing" style="padding-top: 15px;"></div>
+        <div class="container textchunk set-base-div">
+            <div class="container textchunk set-rewet-div">
+                <h5 style="font-weight: bold;">Rewetting: crop use</h5>
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <label for="crop_use" class="form-label">Crop Use</label> 
+                    </div>
+                    <div class="col-4">
+                        <select class="validate form-select" id="crop_use" name="crop_use" required>
+                            <option selected>Select type</option>
+                            <option value="build">Building material (e.g. insulation, tachine, timber)</option>
+                            <option value="bed">Bedding material</option>
+                            <option value="food">Food application</option>
+                            <option value="feed">Fodder/feed application</option>
+                            <option value="energy">Energy use (e.g. biogas, combustion, wood)</option>
+                            <option value="paper">Paper</option>
+                            <option value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
+                            <option value="substr">High quality substrate in agriculture</option>
+                            <option value="other">Other uses/ unknown</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="set_submit" class="btn btn-success btn-sm" style="font-weight: 500;">Submit</button>
+    </form>
 </div>
+
+<!--popover script-->
+<script>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
 {% endblock %}
