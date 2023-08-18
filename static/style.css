@@ -224,16 +224,23 @@ svg > a:focus{
 .set-input-div{
     background-color: #b8cede;   
     border-radius: 20px;
+    padding: 20px 20px 20px 20px;
 }
 
 .set-base-div{
     background-color: #cbdfe9;   
     border-radius: 20px;
+    padding: 20px 20px 20px 20px;
+}
+
+.upper-base{
+    padding: 0px 20px 0px 20px;
 }
 
 .set-rewet-div{
     background-color: #b1c8cf;   
     border-radius: 20px;
+    padding: 20px 20px 20px 20px;
 }
 
 /*
