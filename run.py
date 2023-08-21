@@ -3,13 +3,10 @@ from sys import exit
 from flask import Flask
 from flask import url_for, render_template, flash, request, redirect
 from werkzeug.utils import secure_filename
-import glob
-import json
 from flask_wtf.csrf import CSRFProtect
 #
 from modules import parse_assum, update_assum, parse_usrinp, update_usrinp, assum_json_to_dict, usrinp_json_to_dict, assum_form_to_dict, usrinp_form_to_dict
-from VSCode_FF_Eqns import Output_From_Json, Convert_to_Json
-from Python_FeasibilityModel import Conditional_Executor
+from ffp import Conditional_Executor
 
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -28,10 +25,10 @@ APP CONFIGURATION
 ALLOWED_EXTENSIONS = {'txt', 'json'}
 
 #FFP ASSUMPTION FORM
-FFP_INIT_ASSUM_FILE = "./static/initial_assumptions.json"
+FFP_INIT_ASSUM_FILE = "./inputs/initial_assumptions.json"
 FFP_FIN_ASSUM_FILE = "./inputs/final_assumptions.json"
 #FFP USER INPUT FORM
-FFP_INIT_USR_INP_FILE = "./static/user_input_default.json"
+FFP_INIT_USR_INP_FILE = "./inputs/user_input_default.json"
 FFP_FIN_USR_INP_FILE = "./inputs/user_input_data.json"
 
 '''
