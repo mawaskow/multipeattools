@@ -21,7 +21,7 @@
                     <label for="site_name" class="form-label">Site Name</label> 
                 </div>
                 <div class="col-6">
-                    <input type="text" class="validate form-control" id="site_name" name="site_name" required>
+                    <input type="text" class="validate form-control" id="site_name" name="site_name" value="{{inpt['gen_site_data']['site_name']}}" required>
                 </div>
             </div>
             <hr class="inf">
@@ -30,7 +30,7 @@
                     <label for="tot_area" class="form-label">Total area in ha.</label> 
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="tot_area" name="tot_area" min="0" max="9999" step="0.01" required>
+                    <input type="number" class="validate form-control" id="tot_area" name="tot_area" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['tot_area']}}" required>
                 </div>
             </div>
             <hr class="inf">
@@ -44,7 +44,16 @@
                     <label for="coords" class="form-label" style="margin-left: 2px;">Coordinates</label> 
                 </div>
                 <div class="col-6">
-                    <input type="text" class="validate form-control" id="coords" name="coords" required>
+                    <input type="text" class="validate form-control" id="coords" name="coords" value="{{inpt['gen_site_data']['coords']}}" required>
+                </div>
+            </div>
+            <hr class="inf">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <label for="elevation" class="form-label">Elevation</label> 
+                </div>
+                <div class="col-4">
+                    <input type="text" class="validate form-control" id="elevation" name="elevation" value="{{inpt['gen_site_data']['elevation']}}" required>
                 </div>
             </div>
             <hr class="inf">
@@ -53,11 +62,11 @@
                     <label for="peat_type" class="form-label">Peat type</label> 
                 </div>
                 <div class="col-6">
-                    <select class="validate form-select" id="peat_type" name="peat_type" required>
-                        <option selected>Select peat type</option>
+                    <select class="validate form-select" id="peat_type" name="peat_type" value="{{inpt['gen_site_data']['peat_type']}}" required>
+                        <!--<option selected>Select peat type</option>-->
                         <option value="sphag">Sphagnum</option>
                         <option value="herbac">Herbaceous</option>
-                        <option value="woody">Woody</option>
+                        <option selected value="woody">Woody</option>
                         <option value="bromo">Brown moss</option>
                         <option value="unkno">Unknown</option>
                         <option value="humidif">Humidified</option>
@@ -70,7 +79,7 @@
                     <label for="peat_thick" class="form-label">Peat thickness (cm)</label> 
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="peat_thick" name="peat_thick" min="0" max="9999" step="0.01" required>
+                    <input type="number" class="validate form-control" id="peat_thick" name="peat_thick" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['peat_thick']}}" required>
                 </div>
             </div>
             <hr class="inf">
@@ -79,7 +88,7 @@
                     <label for="year_start" class="form-label">Year rewetting started</label> 
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="year_start" name="year_start" min="1900" max="3000" required>
+                    <input type="number" class="validate form-control" id="year_start" name="year_start" min="1900" max="3000" value="{{inpt['gen_site_data']['year_start']}}" required>
                 </div>
             </div>
         </div>
@@ -98,7 +107,7 @@
                         <label for="bs_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" required>
+                        <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -113,8 +122,7 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" required>
-                            <option selected>Select class</option>
-                            <option value="G1">Dry to moderately moist grassland</option>
+                            <option selected value="G1">Dry to moderately moist grassland</option>
                             <option value="G2">Moist grassland</option>
                             <option value="G3">Moist to very moist grassland</option>
                             <option value="G3f">Periodically flooded grasslands</option>
@@ -170,7 +178,7 @@
                         <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" required>
+                        <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -185,7 +193,6 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" required>
-                            <option selected>Select class</option>
                             <option value="G1">Dry to moderately moist grassland</option>
                             <option value="G2">Moist grassland</option>
                             <option value="G3">Moist to very moist grassland</option>
@@ -213,7 +220,7 @@
                             <option value="U15">Wet tall sedges</option>
                             <option value="U16">Wet bog heath</option>
                             <option value="U17">Very wet tall sedges and Typha</option>
-                            <option value="U18">Very wet Phragmites reeds</option>
+                            <option selected value="U18">Very wet Phragmites reeds</option>
                             <option value="U19">Wet to very wet Sphagnum hollows</option>
                             <option value="U20">Flooded tall reeds (> 20 cm above surface)</option>
                             <option value="S1">Dry to moderately moist grassland on peaty soils (Anmoor)</option>
@@ -244,7 +251,7 @@
                         <label for="bs_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -258,7 +265,7 @@
                         <label for="bs_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -268,9 +275,8 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" required>
-                            <option selected>Select type</option>
                             <option value="nitrate">Nitrate based</option>
-                            <option value="ammonium">Ammonium based</option>
+                            <option selected value="ammonium">Ammonium based</option>
                         </select>
                     </div>
                 </div>
@@ -280,7 +286,7 @@
                         <label for="bs_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_synth_fert']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -290,11 +296,10 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" required>
-                            <option selected>Select type</option>
                             <option value="none">No animal</option>
                             <option value="dairy">Dairy cows</option>
                             <option value="beef">Beef cattle</option>
-                            <option value="sheep">Sheep</option>
+                            <option selected value="sheep">Sheep</option>
                             <option value="goat">Goat</option>
                             <option value="buff">Water buffalo</option>
                         </select>
@@ -306,7 +311,7 @@
                         <label for="bs_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_animals']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -315,7 +320,7 @@
                         <label for="bs_avg_num_days" class="form-label">Average grazing days per year</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_days']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -324,7 +329,7 @@
                         <label for="bs_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['base']['crop_yield']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -333,7 +338,7 @@
                         <div class="col-8">
                             <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
                         </div><div class="col-2 justify-content-center" style="justify-content: center;">
-                            <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" checked>
+                            <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" value="{{inpt['base']['crop_resid']}}" checked>
                         </div>
                     </div>
                 </div>
@@ -344,10 +349,9 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" required>
-                            <option selected>Select type</option>
                             <option value="cat">Cattail (Typha sp.)</option>
                             <option value="reed">Reed (Phragmites australis)</option>
-                            <option value="sphag">Peat moss (Sphagnum sp.)</option>
+                            <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
                             <option value="grass">Grasses like reed canary grass</option>
                             <option value="alder">Alder (Alnus sp.)</option>
                             <option value="other">Other</option>
@@ -369,7 +373,7 @@
                         <label for="rw_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -383,7 +387,7 @@
                         <label for="rw_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -393,9 +397,8 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" required>
-                            <option selected>Select type</option>
                             <option value="nitrate">Nitrate based</option>
-                            <option value="ammonium">Ammonium based</option>
+                            <option selected value="ammonium">Ammonium based</option>
                         </select>
                     </div>
                 </div>
@@ -405,7 +408,7 @@
                         <label for="rw_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_synth_fert']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -415,11 +418,10 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" required>
-                            <option selected>Select type</option>
                             <option value="none">No animal</option>
                             <option value="dairy">Dairy cows</option>
                             <option value="beef">Beef cattle</option>
-                            <option value="sheep">Sheep</option>
+                            <option selected value="sheep">Sheep</option>
                             <option value="goat">Goat</option>
                             <option value="buff">Water buffalo</option>
                         </select>
@@ -431,7 +433,7 @@
                         <label for="rw_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_animals']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -440,7 +442,7 @@
                         <label for="rw_avg_num_days" class="form-label">Average grazing days per year</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_days']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -449,7 +451,7 @@
                         <label for="rw_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['rewet']['crop_yield']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -469,9 +471,8 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" required>
-                            <option selected>Select type</option>
                             <option value="cat">Cattail (Typha sp.)</option>
-                            <option value="reed">Reed (Phragmites australis)</option>
+                            <option selected value="reed">Reed (Phragmites australis)</option>
                             <option value="sphag">Peat moss (Sphagnum sp.)</option>
                             <option value="grass">Grasses like reed canary grass</option>
                             <option value="alder">Alder (Alnus sp.)</option>
@@ -496,7 +497,7 @@
                         <label for="bs_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -510,7 +511,7 @@
                         <label for="bs_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" required>
                     </div>
                 </div>
             </div>
@@ -528,7 +529,7 @@
                         <label for="rw_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" required>
                     </div>
                 </div>
                 <hr class="inf">
@@ -542,7 +543,7 @@
                         <label for="rw_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
                     </div>
                     <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" required>
+                        <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" required>
                     </div>
                 </div>
             </div>
@@ -563,10 +564,9 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" required>
-                            <option selected>Select type</option>
                             <option value="build">Building material (e.g. insulation, tachine, timber)</option>
                             <option value="bed">Bedding material</option>
-                            <option value="food">Food application</option>
+                            <option selected value="food">Food application</option>
                             <option value="feed">Fodder/feed application</option>
                             <option value="energy">Energy use (e.g. biogas, combustion, wood)</option>
                             <option value="paper">Paper</option>
@@ -586,6 +586,9 @@
     </form>
 </div>
 
+<div>
+    <p>{{results}}</p>
+</div>
 
 <!--popover script-->
 <script>

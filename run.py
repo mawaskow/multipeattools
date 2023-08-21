@@ -1,12 +1,14 @@
 import os
+import json
 from sys import exit
 from flask import Flask
 from flask import url_for, render_template, flash, request, redirect
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
 #
-from modules import parse_assum, update_assum, parse_usrinp, update_usrinp, assum_json_to_dict, usrinp_json_to_dict, assum_form_to_dict, usrinp_form_to_dict
+from modules import parse_assum, update_assum, parse_usrinp, update_usrinp, assum_json_to_dict, usrinp_json_to_dict, set_form_to_dict
 from ffp import Conditional_Executor
+from set import set_run
 
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -30,6 +32,10 @@ FFP_FIN_ASSUM_FILE = "./inputs/final_assumptions.json"
 #FFP USER INPUT FORM
 FFP_INIT_USR_INP_FILE = "./inputs/user_input_default.json"
 FFP_FIN_USR_INP_FILE = "./inputs/user_input_data.json"
+#SET FORM
+SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
+GEST_CSV= ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
+SET_OUTPUT_FILE = '.\\outputs\\output_SET.json'
 
 '''
 Internal Functions
@@ -62,35 +68,6 @@ def ffp_tool():
     uform = usrinp_json_to_dict(FFP_FIN_USR_INP_FILE)
     userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
     results_dict = Conditional_Executor(userdata, assumdata)
-    '''
-    if request.method == 'POST':
-        if request.form.get('submit_usrinpt') == "Update":
-            # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
-            # loads the dictionary into a list for passing to Erica's function that calculates results
-            uform = usrinp_form_to_dict(request.form)
-            userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
-            ### update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
-            results_dict = Conditional_Executor(userdata, assumdata)
-            ###Convert_to_Json(results_dict, "./outputs/results.json")
-            # renders the page
-            return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
-        elif request.form.get('submit_assum') == "Update":
-            aform = assum_form_to_dict(request.form)
-            assumdata = [aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
-            ### update_assum(FFP_FIN_ASSUM_FILE, assumdata)
-            results_dict = Conditional_Executor(userdata, assumdata)
-            ### Convert_to_Json(results_dict, "./outputs/results.json")
-            return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
-    if request.method == 'GET':
-        # refreshes to original default values
-        aform = assum_json_to_dict(FFP_INIT_ASSUM_FILE)
-        assumdata = [aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
-        uform = usrinp_json_to_dict(FFP_INIT_USR_INP_FILE)
-        userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
-        results_dict = Conditional_Executor(userdata, assumdata)
-        ### Convert_to_Json(results_dict, "./outputs/results.json")
-        return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
-    '''
     return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
 
 
@@ -101,16 +78,46 @@ def set_tool():
     # load json into dict --  populates form via variable passed to html
     # load dict into list of arguments for function
     # calculate output
+    #
+    with open(SET_INIT_INPT_FILE) as json_file:
+        input_dct = json.load(json_file)
+    set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
+    with open(SET_OUTPUT_FILE) as json_file:
+        results_dct = json.load(json_file)
     if request.method == 'POST':
         # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
         # loads the dictionary into a list for passing to Erica's function that calculates results
         # parse form via uform = usrinp_form_to_dict(request.form)
-        return render_template("set_tool.html")
+        new_inp = set_form_to_dict(request.form)
+        print(new_inp)
+        return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     if request.method == 'GET':
         # refreshes to original default values
         # same as above where load json and dct and calc values
-        return render_template("set_tool.html")
-    return render_template("set_tool.html")
+        return render_template("set_tool.html", results= results_dct, inpt = input_dct)
+    return render_template("set_tool.html", results= results_dct, inpt = input_dct)
+
+'''
+if request.method == 'POST':
+    # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
+    # loads the dictionary into a list for passing to Erica's function that calculates results
+    uform = usrinp_form_to_dict(request.form)
+    userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
+    ### update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
+    results_dict = Conditional_Executor(userdata, assumdata)
+    ###Convert_to_Json(results_dict, "./outputs/results.json")
+    # renders the page
+    return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
+if request.method == 'GET':
+    # refreshes to original default values
+    aform = assum_json_to_dict(FFP_INIT_ASSUM_FILE)
+    assumdata = [aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
+    uform = usrinp_json_to_dict(FFP_INIT_USR_INP_FILE)
+    userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
+    results_dict = Conditional_Executor(userdata, assumdata)
+    ### Convert_to_Json(results_dict, "./outputs/results.json")
+    return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
+'''
 
 '''
 Error Handling

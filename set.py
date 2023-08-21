@@ -16,7 +16,7 @@ def Load_csvs(list):
         dic_of_dfs[dfname] = pd.read_csv(i)
     return dic_of_dfs
 
-def Create_Input_Json(inpt_file):
+def Create_Input_Dict():
     '''
     Parameters: address/ name to give the input file
     Returns: None
@@ -60,9 +60,11 @@ def Create_Input_Json(inpt_file):
                          'diesel_per_site': 75,
                          'elec_per_site': 50,
                          'crop_use': 'Food Application'}}
-    
+    '''
     with open(inpt_file, 'w') as outfile:
         print(json.dumps(inputs, indent = 5), file = outfile)
+    '''
+    return inputs
 
 
 def Create_Data_Tab(user_input, gest):
@@ -76,9 +78,10 @@ def Create_Data_Tab(user_input, gest):
     dataframe which contains the output provided in the data tab of the excel file.
     '''
     #Open the json file and convert to dict
+    '''
     with open(user_input) as json_file:
         user_input = json.load(json_file)
-
+    '''
     #Initiate the Data dict
     data = {'base': {}, 'rewet': {}}
 
@@ -214,9 +217,10 @@ def Create_crop_Use_Tab(user_input, data):
     dataframe which contains the output provided in the data tab of the excel file.
     '''
     #Open the json file and convert to dict
+    '''
     with open(user_input) as json_file:
         user_input = json.load(json_file)
-
+    '''
     #Initialize crop_use dictionary
     crop_use = {}
 
@@ -244,9 +248,10 @@ def Create_C_Content_Soil_Tab(user_input):
     Purpose: Create the C Content Soil Tab by using information from the User Input json.
     '''
     #Open the json file and convert to dict
+    '''
     with open(user_input) as json_file:
         user_input = json.load(json_file)
-
+    '''
     #Initialize the C Content Soil dictionary
     c_content = {}
 
@@ -281,9 +286,10 @@ def Create_Soil_Moisture_Classes_Tab(user_input):
     Purpose: Create the Soil Moisture Classes Tab by using information from the User Input json.
     '''
     #Open the json file and convert to dict
+    '''
     with open(user_input) as json_file:
         user_input = json.load(json_file)
-
+    '''
     #Initialize the Soil Moisture Classes dictionary
     sm_classes = {'base': {}, 'rewet': {}}
 
@@ -519,9 +525,10 @@ def Create_Outcome_Tab(user_input, data, crop_use, c_content, gest):
     C Content Soil tabs, as well as the GEST 2.0 csv.
     '''
     #Open the json file and convert to dict
+    '''
     with open(user_input) as json_file:
         user_input = json.load(json_file)
-
+    '''
     #Initialize the Soil Moisture Classes dictionary
     outcome = {'base': {}, 'rewet': {}, 'creditable_year': {}}
 
@@ -576,7 +583,8 @@ def Create_Outcome_Tab(user_input, data, crop_use, c_content, gest):
             if float(c_content.loc['c_stock_ton_per_ha']['Values'])/float(gest.iloc[i]['Total C-flux (ton C/ha)']) > 0:
                 outcome['creditable_year']['rewet_scenario'] = float(c_content.loc['c_stock_ton_per_ha']['Values'])/float(gest.iloc[i]['Total C-flux (ton C/ha)'])
             else:
-                outcome['creditable_year']['rewet_scenario'] = float('inf')
+                #outcome['creditable_year']['rewet_scenario'] = float('inf')
+                outcome['creditable_year']['rewet_scenario'] = "Infinity"
     
     #Save the outcome tab in a pandas database
     return pd.DataFrame.from_dict(outcome)
@@ -589,9 +597,10 @@ def Create_Timeline_tab(user_input, outcome, c_content, gest):
     GEST 2.0 csv, and the outcome and C content soil tabs.
     '''        
     #Open the json file and convert to dict
+    '''
     with open(user_input) as json_file:
         user_input = json.load(json_file)
-        
+    '''
     #Initialize the Timeline dict
     timeline = {}
     list_colnames = ['base_emissions', 'base_GESTv2', 'rewet_emissions', 'rewet_GESTv2', 'carbon_savings_flow', 'carbon_savings_stock', 'carbon_savings_product', 'carbon_savings_total', 'base_GESTnr', 'c_sequestration_base', 'c_stock_soil_base', 'stock_savings_creditable', 'rewet_GESTnr', 'c_sequestration_rewet', 'c_credits_' + user_input['gen_site_data']['site_name']]
@@ -636,8 +645,6 @@ def Create_Timeline_tab(user_input, outcome, c_content, gest):
                 timeline['c_credits_' + user_input['gen_site_data']['site_name']][i] = timeline['carbon_savings_flow'][i] + timeline['carbon_savings_product'][i] + (timeline['c_sequestration_rewet'][i]*(44/12))
             else:
                 timeline['c_credits_' + user_input['gen_site_data']['site_name']][i] = timeline['carbon_savings_flow'][i] + timeline['carbon_savings_product'][i]
-            
-        
 
     #Save the outcome tab in a pandas database
     return pd.DataFrame.from_dict(timeline)
@@ -652,9 +659,10 @@ def Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcome, c_
     soil moisture classes, data, outcome, and C content soil tabs.
     '''    
     #Open the json file and convert to dict
+    '''
     with open(user_input) as json_file:
         user_input = json.load(json_file)
-
+    '''
     #Initialise Output dict
     output = {'site_data': {}, 'base_outcomes': {}, 'rewet_outcomes': {}, 'carbon_savings': {}}
 
@@ -716,21 +724,24 @@ def Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcome, c_
     with open(output_file, 'w') as outfile:
         print(json.dumps(output, indent = 5), file = outfile)
 
+def set_run(inputs_dict, path_to_gest, output_file):
+    dict_of_csvs = Load_csvs(path_to_gest)
+    gest = dict_of_csvs['GEST_2_Static_Values.csv']
+    data_tab = Create_Data_Tab(inputs_dict, gest)
+    crop_use_tab = Create_crop_Use_Tab(inputs_dict, data_tab)
+    c_content_tab = Create_C_Content_Soil_Tab(inputs_dict)
+    sm_classes = Create_Soil_Moisture_Classes_Tab(inputs_dict)
+    outcome = Create_Outcome_Tab(inputs_dict, data_tab, crop_use_tab, c_content_tab, gest)
+    timeline = Create_Timeline_tab(inputs_dict, outcome, c_content_tab, gest)
+    Create_Output_tab(output_file, inputs_dict, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
+    
 def main():
     path_to_gest = ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
     SET_USR_INPT_FILE = '.\\inputs\\user_input_SET.json'
     SET_USR_OUTPT_FILE = '.\\outputs\\output_SET.json'
-
-    Create_Input_Json(SET_USR_INPT_FILE)
-    dict_of_csvs = Load_csvs(path_to_gest)
-    gest = dict_of_csvs['GEST_2_Static_Values.csv']
-    data_tab = Create_Data_Tab(SET_USR_INPT_FILE, gest)
-    crop_use_tab = Create_crop_Use_Tab(SET_USR_INPT_FILE, data_tab)
-    c_content_tab = Create_C_Content_Soil_Tab(SET_USR_INPT_FILE)
-    sm_classes = Create_Soil_Moisture_Classes_Tab(SET_USR_INPT_FILE)
-    outcome = Create_Outcome_Tab(SET_USR_INPT_FILE, data_tab, crop_use_tab, c_content_tab, gest)
-    timeline = Create_Timeline_tab(SET_USR_INPT_FILE, outcome, c_content_tab, gest)
-    Create_Output_tab(SET_USR_OUTPT_FILE, SET_USR_INPT_FILE, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
+    
+    input_dct = Create_Input_Dict()
+    set_run(input_dct, path_to_gest, SET_USR_OUTPT_FILE)
     print("Done.")
 
 

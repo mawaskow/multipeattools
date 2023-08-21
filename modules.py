@@ -220,3 +220,95 @@ CALCULATIONS
 ###   SET TOOL   ###
 ####################
 
+def set_form_to_dict(set_request):
+    '''
+    Parses the FFP Tool's user input json file into a list of values
+    '''
+    inp_dict={"gen_site_data":{}, "base":{}, "rewet":{}}
+    inp_dict['gen_site_data']['site_name'] = set_request['site_name']
+    inp_dict['gen_site_data']['tot_area'] = float(set_request['tot_area'])
+    inp_dict['gen_site_data']['coords'] = set_request['coords']
+    inp_dict['gen_site_data']['elevation'] = float(set_request['elevation'])
+    inp_dict['gen_site_data']['peat_type'] = set_request.get('peat_type')
+    inp_dict['gen_site_data']['peat_thick'] = float(set_request['peat_thick'])
+    inp_dict['gen_site_data']['year_start'] = int(set_request['year_start'])
+    inp_dict['base']['med_gw_level_summer'] = float(set_request['bs_med_gw_level_summer'])
+    inp_dict['base']['veg_class'] = set_request.get('bs_veg_class')
+    inp_dict['base']['amount_manure'] = float(set_request['bs_amount_manure'])
+    inp_dict['base']['amount_org_fert'] = float(set_request['bs_amount_org_fert'])
+    inp_dict['base']['type_synth_fert'] = set_request.get('bs_type_synth_fert')
+    inp_dict['base']['amount_synth_fert'] = float(set_request['bs_amount_synth_fert'])
+    inp_dict['base']['type_animals'] = set_request.get('bs_type_animals')
+    inp_dict['base']['avg_num_animals'] = float(set_request['bs_avg_num_animals'])
+    inp_dict['base']['avg_num_days'] = float(set_request['bs_avg_num_days'])
+    inp_dict['base']['crop_yield'] = float(set_request['bs_crop_yield'])
+    inp_dict['base']['crop_resid'] = set_request.get('bs_crop_resid')
+    inp_dict['base']['crop_name'] = set_request.get('bs_crop_name')
+    inp_dict['base']['diesel_per_site'] = float(set_request['bs_diesel_per_site'])
+    inp_dict['base']['elec_per_site'] = float(set_request['bs_elec_per_site'])
+    inp_dict['rewet']['med_gw_level_summer'] = float(set_request['rw_med_gw_level_summer'])
+    inp_dict['rewet']['veg_class'] = set_request.get('rw_veg_class')
+    inp_dict['rewet']['amount_manure'] = float(set_request['rw_amount_manure'])
+    inp_dict['rewet']['amount_org_fert'] = float(set_request['rw_amount_org_fert'])
+    inp_dict['rewet']['type_synth_fert'] = set_request.get('rw_type_synth_fert')
+    inp_dict['rewet']['amount_synth_fert'] = float(set_request['rw_amount_synth_fert'])
+    inp_dict['rewet']['type_animals'] = set_request.get('rw_type_animals')
+    inp_dict['rewet']['avg_num_animals'] = float(set_request['rw_avg_num_animals'])
+    inp_dict['rewet']['avg_num_days'] = float(set_request['rw_avg_num_days'])
+    inp_dict['rewet']['crop_yield'] = float(set_request['rw_crop_yield'])
+    inp_dict['rewet']['crop_resid'] = set_request.get('rw_crop_resid')
+    inp_dict['rewet']['crop_name'] = set_request.get('rw_crop_name')
+    inp_dict['rewet']['diesel_per_site'] = float(set_request['rw_diesel_per_site'])
+    inp_dict['rewet']['elec_per_site'] = float(set_request['rw_elec_per_site'])
+    inp_dict['rewet']['crop_use'] = set_request.get('rw_crop_use')
+    return inp_dict
+
+'''
+{
+     "gen_site_data": {
+          "site_name": "Test Site",
+          "tot_area": 5,
+          "coords": [
+               -56,
+               100
+          ],
+          "elevation": 30,
+          "peat_type": "Woody",
+          "peat_thick": 50,
+          "year_start": 2050
+     },
+     "base": {
+          "med_gw_level_summer": -70,
+          "veg_class": "G1:Dry to Moderate Moist Grassland",
+          "amount_manure": 50,
+          "amount_org_fert": 30,
+          "type_synth_fert": "Ammonium Based",
+          "amount_synth_fert": 100,
+          "type_animals": "Sheep",
+          "avg_num_animals": 10,
+          "avg_num_days": 200,
+          "crop_yield": 50,
+          "crop_resid": "Yes",
+          "crop_name": "Peat Moss (Sphagnum Sp.)",
+          "diesel_per_site": 50,
+          "elec_per_site": 70
+     },
+     "rewet": {
+          "med_gw_level_summer": 0,
+          "veg_class": "U18:Very Wet Phragmites Reeds",
+          "amount_manure": 75,
+          "amount_org_fert": 60,
+          "type_synth_fert": "Ammonium Based",
+          "amount_synth_fert": 60,
+          "type_animals": "Sheep",
+          "avg_num_animals": 20,
+          "avg_num_days": 100,
+          "crop_yield": 100,
+          "crop_resid": "Yes",
+          "crop_name": "Reed (Phragmites australis)",
+          "diesel_per_site": 75,
+          "elec_per_site": 50,
+          "crop_use": "Food Application"
+     }
+}
+'''
