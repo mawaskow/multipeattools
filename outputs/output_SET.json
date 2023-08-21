@@ -49,6 +49,6 @@
           "carbon_stock_peat_soil_start_year_tco2_per_ha": 1007.82,
           "carbon_stock_peat_soil_start_year_ton_c_per_ha": 274.86,
           "time_til_peat_is_lost_base_scenario": 32.05646507988513,
-          "time_til_peat_is_lost_rewet_scenario": "Infinity"
+          "time_til_peat_is_lost_rewet_scenario": Infinity
      }
 }

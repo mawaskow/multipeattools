@@ -1,20 +1,29 @@
 import pandas as pd
 import json
 
-# Function to load the .csv files containing the static tables. This function takes a list as input where each list item is the string of a pathway to a .csv file. The files are then opened as Pandas dataframes and stored in a dictionary where the filename is the key and the dataframe is the value.
 def Load_csvs(list):
+    '''
+    Parameters: List of csvs
+    Returns: Dictionary of dataframes
+    Purpose: Function to load the .csv files containing the static tables. 
+    This function takes a list as input where each list item is the string of 
+    a pathway to a .csv file. The files are then opened as Pandas dataframes 
+    and stored in a dictionary where the filename is the key and the dataframe is the value.
+    '''
     dic_of_dfs = {}
     for i in list:
         dfname = i.rsplit('\\', 1)[-1]
         dic_of_dfs[dfname] = pd.read_csv(i)
     return dic_of_dfs
 
-path_to_gest = ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
-SET_USR_INPT_FILE = '.\\inputs\\user_input_SET.json'
-SET_USR_OUTPT_FILE = '.\\outputs\\output_SET.json'
-
-# Function to create a json containing the user input values. The input values in this function are merely standins until actual user input is provided, at which point the json file will be updated.
-def Create_Input_Json():
+def Create_Input_Json(inpt_file):
+    '''
+    Parameters: address/ name to give the input file
+    Returns: None
+    Purpose: Function to create a json containing the user input values. The input 
+    values in this function are merely standins until actual user input is provided, 
+    at which point the json file will be updated.
+    '''
     inputs = {'gen_site_data': {'site_name': 'Test Site',
                                      'tot_area': 5, 
                                      'coords': [-56, 100], 
@@ -52,14 +61,20 @@ def Create_Input_Json():
                          'elec_per_site': 50,
                          'crop_use': 'Food Application'}}
     
-    with open(SET_USR_INPT_FILE, 'w') as outfile:
+    with open(inpt_file, 'w') as outfile:
         print(json.dumps(inputs, indent = 5), file = outfile)
 
-Create_Input_Json()
 
-# Create the Data tab by calling information from the Input json and GEST 2.0 dataframe. This function takes two parameters. The first is a string of the name of the json file where the user input data is stored, the second is the dataframe which contains the GEST 2.0 table. This function returns a pandas dataframe which contains the output provided in the data tab of the excel file.
 def Create_Data_Tab(user_input, gest):
-
+    '''
+    Parameters: user input file address, GEST df
+    Returns: data df
+    Purpose: Create the Data tab by calling information from the Input json and 
+    GEST 2.0 dataframe. This function takes two parameters. The first is a string 
+    of the name of the json file where the user input data is stored, the second 
+    is the dataframe which contains the GEST 2.0 table. This function returns a pandas 
+    dataframe which contains the output provided in the data tab of the excel file.
+    '''
     #Open the json file and convert to dict
     with open(user_input) as json_file:
         user_input = json.load(json_file)
@@ -187,17 +202,17 @@ def Create_Data_Tab(user_input, gest):
             data['rewet']['veg_cflux_gwp'] = gest.iloc[i]['Total C-flux (GWP)']
 
     return pd.DataFrame.from_dict(data)
-    
-
-dict_of_csvs = Load_csvs(path_to_gest)
-gest = dict_of_csvs['GEST_2_Static_Values.csv']
-
-data_tab = Create_Data_Tab(SET_USR_INPT_FILE, gest)
-
-# Create the Data tab by calling information from the Input json and the Data Tab dataframe. This function takes two parameters. The first is a string of the name of the json file where the user input data is stored, the second is the dataframe which contains the Data Tab dataframe. This function returns a pandas dataframe which contains the output provided in the data tab of the excel file.
 
 def Create_crop_Use_Tab(user_input, data):
-
+    '''
+    Parameters: user input file address, data tab df
+    Returns: crop use df
+    Purpose: Create the crop_Use tab by calling information from the Input json and the 
+    Data Tab dataframe. This function takes two parameters. The first is a string of 
+    the name of the json file where the user input data is stored, the second is the 
+    dataframe which contains the Data Tab dataframe. This function returns a pandas 
+    dataframe which contains the output provided in the data tab of the excel file.
+    '''
     #Open the json file and convert to dict
     with open(user_input) as json_file:
         user_input = json.load(json_file)
@@ -222,12 +237,12 @@ def Create_crop_Use_Tab(user_input, data):
     crop_use = {'Values': crop_use}
     return pd.DataFrame.from_dict(crop_use)
 
-crop_use_tab = Create_crop_Use_Tab(SET_USR_INPT_FILE, data_tab)
-
-# Create the C Content Soil Tab by using information from the User Input json.
-
 def Create_C_Content_Soil_Tab(user_input):
-
+    '''
+    Parameters: user input file address
+    Returns: c content df
+    Purpose: Create the C Content Soil Tab by using information from the User Input json.
+    '''
     #Open the json file and convert to dict
     with open(user_input) as json_file:
         user_input = json.load(json_file)
@@ -259,12 +274,12 @@ def Create_C_Content_Soil_Tab(user_input):
     c_content = {'Values': c_content}
     return pd.DataFrame.from_dict(c_content)
 
-c_content_tab = Create_C_Content_Soil_Tab(SET_USR_INPT_FILE)
-
-# Create the Soil Moisture Classes Tab by using information from the User Input json.
-
 def Create_Soil_Moisture_Classes_Tab(user_input):
-
+    '''
+    Parameters: user input file address
+    Returns: soil moisture class df
+    Purpose: Create the Soil Moisture Classes Tab by using information from the User Input json.
+    '''
     #Open the json file and convert to dict
     with open(user_input) as json_file:
         user_input = json.load(json_file)
@@ -326,13 +341,13 @@ def Create_Soil_Moisture_Classes_Tab(user_input):
     #Save Soil Moisture Classes tab as a pandas dataframe
     return pd.DataFrame.from_dict(sm_classes)
 
-sm_classes = Create_Soil_Moisture_Classes_Tab(SET_USR_INPT_FILE)
 
 # Functions corresponding to calculations used in the N2O fertilizer tab
 
 #Direct N2O emissions
 
 def Manure_CO2Site_Base(manure_applied_base, tot_area):
+
     EF=0.02
     N2O_CO2eq=265 #value from the CO2 equivalent table, just this value is used from the table
     N2O_N=EF*manure_applied_base
@@ -343,6 +358,7 @@ def Manure_CO2Site_Base(manure_applied_base, tot_area):
     return CO2_site_manure_base
 
 def Organic_Fert_CO2Site_Base(organic_applied_base,tot_area):
+
     EF=0.02
     N2O_CO2eq=265 
     N2O_N=EF*organic_applied_base
@@ -353,6 +369,7 @@ def Organic_Fert_CO2Site_Base(organic_applied_base,tot_area):
     return CO2_site_organic_base
 
 def Grazing_CO2Site_Base(avg_n_animals_base, avg_days_base, n_excretion_value_b, EF_animal_b, tot_area):
+
     N2O_CO2eq=265
     N_amount_base=(n_excretion_value_b*avg_n_animals_base*(avg_days_base/365)) / tot_area
     N2O_N=EF_animal_b*N_amount_base
@@ -363,6 +380,7 @@ def Grazing_CO2Site_Base(avg_n_animals_base, avg_days_base, n_excretion_value_b,
     return CO2_site_grazing_base, N_amount_base
 
 def Synth_CO2Site_Base(fert_applied_base, EF_fert_b, tot_area): 
+
     N2O_CO2eq=265 
     N2O_N=EF_fert_b*fert_applied_base
     N2O_ha= N2O_N*(44/28)
@@ -372,6 +390,7 @@ def Synth_CO2Site_Base(fert_applied_base, EF_fert_b, tot_area):
     return CO2_site_synth_fert_base
 
 def Residue_Left_Input_Base(answer_b, crop_b):
+
     crops = ["Cattail (Typha sp.)", "Reed (Phragmites australis)", "Peat moss (Sphagnum sp.)", "Grasses like reed canary grass", "Alder (Alnus sp.)", "Other" ]  # List of all crop names
     
     if answer_b == "Yes" and crop_b in crops:
@@ -389,6 +408,7 @@ def Residue_Left_Input_Base(answer_b, crop_b):
     return cropresidue_fraction_tot_yield_b
 
 def crop_Residue_Base(cropresidue_fraction_tot_yield_b, crop_yield_base, tot_area):
+
     nitrogen_content=0.015
     EF=0.02
     N2O_CO2eq=265
@@ -401,6 +421,7 @@ def crop_Residue_Base(cropresidue_fraction_tot_yield_b, crop_yield_base, tot_are
     return CO2_site_cropres_base
 
 def Basis_value_managed_soils(tot_area):
+
     N2O_CO2eq=265
     N2O_ha=8 #Not sure why this value is 8
     N2O_site=N2O_ha*tot_area
@@ -409,6 +430,7 @@ def Basis_value_managed_soils(tot_area):
     return  CO2_site_managed_soil
 
 def Total_Direct_N2Oemissions_Base(CO2_site_managed_soil, CO2_site_cropres_base, CO2_site_synth_fert_base, CO2_site_grazing_base, CO2_site_organic_base, CO2_site_manure_base ):
+
     total_direct_N2Oemiss_base= (CO2_site_managed_soil + CO2_site_cropres_base + CO2_site_synth_fert_base + CO2_site_grazing_base + CO2_site_organic_base + CO2_site_manure_base)/1000
     
     return total_direct_N2Oemiss_base
@@ -416,6 +438,7 @@ def Total_Direct_N2Oemissions_Base(CO2_site_managed_soil, CO2_site_cropres_base,
 #Indirect N2O Emissions
 
 def Animal_Ammonia_Base(manure_applied_base, N_amount_base, tot_area, avg_animals, avg_days):
+
     EF_ammonia=0.1035
     EF_N2O_N=0.01
     N2O_CO2eq=265
@@ -429,6 +452,7 @@ def Animal_Ammonia_Base(manure_applied_base, N_amount_base, tot_area, avg_animal
     return CO2_site_animal_amm_base
 
 def Fert_Ammonia_Base(fert_applied_base, EF_ammonia_b, tot_area):
+
     EF_N2O_N=0.01
     N2O_CO2eq=265
 
@@ -446,6 +470,7 @@ def Fert_Ammonia_Base(fert_applied_base, EF_ammonia_b, tot_area):
     return CO2_site_fert_amm_base
 
 def N_Oxide_Base(manure_applied_base, fert_applied_base, N_amount_base, avg_animals, avg_days, tot_area):
+
     EF_NOxide_ammonia=0.15
     EF_N2O_N=0.01
     N2O_CO2eq=265
@@ -459,6 +484,7 @@ def N_Oxide_Base(manure_applied_base, fert_applied_base, N_amount_base, avg_anim
     return CO2_site_NOxide_base
 
 def Nitrate_Base(manure_applied_base, organic_applied_base, cropresidue_fraction_tot_yield_b, crop_yield, fert_applied_base, tot_area, rewet):
+    
     EF_nitrate_leaching=0.3
     EF_N2O_N_leached=0.025
     N2O_CO2eq=265
@@ -480,13 +506,18 @@ def Nitrate_Base(manure_applied_base, organic_applied_base, cropresidue_fraction
     return CO2_site_nitrate_base
 
 def Total_Indirect_N2Oemissions_Base( CO2_site_nitrate_base, CO2_site_NOxide_base, CO2_site_fert_amm_base, CO2_site_animal_amm_base):
+
     tot_indirect_N2Oemiss_base=(CO2_site_nitrate_base + CO2_site_NOxide_base + CO2_site_fert_amm_base + CO2_site_animal_amm_base)/1000
     return tot_indirect_N2Oemiss_base
 
-# Create a function for the construction of the Outcome tab using information from the user input json and the N2O, crop_use, Data, and C Content Soil tabs, as well as the GEST 2.0 csv.
-
 def Create_Outcome_Tab(user_input, data, crop_use, c_content, gest):
-
+    '''
+    Parameters: user input file address, data df, crop_use df, c content df, and GEST csv
+    Returns: outcome df
+    Purpose: Create a function for the construction of the Outcome tab using 
+    information from the user input json and the N2O, crop_use, Data, and 
+    C Content Soil tabs, as well as the GEST 2.0 csv.
+    '''
     #Open the json file and convert to dict
     with open(user_input) as json_file:
         user_input = json.load(json_file)
@@ -550,13 +581,13 @@ def Create_Outcome_Tab(user_input, data, crop_use, c_content, gest):
     #Save the outcome tab in a pandas database
     return pd.DataFrame.from_dict(outcome)
 
-
-outcome = Create_Outcome_Tab(SET_USR_INPT_FILE, data_tab, crop_use_tab, c_content_tab, gest)
-
-# Create Timeline tab using information from the user input json, GEST 2.0 csv, and the outcome and C content soil tabs.
-
 def Create_Timeline_tab(user_input, outcome, c_content, gest):
-        
+    '''
+    Parameters: user input file address, outcome df, c content df, and gest csv
+    Returns: timeline df
+    Purpose: Create Timeline tab using information from the user input json, 
+    GEST 2.0 csv, and the outcome and C content soil tabs.
+    '''        
     #Open the json file and convert to dict
     with open(user_input) as json_file:
         user_input = json.load(json_file)
@@ -610,14 +641,16 @@ def Create_Timeline_tab(user_input, outcome, c_content, gest):
 
     #Save the outcome tab in a pandas database
     return pd.DataFrame.from_dict(timeline)
-    
 
-timeline = Create_Timeline_tab(SET_USR_INPT_FILE, outcome, c_content_tab, gest)
 
-# Create Output tab using information from the user input json, soil moisture classes, data, outcome, and C content soil tabs.
-
-def Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content, crop_use):
-    
+def Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcome, c_content, crop_use):
+    '''
+    Parameters: output file address, input file address, moisture class df, 
+    data df, outcome df, c content df, and crop use df
+    Returns: none
+    Purpose: Create Output tab using information from the user input json, 
+    soil moisture classes, data, outcome, and C content soil tabs.
+    '''    
     #Open the json file and convert to dict
     with open(user_input) as json_file:
         user_input = json.load(json_file)
@@ -680,9 +713,26 @@ def Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content, crop
     output['carbon_savings']['time_til_peat_is_lost_base_scenario'] = outcome.loc['base_scenario']['creditable_year']
     output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] = outcome.loc['rewet_scenario']['creditable_year']
     
-    with open(SET_USR_OUTPT_FILE, 'w') as outfile:
+    with open(output_file, 'w') as outfile:
         print(json.dumps(output, indent = 5), file = outfile)
-    
-Create_Output_tab(SET_USR_INPT_FILE, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
+
+def main():
+    path_to_gest = ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
+    SET_USR_INPT_FILE = '.\\inputs\\user_input_SET.json'
+    SET_USR_OUTPT_FILE = '.\\outputs\\output_SET.json'
+
+    Create_Input_Json(SET_USR_INPT_FILE)
+    dict_of_csvs = Load_csvs(path_to_gest)
+    gest = dict_of_csvs['GEST_2_Static_Values.csv']
+    data_tab = Create_Data_Tab(SET_USR_INPT_FILE, gest)
+    crop_use_tab = Create_crop_Use_Tab(SET_USR_INPT_FILE, data_tab)
+    c_content_tab = Create_C_Content_Soil_Tab(SET_USR_INPT_FILE)
+    sm_classes = Create_Soil_Moisture_Classes_Tab(SET_USR_INPT_FILE)
+    outcome = Create_Outcome_Tab(SET_USR_INPT_FILE, data_tab, crop_use_tab, c_content_tab, gest)
+    timeline = Create_Timeline_tab(SET_USR_INPT_FILE, outcome, c_content_tab, gest)
+    Create_Output_tab(SET_USR_OUTPT_FILE, SET_USR_INPT_FILE, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
+    print("Done.")
 
 
+if __name__ == "__main__":
+    main()
