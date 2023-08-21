@@ -62,8 +62,7 @@ def ffp_tool():
     uform = usrinp_json_to_dict(FFP_FIN_USR_INP_FILE)
     userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
     results_dict = Conditional_Executor(userdata, assumdata)
-    ### Convert_to_Json(results_dict, "./outputs/results.json")
-    #if one of the forms is submitted, checks which form based on the submit button name/id
+    '''
     if request.method == 'POST':
         if request.form.get('submit_usrinpt') == "Update":
             # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
@@ -91,10 +90,26 @@ def ffp_tool():
         results_dict = Conditional_Executor(userdata, assumdata)
         ### Convert_to_Json(results_dict, "./outputs/results.json")
         return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
+    '''
+    return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
 
 
 @app.route('/settool', methods=['GET', 'POST'])
 def set_tool():
+    #initializes values for populating form
+    #and loads the dictionary values into a list for passing through function that calculates results
+    # load json into dict --  populates form via variable passed to html
+    # load dict into list of arguments for function
+    # calculate output
+    if request.method == 'POST':
+        # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
+        # loads the dictionary into a list for passing to Erica's function that calculates results
+        # parse form via uform = usrinp_form_to_dict(request.form)
+        return render_template("set_tool.html")
+    if request.method == 'GET':
+        # refreshes to original default values
+        # same as above where load json and dct and calc values
+        return render_template("set_tool.html")
     return render_template("set_tool.html")
 
 '''
