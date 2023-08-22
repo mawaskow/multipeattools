@@ -228,8 +228,6 @@ def Create_crop_Use_Tab(user_input, data):
     crop_use['crop_yield'] = user_input['rewet']['crop_yield']
 
     if data.loc['crop_use']['rewet'] == 2 or data.loc['crop_use']['rewet'] == 3 or data.loc['crop_use']['rewet'] == 4 or data.loc['crop_use']['rewet'] == 9:
-    #if data.loc['rewet']['crop_use'] == 2 or data.loc['rewet']['crop_use'] == 3 or data.loc['rewet']['crop_use'] == 4 or data.loc['rewet']['crop_use'] == 9:
-    #if data['rewet']['crop_use'] == 2 or data['rewet']['crop_use'] == 3 or data['rewet']['crop_use'] == 4 or data['rewet']['crop_use'] == 9:
         crop_use['product_weight'] = 0
     else:
         crop_use['product_weight'] = crop_use['crop_yield']

@@ -271,8 +271,8 @@ veg_class_dct = {
 }
 
 synth_fert_dct={
-    "nitrate":"Nitrate based",
-    "ammonium":"Ammonium based"
+    "nitrate":"Nitrate Based",
+    "ammonium":"Ammonium Based"
 }
 
 animals_dct={
@@ -284,6 +284,15 @@ animals_dct={
     "buff":"Water buffalo"
 }
 
+crop_resid_dct={
+    "Yes":True,
+    "on":True,
+    "No":False,
+    "off":False,
+    'True':True,
+    "False":False
+}
+
 crop_name_dct={
     "cat":"Cattail (Typha sp.)",
     "reed":"Reed (Phragmites australis)",
@@ -293,16 +302,17 @@ crop_name_dct={
     "other":"Other"
 }
 
+# values from set.py L174-191
 crop_use_dct={
-    "build":"Building material (e.g. insulation, tachine, timber)",
-    "bed":"Bedding material",
-    "food":"Food application",
-    "feed":"Fodder/feed application",
-    "energy":"Energy use (e.g. biogas, combustion, wood)",
+    "build":"Building Materials e.g insulation, taching, timber",
+    "bed":"Bedding Material",
+    "food":"Food Application",
+    "feed":"Fodder/Feed Application",
+    "energy":"Energy Use: biogas, combustion, wood etc",
     "paper":"Paper",
-    "ingred":"Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)",
-    "substr":"High quality substrate in agriculture",
-    "other":"Other uses/ unknown"
+    "ingred":"Extraction of Ingredients/Building Blocks: proteins, fibres, cellulose etc",
+    "substr":"High Quality Substrate in Horticulture",
+    "other":"Other Uses/Unknown"
 }
 
 
@@ -332,7 +342,8 @@ def set_form_to_dict(set_request):
     inp_dict['base']['avg_num_animals'] = float(set_request['bs_avg_num_animals'])
     inp_dict['base']['avg_num_days'] = float(set_request['bs_avg_num_days'])
     inp_dict['base']['crop_yield'] = float(set_request['bs_crop_yield'])
-    inp_dict['base']['crop_resid'] = set_request.get('bs_crop_resid')
+    #inp_dict['base']['crop_resid'] = set_request.get('bs_crop_resid')
+    inp_dict['base']['crop_resid'] = crop_resid_dct[set_request.get('bs_crop_resid')]
     #inp_dict['base']['crop_name'] = set_request.get('bs_crop_name')
     inp_dict['base']['crop_name'] = crop_name_dct[set_request.get('bs_crop_name')]
     inp_dict['base']['diesel_per_site'] = float(set_request['bs_diesel_per_site'])
@@ -350,7 +361,8 @@ def set_form_to_dict(set_request):
     inp_dict['rewet']['avg_num_animals'] = float(set_request['rw_avg_num_animals'])
     inp_dict['rewet']['avg_num_days'] = float(set_request['rw_avg_num_days'])
     inp_dict['rewet']['crop_yield'] = float(set_request['rw_crop_yield'])
-    inp_dict['rewet']['crop_resid'] = set_request.get('rw_crop_resid')
+    #inp_dict['rewet']['crop_resid'] = set_request.get('rw_crop_resid')
+    inp_dict['rewet']['crop_resid'] = crop_resid_dct[set_request.get('rw_crop_resid')]
     #inp_dict['rewet']['crop_name'] = set_request.get('rw_crop_name')
     inp_dict['rewet']['crop_name'] = crop_name_dct[set_request.get('rw_crop_name')]
     inp_dict['rewet']['diesel_per_site'] = float(set_request['rw_diesel_per_site'])

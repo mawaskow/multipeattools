@@ -36,6 +36,7 @@ FFP_FIN_USR_INP_FILE = "./inputs/user_input_data.json"
 SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
 GEST_CSV= ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
 SET_OUTPUT_FILE = '.\\outputs\\output_SET.json'
+SET_UPD_INPT_FILE = './inputs/user_upd_input_SET.json'
 
 '''
 Internal Functions
@@ -93,10 +94,14 @@ def set_tool():
         # loads the dictionary into a list for passing to Erica's function that calculates results
         # parse form via uform = usrinp_form_to_dict(request.form)
         new_inp = set_form_to_dict(request.form)
-        print(new_inp)
-        upd_results_dct = set_run(new_inp, GEST_CSV, SET_OUTPUT_FILE)
-        #return render_template("set_tool.html", results= upd_results_dct, inpt = new_inp)
-        return render_template("set_tool.html", results= results_dct, inpt = input_dct)
+        with open(SET_UPD_INPT_FILE, 'w') as outfile:
+            print(json.dumps(new_inp, indent = 5), file = outfile)
+
+        set_run(new_inp, GEST_CSV, SET_OUTPUT_FILE)
+        with open(SET_OUTPUT_FILE) as json_file:
+            upd_results_dct = json.load(json_file)
+        return render_template("set_tool.html", results= upd_results_dct, inpt = new_inp)
+        #return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     if request.method == 'GET':
         # refreshes to original default values
         # same as above where load json and dct and calc values
