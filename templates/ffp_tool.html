@@ -170,21 +170,27 @@
             <hr class="inf">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p style="margin-left: 25px;">Ending Value (€)</p>
+                    <p style="margin-left: 25px;">Net Present Value (€)</p>
                 </div>
                 <div class="col-4">
-                    <p id="end_val">{{results_dict["ending_value_undisc"]}}</p>
+                    <p id="np_val">{{results_dict["net_present_value"]}}</p>
                 </div>
             </div>
-            <div class="empty-spacing" style="padding-top: 20px;"></div>
+            <div class="empty-spacing" style="padding-top: 10px;"></div>
             <hr class="inf">
-            <div class="row g-2 align-items-center align-self-end" style="padding-top: 25px; margin-left: 25px;">
+            <div class="row g-2 align-items-center align-self-end" style="padding-top: 15px; margin-left: 25px;">
                 <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
                 <div class="col-auto">
-                    <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
+                    <div class="row">
+                        <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
+                        <p class="text-descr">Click here to view or amend the assumptions.</p>
+                    </div>
                 </div>
                 <div class="col-auto">
-                    <p class="text-descr">Click here to view or amend the assumptions.</p>
+                    <div class="row">
+                        <button id="comp_res_btn" class="btn btn-success btn-sm" style="font-weight: 500;">MORE RESULTS</button>
+                        <p class="text-descr">Click here to view the complete results of the tool.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -353,6 +359,16 @@
             </div>
         </div>
         </form>
+    </div>
+</div>
+
+<div class="container content_section full_res_div textchunk" id="full-results-div" style="display:none; padding-top: 10px; padding-bottom: 10px; max-width: 900px;">
+    <div class="col-sm" id="assum-descrip" style="margin-left: 25px;">
+        <h5 style="font-weight: bold;">COMPLETE RESULTS</h5>
+        <div class="empty-spacing" style="padding-top: 10px;"></div>
+        <p class="text-descr">This area allows you to view all the results calculated from the tool.</p>
+    </div>
+    <div class="col-sm">
     </div>
 </div>
 
