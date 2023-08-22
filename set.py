@@ -268,7 +268,7 @@ def Create_C_Content_Soil_Tab(user_input):
         c_content['c_content_per_cm_thick'] = 0.84783
     elif c_content['peat_type'] == 'Unknown':
         c_content['c_content_per_cm_thick'] = 0.55224
-    elif c_content['peat_type'] == 'Humified':
+    elif c_content['peat_type'] == 'Humidified':
         c_content['c_content_per_cm_thick'] = 0.91008
 
     c_content['peat_thick'] = user_input['gen_site_data']['peat_thick']

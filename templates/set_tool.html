@@ -64,12 +64,36 @@
                 <div class="col-6">
                     <select class="validate form-select" id="peat_type" name="peat_type" value="{{inpt['gen_site_data']['peat_type']}}" required>
                         <!--<option selected>Select peat type</option>-->
-                        <option value="sphag">Sphagnum</option>
-                        <option value="herbac">Herbaceous</option>
-                        <option selected value="woody">Woody</option>
-                        <option value="bromo">Brown moss</option>
-                        <option value="unkno">Unknown</option>
-                        <option value="humidif">Humidified</option>
+                        {% if inpt['gen_site_data']['peat_type'] == "Sphagnum" %}
+                            <option selected value="sphag">Sphagnum</option>                            
+                        {%else%}
+                            <option value="sphag">Sphagnum</option>                        
+                        {%endif%}
+                        {% if inpt['gen_site_data']['peat_type'] == "Herbaceous" %}
+                            <option selected value="herbac">Herbaceous</option>
+                        {%else%}
+                            <option value="herbac">Herbaceous</option>
+                        {%endif%}
+                        {% if inpt['gen_site_data']['peat_type'] == "Woody" %}
+                            <option selected value="woody">Woody</option>
+                        {%else%}
+                            <option value="woody">Woody</option>
+                        {%endif%}
+                        {% if inpt['gen_site_data']['peat_type'] == "Brown moss" %}
+                            <option selected value="bromo">Brown moss</option>
+                        {%else%}
+                            <option value="bromo">Brown moss</option>
+                        {%endif%}
+                        {% if inpt['gen_site_data']['peat_type'] == "Unknown" %}
+                            <option selected value="unkno">Unknown</option>
+                        {%else%}
+                            <option value="unkno">Unknown</option>
+                        {%endif%}
+                        {% if inpt['gen_site_data']['peat_type'] == "Humidified" %}
+                            <option selected value="humidif">Humidified</option>
+                        {%else%}
+                            <option value="humidif">Humidified</option>
+                        {%endif%}
                     </select>
                 </div>
             </div>
@@ -579,8 +603,16 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" required>
-                            <option value="nitrate">Nitrate based</option>
-                            <option selected value="ammonium">Ammonium based</option>
+                            {% if inpt['base']['type_synth_fert'][0] == "N" %}
+                                <option selected value="nitrate">Nitrate based</option>                         
+                            {%else%}
+                                <option value="nitrate">Nitrate based</option>                      
+                            {%endif%}
+                            {% if inpt['base']['type_synth_fert'][0] == "A" %}
+                                <option selected value="ammonium">Ammonium based</option>
+                            {%else%}
+                                <option value="ammonium">Ammonium based</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -600,12 +632,36 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" required>
-                            <option value="none">No animal</option>
-                            <option value="dairy">Dairy cows</option>
-                            <option value="beef">Beef cattle</option>
-                            <option selected value="sheep">Sheep</option>
-                            <option value="goat">Goat</option>
-                            <option value="buff">Water buffalo</option>
+                            {% if inpt['base']['type_animals'][0] == "N" %}
+                                <option selected value="none">No animal</option>
+                            {%else%}
+                                <option value="none">No animal</option>
+                            {%endif%}
+                            {% if inpt['base']['type_animals'][0] == "D" %}
+                                <option selected value="dairy">Dairy cows</option>
+                            {%else%}
+                                <option value="dairy">Dairy cows</option>
+                            {%endif%}
+                            {% if inpt['base']['type_animals'][0] == "B" %}
+                                <option selected value="beef">Beef cattle</option>
+                            {%else%}
+                                <option value="beef">Beef cattle</option>
+                            {%endif%}
+                            {% if inpt['base']['type_animals'][0] == "S" %}
+                                <option selected value="sheep">Sheep</option>
+                            {%else%}
+                                <option value="sheep">Sheep</option>
+                            {%endif%}
+                            {% if inpt['base']['type_animals'][0] == "G" %}
+                                <option selected value="goat">Goats</option>
+                            {%else%}
+                                <option value="goat">Goats</option>
+                            {%endif%}
+                            {% if inpt['base']['type_animals'][0] == "W" %}
+                                <option selected value="buff">Water buffalo</option>
+                            {%else%}
+                                <option value="buff">Water buffalo</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -653,12 +709,36 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" required>
-                            <option value="cat">Cattail (Typha sp.)</option>
-                            <option value="reed">Reed (Phragmites australis)</option>
-                            <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
-                            <option value="grass">Grasses like reed canary grass</option>
-                            <option value="alder">Alder (Alnus sp.)</option>
-                            <option value="other">Other</option>
+                            {% if inpt['base']['crop_name'][0] == "C" %}
+                                <option selected value="cat">Cattail (Typha sp.)</option>
+                            {%else%}
+                                <option value="cat">Cattail (Typha sp.)</option>
+                            {%endif%}
+                            {% if inpt['base']['crop_name'][0] == "R" %}
+                                <option selected value="reed">Reed (Phragmites australis)</option>
+                            {%else%}
+                                <option value="reed">Reed (Phragmites australis)</option>
+                            {%endif%}
+                            {% if inpt['base']['crop_name'][0] == "P" %}
+                                <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
+                            {%else%}
+                                <option value="sphag">Peat moss (Sphagnum sp.)</option>
+                            {%endif%}
+                            {% if inpt['base']['crop_name'][0] == "G" %}
+                                <option selected value="grass">Grasses like reed canary grass</option>
+                            {%else%}
+                                <option value="grass">Grasses like reed canary grass</option>
+                            {%endif%}
+                            {% if inpt['base']['crop_name'][0] == "A" %}
+                                <option selected value="alder">Alder (Alnus sp.)</option>
+                            {%else%}
+                                <option value="alder">Alder (Alnus sp.)</option>
+                            {%endif%}
+                            {% if inpt['base']['crop_name'][0] == "O" %}
+                                <option selected value="other">Other</option>
+                            {%else%}
+                                <option value="other">Other</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -701,8 +781,16 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" required>
-                            <option value="nitrate">Nitrate based</option>
-                            <option selected value="ammonium">Ammonium based</option>
+                            {% if inpt['rewet']['type_synth_fert'][0] == "N" %}
+                                <option selected value="nitrate">Nitrate based</option>                         
+                            {%else%}
+                                <option value="nitrate">Nitrate based</option>                      
+                            {%endif%}
+                            {% if inpt['rewet']['type_synth_fert'][0] == "A" %}
+                                <option  selected value="ammonium">Ammonium based</option>
+                            {%else%}
+                                <option value="ammonium">Ammonium based</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -722,12 +810,36 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" required>
-                            <option value="none">No animal</option>
-                            <option value="dairy">Dairy cows</option>
-                            <option value="beef">Beef cattle</option>
-                            <option selected value="sheep">Sheep</option>
-                            <option value="goat">Goat</option>
-                            <option value="buff">Water buffalo</option>
+                            {% if inpt['rewet']['type_animals'][0] == "N" %}
+                                <option selected value="none">No animal</option>
+                            {%else%}
+                                <option value="none">No animal</option>
+                            {%endif%}
+                            {% if inpt['rewet']['type_animals'][0] == "D" %}
+                                <option selected value="dairy">Dairy cows</option>
+                            {%else%}
+                                <option value="dairy">Dairy cows</option>
+                            {%endif%}
+                            {% if inpt['rewet']['type_animals'][0] == "B" %}
+                                <option selected value="beef">Beef cattle</option>
+                            {%else%}
+                                <option value="beef">Beef cattle</option>
+                            {%endif%}
+                            {% if inpt['rewet']['type_animals'][0] == "S" %}
+                                <option selected value="sheep">Sheep</option>
+                            {%else%}
+                                <option value="sheep">Sheep</option>
+                            {%endif%}
+                            {% if inpt['rewet']['type_animals'][0] == "G" %}
+                                <option selected value="goat">Goats</option>
+                            {%else%}
+                                <option value="goat">Goats</option>
+                            {%endif%}
+                            {% if inpt['rewet']['type_animals'][0] == "W" %}
+                                <option selected value="buff">Water buffalo</option>
+                            {%else%}
+                                <option value="buff">Water buffalo</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -775,12 +887,36 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" required>
-                            <option value="cat">Cattail (Typha sp.)</option>
-                            <option selected value="reed">Reed (Phragmites australis)</option>
-                            <option value="sphag">Peat moss (Sphagnum sp.)</option>
-                            <option value="grass">Grasses like reed canary grass</option>
-                            <option value="alder">Alder (Alnus sp.)</option>
-                            <option value="other">Other</option>
+                            {% if inpt['rewet']['crop_name'][0] == "C" %}
+                                <option selected value="cat">Cattail (Typha sp.)</option>
+                            {%else%}
+                                <option value="cat">Cattail (Typha sp.)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_name'][0] == "R" %}
+                                <option selected value="reed">Reed (Phragmites australis)</option>
+                            {%else%}
+                                <option value="reed">Reed (Phragmites australis)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_name'][0] == "P" %}
+                                <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
+                            {%else%}
+                                <option value="sphag">Peat moss (Sphagnum sp.)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_name'][0] == "G" %}
+                                <option selected value="grass">Grasses like reed canary grass</option>
+                            {%else%}
+                                <option value="grass">Grasses like reed canary grass</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_name'][0] == "A" %}
+                                <option selected value="alder">Alder (Alnus sp.)</option>
+                            {%else%}
+                                <option value="alder">Alder (Alnus sp.)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_name'][0] == "O" %}
+                                <option selected value="other">Other</option>
+                            {%else%}
+                                <option value="other">Other</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -868,15 +1004,51 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" required>
-                            <option value="build">Building material (e.g. insulation, tachine, timber)</option>
-                            <option value="bed">Bedding material</option>
-                            <option selected value="food">Food application</option>
-                            <option value="feed">Fodder/feed application</option>
-                            <option value="energy">Energy use (e.g. biogas, combustion, wood)</option>
-                            <option value="paper">Paper</option>
-                            <option value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
-                            <option value="substr">High quality substrate in agriculture</option>
-                            <option value="other">Other uses/ unknown</option>
+                            {% if inpt['rewet']['crop_use'][0:3] == "Bui" %}
+                                <option selected value="build">Building material (e.g. insulation, tachine, timber)</option>
+                            {%else%}
+                                <option value="build">Building material (e.g. insulation, tachine, timber)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Bed" %}
+                                <option selected value="bed">Bedding material</option>
+                            {%else%}
+                                <option value="bed">Bedding material</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Foo" %}
+                                <option selected selected value="food">Food application</option>
+                            {%else%}
+                                <option value="food">Food application</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Fod" %}
+                                <option selected value="feed">Fodder/feed application</option>
+                            {%else%}
+                                <option value="feed">Fodder/feed application</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Ene" %}
+                                <option selected value="energy">Energy use (e.g. biogas, combustion, wood)</option>
+                            {%else%}
+                                <option value="energy">Energy use (e.g. biogas, combustion, wood)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Pap" %}
+                                <option selected value="paper">Paper</option>
+                            {%else%}
+                                <option value="paper">Paper</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Ext" %}
+                                <option selected value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
+                            {%else%}
+                                <option value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Hig" %}
+                                <option selected value="substr">High quality substrate in agriculture</option>
+                            {%else%}
+                                <option value="substr">High quality substrate in agriculture</option>
+                            {%endif%}
+                            {% if inpt['rewet']['crop_use'][0:3] == "Oth" %}
+                                <option selected value="other">Other uses/ unknown</option>
+                            {%else%}
+                                <option value="other">Other uses/ unknown</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>

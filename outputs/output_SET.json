@@ -1,18 +1,15 @@
 {
      "site_data": {
           "site_name": "Test Site",
-          "coords": [
-               -56,
-               100
-          ],
-          "tot_area": 5,
+          "coords": "[-56, 100]",
+          "tot_area": 5.0,
           "peat_type": "Woody",
-          "peat_thick": 50,
+          "peat_thick": 50.0,
           "year_start": 2050,
           "sm_class_base": "2+ (Moderate moist)",
           "sm_class_rewet": "6+ (Flooded (lower eulittoral))",
-          "base veg_class": "G1:Dry to Moderate Moist Grassland",
-          "rewet_veg_class": "U18:Very Wet Phragmites Reeds"
+          "base veg_class": "G1: Dry to moderately moist grassland",
+          "rewet_veg_class": "U18: Very wet Phragmites reeds"
      },
      "base_outcomes": {
           "CH4": -0.05,
@@ -28,20 +25,20 @@
           "CH4": 62.199999999999996,
           "CO2": -61.900000000000006,
           "c_emission_gwp_subtotal": 0.29999999999999005,
-          "n2o_direct": 20.602285287747552,
-          "n2o_indirect": 5.837045614754649,
-          "n2o_emission_gwp_subtotal": 26.4393309025022,
+          "n2o_direct": 17.69696966731898,
+          "n2o_indirect": 4.7475522570939335,
+          "n2o_emission_gwp_subtotal": 22.444521924412914,
           "activity_gwp_subtotal": 0.2803,
           "product_gwp_subtotal": -0.0,
-          "gwp_total": 27.01963090250219
+          "gwp_total": 23.024821924412905
      },
      "carbon_savings": {
-          "ghg_savings_total_per_year_per_site": 150.69909628976785,
-          "ghg_savings_total_per_year_per_ha": 30.13981925795357,
+          "ghg_savings_total_per_year_per_site": 154.69390526785713,
+          "ghg_savings_total_per_year_per_ha": 30.938781053571425,
           "ghg_savings_stock_per_year_per_site": 156.85000000000002,
           "ghg_savings_stock_per_year_per_ha": 31.370000000000005,
-          "ghg_savings_flow_per_year_per_site": -6.150903710232145,
-          "ghg_savings_flow_per_year_per_ha": -1.230180742046429,
+          "ghg_savings_flow_per_year_per_site": -2.1560947321428583,
+          "ghg_savings_flow_per_year_per_ha": -0.43121894642857167,
           "ghg_savings_product_use_per_year_per_site": 0.0,
           "ghg_savings_product_use_per_year_per_ha": 0.0,
           "carbon_stock_peat_soil_start_year_tco2_per_site": 5039.1,

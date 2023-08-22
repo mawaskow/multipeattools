@@ -276,12 +276,12 @@ synth_fert_dct={
 }
 
 animals_dct={
-    "none":"No animal",
-    "dairy":"Dairy cows",
-    "beef":"Beef cattle",
+    "none":"No Animals",
+    "dairy":"Dairy Cattle",
+    "beef":"Beef Cattle",
     "sheep":"Sheep",
-    "goat":"Goat",
-    "buff":"Water buffalo"
+    "goat":"Goats",
+    "buff":"Water Buffalo"
 }
 
 crop_resid_dct={

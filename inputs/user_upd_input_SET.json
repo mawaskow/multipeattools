@@ -10,7 +10,7 @@
      },
      "base": {
           "med_gw_level_summer": -70.0,
-          "veg_class": "G3f: Periodically flooded grasslands",
+          "veg_class": "G1: Dry to moderately moist grassland",
           "amount_manure": 50.0,
           "amount_org_fert": 30.0,
           "type_synth_fert": "Ammonium Based",
@@ -26,7 +26,7 @@
      },
      "rewet": {
           "med_gw_level_summer": 0.0,
-          "veg_class": "G3f: Periodically flooded grasslands",
+          "veg_class": "U18: Very wet Phragmites reeds",
           "amount_manure": 75.0,
           "amount_org_fert": 60.0,
           "type_synth_fert": "Ammonium Based",
@@ -39,6 +39,6 @@
           "crop_name": "Reed (Phragmites australis)",
           "diesel_per_site": 75.0,
           "elec_per_site": 50.0,
-          "crop_use": "Food Application"
+          "crop_use": "Bedding Material"
      }
 }
