@@ -220,6 +220,92 @@ CALCULATIONS
 ###   SET TOOL   ###
 ####################
 
+peat_type_dct = {
+    "sphag":"Sphagnum",
+    "herbac":"Herbaceous",
+    "woody":"Woody",
+    "bromo":"Brown moss",
+    "unkno":"Unknown",
+    "humidif":"Humidified"
+}
+
+veg_class_dct = {
+    "G1": "G1: Dry to moderately moist grassland",
+    "G2":"G2: Moist grassland",
+    "G3":"G3: Moist to very moist grassland",
+    "G3f":"G3f: Periodically flooded grasslands",
+    "G3s":"G3s: Moist to very moist grassland with shunt species",
+    "G3m":"G3m: Moist to very moist acidic Molinia meadows",
+    "G4":"G4: Very moist grassland",
+    "G4s":"G4s: Very moist grassland with shunt species",
+    "G5":"G5: Wet grassland",
+    "G5s":"G5s: Wet grassland with shunt species",
+    "A1":"A1: Dry to moderately moist arable land",
+    "A2":"A2: Moist arable land",
+    "U1":"U1: Moist bare peat",
+    "U2":"U2: Moist bog heath",
+    "U3":"U3: Moist Reeds",
+    "U6":"U6: Very moist bog heath",
+    "U7":"U7: Very moist forbs and sedges",
+    "U8":"U8: Very moist Sphagnum lawn",
+    "U9":"U9: Very moist tall sedges",
+    "U10":"U10: Wet bare peat",
+    "U11":"U11: Wet meadows and forbs",
+    "U12":"U12: Wet small sedges with mosses",
+    "U13":"U13: Wet sphagnum lawn",
+    "U14":"U14: Wet tall reeds",
+    "U15":"U15: Wet tall sedges",
+    "U16":"U16: Wet bog heath",
+    "U17":"U17: Very wet tall sedges and Typha",
+    "U18":"U18: Very wet Phragmites reeds",
+    "U19":"U19: Wet to very wet Sphagnum hollows",
+    "U20":"U20: Flooded tall reeds (> 20 cm above surface)",
+    "S1":"S1: Dry to moderately moist grassland on peaty soils (Anmoor)",
+    "S2":"S2: Dry to moderately moist arable land on peaty soils(Anmoor)",
+    "S3":"S3: Cropland (2+) flooded in summer (wet year)",
+    "S4":"S4: Grassland (2+/3+) flooded in summer (wet year)",
+    "S5":"S5: Simulated harvest (Paludiculture)",
+    "S6":"S6: Wet tall reeds (dry year)",
+    "S7":"S7: Very wet reeds with lateral import of organic matter",
+    "S8":"S8: Ditches in low intensity grassland"
+}
+
+synth_fert_dct={
+    "nitrate":"Nitrate based",
+    "ammonium":"Ammonium based"
+}
+
+animals_dct={
+    "none":"No animal",
+    "dairy":"Dairy cows",
+    "beef":"Beef cattle",
+    "sheep":"Sheep",
+    "goat":"Goat",
+    "buff":"Water buffalo"
+}
+
+crop_name_dct={
+    "cat":"Cattail (Typha sp.)",
+    "reed":"Reed (Phragmites australis)",
+    "sphag":"Peat moss (Sphagnum sp.)",
+    "grass":"Grasses like reed canary grass",
+    "alder":"Alder (Alnus sp.)",
+    "other":"Other"
+}
+
+crop_use_dct={
+    "build":"Building material (e.g. insulation, tachine, timber)",
+    "bed":"Bedding material",
+    "food":"Food application",
+    "feed":"Fodder/feed application",
+    "energy":"Energy use (e.g. biogas, combustion, wood)",
+    "paper":"Paper",
+    "ingred":"Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)",
+    "substr":"High quality substrate in agriculture",
+    "other":"Other uses/ unknown"
+}
+
+
 def set_form_to_dict(set_request):
     '''
     Parses the FFP Tool's user input json file into a list of values
@@ -229,38 +315,48 @@ def set_form_to_dict(set_request):
     inp_dict['gen_site_data']['tot_area'] = float(set_request['tot_area'])
     inp_dict['gen_site_data']['coords'] = set_request['coords']
     inp_dict['gen_site_data']['elevation'] = float(set_request['elevation'])
-    inp_dict['gen_site_data']['peat_type'] = set_request.get('peat_type')
+    #inp_dict['gen_site_data']['peat_type'] = set_request.get('peat_type')
+    inp_dict['gen_site_data']['peat_type'] = peat_type_dct[set_request.get('peat_type')]
     inp_dict['gen_site_data']['peat_thick'] = float(set_request['peat_thick'])
     inp_dict['gen_site_data']['year_start'] = int(set_request['year_start'])
     inp_dict['base']['med_gw_level_summer'] = float(set_request['bs_med_gw_level_summer'])
-    inp_dict['base']['veg_class'] = set_request.get('bs_veg_class')
+    #inp_dict['base']['veg_class'] = set_request.get('bs_veg_class')
+    inp_dict['base']['veg_class'] = veg_class_dct[set_request.get('bs_veg_class')]
     inp_dict['base']['amount_manure'] = float(set_request['bs_amount_manure'])
     inp_dict['base']['amount_org_fert'] = float(set_request['bs_amount_org_fert'])
-    inp_dict['base']['type_synth_fert'] = set_request.get('bs_type_synth_fert')
+    #inp_dict['base']['type_synth_fert'] = set_request.get('bs_type_synth_fert')
+    inp_dict['base']['type_synth_fert'] = synth_fert_dct[set_request.get('bs_type_synth_fert')]
     inp_dict['base']['amount_synth_fert'] = float(set_request['bs_amount_synth_fert'])
-    inp_dict['base']['type_animals'] = set_request.get('bs_type_animals')
+    #inp_dict['base']['type_animals'] = set_request.get('bs_type_animals')
+    inp_dict['base']['type_animals'] = animals_dct[set_request.get('bs_type_animals')]
     inp_dict['base']['avg_num_animals'] = float(set_request['bs_avg_num_animals'])
     inp_dict['base']['avg_num_days'] = float(set_request['bs_avg_num_days'])
     inp_dict['base']['crop_yield'] = float(set_request['bs_crop_yield'])
     inp_dict['base']['crop_resid'] = set_request.get('bs_crop_resid')
-    inp_dict['base']['crop_name'] = set_request.get('bs_crop_name')
+    #inp_dict['base']['crop_name'] = set_request.get('bs_crop_name')
+    inp_dict['base']['crop_name'] = crop_name_dct[set_request.get('bs_crop_name')]
     inp_dict['base']['diesel_per_site'] = float(set_request['bs_diesel_per_site'])
     inp_dict['base']['elec_per_site'] = float(set_request['bs_elec_per_site'])
     inp_dict['rewet']['med_gw_level_summer'] = float(set_request['rw_med_gw_level_summer'])
-    inp_dict['rewet']['veg_class'] = set_request.get('rw_veg_class')
+    inp_dict['rewet']['veg_class'] = veg_class_dct[set_request.get('rw_veg_class')]
+    #inp_dict['rewet']['veg_class'] = set_request.get('rw_veg_class')
     inp_dict['rewet']['amount_manure'] = float(set_request['rw_amount_manure'])
     inp_dict['rewet']['amount_org_fert'] = float(set_request['rw_amount_org_fert'])
-    inp_dict['rewet']['type_synth_fert'] = set_request.get('rw_type_synth_fert')
+    #inp_dict['rewet']['type_synth_fert'] = set_request.get('rw_type_synth_fert')
+    inp_dict['rewet']['type_synth_fert'] = synth_fert_dct[set_request.get('rw_type_synth_fert')]
     inp_dict['rewet']['amount_synth_fert'] = float(set_request['rw_amount_synth_fert'])
-    inp_dict['rewet']['type_animals'] = set_request.get('rw_type_animals')
+    #inp_dict['rewet']['type_animals'] = set_request.get('rw_type_animals')
+    inp_dict['rewet']['type_animals'] = animals_dct[set_request.get('rw_type_animals')]
     inp_dict['rewet']['avg_num_animals'] = float(set_request['rw_avg_num_animals'])
     inp_dict['rewet']['avg_num_days'] = float(set_request['rw_avg_num_days'])
     inp_dict['rewet']['crop_yield'] = float(set_request['rw_crop_yield'])
     inp_dict['rewet']['crop_resid'] = set_request.get('rw_crop_resid')
-    inp_dict['rewet']['crop_name'] = set_request.get('rw_crop_name')
+    #inp_dict['rewet']['crop_name'] = set_request.get('rw_crop_name')
+    inp_dict['rewet']['crop_name'] = crop_name_dct[set_request.get('rw_crop_name')]
     inp_dict['rewet']['diesel_per_site'] = float(set_request['rw_diesel_per_site'])
     inp_dict['rewet']['elec_per_site'] = float(set_request['rw_elec_per_site'])
-    inp_dict['rewet']['crop_use'] = set_request.get('rw_crop_use')
+    #inp_dict['rewet']['crop_use'] = set_request.get('rw_crop_use')
+    inp_dict['rewet']['crop_use'] = crop_use_dct[set_request.get('rw_crop_use')]
     return inp_dict
 
 '''

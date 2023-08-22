@@ -81,15 +81,21 @@ def set_tool():
     #
     with open(SET_INIT_INPT_FILE) as json_file:
         input_dct = json.load(json_file)
+    
     set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
     with open(SET_OUTPUT_FILE) as json_file:
         results_dct = json.load(json_file)
+    print(results_dct)
+    #results_dct = set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
+    #print(results_dct)
     if request.method == 'POST':
         # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
         # loads the dictionary into a list for passing to Erica's function that calculates results
         # parse form via uform = usrinp_form_to_dict(request.form)
         new_inp = set_form_to_dict(request.form)
         print(new_inp)
+        upd_results_dct = set_run(new_inp, GEST_CSV, SET_OUTPUT_FILE)
+        #return render_template("set_tool.html", results= upd_results_dct, inpt = new_inp)
         return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     if request.method == 'GET':
         # refreshes to original default values

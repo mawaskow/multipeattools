@@ -41,7 +41,7 @@ def Create_Input_Dict():
                          'avg_num_animals': 10,
                          'avg_num_days': 200,
                          'crop_yield': 50,
-                         'crop_resid': 'Yes',
+                         'crop_resid': True,
                          'crop_name': 'Peat Moss (Sphagnum Sp.)',
                          'diesel_per_site': 50,
                          'elec_per_site': 70},
@@ -55,7 +55,7 @@ def Create_Input_Dict():
                          'avg_num_animals': 20,
                          'avg_num_days': 100,
                          'crop_yield': 100,
-                         'crop_resid': 'Yes',
+                         'crop_resid': True,
                          'crop_name': 'Reed (Phragmites australis)',
                          'diesel_per_site': 75,
                          'elec_per_site': 50,
@@ -133,12 +133,12 @@ def Create_Data_Tab(user_input, gest):
         data['rewet']['fert_ef'] = 0.01
 
     #Find Crop Residues number
-    if user_input['base']['crop_resid'] == 'Yes':
+    if user_input['base']['crop_resid']:
         data['base']['crop_resid'] = 1
     else:
         data['base']['crop_resid'] = 2
 
-    if user_input['rewet']['crop_resid'] == 'Yes':
+    if user_input['rewet']['crop_resid']:
         data['rewet']['crop_resid'] = 1
     else:
         data['rewet']['crop_resid'] = 2
@@ -228,6 +228,8 @@ def Create_crop_Use_Tab(user_input, data):
     crop_use['crop_yield'] = user_input['rewet']['crop_yield']
 
     if data.loc['crop_use']['rewet'] == 2 or data.loc['crop_use']['rewet'] == 3 or data.loc['crop_use']['rewet'] == 4 or data.loc['crop_use']['rewet'] == 9:
+    #if data.loc['rewet']['crop_use'] == 2 or data.loc['rewet']['crop_use'] == 3 or data.loc['rewet']['crop_use'] == 4 or data.loc['rewet']['crop_use'] == 9:
+    #if data['rewet']['crop_use'] == 2 or data['rewet']['crop_use'] == 3 or data['rewet']['crop_use'] == 4 or data['rewet']['crop_use'] == 9:
         crop_use['product_weight'] = 0
     else:
         crop_use['product_weight'] = crop_use['crop_yield']
@@ -721,8 +723,11 @@ def Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcome, c_
     output['carbon_savings']['time_til_peat_is_lost_base_scenario'] = outcome.loc['base_scenario']['creditable_year']
     output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] = outcome.loc['rewet_scenario']['creditable_year']
     
+    
     with open(output_file, 'w') as outfile:
         print(json.dumps(output, indent = 5), file = outfile)
+    
+    return output
 
 def set_run(inputs_dict, path_to_gest, output_file):
     dict_of_csvs = Load_csvs(path_to_gest)
@@ -733,7 +738,7 @@ def set_run(inputs_dict, path_to_gest, output_file):
     sm_classes = Create_Soil_Moisture_Classes_Tab(inputs_dict)
     outcome = Create_Outcome_Tab(inputs_dict, data_tab, crop_use_tab, c_content_tab, gest)
     timeline = Create_Timeline_tab(inputs_dict, outcome, c_content_tab, gest)
-    Create_Output_tab(output_file, inputs_dict, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
+    output = Create_Output_tab(output_file, inputs_dict, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
     
 def main():
     path_to_gest = ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
