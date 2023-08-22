@@ -86,7 +86,7 @@ def set_tool():
     set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
     with open(SET_OUTPUT_FILE) as json_file:
         results_dct = json.load(json_file)
-    print(results_dct)
+        
     #results_dct = set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
     #print(results_dct)
     if request.method == 'POST':

@@ -122,44 +122,196 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" required>
-                            <option selected value="G1">G1: Dry to moderately moist grassland</option>
-                            <option value="G2">G2: Moist grassland</option>
-                            <option value="G3">G3: Moist to very moist grassland</option>
-                            <option value="G3f">G3f: Periodically flooded grasslands</option>
-                            <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
-                            <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
-                            <option value="G4">G4: Very moist grassland</option>
-                            <option value="G4s">G4s: Very moist grassland with shunt species</option>
-                            <option value="G5">G5: Wet grassland</option>
-                            <option value="G5s">G5s: Wet grassland with shunt species</option>
-                            <option value="A1">A1: Dry to moderately moist arable land</option>
-                            <option value="A2">A2: Moist arable land</option>
-                            <option value="U1">U1: Moist bare peat</option>
-                            <option value="U2">U2: Moist bog heath</option>
-                            <option value="U3">U3: Moist Reeds</option>
-                            <option value="U6">U6: Very moist bog heath</option>
-                            <option value="U7">U7: Very moist forbs and sedges</option>
-                            <option value="U8">U8: Very moist Sphagnum lawn</option>
-                            <option value="U9">U9: Very moist tall sedges</option>
-                            <option value="U10">U10: Wet bare peat</option>
-                            <option value="U11">U11: Wet meadows and forbs</option>
-                            <option value="U12">U12: Wet small sedges with mosses</option>
-                            <option value="U13">U13: Wet sphagnum lawn</option>
-                            <option value="U14">U14: Wet tall reeds</option>
-                            <option value="U15">U15: Wet tall sedges</option>
-                            <option value="U16">U16: Wet bog heath</option>
-                            <option value="U17">U17: Very wet tall sedges and Typha</option>
-                            <option value="U18">U18: Very wet Phragmites reeds</option>
-                            <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
-                            <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
-                            <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
-                            <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
-                            <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
-                            <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
-                            <option value="S5">S5: Simulated harvest (Paludiculture)</option>
-                            <option value="S6">S6: Wet tall reeds (dry year)</option>
-                            <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
-                            <option value="S8">S8: Ditches in low intensity grassland</option>
+                            {% if inpt['base']['veg_class'][0:2] == "G1" %}
+                                <option selected value="G1">G1: Dry to moderately moist grassland</option>
+                            {%else%}
+                                <option value="G1">G1: Dry to moderately moist grassland</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "G2" %}
+                                <option selected value="G2">G2: Moist grassland</option>
+                            {%else%}
+                                <option value="G2">G2: Moist grassland</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "G3:" %}
+                                <option selected value="G3">G3: Moist to very moist grassland</option>
+                            {%else%}
+                                <option value="G3">G3: Moist to very moist grassland</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "G3f" %}
+                                <option selected value="G3f">G3f: Periodically flooded grasslands</option>
+                            {%else%}
+                                <option value="G3f">G3f: Periodically flooded grasslands</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "G3s" %}
+                                <option selected value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                            {%else%}
+                                <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "G3m" %}
+                                <option selected value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                            {%else%}
+                                <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:4] == "G4:" %}
+                                <option selected value="G4">G4: Very moist grassland</option>
+                            {%else%}
+                                <option value="G4">G4: Very moist grassland</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "G4s" %}
+                                <option selected value="G4s">G4s: Very moist grassland with shunt species</option>
+                            {%else%}
+                                <option value="G4s">G4s: Very moist grassland with shunt species</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "G5:" %}
+                                <option selected value="G5">G5: Wet grassland</option>
+                            {%else%}
+                                <option value="G5">G5: Wet grassland</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "G5s" %}
+                                <option selected value="G5s">G5s: Wet grassland with shunt species</option>
+                            {%else%}
+                                <option value="G5s">G5s: Wet grassland with shunt species</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "A1" %}
+                                <option selected value="A1">A1: Dry to moderately moist arable land</option>
+                            {%else%}
+                                <option value="A1">A1: Dry to moderately moist arable land</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "A2" %}
+                                <option selected value="A2">A2: Moist arable land</option>
+                            {%else%}
+                                <option value="A2">A2: Moist arable land</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U1:" %}
+                                <option selected value="U1">U1: Moist bare peat</option>
+                            {%else%}
+                                <option value="U1">U1: Moist bare peat</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U2:" %}
+                                <option selected value="U2">U2: Moist bog heath</option>
+                            {%else%}
+                                <option value="U2">U2: Moist bog heath</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "U3" %}
+                                <option selected value="U3">U3: Moist Reeds</option>
+                            {%else%}
+                                <option value="U3">U3: Moist Reeds</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "U6" %}
+                                <option selected value="U6">U6: Very moist bog heath</option>
+                            {%else%}
+                                <option value="U6">U6: Very moist bog heath</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "U7" %}
+                                <option selected value="U7">U7: Very moist forbs and sedges</option>
+                            {%else%}
+                                <option value="U7">U7: Very moist forbs and sedges</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "U8" %}
+                                <option selected value="U8">U8: Very moist Sphagnum lawn</option>
+                            {%else%}
+                                <option value="U8">U8: Very moist Sphagnum lawn</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "U9" %}
+                                <option selected value="U9">U9: Very moist tall sedges</option>
+                            {%else%}
+                                <option value="U9">U9: Very moist tall sedges</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U10" %}
+                                <option selected value="U10">U10: Wet bare peat</option>
+                            {%else%}
+                                <option value="U10">U10: Wet bare peat</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U11" %}
+                                <option selected value="U11">U11: Wet meadows and forbs</option>
+                            {%else%}
+                                <option value="U11">U11: Wet meadows and forbs</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U12" %}
+                                <option selected value="U12">U12: Wet small sedges with mosses</option>
+                            {%else%}
+                                <option value="U12">U12: Wet small sedges with mosses</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U13" %}
+                                <option selected value="U13">U13: Wet sphagnum lawn</option>
+                            {%else%}
+                                <option value="U13">U13: Wet sphagnum lawn</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U14" %}
+                                <option selected value="U14">U14: Wet tall reeds</option>
+                            {%else%}
+                                <option value="U14">U14: Wet tall reeds</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U15" %}
+                                <option selected value="U15">U15: Wet tall sedges</option>
+                            {%else%}
+                                <option value="U15">U15: Wet tall sedges</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U16" %}
+                                <option selected value="U16">U16: Wet bog heath</option>
+                            {%else%}
+                                <option value="U16">U16: Wet bog heath</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U17" %}
+                                <option selected value="U17">U17: Very wet tall sedges and Typha</option>
+                            {%else%}
+                                <option value="U17">U17: Very wet tall sedges and Typha</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U18" %}
+                                <option selected value="U18">U18: Very wet Phragmites reeds</option>
+                            {% else %}
+                                <option value="U18">U18: Very wet Phragmites reeds</option>
+                            {% endif %}
+                            {% if inpt['base']['veg_class'][0:3] == "U19" %}
+                                <option selected value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                            {%else%}
+                                <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:3] == "U20" %}
+                                <option selected value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                            {%else%}
+                                <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S1" %}
+                                <option selected value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                            {%else%}
+                                <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S2" %}
+                                <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                            {%else%}
+                                <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S3" %}
+                                <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                            {%else%}
+                                <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S4" %}
+                                <option selected value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                            {%else%}
+                                <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S5" %}
+                                <option selected value="S5">S5: Simulated harvest (Paludiculture)</option>
+                            {%else%}
+                                <option value="S5">S5: Simulated harvest (Paludiculture)</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S6" %}
+                                <option selected value="S6">S6: Wet tall reeds (dry year)</option>
+                            {%else%}
+                                <option value="S6">S6: Wet tall reeds (dry year)</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S7" %}
+                                <option selected value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                            {%else%}
+                                <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                            {%endif%}
+                            {% if inpt['base']['veg_class'][0:2] == "S8" %}
+                                <option selected value="S8">S8: Ditches in low intensity grassland</option>
+                            {%else%}
+                                <option value="S8">S8: Ditches in low intensity grassland</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -193,44 +345,196 @@
                     </div>
                     <div class="col-4">
                         <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" required>
-                            <option selected value="G1">G1: Dry to moderately moist grassland</option>
-                            <option value="G2">G2: Moist grassland</option>
-                            <option value="G3">G3: Moist to very moist grassland</option>
-                            <option value="G3f">G3f: Periodically flooded grasslands</option>
-                            <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
-                            <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
-                            <option value="G4">G4: Very moist grassland</option>
-                            <option value="G4s">G4s: Very moist grassland with shunt species</option>
-                            <option value="G5">G5: Wet grassland</option>
-                            <option value="G5s">G5s: Wet grassland with shunt species</option>
-                            <option value="A1">A1: Dry to moderately moist arable land</option>
-                            <option value="A2">A2: Moist arable land</option>
-                            <option value="U1">U1: Moist bare peat</option>
-                            <option value="U2">U2: Moist bog heath</option>
-                            <option value="U3">U3: Moist Reeds</option>
-                            <option value="U6">U6: Very moist bog heath</option>
-                            <option value="U7">U7: Very moist forbs and sedges</option>
-                            <option value="U8">U8: Very moist Sphagnum lawn</option>
-                            <option value="U9">U9: Very moist tall sedges</option>
-                            <option value="U10">U10: Wet bare peat</option>
-                            <option value="U11">U11: Wet meadows and forbs</option>
-                            <option value="U12">U12: Wet small sedges with mosses</option>
-                            <option value="U13">U13: Wet sphagnum lawn</option>
-                            <option value="U14">U14: Wet tall reeds</option>
-                            <option value="U15">U15: Wet tall sedges</option>
-                            <option value="U16">U16: Wet bog heath</option>
-                            <option value="U17">U17: Very wet tall sedges and Typha</option>
-                            <option value="U18">U18: Very wet Phragmites reeds</option>
-                            <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
-                            <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
-                            <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
-                            <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
-                            <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
-                            <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
-                            <option value="S5">S5: Simulated harvest (Paludiculture)</option>
-                            <option value="S6">S6: Wet tall reeds (dry year)</option>
-                            <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
-                            <option value="S8">S8: Ditches in low intensity grassland</option>
+                            {% if inpt['rewet']['veg_class'][0:2] == "G1" %}
+                                <option selected value="G1">G1: Dry to moderately moist grassland</option>
+                            {%else%}
+                                <option value="G1">G1: Dry to moderately moist grassland</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "G2" %}
+                                <option selected value="G2">G2: Moist grassland</option>
+                            {%else%}
+                                <option value="G2">G2: Moist grassland</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "G3:" %}
+                                <option selected value="G3">G3: Moist to very moist grassland</option>
+                            {%else%}
+                                <option value="G3">G3: Moist to very moist grassland</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "G3f" %}
+                                <option selected value="G3f">G3f: Periodically flooded grasslands</option>
+                            {%else%}
+                                <option value="G3f">G3f: Periodically flooded grasslands</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "G3s" %}
+                                <option selected value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                            {%else%}
+                                <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "G3m" %}
+                                <option selected value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                            {%else%}
+                                <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:4] == "G4:" %}
+                                <option selected value="G4">G4: Very moist grassland</option>
+                            {%else%}
+                                <option value="G4">G4: Very moist grassland</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "G4s" %}
+                                <option selected value="G4s">G4s: Very moist grassland with shunt species</option>
+                            {%else%}
+                                <option value="G4s">G4s: Very moist grassland with shunt species</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "G5:" %}
+                                <option selected value="G5">G5: Wet grassland</option>
+                            {%else%}
+                                <option value="G5">G5: Wet grassland</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "G5s" %}
+                                <option selected value="G5s">G5s: Wet grassland with shunt species</option>
+                            {%else%}
+                                <option value="G5s">G5s: Wet grassland with shunt species</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "A1" %}
+                                <option selected value="A1">A1: Dry to moderately moist arable land</option>
+                            {%else%}
+                                <option value="A1">A1: Dry to moderately moist arable land</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "A2" %}
+                                <option selected value="A2">A2: Moist arable land</option>
+                            {%else%}
+                                <option value="A2">A2: Moist arable land</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U1:" %}
+                                <option selected value="U1">U1: Moist bare peat</option>
+                            {%else%}
+                                <option value="U1">U1: Moist bare peat</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U2:" %}
+                                <option selected value="U2">U2: Moist bog heath</option>
+                            {%else%}
+                                <option value="U2">U2: Moist bog heath</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "U3" %}
+                                <option selected value="U3">U3: Moist Reeds</option>
+                            {%else%}
+                                <option value="U3">U3: Moist Reeds</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "U6" %}
+                                <option selected value="U6">U6: Very moist bog heath</option>
+                            {%else%}
+                                <option value="U6">U6: Very moist bog heath</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "U7" %}
+                                <option selected value="U7">U7: Very moist forbs and sedges</option>
+                            {%else%}
+                                <option value="U7">U7: Very moist forbs and sedges</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "U8" %}
+                                <option selected value="U8">U8: Very moist Sphagnum lawn</option>
+                            {%else%}
+                                <option value="U8">U8: Very moist Sphagnum lawn</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "U9" %}
+                                <option selected value="U9">U9: Very moist tall sedges</option>
+                            {%else%}
+                                <option value="U9">U9: Very moist tall sedges</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U10" %}
+                                <option selected value="U10">U10: Wet bare peat</option>
+                            {%else%}
+                                <option value="U10">U10: Wet bare peat</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U11" %}
+                                <option selected value="U11">U11: Wet meadows and forbs</option>
+                            {%else%}
+                                <option value="U11">U11: Wet meadows and forbs</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U12" %}
+                                <option selected value="U12">U12: Wet small sedges with mosses</option>
+                            {%else%}
+                                <option value="U12">U12: Wet small sedges with mosses</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U13" %}
+                                <option selected value="U13">U13: Wet sphagnum lawn</option>
+                            {%else%}
+                                <option value="U13">U13: Wet sphagnum lawn</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U14" %}
+                                <option selected value="U14">U14: Wet tall reeds</option>
+                            {%else%}
+                                <option value="U14">U14: Wet tall reeds</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U15" %}
+                                <option selected value="U15">U15: Wet tall sedges</option>
+                            {%else%}
+                                <option value="U15">U15: Wet tall sedges</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U16" %}
+                                <option selected value="U16">U16: Wet bog heath</option>
+                            {%else%}
+                                <option value="U16">U16: Wet bog heath</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U17" %}
+                                <option selected value="U17">U17: Very wet tall sedges and Typha</option>
+                            {%else%}
+                                <option value="U17">U17: Very wet tall sedges and Typha</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U18" %}
+                                <option selected value="U18">U18: Very wet Phragmites reeds</option>
+                            {% else %}
+                                <option value="U18">U18: Very wet Phragmites reeds</option>
+                            {% endif %}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U19" %}
+                                <option selected value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                            {%else%}
+                                <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:3] == "U20" %}
+                                <option selected value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                            {%else%}
+                                <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S1" %}
+                                <option selected value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                            {%else%}
+                                <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S2" %}
+                                <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                            {%else%}
+                                <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S3" %}
+                                <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                            {%else%}
+                                <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S4" %}
+                                <option selected value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                            {%else%}
+                                <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S5" %}
+                                <option selected value="S5">S5: Simulated harvest (Paludiculture)</option>
+                            {%else%}
+                                <option value="S5">S5: Simulated harvest (Paludiculture)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S6" %}
+                                <option selected value="S6">S6: Wet tall reeds (dry year)</option>
+                            {%else%}
+                                <option value="S6">S6: Wet tall reeds (dry year)</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S7" %}
+                                <option selected value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                            {%else%}
+                                <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                            {%endif%}
+                            {% if inpt['rewet']['veg_class'][0:2] == "S8" %}
+                                <option selected value="S8">S8: Ditches in low intensity grassland</option>
+                            {%else%}
+                                <option value="S8">S8: Ditches in low intensity grassland</option>
+                            {%endif%}
                         </select>
                     </div>
                 </div>
@@ -586,8 +890,71 @@
     </form>
 </div>
 
-<div>
-    <p>{{results['base_outcomes']}}</p>
+<div class="empty-spacing" style="padding-top: 15px;"></div>
+<div class="container set-results-div" style="max-width: 900px; display: grid;">
+    <div style="max-width: 400px;">
+        <div class="empty-spacing" style="padding-top: 10px;"></div>
+        <h4 style="font-weight: bold; justify-content: center;">
+            RESULTS
+        </h4>
+        <div class="empty-spacing" style="padding-top: 10px;"></div>
+        <p style="font-weight: bold;">Base Outcomes</p>
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p>CH4</p>
+            </div>
+            <div class="col-4">
+                <p id="base_CH4">{{results['base_outcomes']['CH4']}}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p>CO2</p>
+            </div>
+            <div class="col-4">
+                <p id="base_CO2">{{results['base_outcomes']['CO2']}}</p>
+            </div>
+        </div>
+        <div class="empty-spacing" style="padding-top: 10px;"></div>
+        <p style="font-weight: bold;">Rewet Outcomes</p>
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p>CH4</p>
+            </div>
+            <div class="col-4">
+                <p id="rewet_CH4">{{results['rewet_outcomes']['CH4']}}</p>
+            </div>
+        </div>
+        <hr >
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p>CO2</p>
+            </div>
+            <div class="col-4">
+                <p id="rewet_CO2">{{results['rewet_outcomes']['CO2']}}</p>
+            </div>
+        </div>
+        <div class="empty-spacing" style="padding-top: 10px;"></div>
+        <p style="font-weight: bold;">Carbon Savings</p>
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p>Time til peat lost (base)</p>
+            </div>
+            <div class="col-4">
+                <p id="base_CH4">{{results['carbon_savings']['time_til_peat_is_lost_base_scenario']}}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p>Time til peat lost (rewet)</p>
+            </div>
+            <div class="col-4">
+                <p id="base_CH4">{{results['carbon_savings']['time_til_peat_is_lost_rewet_scenario']}}</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!--popover script-->

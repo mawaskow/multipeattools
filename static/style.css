@@ -221,7 +221,7 @@ svg > a:focus{
     |_______|   |________|      |__|
 */
 
-.set-input-div{
+.set-input-div, .set-results-div{
     background-color: #b8cede;   
     border-radius: 20px;
     padding: 20px 20px 20px 20px;

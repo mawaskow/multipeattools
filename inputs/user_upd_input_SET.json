@@ -1,18 +1,18 @@
 {
      "gen_site_data": {
           "site_name": "Test Site",
-          "tot_area": 500.0,
+          "tot_area": 5.0,
           "coords": "[-56, 100]",
-          "elevation": 3.0,
+          "elevation": 30.0,
           "peat_type": "Woody",
-          "peat_thick": 5.0,
+          "peat_thick": 50.0,
           "year_start": 2050
      },
      "base": {
           "med_gw_level_summer": -70.0,
-          "veg_class": "G1: Dry to moderately moist grassland",
-          "amount_manure": 500.0,
-          "amount_org_fert": 300.0,
+          "veg_class": "G3f: Periodically flooded grasslands",
+          "amount_manure": 50.0,
+          "amount_org_fert": 30.0,
           "type_synth_fert": "Ammonium Based",
           "amount_synth_fert": 100.0,
           "type_animals": "Sheep",
@@ -21,12 +21,12 @@
           "crop_yield": 50.0,
           "crop_resid": true,
           "crop_name": "Peat moss (Sphagnum sp.)",
-          "diesel_per_site": 500.0,
-          "elec_per_site": 700.0
+          "diesel_per_site": 50.0,
+          "elec_per_site": 70.0
      },
      "rewet": {
           "med_gw_level_summer": 0.0,
-          "veg_class": "G1: Dry to moderately moist grassland",
+          "veg_class": "G3f: Periodically flooded grasslands",
           "amount_manure": 75.0,
           "amount_org_fert": 60.0,
           "type_synth_fert": "Ammonium Based",
