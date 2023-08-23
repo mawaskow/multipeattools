@@ -45,3 +45,47 @@ $("#r-close-btn").on('click', function(event){
         fr.style.display = 'none'
     }
 });
+
+$("#a-close-btn").on('click', function(event){
+    af = document.getElementById("assum-form-div");
+    
+    if(af.style.display != 'none'){
+        af.style.display = 'none'
+    }
+});
+
+$("#set-land-tog-down").on('click', function(event){
+    el = document.getElementById("set-land-coll");
+    td = document.getElementById("set-land-tog-down");
+    tu = document.getElementById("set-land-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block'
+    }
+
+    if(td.style.display != 'none'){
+        td.style.display = 'none'
+    }
+
+    if(tu.style.display == 'none'){
+        tu.style.display = 'block'
+    }
+});
+
+$("#set-land-tog-up").on('click', function(event){
+    el = document.getElementById("set-land-coll");
+    td = document.getElementById("set-land-tog-down");
+    tu = document.getElementById("set-land-tog-up");
+    
+    if(el.style.display != 'none'){
+        el.style.display = 'none'
+    }
+
+    if(tu.style.display != 'none'){
+        tu.style.display = 'none'
+    }
+
+    if(td.style.display == 'none'){
+        td.style.display = 'block'
+    }
+});
