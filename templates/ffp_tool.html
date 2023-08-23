@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="empty-spacing" style="padding-top: 10px;"></div>
-<div class="container textchunk user-input-div" style="max-width: 900px;">
+<div class="container user-input-div">
     <div style="margin-left: 25px;">
         <h4 style="font-weight: bold;">
             FEASIBILITY & PRICING TOOL FOR CARBON FARMING
@@ -33,7 +33,7 @@
                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
-                        <label for="num_yrs" class="form-label" style="margin-left: 2px;">Project duration</label>
+                        <label for="num_yrs" class="form-label" style="margin-left: 2px;">Project duration (years)</label>
                     </div>
                     <div class="col-4" style="align-items: end;">
                         <input type="number" class="validate form-control" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}" min="0" max="9999" step="0.001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
@@ -82,13 +82,13 @@
                         {% if uform['invest_costs_inc'] %}
                         <div class="col-8">
                             <label for="invest_costs_inc" class="form-check-label">Interest on finance included</label>
-                        </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                        </div><div class="col-2 justify-content-center">
                             <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" onkeyup="ffp_calculation()" checked>
                         </div>
                         {% else %}
                         <div class="col-8">
                             <label for="invest_costs_inc" class="form-check-label">Interest on finance included</label>
-                        </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                        </div><div class="col-2 justify-content-center">
                             <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()">
                         </div>
                         {% endif %}
@@ -170,7 +170,7 @@
             <hr class="inf">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p style="margin-left: 25px;">Net Present Value (€)</p>
+                    <p style="margin-left: 25px;">Profit across project duration (€)</p>
                 </div>
                 <div class="col-4">
                     <p id="np_val">{{results_dict["net_present_value"]}}</p>
@@ -178,17 +178,17 @@
             </div>
             <div class="empty-spacing" style="padding-top: 10px;"></div>
             <hr class="inf">
-            <div class="row g-2 align-items-center align-self-end" style="padding-top: 15px; margin-left: 25px;">
+            <div class="row g-2 align-items-center align-self-end" style="padding-top: 15px;">
                 <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
-                <div class="col-auto">
-                    <div class="row">
-                        <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500;">ASSUMPTIONS</button>
+                <div class="col-auto text-center">
+                    <div class="row justify-content-center">
+                        <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">ASSUMPTIONS</button>
                         <p class="text-descr">Click here to view or amend the assumptions.</p>
                     </div>
                 </div>
-                <div class="col-auto">
-                    <div class="row">
-                        <button id="comp_res_btn" class="btn btn-success btn-sm" style="font-weight: 500;">MORE RESULTS</button>
+                <div class="col-auto text-center">
+                    <div class="row justify-content-center">
+                        <button id="comp_res_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">MORE RESULTS</button>
                         <p class="text-descr">Click here to view the complete results of the tool.</p>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
     </div>
 </div>
 <div class="empty-spacing" style="padding-top: 10px;"></div>
-<div class="container content_section assum-form-div textchunk" id="assum-form-div" style="display:none; padding-top: 10px; padding-bottom: 10px; max-width: 900px;">
+<div class="container assum-form-div" id="assum-form-div" style="display:none;">
     <div class="col-sm" id="assum-descrip" style="margin-left: 25px;">
         <h5 style="font-weight: bold;">MODEL ASSUMPTIONS</h5>
         <div class="empty-spacing" style="padding-top: 10px;"></div>
@@ -208,7 +208,7 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="empty-spacing" style="padding-top: 20px;"></div>
         <p style="font-weight: 600;">
-            <svg height="20" width="16">
+            <svg height="20" width="16" style="margin-right: 2px;">
                 <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Use long-term nominal interest rate and inflation rate for amending the value of money. Long-term fifty-year nominal interest rate and inflation rate are publicised by central banks.">
                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                
                 </a>
@@ -235,7 +235,7 @@
         </div>
         <div class="empty-spacing" style="padding-top: 20px;"></div>
         <p style="font-weight: 600;">
-            <svg height="20" width="16">
+            <svg height="20" width="16" style="margin-right: 2px;">
                 <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Use the carbon registry costs associated with the specific certification organisation that is anticipated to process and verify the sale of carbon credits from your specific project.">
                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                
                 </a>
@@ -246,7 +246,7 @@
             <div class="row align-items-center">
                 <div class="col-8">
                     <svg height="20" width="16">
-                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="This a once-off fee when you open your chosen registry account.">
+                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="This is a once-off fee when you open your chosen registry account.">
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                        
                         </a>
                     </svg>
@@ -362,13 +362,14 @@
     </div>
 </div>
 
-<div class="container full_res_div textchunk" id="full-results-div" style="display:none; padding-top: 10px; padding-bottom: 10px; max-width: 900px;">
+<div class="container full_res_div" id="full-results-div" style="display:none;">
     <div class="col-sm" id="assum-descrip" style="margin-left: 25px;">
         <h5 style="font-weight: bold;">COMPLETE RESULTS</h5>
         <div class="empty-spacing" style="padding-top: 10px;"></div>
         <p class="text-descr">This area allows you to view all the results calculated from the tool.</p>
     </div>
     <div class="col-sm">
+        <div class="empty-spacing" style="padding-top: 10px;"></div>
         <div class="row align-items-center">
             <div class="col-8">
                 <p style="font-weight: 600; margin-left: 25px;">Profitable?</p>
@@ -383,7 +384,7 @@
                 </h4>
             </div>
         </div>
-        <div class="empty-spacing" style="padding-top: 20px;"></div>
+        <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
                 <p style="margin-left: 25px;">Profit per carbon credit (€)</p>
@@ -404,7 +405,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Beginning value</p>
+                <p style="margin-left: 25px;">Beginning value (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_beg_val">{{results_dict["beginning_value"]}}</p>
@@ -413,7 +414,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Ending value undiscounted</p>
+                <p style="margin-left: 25px;">Ending value undiscounted (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_end_val_undisc">{{results_dict["ending_value_undisc"]}}</p>
@@ -422,7 +423,13 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Ending value discounted</p>
+                <p style="margin-left: 2px;">
+                    <svg height="20" width="16" style="margin-right: 2px;">
+                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Money received today is valued more than money received in the future. To convert future cash flows into their equivalent present value, a standard discount rate is applied.">
+                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                        </a>
+                    </svg>
+                    Ending value discounted (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_end_val_disc">{{results_dict["ending_value_discounted"]}}</p>
@@ -431,7 +438,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Net present value</p>
+                <p style="margin-left: 25px;">Profit across project duration (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_net_pres_val">{{results_dict["net_present_value"]}}</p>
@@ -440,7 +447,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Gross present value</p>
+                <p style="margin-left: 25px;">Gross present value (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_gro_pres_val">{{results_dict["gross_present_value"]}}</p>
@@ -449,7 +456,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Total project costs undiscounted</p>
+                <p style="margin-left: 25px;">Total project costs undiscounted (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_tot_cost_undisc">{{results_dict["total_project_costs_undisc"]}}</p>
@@ -458,7 +465,13 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Total project costs discounted</p>
+                <p style="margin-left: 2px;">
+                    <svg height="20" width="16" style="margin-right: 2px;">
+                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Money received today is valued more than money received in the future. To convert future cash flows into their equivalent present value, a standard discount rate is applied.">
+                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                        </a>
+                    </svg>
+                    Total project costs discounted (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_tot_cost_disc">{{results_dict["total_project_costs_disc"]}}</p>
@@ -512,7 +525,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Cost per credit</p>
+                <p style="margin-left: 25px;">Cost per credit (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_cost_p_cred">{{results_dict["cost_per_credit"]}}</p>
@@ -521,7 +534,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Carbon investment cost per payment</p>
+                <p style="margin-left: 25px;">Carbon investment cost per payment (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_c_cost_p_pay">{{results_dict["carbon_investment_cost_per_payment"]}}</p>
@@ -530,7 +543,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Carbon investment annual cost</p>
+                <p style="margin-left: 25px;">Carbon investment annual cost (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_c_ann_cost">{{results_dict["carbon_investment_annual_costs"]}}</p>
@@ -539,7 +552,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Total investment costs</p>
+                <p style="margin-left: 25px;">Total investment costs (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_tot_invest_cost">{{results_dict["total_investment_costs"]}}</p>
@@ -557,7 +570,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Registry costs recurring</p>
+                <p style="margin-left: 25px;">Registry costs recurring (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_reg_cost_rec">{{results_dict["registry_cost_recurring"]}}</p>
@@ -566,7 +579,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Registry cost per credit</p>
+                <p style="margin-left: 25px;">Registry cost per credit (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_reg_cost_p_cred">{{results_dict["registry_cost_per_credit"]}}</p>
@@ -575,7 +588,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Registry cost credits above threshold</p>
+                <p style="margin-left: 25px;">Registry cost credits above threshold (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_reg_cost_abv_thr">{{results_dict["registry_cost_credits_above_threshold"]}}</p>
@@ -584,7 +597,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 25px;">Total registry costs</p>
+                <p style="margin-left: 25px;">Total registry costs (€)</p>
             </div>
             <div class="col-4">
                 <p id="r_tot_reg_cost">{{results_dict["total_registry_costs"]}}</p>
@@ -608,8 +621,6 @@
                 <p id="r_cal_yr_end">{{results_dict["calendar_year_end"]}}</p>
             </div>
         </div>
-        <hr class="inf">
-        
     </div>
 </div>
 
