@@ -362,13 +362,254 @@
     </div>
 </div>
 
-<div class="container content_section full_res_div textchunk" id="full-results-div" style="display:none; padding-top: 10px; padding-bottom: 10px; max-width: 900px;">
+<div class="container full_res_div textchunk" id="full-results-div" style="display:none; padding-top: 10px; padding-bottom: 10px; max-width: 900px;">
     <div class="col-sm" id="assum-descrip" style="margin-left: 25px;">
         <h5 style="font-weight: bold;">COMPLETE RESULTS</h5>
         <div class="empty-spacing" style="padding-top: 10px;"></div>
         <p class="text-descr">This area allows you to view all the results calculated from the tool.</p>
     </div>
     <div class="col-sm">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="font-weight: 600; margin-left: 25px;">Profitable?</p>
+            </div>
+            <div class="col-auto">
+                <h4>
+                {% if results_dict["profitable"] %}
+                <span class="badge rounded-pill text-bg-success" id="r_prof">YES</span>
+                {% else %}
+                <span class="badge rounded-pill text-bg-danger" id="r_prof">NO</span>
+                {% endif %}
+                </h4>
+            </div>
+        </div>
+        <div class="empty-spacing" style="padding-top: 20px;"></div>
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Profit per carbon credit (€)</p>
+            </div>
+            <div class="col-4 justify-content-center">
+                <p id="r_prof_p_cred">{{results_dict["profit_per_credit"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Profit per hectare per year (€)</p>
+            </div>
+            <div class="col-4">
+                <p id="r_prof_p_hect_p_yr">{{results_dict["profit_per_hectare_per_year"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Beginning value</p>
+            </div>
+            <div class="col-4">
+                <p id="r_beg_val">{{results_dict["beginning_value"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Ending value undiscounted</p>
+            </div>
+            <div class="col-4">
+                <p id="r_end_val_undisc">{{results_dict["ending_value_undisc"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Ending value discounted</p>
+            </div>
+            <div class="col-4">
+                <p id="r_end_val_disc">{{results_dict["ending_value_discounted"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Net present value</p>
+            </div>
+            <div class="col-4">
+                <p id="r_net_pres_val">{{results_dict["net_present_value"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Gross present value</p>
+            </div>
+            <div class="col-4">
+                <p id="r_gro_pres_val">{{results_dict["gross_present_value"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Total project costs undiscounted</p>
+            </div>
+            <div class="col-4">
+                <p id="r_tot_cost_undisc">{{results_dict["total_project_costs_undisc"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Total project costs discounted</p>
+            </div>
+            <div class="col-4">
+                <p id="r_tot_cost_disc">{{results_dict["total_project_costs_disc"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Rate of return</p>
+            </div>
+            <div class="col-4">
+                <p id="r_rate_return">{{results_dict["rate_of_return"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">CARG</p>
+            </div>
+            <div class="col-4">
+                <p id="r_carg">{{results_dict["CARG"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">CARG exponent</p>
+            </div>
+            <div class="col-4">
+                <p id="r_carg_exp">{{results_dict["CARG_exponent"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Real interest rate</p>
+            </div>
+            <div class="col-4">
+                <p id="r_real_int_rt">{{results_dict["real_interest_rate"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Credits generated</p>
+            </div>
+            <div class="col-4">
+                <p id="r_cred_gen">{{results_dict["credits_generated"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Cost per credit</p>
+            </div>
+            <div class="col-4">
+                <p id="r_cost_p_cred">{{results_dict["cost_per_credit"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Carbon investment cost per payment</p>
+            </div>
+            <div class="col-4">
+                <p id="r_c_cost_p_pay">{{results_dict["carbon_investment_cost_per_payment"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Carbon investment annual cost</p>
+            </div>
+            <div class="col-4">
+                <p id="r_c_ann_cost">{{results_dict["carbon_investment_annual_costs"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Total investment costs</p>
+            </div>
+            <div class="col-4">
+                <p id="r_tot_invest_cost">{{results_dict["total_investment_costs"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Number of inspections</p>
+            </div>
+            <div class="col-4">
+                <p id="r_num_inspect">{{results_dict["number_of_inspections"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Registry costs recurring</p>
+            </div>
+            <div class="col-4">
+                <p id="r_reg_cost_rec">{{results_dict["registry_cost_recurring"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Registry cost per credit</p>
+            </div>
+            <div class="col-4">
+                <p id="r_reg_cost_p_cred">{{results_dict["registry_cost_per_credit"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Registry cost credits above threshold</p>
+            </div>
+            <div class="col-4">
+                <p id="r_reg_cost_abv_thr">{{results_dict["registry_cost_credits_above_threshold"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Total registry costs</p>
+            </div>
+            <div class="col-4">
+                <p id="r_tot_reg_cost">{{results_dict["total_registry_costs"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Exponent year</p>
+            </div>
+            <div class="col-4">
+                <p id="r_exp_yr">{{results_dict["exponent_year"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <p style="margin-left: 25px;">Calendar year end</p>
+            </div>
+            <div class="col-4">
+                <p id="r_cal_yr_end">{{results_dict["calendar_year_end"]}}</p>
+            </div>
+        </div>
+        <hr class="inf">
+        
     </div>
 </div>
 

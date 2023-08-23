@@ -2,7 +2,7 @@
      "gen_site_data": {
           "site_name": "Test Site",
           "tot_area": 5.0,
-          "coords": "[-56, 100]",
+          "coords": "-56, 100",
           "elevation": 30.0,
           "peat_type": "Woody",
           "peat_thick": 50.0,
@@ -39,6 +39,6 @@
           "crop_name": "Reed (Phragmites australis)",
           "diesel_per_site": 75.0,
           "elec_per_site": 50.0,
-          "crop_use": "Bedding Material"
+          "crop_use": "Food Application"
      }
 }

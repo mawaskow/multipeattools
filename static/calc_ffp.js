@@ -282,6 +282,70 @@ function update_results(results_dict){
     np_val.innerHTML = parseFloat(results_dict["net_present_value"]).toFixed(2);
 }
 
+function update_complete_results(results_dict){
+    let exp_yr= document.getElementById("r_exp_yr");
+    let cal_yr_end= document.getElementById("r_cal_yr_end");
+    let real_int_rt= document.getElementById("r_real_int_rt");
+    let cred_gen= document.getElementById("r_cred_gen");
+    let cost_p_cred= document.getElementById("r_cost_p_cred");
+    let beg_val= document.getElementById("r_beg_val");
+    let end_val_undisc= document.getElementById("r_end_val_undisc");
+    let end_val_disc= document.getElementById("r_end_val_disc");
+    let net_pres_val= document.getElementById("r_net_pres_val");
+    let gro_pres_val= document.getElementById("r_gro_pres_val");
+    let tot_cost_undisc= document.getElementById("r_tot_cost_undisc");
+    let tot_cost_disc= document.getElementById("r_tot_cost_disc");
+    let carg= document.getElementById("r_carg");
+    let carg_exp= document.getElementById("r_carg_exp");
+    let prof_p_cred= document.getElementById("r_prof_p_cred");
+    let prof_p_hect_p_yr= document.getElementById("r_prof_p_hect_p_yr");
+    let rate_return= document.getElementById("r_rate_return");
+    let c_cost_p_pay= document.getElementById("r_c_cost_p_pay");
+    let c_ann_cost= document.getElementById("r_c_ann_cost");
+    let tot_invest_cost= document.getElementById("r_tot_invest_cost");
+    let num_inspect= document.getElementById("r_num_inspect");
+    let reg_cost_rec= document.getElementById("r_reg_cost_rec");
+    let reg_cost_p_cred= document.getElementById("r_reg_cost_p_cred");
+    let reg_cost_abv_thr= document.getElementById("r_reg_cost_abv_thr");
+    let tot_reg_cost= document.getElementById("r_tot_reg_cost");
+    let prof= document.getElementById("r_prof");
+
+    exp_yr.innerHTML = parseFloat(results_dict["exponent_year"]).toFixed(2);
+    cal_yr_end.innerHTML = parseFloat(results_dict["calendar_year_end"]).toFixed(2);
+    real_int_rt.innerHTML = parseFloat(results_dict["real_interest_rate"]).toFixed(2);
+    cred_gen.innerHTML = parseFloat(results_dict["credits_generated"]).toFixed(2);
+    cost_p_cred.innerHTML = parseFloat(results_dict["cost_per_credit"]).toFixed(2);
+    beg_val.innerHTML = parseFloat(results_dict["beginning_value"]).toFixed(2);
+    end_val_undisc.innerHTML = parseFloat(results_dict["ending_value_undisc"]).toFixed(2);
+    end_val_disc.innerHTML = parseFloat(results_dict["ending_value_discounted"]).toFixed(2);
+    net_pres_val.innerHTML = parseFloat(results_dict["net_present_value"]).toFixed(2);
+    gro_pres_val.innerHTML = parseFloat(results_dict["gross_present_value"]).toFixed(2);
+    tot_cost_undisc.innerHTML = parseFloat(results_dict["total_project_costs_undisc"]).toFixed(2);
+    tot_cost_disc.innerHTML = parseFloat(results_dict["total_project_costs_disc"]).toFixed(2);
+    carg.innerHTML = parseFloat(results_dict["CARG"]).toFixed(2);
+    carg_exp.innerHTML = parseFloat(results_dict["CARG_exponent"]).toFixed(2);
+    prof_p_cred.innerHTML = parseFloat(results_dict["profit_per_credit"]).toFixed(2);
+    prof_p_hect_p_yr.innerHTML = parseFloat(results_dict["profit_per_hectare_per_year"]).toFixed(2);
+    rate_return.innerHTML = parseFloat(results_dict["rate_of_return"]).toFixed(2);
+    c_cost_p_pay.innerHTML = parseFloat(results_dict["carbon_investment_cost_per_payment"]).toFixed(2);
+    c_ann_cost.innerHTML = parseFloat(results_dict["carbon_investment_annual_costs"]).toFixed(2);
+    tot_invest_cost.innerHTML = parseFloat(results_dict["total_investment_costs"]).toFixed(2);
+    num_inspect.innerHTML = parseFloat(results_dict["number_of_inspections"]).toFixed(2);
+    reg_cost_rec.innerHTML = parseFloat(results_dict["registry_cost_recurring"]).toFixed(2);
+    reg_cost_p_cred.innerHTML = parseFloat(results_dict["registry_cost_per_credit"]).toFixed(2);
+    reg_cost_abv_thr.innerHTML = parseFloat(results_dict["registry_cost_credits_above_threshold"]).toFixed(2);
+    tot_reg_cost.innerHTML = parseFloat(results_dict["total_registry_costs"]).toFixed(2);
+
+    if(results_dict["profitable"]){
+        prof.innerHTML = "YES";
+        prof.className = "badge rounded-pill text-bg-success";
+    }else{
+        prof.innerHTML = "NO";
+        prof.className = "badge rounded-pill text-bg-danger";
+    }
+
+}
+
 // MAIN
 
 function ffp_calculation(){
@@ -339,4 +403,5 @@ function ffp_calculation(){
     let results_dict = Conditional_Executor(num_yrs, cred_p_hect_p_yr, hect_restored, invest_amt, start_yr, price_p_cred, invest_costs_inc, reg_costs_inc, nom_int_rt, inflation_rt, reg_acct_open_fee,  reg_listing_cost_p_credit, reg_conv_cost_fee_p_inspect, reg_conv_cost_p_cred_abv_min_thresh_of_credits, reg_levy_cost_p_cred,  valid_and_verif_app_cost_p_inspect, valid_and_verif_stmnt_cost_p_inspect, valid_and_verif_inspctr_travel_cost_p_inspect, inspect_cycle_len, min_thresh_of_credits, interest_rt, payments_p_yr);
 
     update_results(results_dict)
+    update_complete_results(results_dict)
 }
