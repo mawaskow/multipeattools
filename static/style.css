@@ -95,7 +95,7 @@ button.btn-success:hover{
   border-color: transparent;
   outline: none;
 }
-
+/*
 .btn.btn-success:focus {
   color: #1c4558;
   background-color: #5d8fa7;
@@ -103,7 +103,7 @@ button.btn-success:hover{
   outline: none;
   box-shadow: none;
 }
-
+*/
 /* labels */
 .text-bg-success{
     background-color: rgb(75, 200, 75);
@@ -236,15 +236,17 @@ svg > a:focus{
     |_______|   |________|      |__|
 */
 
-.set-input-div, .set-results-div{
-    background-color: #b8cede;   
+.set-input-div, .set-results-div, .set-base-div, .set-rewet-div{   
     border-radius: 20px;
+}
+
+.set-input-div{
+    background-color: #b8cede;
     padding: 20px 20px 20px 20px;
 }
 
 .set-base-div{
     background-color: #cbdfe9;   
-    border-radius: 20px;
     padding: 20px 20px 20px 20px;
 }
 
@@ -254,8 +256,12 @@ svg > a:focus{
 
 .set-rewet-div{
     background-color: #b1c8cf;   
-    border-radius: 20px;
     padding: 20px 20px 20px 20px;
+}
+
+.set-results-div{
+    background-color: #cbdfe9;
+    padding: 20px 45px 20px 20px;
 }
 
 /*

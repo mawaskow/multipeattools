@@ -37,3 +37,11 @@ $("#comp_res_btn").on('click', function(event){
         af.style.display = 'none'
     }
 });
+
+$("#r-close-btn").on('click', function(event){
+    fr = document.getElementById("full-results-div");
+    
+    if(fr.style.display != 'none'){
+        fr.style.display = 'none'
+    }
+});

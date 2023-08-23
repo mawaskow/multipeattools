@@ -924,66 +924,72 @@
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="upper-base">
-                <p style="font-weight: bold;">Baseline: land management activity</p>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Diesel Use.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="bs_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Electricity Use.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="bs_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" required>
-                    </div>
-                </div>
+            <div class="set-header upper-base">
+                <p style="font-weight: bold;">Land Management Activity</p>
             </div>
             <div class="empty-spacing" style="padding-top: 15px;"></div>
-            <div class="container set-rewet-div">
-                <p style="font-weight: bold;">After rewetting: land management activity</p>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Diesel Use.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="rw_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
+            <div class="set-coll">
+                <div class="upper-base">
+                    <p>Baseline</p>
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Diesel Use.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="bs_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" required>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" required>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Electricity Use.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="bs_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" required>
+                        </div>
                     </div>
                 </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Electricity Use.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="rw_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="container set-rewet-div">
+                    <p>After Rewetting</p>
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Diesel Use.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="rw_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" required>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" required>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Electricity Use.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="rw_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" required>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -991,7 +997,7 @@
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
             <div class="container set-rewet-div">
-                <p style="font-weight: bold;">Rewetting: crop use</p>
+                <p style="font-weight: bold;">After rewetting: crop use</p>
                 <hr>
                 <div class="row align-items-center">
                     <div class="col-8">
@@ -1063,8 +1069,8 @@
 </div>
 
 <div class="empty-spacing" style="padding-top: 15px;"></div>
-<div class="container set-results-div" style="max-width: 900px; display: grid;">
-    <div style="max-width: 400px;">
+<div class="container set-results-div" style="max-width: 600px;">
+    <div style="margin-left: 25px;">
         <div class="empty-spacing" style="padding-top: 10px;"></div>
         <h4 style="font-weight: bold; justify-content: center;">
             RESULTS

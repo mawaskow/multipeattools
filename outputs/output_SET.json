@@ -1,7 +1,7 @@
 {
      "site_data": {
           "site_name": "Test Site",
-          "coords": "-56, 100",
+          "coords": "[-56, 100]",
           "tot_area": 5.0,
           "peat_type": "Woody",
           "peat_thick": 50.0,
