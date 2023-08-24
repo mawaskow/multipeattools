@@ -721,7 +721,47 @@ def Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcome, c_
     output['carbon_savings']['time_til_peat_is_lost_base_scenario'] = outcome.loc['base_scenario']['creditable_year']
     output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] = outcome.loc['rewet_scenario']['creditable_year']
     
+    ################################## 
+    # round
+
+    output['base_outcomes']['CH4'] = round(output['base_outcomes']['CH4'],2)
+    output['base_outcomes']['CO2'] = round(output['base_outcomes']['CO2'],2)
+    output['base_outcomes']['c_emission_gwp_subtotal'] = round(output['base_outcomes']['c_emission_gwp_subtotal'],2)
+    output['base_outcomes']['n2o_direct'] = round(output['base_outcomes']['n2o_direct'],2)
+    output['base_outcomes']['n2o_indirect'] = round(output['base_outcomes']['n2o_indirect'],2)
+    output['base_outcomes']['n2o_emission_gwp_subtotal'] =round(output['base_outcomes']['n2o_emission_gwp_subtotal'],2)
+    output['base_outcomes']['activity_gwp_subtotal'] = round(output['base_outcomes']['activity_gwp_subtotal'],2)
+    output['base_outcomes']['gwp_total'] = round(output['base_outcomes']['gwp_total'],2)
+    output['rewet_outcomes']['CH4'] = round(output['rewet_outcomes']['CH4'],2)
+    output['rewet_outcomes']['CO2'] = round(output['rewet_outcomes']['CO2'],2)
+    output['rewet_outcomes']['c_emission_gwp_subtotal'] = round(output['rewet_outcomes']['c_emission_gwp_subtotal'],2)
+    output['rewet_outcomes']['n2o_direct'] = round(output['rewet_outcomes']['n2o_direct'],2)
+    output['rewet_outcomes']['n2o_indirect'] = round(output['rewet_outcomes']['n2o_indirect'],2)
+    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = round(output['rewet_outcomes']['n2o_emission_gwp_subtotal'],2)
+    output['rewet_outcomes']['activity_gwp_subtotal'] = round(output['rewet_outcomes']['activity_gwp_subtotal'],2)
+    output['rewet_outcomes']['product_gwp_subtotal'] = round(output['rewet_outcomes']['product_gwp_subtotal'],2)
+    output['rewet_outcomes']['gwp_total'] = round(output['rewet_outcomes']['gwp_total'],2)
+    output['carbon_savings']['ghg_savings_total_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_total_per_year_per_site'],2)
+    output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_total_per_year_per_ha'],2)
+    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_stock_per_year_per_site'],2)
+    output['carbon_savings']['ghg_savings_stock_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_stock_per_year_per_ha'],2)
+    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_flow_per_year_per_site'],2)
+    output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_flow_per_year_per_ha'],2)
+    output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_product_use_per_year_per_site'],2)
+    output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'],2)
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'] = round(output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'],2)
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'] = round(output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'],2)
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'] =round(output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'],2)
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'] = round(output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'],2)
     
+    if type(output['carbon_savings']['time_til_peat_is_lost_base_scenario']) != str:
+        output['carbon_savings']['time_til_peat_is_lost_base_scenario']= round(output['carbon_savings']['time_til_peat_is_lost_base_scenario'],2)
+
+    if type(output['carbon_savings']['time_til_peat_is_lost_rewet_scenario']) != str:
+        output['carbon_savings']['time_til_peat_is_lost_rewet_scenario']= round(output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'],2)
+    
+
+    ##############################
     with open(output_file, 'w') as outfile:
         print(json.dumps(output, indent = 5), file = outfile)
     
