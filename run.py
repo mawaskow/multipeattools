@@ -34,7 +34,7 @@ FFP_INIT_USR_INP_FILE = "./inputs/user_input_default.json"
 FFP_FIN_USR_INP_FILE = "./inputs/user_input_data.json"
 #SET FORM
 SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
-GEST_CSV= [url_for('static', filename='csv_files/GEST_2_Static_Values.csv')]
+GEST_CSV= ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
 SET_OUTPUT_FILE = '.\\outputs\\output_SET.json'
 SET_UPD_INPT_FILE = './inputs/user_upd_input_SET.json'
 
@@ -86,7 +86,7 @@ def set_tool():
     set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
     with open(SET_OUTPUT_FILE) as json_file:
         results_dct = json.load(json_file)
-
+        
     #results_dct = set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
     #print(results_dct)
     if request.method == 'POST':
