@@ -118,806 +118,838 @@
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="upper-base">
-                <p style="font-weight: bold;">Baseline: groundwater and vegetation</p>
-                <hr>    
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Median groundwater level.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
-                            </a>
-                        </svg>
-                        <label for="bs_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" required>
-                    </div>
+            <div class="row">
+                <div class="col set-header upper-base">
+                    <p style="font-weight: bold;">Groundwater and Vegetation</p>
                 </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
-                            </a>
-                        </svg>
-                        <label for="bs_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
-                    </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" required>
-                            {% if inpt['base']['veg_class'][0:2] == "G1" %}
-                                <option selected value="G1">G1: Dry to moderately moist grassland</option>
-                            {%else%}
-                                <option value="G1">G1: Dry to moderately moist grassland</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "G2" %}
-                                <option selected value="G2">G2: Moist grassland</option>
-                            {%else%}
-                                <option value="G2">G2: Moist grassland</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "G3:" %}
-                                <option selected value="G3">G3: Moist to very moist grassland</option>
-                            {%else%}
-                                <option value="G3">G3: Moist to very moist grassland</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "G3f" %}
-                                <option selected value="G3f">G3f: Periodically flooded grasslands</option>
-                            {%else%}
-                                <option value="G3f">G3f: Periodically flooded grasslands</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "G3s" %}
-                                <option selected value="G3s">G3s: Moist to very moist grassland with shunt species</option>
-                            {%else%}
-                                <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "G3m" %}
-                                <option selected value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
-                            {%else%}
-                                <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:4] == "G4:" %}
-                                <option selected value="G4">G4: Very moist grassland</option>
-                            {%else%}
-                                <option value="G4">G4: Very moist grassland</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "G4s" %}
-                                <option selected value="G4s">G4s: Very moist grassland with shunt species</option>
-                            {%else%}
-                                <option value="G4s">G4s: Very moist grassland with shunt species</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "G5:" %}
-                                <option selected value="G5">G5: Wet grassland</option>
-                            {%else%}
-                                <option value="G5">G5: Wet grassland</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "G5s" %}
-                                <option selected value="G5s">G5s: Wet grassland with shunt species</option>
-                            {%else%}
-                                <option value="G5s">G5s: Wet grassland with shunt species</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "A1" %}
-                                <option selected value="A1">A1: Dry to moderately moist arable land</option>
-                            {%else%}
-                                <option value="A1">A1: Dry to moderately moist arable land</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "A2" %}
-                                <option selected value="A2">A2: Moist arable land</option>
-                            {%else%}
-                                <option value="A2">A2: Moist arable land</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U1:" %}
-                                <option selected value="U1">U1: Moist bare peat</option>
-                            {%else%}
-                                <option value="U1">U1: Moist bare peat</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U2:" %}
-                                <option selected value="U2">U2: Moist bog heath</option>
-                            {%else%}
-                                <option value="U2">U2: Moist bog heath</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "U3" %}
-                                <option selected value="U3">U3: Moist Reeds</option>
-                            {%else%}
-                                <option value="U3">U3: Moist Reeds</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "U6" %}
-                                <option selected value="U6">U6: Very moist bog heath</option>
-                            {%else%}
-                                <option value="U6">U6: Very moist bog heath</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "U7" %}
-                                <option selected value="U7">U7: Very moist forbs and sedges</option>
-                            {%else%}
-                                <option value="U7">U7: Very moist forbs and sedges</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "U8" %}
-                                <option selected value="U8">U8: Very moist Sphagnum lawn</option>
-                            {%else%}
-                                <option value="U8">U8: Very moist Sphagnum lawn</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "U9" %}
-                                <option selected value="U9">U9: Very moist tall sedges</option>
-                            {%else%}
-                                <option value="U9">U9: Very moist tall sedges</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U10" %}
-                                <option selected value="U10">U10: Wet bare peat</option>
-                            {%else%}
-                                <option value="U10">U10: Wet bare peat</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U11" %}
-                                <option selected value="U11">U11: Wet meadows and forbs</option>
-                            {%else%}
-                                <option value="U11">U11: Wet meadows and forbs</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U12" %}
-                                <option selected value="U12">U12: Wet small sedges with mosses</option>
-                            {%else%}
-                                <option value="U12">U12: Wet small sedges with mosses</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U13" %}
-                                <option selected value="U13">U13: Wet sphagnum lawn</option>
-                            {%else%}
-                                <option value="U13">U13: Wet sphagnum lawn</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U14" %}
-                                <option selected value="U14">U14: Wet tall reeds</option>
-                            {%else%}
-                                <option value="U14">U14: Wet tall reeds</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U15" %}
-                                <option selected value="U15">U15: Wet tall sedges</option>
-                            {%else%}
-                                <option value="U15">U15: Wet tall sedges</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U16" %}
-                                <option selected value="U16">U16: Wet bog heath</option>
-                            {%else%}
-                                <option value="U16">U16: Wet bog heath</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U17" %}
-                                <option selected value="U17">U17: Very wet tall sedges and Typha</option>
-                            {%else%}
-                                <option value="U17">U17: Very wet tall sedges and Typha</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U18" %}
-                                <option selected value="U18">U18: Very wet Phragmites reeds</option>
-                            {% else %}
-                                <option value="U18">U18: Very wet Phragmites reeds</option>
-                            {% endif %}
-                            {% if inpt['base']['veg_class'][0:3] == "U19" %}
-                                <option selected value="U19">U19: Wet to very wet Sphagnum hollows</option>
-                            {%else%}
-                                <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:3] == "U20" %}
-                                <option selected value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
-                            {%else%}
-                                <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S1" %}
-                                <option selected value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
-                            {%else%}
-                                <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S2" %}
-                                <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
-                            {%else%}
-                                <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S3" %}
-                                <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
-                            {%else%}
-                                <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S4" %}
-                                <option selected value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
-                            {%else%}
-                                <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S5" %}
-                                <option selected value="S5">S5: Simulated harvest (Paludiculture)</option>
-                            {%else%}
-                                <option value="S5">S5: Simulated harvest (Paludiculture)</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S6" %}
-                                <option selected value="S6">S6: Wet tall reeds (dry year)</option>
-                            {%else%}
-                                <option value="S6">S6: Wet tall reeds (dry year)</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S7" %}
-                                <option selected value="S7">S7: Very wet reeds with lateral import of organic matter</option>
-                            {%else%}
-                                <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
-                            {%endif%}
-                            {% if inpt['base']['veg_class'][0:2] == "S8" %}
-                                <option selected value="S8">S8: Ditches in low intensity grassland</option>
-                            {%else%}
-                                <option value="S8">S8: Ditches in low intensity grassland</option>
-                            {%endif%}
-                        </select>
-                    </div>
+                <div class="col d-flex justify-content-end">
+                    <svg id="set-gw-tog-down" height="20" width="20" style="display: block;">
+                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                    </svg>
+                    <svg id="set-gw-tog-up" height="20" width="20" style="display: none;">
+                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                    </svg>
                 </div>
             </div>
-            <div class="empty-spacing" style="padding-top: 15px;"></div>
-            <div class="container set-rewet-div">
-                <p style="font-weight: bold;">After rewetting: groundwater and vegetation</p>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Median groundwater level.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
+            <div id="set-gw-coll" style="display:none">
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="upper-base">
+                    <p>Baseline</p>
+                    <hr>    
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Median groundwater level.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
+                                </a>
+                            </svg>
+                            <label for="bs_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" required>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" required>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
+                                </a>
+                            </svg>
+                            <label for="bs_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" required>
+                                {% if inpt['base']['veg_class'][0:2] == "G1" %}
+                                    <option selected value="G1">G1: Dry to moderately moist grassland</option>
+                                {%else%}
+                                    <option value="G1">G1: Dry to moderately moist grassland</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "G2" %}
+                                    <option selected value="G2">G2: Moist grassland</option>
+                                {%else%}
+                                    <option value="G2">G2: Moist grassland</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "G3:" %}
+                                    <option selected value="G3">G3: Moist to very moist grassland</option>
+                                {%else%}
+                                    <option value="G3">G3: Moist to very moist grassland</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "G3f" %}
+                                    <option selected value="G3f">G3f: Periodically flooded grasslands</option>
+                                {%else%}
+                                    <option value="G3f">G3f: Periodically flooded grasslands</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "G3s" %}
+                                    <option selected value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                                {%else%}
+                                    <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "G3m" %}
+                                    <option selected value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                                {%else%}
+                                    <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:4] == "G4:" %}
+                                    <option selected value="G4">G4: Very moist grassland</option>
+                                {%else%}
+                                    <option value="G4">G4: Very moist grassland</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "G4s" %}
+                                    <option selected value="G4s">G4s: Very moist grassland with shunt species</option>
+                                {%else%}
+                                    <option value="G4s">G4s: Very moist grassland with shunt species</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "G5:" %}
+                                    <option selected value="G5">G5: Wet grassland</option>
+                                {%else%}
+                                    <option value="G5">G5: Wet grassland</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "G5s" %}
+                                    <option selected value="G5s">G5s: Wet grassland with shunt species</option>
+                                {%else%}
+                                    <option value="G5s">G5s: Wet grassland with shunt species</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "A1" %}
+                                    <option selected value="A1">A1: Dry to moderately moist arable land</option>
+                                {%else%}
+                                    <option value="A1">A1: Dry to moderately moist arable land</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "A2" %}
+                                    <option selected value="A2">A2: Moist arable land</option>
+                                {%else%}
+                                    <option value="A2">A2: Moist arable land</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U1:" %}
+                                    <option selected value="U1">U1: Moist bare peat</option>
+                                {%else%}
+                                    <option value="U1">U1: Moist bare peat</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U2:" %}
+                                    <option selected value="U2">U2: Moist bog heath</option>
+                                {%else%}
+                                    <option value="U2">U2: Moist bog heath</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "U3" %}
+                                    <option selected value="U3">U3: Moist Reeds</option>
+                                {%else%}
+                                    <option value="U3">U3: Moist Reeds</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "U6" %}
+                                    <option selected value="U6">U6: Very moist bog heath</option>
+                                {%else%}
+                                    <option value="U6">U6: Very moist bog heath</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "U7" %}
+                                    <option selected value="U7">U7: Very moist forbs and sedges</option>
+                                {%else%}
+                                    <option value="U7">U7: Very moist forbs and sedges</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "U8" %}
+                                    <option selected value="U8">U8: Very moist Sphagnum lawn</option>
+                                {%else%}
+                                    <option value="U8">U8: Very moist Sphagnum lawn</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "U9" %}
+                                    <option selected value="U9">U9: Very moist tall sedges</option>
+                                {%else%}
+                                    <option value="U9">U9: Very moist tall sedges</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U10" %}
+                                    <option selected value="U10">U10: Wet bare peat</option>
+                                {%else%}
+                                    <option value="U10">U10: Wet bare peat</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U11" %}
+                                    <option selected value="U11">U11: Wet meadows and forbs</option>
+                                {%else%}
+                                    <option value="U11">U11: Wet meadows and forbs</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U12" %}
+                                    <option selected value="U12">U12: Wet small sedges with mosses</option>
+                                {%else%}
+                                    <option value="U12">U12: Wet small sedges with mosses</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U13" %}
+                                    <option selected value="U13">U13: Wet sphagnum lawn</option>
+                                {%else%}
+                                    <option value="U13">U13: Wet sphagnum lawn</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U14" %}
+                                    <option selected value="U14">U14: Wet tall reeds</option>
+                                {%else%}
+                                    <option value="U14">U14: Wet tall reeds</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U15" %}
+                                    <option selected value="U15">U15: Wet tall sedges</option>
+                                {%else%}
+                                    <option value="U15">U15: Wet tall sedges</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U16" %}
+                                    <option selected value="U16">U16: Wet bog heath</option>
+                                {%else%}
+                                    <option value="U16">U16: Wet bog heath</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U17" %}
+                                    <option selected value="U17">U17: Very wet tall sedges and Typha</option>
+                                {%else%}
+                                    <option value="U17">U17: Very wet tall sedges and Typha</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U18" %}
+                                    <option selected value="U18">U18: Very wet Phragmites reeds</option>
+                                {% else %}
+                                    <option value="U18">U18: Very wet Phragmites reeds</option>
+                                {% endif %}
+                                {% if inpt['base']['veg_class'][0:3] == "U19" %}
+                                    <option selected value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                                {%else%}
+                                    <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:3] == "U20" %}
+                                    <option selected value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                                {%else%}
+                                    <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S1" %}
+                                    <option selected value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                                {%else%}
+                                    <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S2" %}
+                                    <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                {%else%}
+                                    <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S3" %}
+                                    <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                                {%else%}
+                                    <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S4" %}
+                                    <option selected value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                                {%else%}
+                                    <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S5" %}
+                                    <option selected value="S5">S5: Simulated harvest (Paludiculture)</option>
+                                {%else%}
+                                    <option value="S5">S5: Simulated harvest (Paludiculture)</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S6" %}
+                                    <option selected value="S6">S6: Wet tall reeds (dry year)</option>
+                                {%else%}
+                                    <option value="S6">S6: Wet tall reeds (dry year)</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S7" %}
+                                    <option selected value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                                {%else%}
+                                    <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                                {%endif%}
+                                {% if inpt['base']['veg_class'][0:2] == "S8" %}
+                                    <option selected value="S8">S8: Ditches in low intensity grassland</option>
+                                {%else%}
+                                    <option value="S8">S8: Ditches in low intensity grassland</option>
+                                {%endif%}
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="rw_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="container set-rewet-div">
+                    <p>After Rewetting</p>
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Median groundwater level.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" required>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" required>
-                            {% if inpt['rewet']['veg_class'][0:2] == "G1" %}
-                                <option selected value="G1">G1: Dry to moderately moist grassland</option>
-                            {%else%}
-                                <option value="G1">G1: Dry to moderately moist grassland</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "G2" %}
-                                <option selected value="G2">G2: Moist grassland</option>
-                            {%else%}
-                                <option value="G2">G2: Moist grassland</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "G3:" %}
-                                <option selected value="G3">G3: Moist to very moist grassland</option>
-                            {%else%}
-                                <option value="G3">G3: Moist to very moist grassland</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "G3f" %}
-                                <option selected value="G3f">G3f: Periodically flooded grasslands</option>
-                            {%else%}
-                                <option value="G3f">G3f: Periodically flooded grasslands</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "G3s" %}
-                                <option selected value="G3s">G3s: Moist to very moist grassland with shunt species</option>
-                            {%else%}
-                                <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "G3m" %}
-                                <option selected value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
-                            {%else%}
-                                <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:4] == "G4:" %}
-                                <option selected value="G4">G4: Very moist grassland</option>
-                            {%else%}
-                                <option value="G4">G4: Very moist grassland</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "G4s" %}
-                                <option selected value="G4s">G4s: Very moist grassland with shunt species</option>
-                            {%else%}
-                                <option value="G4s">G4s: Very moist grassland with shunt species</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "G5:" %}
-                                <option selected value="G5">G5: Wet grassland</option>
-                            {%else%}
-                                <option value="G5">G5: Wet grassland</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "G5s" %}
-                                <option selected value="G5s">G5s: Wet grassland with shunt species</option>
-                            {%else%}
-                                <option value="G5s">G5s: Wet grassland with shunt species</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "A1" %}
-                                <option selected value="A1">A1: Dry to moderately moist arable land</option>
-                            {%else%}
-                                <option value="A1">A1: Dry to moderately moist arable land</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "A2" %}
-                                <option selected value="A2">A2: Moist arable land</option>
-                            {%else%}
-                                <option value="A2">A2: Moist arable land</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U1:" %}
-                                <option selected value="U1">U1: Moist bare peat</option>
-                            {%else%}
-                                <option value="U1">U1: Moist bare peat</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U2:" %}
-                                <option selected value="U2">U2: Moist bog heath</option>
-                            {%else%}
-                                <option value="U2">U2: Moist bog heath</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "U3" %}
-                                <option selected value="U3">U3: Moist Reeds</option>
-                            {%else%}
-                                <option value="U3">U3: Moist Reeds</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "U6" %}
-                                <option selected value="U6">U6: Very moist bog heath</option>
-                            {%else%}
-                                <option value="U6">U6: Very moist bog heath</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "U7" %}
-                                <option selected value="U7">U7: Very moist forbs and sedges</option>
-                            {%else%}
-                                <option value="U7">U7: Very moist forbs and sedges</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "U8" %}
-                                <option selected value="U8">U8: Very moist Sphagnum lawn</option>
-                            {%else%}
-                                <option value="U8">U8: Very moist Sphagnum lawn</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "U9" %}
-                                <option selected value="U9">U9: Very moist tall sedges</option>
-                            {%else%}
-                                <option value="U9">U9: Very moist tall sedges</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U10" %}
-                                <option selected value="U10">U10: Wet bare peat</option>
-                            {%else%}
-                                <option value="U10">U10: Wet bare peat</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U11" %}
-                                <option selected value="U11">U11: Wet meadows and forbs</option>
-                            {%else%}
-                                <option value="U11">U11: Wet meadows and forbs</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U12" %}
-                                <option selected value="U12">U12: Wet small sedges with mosses</option>
-                            {%else%}
-                                <option value="U12">U12: Wet small sedges with mosses</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U13" %}
-                                <option selected value="U13">U13: Wet sphagnum lawn</option>
-                            {%else%}
-                                <option value="U13">U13: Wet sphagnum lawn</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U14" %}
-                                <option selected value="U14">U14: Wet tall reeds</option>
-                            {%else%}
-                                <option value="U14">U14: Wet tall reeds</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U15" %}
-                                <option selected value="U15">U15: Wet tall sedges</option>
-                            {%else%}
-                                <option value="U15">U15: Wet tall sedges</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U16" %}
-                                <option selected value="U16">U16: Wet bog heath</option>
-                            {%else%}
-                                <option value="U16">U16: Wet bog heath</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U17" %}
-                                <option selected value="U17">U17: Very wet tall sedges and Typha</option>
-                            {%else%}
-                                <option value="U17">U17: Very wet tall sedges and Typha</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U18" %}
-                                <option selected value="U18">U18: Very wet Phragmites reeds</option>
-                            {% else %}
-                                <option value="U18">U18: Very wet Phragmites reeds</option>
-                            {% endif %}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U19" %}
-                                <option selected value="U19">U19: Wet to very wet Sphagnum hollows</option>
-                            {%else%}
-                                <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:3] == "U20" %}
-                                <option selected value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
-                            {%else%}
-                                <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S1" %}
-                                <option selected value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
-                            {%else%}
-                                <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S2" %}
-                                <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
-                            {%else%}
-                                <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S3" %}
-                                <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
-                            {%else%}
-                                <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S4" %}
-                                <option selected value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
-                            {%else%}
-                                <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S5" %}
-                                <option selected value="S5">S5: Simulated harvest (Paludiculture)</option>
-                            {%else%}
-                                <option value="S5">S5: Simulated harvest (Paludiculture)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S6" %}
-                                <option selected value="S6">S6: Wet tall reeds (dry year)</option>
-                            {%else%}
-                                <option value="S6">S6: Wet tall reeds (dry year)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S7" %}
-                                <option selected value="S7">S7: Very wet reeds with lateral import of organic matter</option>
-                            {%else%}
-                                <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
-                            {%endif%}
-                            {% if inpt['rewet']['veg_class'][0:2] == "S8" %}
-                                <option selected value="S8">S8: Ditches in low intensity grassland</option>
-                            {%else%}
-                                <option value="S8">S8: Ditches in low intensity grassland</option>
-                            {%endif%}
-                        </select>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="rw_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" required>
+                                {% if inpt['rewet']['veg_class'][0:2] == "G1" %}
+                                    <option selected value="G1">G1: Dry to moderately moist grassland</option>
+                                {%else%}
+                                    <option value="G1">G1: Dry to moderately moist grassland</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "G2" %}
+                                    <option selected value="G2">G2: Moist grassland</option>
+                                {%else%}
+                                    <option value="G2">G2: Moist grassland</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "G3:" %}
+                                    <option selected value="G3">G3: Moist to very moist grassland</option>
+                                {%else%}
+                                    <option value="G3">G3: Moist to very moist grassland</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "G3f" %}
+                                    <option selected value="G3f">G3f: Periodically flooded grasslands</option>
+                                {%else%}
+                                    <option value="G3f">G3f: Periodically flooded grasslands</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "G3s" %}
+                                    <option selected value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                                {%else%}
+                                    <option value="G3s">G3s: Moist to very moist grassland with shunt species</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "G3m" %}
+                                    <option selected value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                                {%else%}
+                                    <option value="G3m">G3m: Moist to very moist acidic Molinia meadows</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:4] == "G4:" %}
+                                    <option selected value="G4">G4: Very moist grassland</option>
+                                {%else%}
+                                    <option value="G4">G4: Very moist grassland</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "G4s" %}
+                                    <option selected value="G4s">G4s: Very moist grassland with shunt species</option>
+                                {%else%}
+                                    <option value="G4s">G4s: Very moist grassland with shunt species</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "G5:" %}
+                                    <option selected value="G5">G5: Wet grassland</option>
+                                {%else%}
+                                    <option value="G5">G5: Wet grassland</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "G5s" %}
+                                    <option selected value="G5s">G5s: Wet grassland with shunt species</option>
+                                {%else%}
+                                    <option value="G5s">G5s: Wet grassland with shunt species</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "A1" %}
+                                    <option selected value="A1">A1: Dry to moderately moist arable land</option>
+                                {%else%}
+                                    <option value="A1">A1: Dry to moderately moist arable land</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "A2" %}
+                                    <option selected value="A2">A2: Moist arable land</option>
+                                {%else%}
+                                    <option value="A2">A2: Moist arable land</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U1:" %}
+                                    <option selected value="U1">U1: Moist bare peat</option>
+                                {%else%}
+                                    <option value="U1">U1: Moist bare peat</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U2:" %}
+                                    <option selected value="U2">U2: Moist bog heath</option>
+                                {%else%}
+                                    <option value="U2">U2: Moist bog heath</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "U3" %}
+                                    <option selected value="U3">U3: Moist Reeds</option>
+                                {%else%}
+                                    <option value="U3">U3: Moist Reeds</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "U6" %}
+                                    <option selected value="U6">U6: Very moist bog heath</option>
+                                {%else%}
+                                    <option value="U6">U6: Very moist bog heath</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "U7" %}
+                                    <option selected value="U7">U7: Very moist forbs and sedges</option>
+                                {%else%}
+                                    <option value="U7">U7: Very moist forbs and sedges</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "U8" %}
+                                    <option selected value="U8">U8: Very moist Sphagnum lawn</option>
+                                {%else%}
+                                    <option value="U8">U8: Very moist Sphagnum lawn</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "U9" %}
+                                    <option selected value="U9">U9: Very moist tall sedges</option>
+                                {%else%}
+                                    <option value="U9">U9: Very moist tall sedges</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U10" %}
+                                    <option selected value="U10">U10: Wet bare peat</option>
+                                {%else%}
+                                    <option value="U10">U10: Wet bare peat</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U11" %}
+                                    <option selected value="U11">U11: Wet meadows and forbs</option>
+                                {%else%}
+                                    <option value="U11">U11: Wet meadows and forbs</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U12" %}
+                                    <option selected value="U12">U12: Wet small sedges with mosses</option>
+                                {%else%}
+                                    <option value="U12">U12: Wet small sedges with mosses</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U13" %}
+                                    <option selected value="U13">U13: Wet sphagnum lawn</option>
+                                {%else%}
+                                    <option value="U13">U13: Wet sphagnum lawn</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U14" %}
+                                    <option selected value="U14">U14: Wet tall reeds</option>
+                                {%else%}
+                                    <option value="U14">U14: Wet tall reeds</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U15" %}
+                                    <option selected value="U15">U15: Wet tall sedges</option>
+                                {%else%}
+                                    <option value="U15">U15: Wet tall sedges</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U16" %}
+                                    <option selected value="U16">U16: Wet bog heath</option>
+                                {%else%}
+                                    <option value="U16">U16: Wet bog heath</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U17" %}
+                                    <option selected value="U17">U17: Very wet tall sedges and Typha</option>
+                                {%else%}
+                                    <option value="U17">U17: Very wet tall sedges and Typha</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U18" %}
+                                    <option selected value="U18">U18: Very wet Phragmites reeds</option>
+                                {% else %}
+                                    <option value="U18">U18: Very wet Phragmites reeds</option>
+                                {% endif %}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U19" %}
+                                    <option selected value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                                {%else%}
+                                    <option value="U19">U19: Wet to very wet Sphagnum hollows</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:3] == "U20" %}
+                                    <option selected value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                                {%else%}
+                                    <option value="U20">U20: Flooded tall reeds (> 20 cm above surface)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S1" %}
+                                    <option selected value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                                {%else%}
+                                    <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S2" %}
+                                    <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                {%else%}
+                                    <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S3" %}
+                                    <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                                {%else%}
+                                    <option value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S4" %}
+                                    <option selected value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                                {%else%}
+                                    <option value="S4">S4: Grassland (2+/3+) flooded in summer (wet year)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S5" %}
+                                    <option selected value="S5">S5: Simulated harvest (Paludiculture)</option>
+                                {%else%}
+                                    <option value="S5">S5: Simulated harvest (Paludiculture)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S6" %}
+                                    <option selected value="S6">S6: Wet tall reeds (dry year)</option>
+                                {%else%}
+                                    <option value="S6">S6: Wet tall reeds (dry year)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S7" %}
+                                    <option selected value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                                {%else%}
+                                    <option value="S7">S7: Very wet reeds with lateral import of organic matter</option>
+                                {%endif%}
+                                {% if inpt['rewet']['veg_class'][0:2] == "S8" %}
+                                    <option selected value="S8">S8: Ditches in low intensity grassland</option>
+                                {%else%}
+                                    <option value="S8">S8: Ditches in low intensity grassland</option>
+                                {%endif%}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="upper-base">
-                <p style="font-weight: bold;">Baseline: fertiliser use</p>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Animal manure.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="bs_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" required>
-                    </div>
+            <div class="row">
+                <div class="col set-header upper-base">
+                    <p style="font-weight: bold;">Fertiliser Use</p>
                 </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Organic fertilizer.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="bs_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="bs_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
-                    </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" required>
-                            {% if inpt['base']['type_synth_fert'][0] == "N" %}
-                                <option selected value="nitrate">Nitrate based</option>                         
-                            {%else%}
-                                <option value="nitrate">Nitrate based</option>                      
-                            {%endif%}
-                            {% if inpt['base']['type_synth_fert'][0] == "A" %}
-                                <option selected value="ammonium">Ammonium based</option>
-                            {%else%}
-                                <option value="ammonium">Ammonium based</option>
-                            {%endif%}
-                        </select>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="bs_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_synth_fert']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="bs_type_animals" class="form-label">Grazing animals</label> 
-                    </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" required>
-                            {% if inpt['base']['type_animals'][0] == "N" %}
-                                <option selected value="none">No animal</option>
-                            {%else%}
-                                <option value="none">No animal</option>
-                            {%endif%}
-                            {% if inpt['base']['type_animals'][0] == "D" %}
-                                <option selected value="dairy">Dairy cows</option>
-                            {%else%}
-                                <option value="dairy">Dairy cows</option>
-                            {%endif%}
-                            {% if inpt['base']['type_animals'][0] == "B" %}
-                                <option selected value="beef">Beef cattle</option>
-                            {%else%}
-                                <option value="beef">Beef cattle</option>
-                            {%endif%}
-                            {% if inpt['base']['type_animals'][0] == "S" %}
-                                <option selected value="sheep">Sheep</option>
-                            {%else%}
-                                <option value="sheep">Sheep</option>
-                            {%endif%}
-                            {% if inpt['base']['type_animals'][0] == "G" %}
-                                <option selected value="goat">Goats</option>
-                            {%else%}
-                                <option value="goat">Goats</option>
-                            {%endif%}
-                            {% if inpt['base']['type_animals'][0] == "W" %}
-                                <option selected value="buff">Water buffalo</option>
-                            {%else%}
-                                <option value="buff">Water buffalo</option>
-                            {%endif%}
-                        </select>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="bs_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_animals']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="bs_avg_num_days" class="form-label">Average grazing days per year</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_days']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="bs_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['base']['crop_yield']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="form-check form-switch" style="display: grid;">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-8">
-                            <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
-                        </div><div class="col-2 justify-content-center" style="justify-content: center;">
-                            <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" value="{{inpt['base']['crop_resid']}}" checked>
-                        </div>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="bs_crop_name" class="form-label">Crop</label> 
-                    </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" required>
-                            {% if inpt['base']['crop_name'][0] == "C" %}
-                                <option selected value="cat">Cattail (Typha sp.)</option>
-                            {%else%}
-                                <option value="cat">Cattail (Typha sp.)</option>
-                            {%endif%}
-                            {% if inpt['base']['crop_name'][0] == "R" %}
-                                <option selected value="reed">Reed (Phragmites australis)</option>
-                            {%else%}
-                                <option value="reed">Reed (Phragmites australis)</option>
-                            {%endif%}
-                            {% if inpt['base']['crop_name'][0] == "P" %}
-                                <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
-                            {%else%}
-                                <option value="sphag">Peat moss (Sphagnum sp.)</option>
-                            {%endif%}
-                            {% if inpt['base']['crop_name'][0] == "G" %}
-                                <option selected value="grass">Grasses like reed canary grass</option>
-                            {%else%}
-                                <option value="grass">Grasses like reed canary grass</option>
-                            {%endif%}
-                            {% if inpt['base']['crop_name'][0] == "A" %}
-                                <option selected value="alder">Alder (Alnus sp.)</option>
-                            {%else%}
-                                <option value="alder">Alder (Alnus sp.)</option>
-                            {%endif%}
-                            {% if inpt['base']['crop_name'][0] == "O" %}
-                                <option selected value="other">Other</option>
-                            {%else%}
-                                <option value="other">Other</option>
-                            {%endif%}
-                        </select>
-                    </div>
+                <div class="col d-flex justify-content-end">
+                    <svg id="set-fu-tog-down" height="20" width="20" style="display: block;">
+                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                    </svg>
+                    <svg id="set-fu-tog-up" height="20" width="20" style="display: none;">
+                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                    </svg>
                 </div>
             </div>
-            <div class="empty-spacing" style="padding-top: 15px;"></div>
-            <div class="container set-rewet-div">
-                <p style="font-weight: bold;">After rewetting: fertiliser use</p>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Animal manure.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="rw_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Organic fertilizer.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="rw_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="rw_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
-                    </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" required>
-                            {% if inpt['rewet']['type_synth_fert'][0] == "N" %}
-                                <option selected value="nitrate">Nitrate based</option>                         
-                            {%else%}
-                                <option value="nitrate">Nitrate based</option>                      
-                            {%endif%}
-                            {% if inpt['rewet']['type_synth_fert'][0] == "A" %}
-                                <option  selected value="ammonium">Ammonium based</option>
-                            {%else%}
-                                <option value="ammonium">Ammonium based</option>
-                            {%endif%}
-                        </select>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="rw_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_synth_fert']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="rw_type_animals" class="form-label">Grazing animals</label> 
-                    </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" required>
-                            {% if inpt['rewet']['type_animals'][0] == "N" %}
-                                <option selected value="none">No animal</option>
-                            {%else%}
-                                <option value="none">No animal</option>
-                            {%endif%}
-                            {% if inpt['rewet']['type_animals'][0] == "D" %}
-                                <option selected value="dairy">Dairy cows</option>
-                            {%else%}
-                                <option value="dairy">Dairy cows</option>
-                            {%endif%}
-                            {% if inpt['rewet']['type_animals'][0] == "B" %}
-                                <option selected value="beef">Beef cattle</option>
-                            {%else%}
-                                <option value="beef">Beef cattle</option>
-                            {%endif%}
-                            {% if inpt['rewet']['type_animals'][0] == "S" %}
-                                <option selected value="sheep">Sheep</option>
-                            {%else%}
-                                <option value="sheep">Sheep</option>
-                            {%endif%}
-                            {% if inpt['rewet']['type_animals'][0] == "G" %}
-                                <option selected value="goat">Goats</option>
-                            {%else%}
-                                <option value="goat">Goats</option>
-                            {%endif%}
-                            {% if inpt['rewet']['type_animals'][0] == "W" %}
-                                <option selected value="buff">Water buffalo</option>
-                            {%else%}
-                                <option value="buff">Water buffalo</option>
-                            {%endif%}
-                        </select>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="rw_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_animals']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="rw_avg_num_days" class="form-label">Average grazing days per year</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_days']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="rw_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['rewet']['crop_yield']}}" required>
-                    </div>
-                </div>
-                <hr class="inf">
-                <div class="form-check form-switch" style="display: grid;">
-                    <div class="row align-items-center justify-content-center">
+            <div id="set-fu-coll" style="display:none">
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="upper-base">
+                    <p>Baseline</p>
+                    <hr>
+                    <div class="row align-items-center">
                         <div class="col-8">
-                            <label for="rw_crop_resid" class="form-check-label">Crop residues</label>
-                        </div><div class="col-2 justify-content-center" style="justify-content: center;">
-                            <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" checked>
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Animal manure.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="bs_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Organic fertilizer.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="bs_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="bs_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" required>
+                                {% if inpt['base']['type_synth_fert'][0] == "N" %}
+                                    <option selected value="nitrate">Nitrate based</option>                         
+                                {%else%}
+                                    <option value="nitrate">Nitrate based</option>                      
+                                {%endif%}
+                                {% if inpt['base']['type_synth_fert'][0] == "A" %}
+                                    <option selected value="ammonium">Ammonium based</option>
+                                {%else%}
+                                    <option value="ammonium">Ammonium based</option>
+                                {%endif%}
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="bs_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_synth_fert']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="bs_type_animals" class="form-label">Grazing animals</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" required>
+                                {% if inpt['base']['type_animals'][0] == "N" %}
+                                    <option selected value="none">No animal</option>
+                                {%else%}
+                                    <option value="none">No animal</option>
+                                {%endif%}
+                                {% if inpt['base']['type_animals'][0] == "D" %}
+                                    <option selected value="dairy">Dairy cows</option>
+                                {%else%}
+                                    <option value="dairy">Dairy cows</option>
+                                {%endif%}
+                                {% if inpt['base']['type_animals'][0] == "B" %}
+                                    <option selected value="beef">Beef cattle</option>
+                                {%else%}
+                                    <option value="beef">Beef cattle</option>
+                                {%endif%}
+                                {% if inpt['base']['type_animals'][0] == "S" %}
+                                    <option selected value="sheep">Sheep</option>
+                                {%else%}
+                                    <option value="sheep">Sheep</option>
+                                {%endif%}
+                                {% if inpt['base']['type_animals'][0] == "G" %}
+                                    <option selected value="goat">Goats</option>
+                                {%else%}
+                                    <option value="goat">Goats</option>
+                                {%endif%}
+                                {% if inpt['base']['type_animals'][0] == "W" %}
+                                    <option selected value="buff">Water buffalo</option>
+                                {%else%}
+                                    <option value="buff">Water buffalo</option>
+                                {%endif%}
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="bs_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_animals']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="bs_avg_num_days" class="form-label">Average grazing days per year</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_days']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="bs_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['base']['crop_yield']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="form-check form-switch" style="display: grid;">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-8">
+                                <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
+                            </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" value="{{inpt['base']['crop_resid']}}" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="bs_crop_name" class="form-label">Crop</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" required>
+                                {% if inpt['base']['crop_name'][0] == "C" %}
+                                    <option selected value="cat">Cattail (Typha sp.)</option>
+                                {%else%}
+                                    <option value="cat">Cattail (Typha sp.)</option>
+                                {%endif%}
+                                {% if inpt['base']['crop_name'][0] == "R" %}
+                                    <option selected value="reed">Reed (Phragmites australis)</option>
+                                {%else%}
+                                    <option value="reed">Reed (Phragmites australis)</option>
+                                {%endif%}
+                                {% if inpt['base']['crop_name'][0] == "P" %}
+                                    <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
+                                {%else%}
+                                    <option value="sphag">Peat moss (Sphagnum sp.)</option>
+                                {%endif%}
+                                {% if inpt['base']['crop_name'][0] == "G" %}
+                                    <option selected value="grass">Grasses like reed canary grass</option>
+                                {%else%}
+                                    <option value="grass">Grasses like reed canary grass</option>
+                                {%endif%}
+                                {% if inpt['base']['crop_name'][0] == "A" %}
+                                    <option selected value="alder">Alder (Alnus sp.)</option>
+                                {%else%}
+                                    <option value="alder">Alder (Alnus sp.)</option>
+                                {%endif%}
+                                {% if inpt['base']['crop_name'][0] == "O" %}
+                                    <option selected value="other">Other</option>
+                                {%else%}
+                                    <option value="other">Other</option>
+                                {%endif%}
+                            </select>
                         </div>
                     </div>
                 </div>
-                <hr class="inf">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <label for="rw_crop_name" class="form-label">Crop</label> 
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="container set-rewet-div">
+                    <p>After Rewetting</p>
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Animal manure.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="rw_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" required>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" required>
-                            {% if inpt['rewet']['crop_name'][0] == "C" %}
-                                <option selected value="cat">Cattail (Typha sp.)</option>
-                            {%else%}
-                                <option value="cat">Cattail (Typha sp.)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_name'][0] == "R" %}
-                                <option selected value="reed">Reed (Phragmites australis)</option>
-                            {%else%}
-                                <option value="reed">Reed (Phragmites australis)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_name'][0] == "P" %}
-                                <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
-                            {%else%}
-                                <option value="sphag">Peat moss (Sphagnum sp.)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_name'][0] == "G" %}
-                                <option selected value="grass">Grasses like reed canary grass</option>
-                            {%else%}
-                                <option value="grass">Grasses like reed canary grass</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_name'][0] == "A" %}
-                                <option selected value="alder">Alder (Alnus sp.)</option>
-                            {%else%}
-                                <option value="alder">Alder (Alnus sp.)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_name'][0] == "O" %}
-                                <option selected value="other">Other</option>
-                            {%else%}
-                                <option value="other">Other</option>
-                            {%endif%}
-                        </select>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Organic fertilizer.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="rw_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="rw_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" required>
+                                {% if inpt['rewet']['type_synth_fert'][0] == "N" %}
+                                    <option selected value="nitrate">Nitrate based</option>                         
+                                {%else%}
+                                    <option value="nitrate">Nitrate based</option>                      
+                                {%endif%}
+                                {% if inpt['rewet']['type_synth_fert'][0] == "A" %}
+                                    <option  selected value="ammonium">Ammonium based</option>
+                                {%else%}
+                                    <option value="ammonium">Ammonium based</option>
+                                {%endif%}
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="rw_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_synth_fert']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="rw_type_animals" class="form-label">Grazing animals</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" required>
+                                {% if inpt['rewet']['type_animals'][0] == "N" %}
+                                    <option selected value="none">No animal</option>
+                                {%else%}
+                                    <option value="none">No animal</option>
+                                {%endif%}
+                                {% if inpt['rewet']['type_animals'][0] == "D" %}
+                                    <option selected value="dairy">Dairy cows</option>
+                                {%else%}
+                                    <option value="dairy">Dairy cows</option>
+                                {%endif%}
+                                {% if inpt['rewet']['type_animals'][0] == "B" %}
+                                    <option selected value="beef">Beef cattle</option>
+                                {%else%}
+                                    <option value="beef">Beef cattle</option>
+                                {%endif%}
+                                {% if inpt['rewet']['type_animals'][0] == "S" %}
+                                    <option selected value="sheep">Sheep</option>
+                                {%else%}
+                                    <option value="sheep">Sheep</option>
+                                {%endif%}
+                                {% if inpt['rewet']['type_animals'][0] == "G" %}
+                                    <option selected value="goat">Goats</option>
+                                {%else%}
+                                    <option value="goat">Goats</option>
+                                {%endif%}
+                                {% if inpt['rewet']['type_animals'][0] == "W" %}
+                                    <option selected value="buff">Water buffalo</option>
+                                {%else%}
+                                    <option value="buff">Water buffalo</option>
+                                {%endif%}
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="rw_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_animals']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="rw_avg_num_days" class="form-label">Average grazing days per year</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_days']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="rw_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['rewet']['crop_yield']}}" required>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="form-check form-switch" style="display: grid;">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-8">
+                                <label for="rw_crop_resid" class="form-check-label">Crop residues</label>
+                            </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="inf">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <label for="rw_crop_name" class="form-label">Crop</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" required>
+                                {% if inpt['rewet']['crop_name'][0] == "C" %}
+                                    <option selected value="cat">Cattail (Typha sp.)</option>
+                                {%else%}
+                                    <option value="cat">Cattail (Typha sp.)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_name'][0] == "R" %}
+                                    <option selected value="reed">Reed (Phragmites australis)</option>
+                                {%else%}
+                                    <option value="reed">Reed (Phragmites australis)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_name'][0] == "P" %}
+                                    <option selected value="sphag">Peat moss (Sphagnum sp.)</option>
+                                {%else%}
+                                    <option value="sphag">Peat moss (Sphagnum sp.)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_name'][0] == "G" %}
+                                    <option selected value="grass">Grasses like reed canary grass</option>
+                                {%else%}
+                                    <option value="grass">Grasses like reed canary grass</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_name'][0] == "A" %}
+                                    <option selected value="alder">Alder (Alnus sp.)</option>
+                                {%else%}
+                                    <option value="alder">Alder (Alnus sp.)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_name'][0] == "O" %}
+                                    <option selected value="other">Other</option>
+                                {%else%}
+                                    <option value="other">Other</option>
+                                {%endif%}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1006,66 +1038,82 @@
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="container set-rewet-div">
-                <p style="font-weight: bold;">After rewetting: crop use</p>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Crop use.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        <label for="rw_crop_use" class="form-label" style="margin-left: 2px;">Crop Use</label> 
-                    </div>
-                    <div class="col-4">
-                        <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" required>
-                            {% if inpt['rewet']['crop_use'][0:3] == "Bui" %}
-                                <option selected value="build">Building material (e.g. insulation, tachine, timber)</option>
-                            {%else%}
-                                <option value="build">Building material (e.g. insulation, tachine, timber)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Bed" %}
-                                <option selected value="bed">Bedding material</option>
-                            {%else%}
-                                <option value="bed">Bedding material</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Foo" %}
-                                <option selected selected value="food">Food application</option>
-                            {%else%}
-                                <option value="food">Food application</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Fod" %}
-                                <option selected value="feed">Fodder/feed application</option>
-                            {%else%}
-                                <option value="feed">Fodder/feed application</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Ene" %}
-                                <option selected value="energy">Energy use (e.g. biogas, combustion, wood)</option>
-                            {%else%}
-                                <option value="energy">Energy use (e.g. biogas, combustion, wood)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Pap" %}
-                                <option selected value="paper">Paper</option>
-                            {%else%}
-                                <option value="paper">Paper</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Ext" %}
-                                <option selected value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
-                            {%else%}
-                                <option value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Hig" %}
-                                <option selected value="substr">High quality substrate in agriculture</option>
-                            {%else%}
-                                <option value="substr">High quality substrate in agriculture</option>
-                            {%endif%}
-                            {% if inpt['rewet']['crop_use'][0:3] == "Oth" %}
-                                <option selected value="other">Other uses/ unknown</option>
-                            {%else%}
-                                <option value="other">Other uses/ unknown</option>
-                            {%endif%}
-                        </select>
+            <div class="row">
+                <div class="col set-header upper-base">
+                    <p style="font-weight: bold;">Crop Use</p>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <svg id="set-cu-tog-down" height="20" width="20" style="display: block;">
+                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                    </svg>
+                    <svg id="set-cu-tog-up" height="20" width="20" style="display: none;">
+                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                    </svg>
+                </div>
+            </div>
+            <div class="set-cu-coll" id="set-cu-coll" style="display: none;">
+                <div class="empty-spacing" style="padding-top: 15px;"></div>
+                <div class="container set-rewet-div">
+                    <p>After Rewetting</p>
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Crop use.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="rw_crop_use" class="form-label" style="margin-left: 2px;">Crop Use</label> 
+                        </div>
+                        <div class="col-4">
+                            <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" required>
+                                {% if inpt['rewet']['crop_use'][0:3] == "Bui" %}
+                                    <option selected value="build">Building material (e.g. insulation, tachine, timber)</option>
+                                {%else%}
+                                    <option value="build">Building material (e.g. insulation, tachine, timber)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Bed" %}
+                                    <option selected value="bed">Bedding material</option>
+                                {%else%}
+                                    <option value="bed">Bedding material</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Foo" %}
+                                    <option selected selected value="food">Food application</option>
+                                {%else%}
+                                    <option value="food">Food application</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Fod" %}
+                                    <option selected value="feed">Fodder/feed application</option>
+                                {%else%}
+                                    <option value="feed">Fodder/feed application</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Ene" %}
+                                    <option selected value="energy">Energy use (e.g. biogas, combustion, wood)</option>
+                                {%else%}
+                                    <option value="energy">Energy use (e.g. biogas, combustion, wood)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Pap" %}
+                                    <option selected value="paper">Paper</option>
+                                {%else%}
+                                    <option value="paper">Paper</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Ext" %}
+                                    <option selected value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
+                                {%else%}
+                                    <option value="ingred">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Hig" %}
+                                    <option selected value="substr">High quality substrate in agriculture</option>
+                                {%else%}
+                                    <option value="substr">High quality substrate in agriculture</option>
+                                {%endif%}
+                                {% if inpt['rewet']['crop_use'][0:3] == "Oth" %}
+                                    <option selected value="other">Other uses/ unknown</option>
+                                {%else%}
+                                    <option value="other">Other uses/ unknown</option>
+                                {%endif%}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
