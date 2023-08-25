@@ -729,7 +729,11 @@
                             <div class="col-8">
                                 <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
                             </div><div class="col-2 justify-content-center" style="justify-content: center;">
-                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" value="{{inpt['base']['crop_resid']}}" checked>
+                                {% if inpt['base']['crop_resid'] %}
+                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" checked>
+                                {%else%}
+                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid">
+                                {%endif%}
                             </div>
                         </div>
                     </div>
@@ -907,7 +911,11 @@
                             <div class="col-8">
                                 <label for="rw_crop_resid" class="form-check-label">Crop residues</label>
                             </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                                {% if inpt['rewet']['crop_resid'] %}
                                 <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" checked>
+                                {%else%}
+                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid">
+                                {%endif%}
                             </div>
                         </div>
                     </div>

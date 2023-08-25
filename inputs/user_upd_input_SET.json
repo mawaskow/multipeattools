@@ -19,7 +19,7 @@
           "avg_num_animals": 10.0,
           "avg_num_days": 200.0,
           "crop_yield": 50.0,
-          "crop_resid": true,
+          "crop_resid": false,
           "crop_name": "Peat moss (Sphagnum sp.)",
           "diesel_per_site": 50.0,
           "elec_per_site": 70.0

@@ -290,7 +290,8 @@ crop_resid_dct={
     "No":False,
     "off":False,
     'True':True,
-    "False":False
+    "False":False,
+    "None":False
 }
 
 crop_name_dct={
@@ -343,7 +344,7 @@ def set_form_to_dict(set_request):
     inp_dict['base']['avg_num_days'] = float(set_request['bs_avg_num_days'])
     inp_dict['base']['crop_yield'] = float(set_request['bs_crop_yield'])
     #inp_dict['base']['crop_resid'] = set_request.get('bs_crop_resid')
-    inp_dict['base']['crop_resid'] = crop_resid_dct[set_request.get('bs_crop_resid')]
+    inp_dict['base']['crop_resid'] = crop_resid_dct[str(set_request.get('bs_crop_resid'))]
     #inp_dict['base']['crop_name'] = set_request.get('bs_crop_name')
     inp_dict['base']['crop_name'] = crop_name_dct[set_request.get('bs_crop_name')]
     inp_dict['base']['diesel_per_site'] = float(set_request['bs_diesel_per_site'])
@@ -362,7 +363,7 @@ def set_form_to_dict(set_request):
     inp_dict['rewet']['avg_num_days'] = float(set_request['rw_avg_num_days'])
     inp_dict['rewet']['crop_yield'] = float(set_request['rw_crop_yield'])
     #inp_dict['rewet']['crop_resid'] = set_request.get('rw_crop_resid')
-    inp_dict['rewet']['crop_resid'] = crop_resid_dct[set_request.get('rw_crop_resid')]
+    inp_dict['rewet']['crop_resid'] = crop_resid_dct[str(set_request.get('rw_crop_resid'))]
     #inp_dict['rewet']['crop_name'] = set_request.get('rw_crop_name')
     inp_dict['rewet']['crop_name'] = crop_name_dct[set_request.get('rw_crop_name')]
     inp_dict['rewet']['diesel_per_site'] = float(set_request['rw_diesel_per_site'])
@@ -370,53 +371,3 @@ def set_form_to_dict(set_request):
     #inp_dict['rewet']['crop_use'] = set_request.get('rw_crop_use')
     inp_dict['rewet']['crop_use'] = crop_use_dct[set_request.get('rw_crop_use')]
     return inp_dict
-
-'''
-{
-     "gen_site_data": {
-          "site_name": "Test Site",
-          "tot_area": 5,
-          "coords": [
-               -56,
-               100
-          ],
-          "elevation": 30,
-          "peat_type": "Woody",
-          "peat_thick": 50,
-          "year_start": 2050
-     },
-     "base": {
-          "med_gw_level_summer": -70,
-          "veg_class": "G1:Dry to Moderate Moist Grassland",
-          "amount_manure": 50,
-          "amount_org_fert": 30,
-          "type_synth_fert": "Ammonium Based",
-          "amount_synth_fert": 100,
-          "type_animals": "Sheep",
-          "avg_num_animals": 10,
-          "avg_num_days": 200,
-          "crop_yield": 50,
-          "crop_resid": "Yes",
-          "crop_name": "Peat Moss (Sphagnum Sp.)",
-          "diesel_per_site": 50,
-          "elec_per_site": 70
-     },
-     "rewet": {
-          "med_gw_level_summer": 0,
-          "veg_class": "U18:Very Wet Phragmites Reeds",
-          "amount_manure": 75,
-          "amount_org_fert": 60,
-          "type_synth_fert": "Ammonium Based",
-          "amount_synth_fert": 60,
-          "type_animals": "Sheep",
-          "avg_num_animals": 20,
-          "avg_num_days": 100,
-          "crop_yield": 100,
-          "crop_resid": "Yes",
-          "crop_name": "Reed (Phragmites australis)",
-          "diesel_per_site": 75,
-          "elec_per_site": 50,
-          "crop_use": "Food Application"
-     }
-}
-'''

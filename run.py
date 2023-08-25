@@ -109,28 +109,6 @@ def set_tool():
     return render_template("set_tool.html", results= results_dct, inpt = input_dct)
 
 '''
-if request.method == 'POST':
-    # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
-    # loads the dictionary into a list for passing to Erica's function that calculates results
-    uform = usrinp_form_to_dict(request.form)
-    userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
-    ### update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
-    results_dict = Conditional_Executor(userdata, assumdata)
-    ###Convert_to_Json(results_dict, "./outputs/results.json")
-    # renders the page
-    return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
-if request.method == 'GET':
-    # refreshes to original default values
-    aform = assum_json_to_dict(FFP_INIT_ASSUM_FILE)
-    assumdata = [aform['nom_int_rt'], aform['inflation_rt'], aform['reg_acct_open_fee'], aform['reg_listing_cost_p_credit'], aform['reg_conv_cost_fee_p_inspect'], aform['reg_conv_cost_p_cred_abv_min_thresh_of_credits'], aform['reg_levy_cost_p_cred'], aform['valid_and_verif_app_cost_p_inspect'], aform['valid_and_verif_stmnt_cost_p_inspect'], aform['valid_and_verif_inspctr_travel_cost_p_inspect'], aform['inspect_cycle_len'], aform['min_thresh_of_credits'], aform['interest_rt'], aform['payments_p_yr']]
-    uform = usrinp_json_to_dict(FFP_INIT_USR_INP_FILE)
-    userdata = [uform['num_yrs'], uform['cred_p_hect_p_yr'], uform['hect_restored'], uform['invest_amt'], uform['start_yr'], uform['price_p_cred'], uform['invest_costs_inc'], uform['reg_costs_inc']]
-    results_dict = Conditional_Executor(userdata, assumdata)
-    ### Convert_to_Json(results_dict, "./outputs/results.json")
-    return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
-'''
-
-'''
 Error Handling
 '''
 @app.errorhandler(404)

@@ -1,18 +1,15 @@
 {
      "site_data": {
           "site_name": "Test Site",
-          "coords": [
-               -56,
-               100
-          ],
-          "tot_area": 5,
+          "coords": "[-56, 100]",
+          "tot_area": 5.0,
           "peat_type": "Woody",
-          "peat_thick": 50,
+          "peat_thick": 50.0,
           "year_start": 2050,
           "sm_class_base": "2+ (Moderate moist)",
           "sm_class_rewet": "6+ (Flooded (lower eulittoral))",
-          "base veg_class": "G1:Dry to Moderate Moist Grassland",
-          "rewet_veg_class": "U18:Very Wet Phragmites Reeds"
+          "base veg_class": "G1: Dry to moderately moist grassland",
+          "rewet_veg_class": "U18: Very wet Phragmites reeds"
      },
      "base_outcomes": {
           "CH4": -0.05,
@@ -28,20 +25,20 @@
           "CH4": 62.2,
           "CO2": -61.9,
           "c_emission_gwp_subtotal": 0.3,
-          "n2o_direct": 20.6,
-          "n2o_indirect": 5.84,
-          "n2o_emission_gwp_subtotal": 26.44,
+          "n2o_direct": 17.7,
+          "n2o_indirect": 4.75,
+          "n2o_emission_gwp_subtotal": 22.44,
           "activity_gwp_subtotal": 0.28,
           "product_gwp_subtotal": -0.0,
-          "gwp_total": 27.02
+          "gwp_total": 23.02
      },
      "carbon_savings": {
-          "ghg_savings_total_per_year_per_site": 150.7,
-          "ghg_savings_total_per_year_per_ha": 30.14,
+          "ghg_savings_total_per_year_per_site": 154.69,
+          "ghg_savings_total_per_year_per_ha": 30.94,
           "ghg_savings_stock_per_year_per_site": 156.85,
           "ghg_savings_stock_per_year_per_ha": 31.37,
-          "ghg_savings_flow_per_year_per_site": -6.15,
-          "ghg_savings_flow_per_year_per_ha": -1.23,
+          "ghg_savings_flow_per_year_per_site": -2.16,
+          "ghg_savings_flow_per_year_per_ha": -0.43,
           "ghg_savings_product_use_per_year_per_site": 0.0,
           "ghg_savings_product_use_per_year_per_ha": 0.0,
           "carbon_stock_peat_soil_start_year_tco2_per_site": 5039.1,
