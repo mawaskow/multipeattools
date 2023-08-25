@@ -3,7 +3,7 @@
           "site_name": "Test Site",
           "coords": "[-56, 100]",
           "tot_area": 5.0,
-          "peat_type": "Woody",
+          "peat_type": "Unknown",
           "peat_thick": 50.0,
           "year_start": 2050,
           "sm_class_base": "2+ (Moderate moist)",
@@ -41,11 +41,11 @@
           "ghg_savings_flow_per_year_per_ha": -0.43,
           "ghg_savings_product_use_per_year_per_site": 0.0,
           "ghg_savings_product_use_per_year_per_ha": 0.0,
-          "carbon_stock_peat_soil_start_year_tco2_per_site": 5039.1,
-          "carbon_stock_peat_soil_start_year_ton_c_per_site": 1374.3,
-          "carbon_stock_peat_soil_start_year_tco2_per_ha": 1007.82,
-          "carbon_stock_peat_soil_start_year_ton_c_per_ha": 274.86,
-          "time_til_peat_is_lost_base_scenario": 32.06,
+          "carbon_stock_peat_soil_start_year_tco2_per_site": 5062.2,
+          "carbon_stock_peat_soil_start_year_ton_c_per_site": 1380.6,
+          "carbon_stock_peat_soil_start_year_tco2_per_ha": 1012.44,
+          "carbon_stock_peat_soil_start_year_ton_c_per_ha": 276.12,
+          "time_til_peat_is_lost_base_scenario": 32.2,
           "time_til_peat_is_lost_rewet_scenario": "Infinity"
      }
 }

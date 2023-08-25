@@ -12,7 +12,7 @@ def Load_csvs(list):
     '''
     dic_of_dfs = {}
     for i in list:
-        dfname = i.rsplit('\\', 1)[-1]
+        dfname = i.rsplit('/', 1)[-1]
         dic_of_dfs[dfname] = pd.read_csv(i)
     return dic_of_dfs
 
