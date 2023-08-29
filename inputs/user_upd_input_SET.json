@@ -4,7 +4,7 @@
           "tot_area": 5.0,
           "coords": "[-56, 100]",
           "elevation": 30.0,
-          "peat_type": "Unknown",
+          "peat_type": "Woody",
           "peat_thick": 50.0,
           "year_start": 2050
      },
@@ -39,6 +39,6 @@
           "crop_name": "Reed (Phragmites australis)",
           "diesel_per_site": 75.0,
           "elec_per_site": 50.0,
-          "crop_use": "Food Application"
+          "crop_use": "Paper"
      }
 }

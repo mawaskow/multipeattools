@@ -2,7 +2,7 @@ import os
 import json
 from sys import exit
 from flask import Flask
-from flask import url_for, render_template, flash, request, redirect
+from flask import url_for, render_template, send_file, request, redirect
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
 #
@@ -71,7 +71,6 @@ def ffp_tool():
     results_dict = Conditional_Executor(userdata, assumdata)
     return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
 
-
 @app.route('/settool', methods=['GET', 'POST'])
 def set_tool():
     #initializes values for populating form
@@ -107,6 +106,14 @@ def set_tool():
         # same as above where load json and dct and calc values
         return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     return render_template("set_tool.html", results= results_dct, inpt = input_dct)
+
+
+'''
+Files
+'''
+@app.route("/gesttypescsv")
+def get_gest_csv():
+    return send_file("./SET_Tool/csv_files/GEST_2_Static_Values_mod.csv")
 
 '''
 Error Handling
