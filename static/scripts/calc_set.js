@@ -1,4 +1,5 @@
-var DataFrame = dfjs.DataFrame;
+//var DataFrame = dfjs.DataFrame;
+
 /*
 let df = new DataFrame([
     {c1: 1, c2: 2}, // <------- A row
@@ -10,10 +11,50 @@ let df = new DataFrame([
 //console.log(df.select('c3'));
 //let cf = new DataFrame.fromCSV("../../SET_Tool/csv_files/GEST_2_Static_Values_mod.csv").then(df => df);
 //console.log(cf);
+/*
+let df = new DataFrame.fromCSV("http://127.0.0.1:5000/gesttypescsv").then(df => df);
+console.log(df.show(9));
+console.log(df.select('CH4_n'));
 
-df = new DataFrame.fromCSV("http://127.0.0.1:5000/gesttypescsv").then(df => df);
-console.log(df.listColumns);
-console.log(df.getRow(1));
+let rw = df.select(9);
+console.log(rw.get('CH4_n'))*/
 
-rw = df.get(9);
-console.log(rw.get('CH4_n'))
+//import { readCSV, DataFrame } from "danfojs"
+var DataFrame = dfd.DataFrame;
+var readCSV = dfd.readCSV;
+
+/*
+readCSV("http://127.0.0.1:5000/gesttypescsv")
+    .then(
+        df =>{
+            df.head().print()
+        }
+    );*/
+
+//let cv = readCSV("http://127.0.0.1:5000/gesttypescsv").then(df => df);
+
+async function test_this(){
+    let cv = await readCSV("http://127.0.0.1:5000/gesttypescsv");
+    return cv;
+}
+
+let gv = test_this();
+
+console.log(gv);
+console.log(gv.then(gv.columns));
+
+
+/*let df = new DataFrame();
+
+console.log(df.index);*/
+
+/*
+function get_gest_types(){
+    var DataFrame = dfd.DataFrame;
+    var readCSV = dfd.readCSV;
+    let cv = readCSV("http://127.0.0.1:5000/gesttypescsv")
+        .then(function(df){
+            return df;
+        });
+    console.log
+}*/
