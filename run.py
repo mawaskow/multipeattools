@@ -109,13 +109,6 @@ def set_tool():
 
 
 '''
-Files
-'''
-@app.route("/gesttypescsv")
-def get_gest_csv():
-    return send_file("./SET_Tool/csv_files/GEST_2_Static_Values_mod.csv")
-
-'''
 Error Handling
 '''
 @app.errorhandler(404)
