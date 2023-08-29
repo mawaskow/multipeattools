@@ -779,9 +779,8 @@ def set_run(inputs_dict, path_to_gest, output_file):
     output = Create_Output_tab(output_file, inputs_dict, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
     
 def main():
-    path_to_gest = ['.\\SET_Tool\\csv_files\\GEST_2_Static_Values.csv']
-    SET_USR_INPT_FILE = '.\\inputs\\user_input_SET.json'
-    SET_USR_OUTPT_FILE = '.\\outputs\\output_SET.json'
+    path_to_gest = ['./SET_Tool/csv_files/GEST_2_Static_Values.csv']
+    SET_USR_OUTPT_FILE = './outputs/output_SET.json'
     
     input_dct = Create_Input_Dict()
     set_run(input_dct, path_to_gest, SET_USR_OUTPT_FILE)
