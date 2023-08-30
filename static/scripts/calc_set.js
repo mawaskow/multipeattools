@@ -590,21 +590,221 @@ function Create_Outcome_Tab(user_input, data, crop_use, c_content, gest){
     return outcome;
 }
 
-let gest = Make_GEST_df();
-let inputs = Parse_SET_Input();
-let data_tab = Create_Data_Tab(inputs, gest);
-let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
-let c_content_tab = Create_C_Content_Soil_Tab(inputs);
-let smc_tab = Create_Soil_Moisture_Classes_Tab(inputs);
-let outcome_tab = Create_Outcome_Tab(inputs, data_tab, crop_use_tab, c_content_tab, gest);
-console.log(outcome_tab);
+function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content, crop_use){
+    //Initialise Output dict
+    let output = {'site_data': {}, 'base_outcomes': {}, 'rewet_outcomes': {}, 'carbon_savings': {}};
 
+    //Populate the site_data section
+    output['site_data']['site_name'] = user_input['gen_site_data']['site_name'];
+    output['site_data']['coords'] = user_input['gen_site_data']['coords'];
+    output['site_data']['tot_area'] = user_input['gen_site_data']['tot_area'];
+    output['site_data']['peat_type'] = user_input['gen_site_data']['peat_type'];
+    output['site_data']['peat_thick'] = user_input['gen_site_data']['peat_thick'];
+    output['site_data']['year_start'] = user_input['gen_site_data']['year_start'];
+    output['site_data']['sm_class_base'] = sm_classes['base']['summer_moist_class'];
+    output['site_data']['sm_class_rewet'] = sm_classes['rewet']['summer_moist_class'];
+    output['site_data']['base_veg_class'] = user_input['base']['veg_class'];
+    output['site_data']['rewet_veg_class'] = user_input['rewet']['veg_class'];
+
+    //Populate the base_outcomes section
+    output['base_outcomes']['CH4'] = (parseFloat(data_tab['base']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area']);
+    output['base_outcomes']['CO2'] = parseFloat(data_tab['base']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area'];
+    output['base_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['CH4']) + parseFloat(output['base_outcomes']['CO2']);
+
+    output['base_outcomes']['n2o_direct'] = outcome['base']['tot_direct_n2o'];
+    output['base_outcomes']['n2o_indirect'] = outcome['base']['tot_indirect_n2o'];
+    output['base_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['n2o_direct']) + parseFloat(output['base_outcomes']['n2o_indirect']);
+
+    output['base_outcomes']['activity_gwp_subtotal'] = outcome['base']['activity'];
+    output['base_outcomes']['gwp_total'] = outcome['base']['total'];
+
+    //Populate the rewet_outcomes section
+    output['rewet_outcomes']['CH4'] = (parseFloat(data_tab['rewet']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area']);
+    output['rewet_outcomes']['CO2'] = (parseFloat(data_tab['rewet']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area']);
+    output['rewet_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['CH4']) + parseFloat(output['rewet_outcomes']['CO2']);
+
+    output['rewet_outcomes']['n2o_direct'] = outcome['rewet']['tot_direct_n2o'];
+    output['rewet_outcomes']['n2o_indirect'] = outcome['rewet']['tot_indirect_n2o'];
+    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['n2o_direct']) + parseFloat(output['rewet_outcomes']['n2o_indirect']);
+
+    output['rewet_outcomes']['activity_gwp_subtotal'] = outcome['rewet']['activity'];
+    output['rewet_outcomes']['product_gwp_subtotal'] = outcome['rewet']['Product ton_co2_per_site'];
+    output['rewet_outcomes']['gwp_total'] = outcome['rewet']['total'];
+
+    //Populate carbon_savings section
+    output['carbon_savings']['ghg_savings_total_per_year_per_site'] = output['base_outcomes']['gwp_total'] - output['rewet_outcomes']['gwp_total'];
+    output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = output['carbon_savings']['ghg_savings_total_per_year_per_site']/output['site_data']['tot_area'];
+    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = parseFloat(outcome['base']['veg_ch4_gwp']) + parseFloat(outcome['base']['veg_c02_gwp']) - parseFloat(outcome['rewet']['veg_ch4_gwp']) - parseFloat(outcome['rewet']['veg_c02_gwp']);
+    output['carbon_savings']['ghg_savings_stock_per_year_per_ha'] = output['carbon_savings']['ghg_savings_stock_per_year_per_site']/output['site_data']['tot_area'];
+    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = parseFloat(outcome['base']['tot_direct_n2o']) + parseFloat(outcome['base']['tot_indirect_n2o']) +parseFloat(outcome['base']['activity']) - parseFloat(outcome['rewet']['tot_direct_n2o']) - parseFloat(outcome['rewet']['tot_indirect_n2o']) - parseFloat(outcome['rewet']['activity']);
+    output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = output['carbon_savings']['ghg_savings_flow_per_year_per_site']/output['site_data']['tot_area'];
+    output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = crop_use['ton_co2_per_site']*(-1);
+    output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = crop_use['ton_co2_per_ha']*(-1);
+    
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'] = c_content['c_stock_tco2_per_ha']*output['site_data']['tot_area'];
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'] = c_content['c_stock_ton_per_ha']*output['site_data']['tot_area'];
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'] = c_content['c_stock_tco2_per_ha'];
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'] = c_content['c_stock_ton_per_ha'];
+
+    output['carbon_savings']['time_til_peat_is_lost_base_scenario'] = outcome['creditable_year']['base_scenario'];
+    output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] = outcome['creditable_year']['rewet_scenario'];
+    
+    //////////////////////////////////////////////////////////////////// 
+    // round
+
+    output['base_outcomes']['CH4'] = output['base_outcomes']['CH4'].toFixed(2);
+    output['base_outcomes']['CO2'] = output['base_outcomes']['CO2'].toFixed(2);
+    output['base_outcomes']['c_emission_gwp_subtotal'] = output['base_outcomes']['c_emission_gwp_subtotal'].toFixed(2);
+    output['base_outcomes']['n2o_direct'] = output['base_outcomes']['n2o_direct'].toFixed(2);
+    output['base_outcomes']['n2o_indirect'] = output['base_outcomes']['n2o_indirect'].toFixed(2);
+    output['base_outcomes']['n2o_emission_gwp_subtotal'] =output['base_outcomes']['n2o_emission_gwp_subtotal'].toFixed(2);
+    output['base_outcomes']['activity_gwp_subtotal'] = output['base_outcomes']['activity_gwp_subtotal'].toFixed(2);
+    output['base_outcomes']['gwp_total'] = output['base_outcomes']['gwp_total'].toFixed(2);
+    output['rewet_outcomes']['CH4'] = output['rewet_outcomes']['CH4'].toFixed(2);
+    output['rewet_outcomes']['CO2'] = output['rewet_outcomes']['CO2'].toFixed(2);
+    output['rewet_outcomes']['c_emission_gwp_subtotal'] = output['rewet_outcomes']['c_emission_gwp_subtotal'].toFixed(2);
+    output['rewet_outcomes']['n2o_direct'] = output['rewet_outcomes']['n2o_direct'].toFixed(2);
+    output['rewet_outcomes']['n2o_indirect'] = output['rewet_outcomes']['n2o_indirect'].toFixed(2);
+    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = output['rewet_outcomes']['n2o_emission_gwp_subtotal'].toFixed(2);
+    output['rewet_outcomes']['activity_gwp_subtotal'] = output['rewet_outcomes']['activity_gwp_subtotal'].toFixed(2);
+    output['rewet_outcomes']['product_gwp_subtotal'] = output['rewet_outcomes']['product_gwp_subtotal'].toFixed(2);
+    output['rewet_outcomes']['gwp_total'] = output['rewet_outcomes']['gwp_total'].toFixed(2);
+    output['carbon_savings']['ghg_savings_total_per_year_per_site'] = output['carbon_savings']['ghg_savings_total_per_year_per_site'].toFixed(2);
+    output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = output['carbon_savings']['ghg_savings_total_per_year_per_ha'].toFixed(2);
+    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = output['carbon_savings']['ghg_savings_stock_per_year_per_site'].toFixed(2);
+    output['carbon_savings']['ghg_savings_stock_per_year_per_ha'] = output['carbon_savings']['ghg_savings_stock_per_year_per_ha'].toFixed(2);
+    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = output['carbon_savings']['ghg_savings_flow_per_year_per_site'].toFixed(2);
+    output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = output['carbon_savings']['ghg_savings_flow_per_year_per_ha'].toFixed(2);
+    output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = output['carbon_savings']['ghg_savings_product_use_per_year_per_site'].toFixed(2);
+    output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'].toFixed(2);
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'].toFixed(2);
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'].toFixed(2);
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'].toFixed(2);
+    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'].toFixed(2);
+    
+    if(typeof output['carbon_savings']['time_til_peat_is_lost_base_scenario'] != "string"){
+        output['carbon_savings']['time_til_peat_is_lost_base_scenario']= output['carbon_savings']['time_til_peat_is_lost_base_scenario'].toFixed(2);
+    }
+    if(typeof output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] != "string"){
+        output['carbon_savings']['time_til_peat_is_lost_rewet_scenario']= output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'].toFixed(2);
+    }
+    return output;
+}
+
+function update_set_results(results_dict){ 
+    let base_CH4= document.getElementById("base_CH4");
+    let base_CO2= document.getElementById("base_CO2");
+    let base_c_emission_gwp_subtotal= document.getElementById("base_c_emission_gwp_subtotal");
+    let base_n2o_direct= document.getElementById("base_n2o_direct");
+    let base_n2o_indirect= document.getElementById("base_n2o_indirect");
+    let base_n2o_emission_gwp_subtotal= document.getElementById("base_n2o_emission_gwp_subtotal");
+    let base_activity_gwp_subtotal= document.getElementById("base_activity_gwp_subtotal");
+    let base_gwp_total= document.getElementById("base_gwp_total");
+    let rewet_CH4= document.getElementById("rewet_CH4");
+    let rewet_CO2= document.getElementById("rewet_CO2");
+    let rewet_c_emission_gwp_subtotal= document.getElementById("rewet_c_emission_gwp_subtotal");
+    let rewet_n2o_direct= document.getElementById("rewet_n2o_direct");
+    let rewet_n2o_indirect= document.getElementById("rewet_n2o_indirect");
+    let rewet_n2o_emission_gwp_subtotal= document.getElementById("rewet_n2o_emission_gwp_subtotal");
+    let rewet_activity_gwp_subtotal= document.getElementById("rewet_activity_gwp_subtotal");
+    let rewet_product_gwp_subtotal= document.getElementById("rewet_product_gwp_subtotal");
+    let rewet_gwp_total= document.getElementById("rewet_gwp_total");
+    let ghg_sav_tot_p_yr_p_site= document.getElementById("ghg_sav_tot_p_yr_p_site");
+    let ghg_sav_tot_p_yr_p_ha= document.getElementById("ghg_sav_tot_p_yr_p_ha");
+    let ghg_sav_stock_p_yr_p_site= document.getElementById("ghg_sav_stock_p_yr_p_site");
+    let ghg_sav_stock_p_yr_p_ha= document.getElementById("ghg_sav_stock_p_yr_p_ha");
+    let ghg_sav_flow_p_yr_p_site= document.getElementById("ghg_sav_flow_p_yr_p_site");
+    let ghg_sav_flow_p_yr_p_ha= document.getElementById("ghg_sav_flow_p_yr_p_ha");
+    let ghg_sav_pu_p_yr_p_site= document.getElementById("ghg_sav_pu_p_yr_p_site");
+    let ghg_sav_pu_p_yr_p_ha= document.getElementById("ghg_sav_pu_p_yr_p_ha");
+    let cs_tco2_p_site= document.getElementById("cs_tco2_p_site");
+    let cs_ton_c_p_site= document.getElementById("cs_ton_c_p_site");
+    let cs_tco2_p_ha= document.getElementById("cs_tco2_p_ha");
+    let cs_ton_c_p_ha= document.getElementById("cs_ton_c_p_ha");
+    let base_til_peat_loss= document.getElementById("base_til_peat_loss");
+    let rewet_til_peat_loss= document.getElementById("rewet_til_peat_loss");
+
+    base_CH4.innerHTML = parseFloat(results_dict["base_outcomes"]["CH4"]).toFixed(2);
+    base_CO2.innerHTML = parseFloat(results_dict["base_outcomes"]["CO2"]).toFixed(2);
+    base_c_emission_gwp_subtotal.innerHTML = parseFloat(results_dict["base_outcomes"]["c_emission_gwp_subtotal"]).toFixed(2);
+    base_n2o_direct.innerHTML = parseFloat(results_dict["base_outcomes"]["n2o_direct"]).toFixed(2);
+    base_n2o_indirect.innerHTML = parseFloat(results_dict["base_outcomes"]["n2o_indirect"]).toFixed(2);
+    base_n2o_emission_gwp_subtotal.innerHTML = parseFloat(results_dict["base_outcomes"]["n2o_emission_gwp_subtotal"]).toFixed(2);
+    base_activity_gwp_subtotal.innerHTML = parseFloat(results_dict["base_outcomes"]["activity_gwp_subtotal"]).toFixed(2);
+    base_gwp_total.innerHTML = parseFloat(results_dict["base_outcomes"]["gwp_total"]).toFixed(2);
+    rewet_CH4.innerHTML = parseFloat(results_dict["rewet_outcomes"]["CH4"]).toFixed(2);
+    rewet_CO2.innerHTML = parseFloat(results_dict["rewet_outcomes"]["CO2"]).toFixed(2);
+    rewet_c_emission_gwp_subtotal.innerHTML = parseFloat(results_dict["rewet_outcomes"]["c_emission_gwp_subtotal"]).toFixed(2);
+    rewet_n2o_direct.innerHTML = parseFloat(results_dict["rewet_outcomes"]["n2o_direct"]).toFixed(2);
+    rewet_n2o_indirect.innerHTML = parseFloat(results_dict["rewet_outcomes"]["n2o_indirect"]).toFixed(2);
+    rewet_n2o_emission_gwp_subtotal.innerHTML = parseFloat(results_dict["rewet_outcomes"]["n2o_emission_gwp_subtotal"]).toFixed(2);
+    rewet_activity_gwp_subtotal.innerHTML = parseFloat(results_dict["rewet_outcomes"]["activity_gwp_subtotal"]).toFixed(2);
+    rewet_product_gwp_subtotal.innerHTML = parseFloat(results_dict["rewet_outcomes"]["product_gwp_subtotal"]).toFixed(2);
+    rewet_gwp_total.innerHTML = parseFloat(results_dict["rewet_outcomes"]["gwp_total"]).toFixed(2);
+    ghg_sav_tot_p_yr_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_total_per_year_per_site"]).toFixed(2);
+    ghg_sav_tot_p_yr_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_total_per_year_per_ha"]).toFixed(2);
+    ghg_sav_stock_p_yr_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_stock_per_year_per_site"]).toFixed(2);
+    ghg_sav_stock_p_yr_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_stock_per_year_per_ha"]).toFixed(2);
+    ghg_sav_flow_p_yr_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_flow_per_year_per_site"]).toFixed(2);
+    ghg_sav_flow_p_yr_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_flow_per_year_per_ha"]).toFixed(2);
+    ghg_sav_pu_p_yr_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_product_use_per_year_per_site"]).toFixed(2);
+    ghg_sav_pu_p_yr_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_product_use_per_year_per_ha"]).toFixed(2);
+    cs_tco2_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["carbon_stock_peat_soil_start_year_tco2_per_site"]).toFixed(2);
+    cs_ton_c_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["carbon_stock_peat_soil_start_year_ton_c_per_site"]).toFixed(2);
+    cs_tco2_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["carbon_stock_peat_soil_start_year_tco2_per_ha"]).toFixed(2);
+    cs_ton_c_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["carbon_stock_peat_soil_start_year_ton_c_per_ha"]).toFixed(2);
+    
+    if(results_dict["carbon_savings"]["time_til_peat_is_lost_base_scenario"] != "Infinity"){
+        base_til_peat_loss.innerHTML = parseFloat(results_dict["carbon_savings"]["time_til_peat_is_lost_base_scenario"]).toFixed(2);
+    }
+    if(results_dict["carbon_savings"]["time_til_peat_is_lost_rewet_scenario"] != "Infinity"){
+        rewet_til_peat_loss.innerHTML = parseFloat(results_dict["carbon_savings"]["time_til_peat_is_lost_rewet_scenario"]).toFixed(2);
+    }
+
+}
+
+function set_calculation(){
+    let gest = Make_GEST_df();
+    let inputs = Parse_SET_Input();
+    let data_tab = Create_Data_Tab(inputs, gest);
+    let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
+    let c_content_tab = Create_C_Content_Soil_Tab(inputs);
+    let smc_tab = Create_Soil_Moisture_Classes_Tab(inputs);
+    let outcome_tab = Create_Outcome_Tab(inputs, data_tab, crop_use_tab, c_content_tab, gest);
+    let output_tab = Create_Output_tab(inputs, smc_tab, data_tab, outcome_tab, c_content_tab, crop_use_tab);
+    update_set_results(output_tab);
+}
 
 /*
+function set_run(inputs_dict, path_to_gest, output_file){
+    dict_of_csvs = Load_csvs(path_to_gest)
+    gest = dict_of_csvs['GEST_2_Static_Values.csv']
+    data_tab = Create_Data_Tab(inputs_dict, gest)
+    crop_use_tab = Create_crop_Use_Tab(inputs_dict, data_tab)
+    c_content_tab = Create_C_Content_Soil_Tab(inputs_dict)
+    sm_classes = Create_Soil_Moisture_Classes_Tab(inputs_dict)
+    outcome = Create_Outcome_Tab(inputs_dict, data_tab, crop_use_tab, c_content_tab, gest)
+    timeline = Create_Timeline_tab(inputs_dict, outcome, c_content_tab, gest)
+    output = Create_Output_tab(output_file, inputs_dict, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
+}
+
+function run_set(){
+    gest_df = Make_GEST_df()
+    SET_USR_OUTPT_FILE = './outputs/output_SET.json'
+    
+    input_dct = Create_Input_Dict()
+    set_run(input_dct, path_to_gest, SET_USR_OUTPT_FILE)
+    print("Done.")
+}
+*/
+
+/*
+// this wasnt used in the output of the set.py so I'm ignoring it for now
+
 function Create_Timeline_tab(user_input, outcome, c_content, gest){
     //Initialize the Timeline dict
-    timeline = {}
-    list_colnames = ['base_emissions', 'base_GESTv2', 'rewet_emissions', 'rewet_GESTv2', 'carbon_savings_flow', 'carbon_savings_stock', 'carbon_savings_product', 'carbon_savings_total', 'base_GESTnr', 'c_sequestration_base', 'c_stock_soil_base', 'stock_savings_creditable', 'rewet_GESTnr', 'c_sequestration_rewet', 'c_credits_' + user_input['gen_site_data']['site_name']]
+    let timeline = {}
+    let list_colnames = ['base_emissions', 'base_GESTv2', 'rewet_emissions', 'rewet_GESTv2', 'carbon_savings_flow', 'carbon_savings_stock', 'carbon_savings_product', 'carbon_savings_total', 'base_GESTnr', 'c_sequestration_base', 'c_stock_soil_base', 'stock_savings_creditable', 'rewet_GESTnr', 'c_sequestration_rewet', 'c_credits_' + user_input['gen_site_data']['site_name']]
     for i in list_colnames:
         timeline[i] = {}
         for j in range(int(user_input['gen_site_data']['year_start']), int(user_input['gen_site_data']['year_start'])+50):
@@ -649,127 +849,5 @@ function Create_Timeline_tab(user_input, outcome, c_content, gest){
 
     //Save the outcome tab in a pandas database
     return pd.DataFrame.from_dict(timeline)
-}
-
-function Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcome, c_content, crop_use){
-    //Initialise Output dict
-    output = {'site_data': {}, 'base_outcomes': {}, 'rewet_outcomes': {}, 'carbon_savings': {}}
-
-    //Populate the site_data section
-    output['site_data']['site_name'] = user_input['gen_site_data']['site_name']
-    output['site_data']['coords'] = user_input['gen_site_data']['coords']
-    output['site_data']['tot_area'] = user_input['gen_site_data']['tot_area']
-    output['site_data']['peat_type'] = user_input['gen_site_data']['peat_type']
-    output['site_data']['peat_thick'] = user_input['gen_site_data']['peat_thick']
-    output['site_data']['year_start'] = user_input['gen_site_data']['year_start']
-    output['site_data']['sm_class_base'] = sm_classes.loc['summer_moist_class']['base']
-    output['site_data']['sm_class_rewet'] = sm_classes.loc['summer_moist_class']['rewet']
-    output['site_data']['base veg_class'] = user_input['base']['veg_class']
-    output['site_data']['rewet_veg_class'] = user_input['rewet']['veg_class']
-
-    //Populate the base_outcomes section
-    output['base_outcomes']['CH4'] = (parseFloat(data_tab.loc['veg_ch4_gwp']['base'])*user_input['gen_site_data']['tot_area'])
-    output['base_outcomes']['CO2'] = parseFloat(data_tab.loc['veg_c02_gwp']['base'])*user_input['gen_site_data']['tot_area']
-    output['base_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['CH4']) + parseFloat(output['base_outcomes']['CO2'])
-
-    output['base_outcomes']['n2o_direct'] = outcome.loc['tot_direct_n2o']['base']
-    output['base_outcomes']['n2o_indirect'] = outcome.loc['tot_indirect_n2o']['base']
-    output['base_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['n2o_direct']) + parseFloat(output['base_outcomes']['n2o_indirect'])
-
-    output['base_outcomes']['activity_gwp_subtotal'] = outcome.loc['activity']['base']
-    output['base_outcomes']['gwp_total'] = outcome.loc['total']['base']
-
-    //Populate the rewet_outcomes section
-    output['rewet_outcomes']['CH4'] = (parseFloat(data_tab.loc['veg_ch4_gwp']['rewet'])*user_input['gen_site_data']['tot_area'])
-    output['rewet_outcomes']['CO2'] = (parseFloat(data_tab.loc['veg_c02_gwp']['rewet'])*user_input['gen_site_data']['tot_area'])
-    output['rewet_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['CH4']) + parseFloat(output['rewet_outcomes']['CO2'])
-
-    output['rewet_outcomes']['n2o_direct'] = outcome.loc['tot_direct_n2o']['rewet']
-    output['rewet_outcomes']['n2o_indirect'] = outcome.loc['tot_indirect_n2o']['rewet']
-    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['n2o_direct']) + parseFloat(output['rewet_outcomes']['n2o_indirect'])
-
-    output['rewet_outcomes']['activity_gwp_subtotal'] = outcome.loc['activity']['rewet']
-    output['rewet_outcomes']['product_gwp_subtotal'] = outcome.loc['Product ton_co2_per_site']['rewet']
-    output['rewet_outcomes']['gwp_total'] = outcome.loc['total']['rewet']
-
-    //Populate carbon_savings section
-    output['carbon_savings']['ghg_savings_total_per_year_per_site'] = output['base_outcomes']['gwp_total'] - output['rewet_outcomes']['gwp_total']
-    output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = output['carbon_savings']['ghg_savings_total_per_year_per_site']/output['site_data']['tot_area']
-    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = parseFloat(outcome.loc['veg_ch4_gwp']['base']) + parseFloat(outcome.loc['veg_c02_gwp']['base']) - parseFloat(outcome.loc['veg_ch4_gwp']['rewet']) - parseFloat(outcome.loc['veg_c02_gwp']['rewet'])
-    output['carbon_savings']['ghg_savings_stock_per_year_per_ha'] = output['carbon_savings']['ghg_savings_stock_per_year_per_site']/output['site_data']['tot_area']
-    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = parseFloat(outcome.loc['tot_direct_n2o']['base']) + parseFloat(outcome.loc['tot_indirect_n2o']['base']) +parseFloat(outcome.loc['activity']['base']) - parseFloat(outcome.loc['tot_direct_n2o']['rewet']) - parseFloat(outcome.loc['tot_indirect_n2o']['rewet']) - parseFloat(outcome.loc['activity']['rewet'])
-    output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = output['carbon_savings']['ghg_savings_flow_per_year_per_site']/output['site_data']['tot_area']
-    output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = crop_use.loc['ton_co2_per_site']['Values']*(-1)
-    output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = crop_use.loc['ton_co2_per_ha']['Values']*(-1)
-    
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'] = c_content.loc['c_stock_tco2_per_ha']['Values']*output['site_data']['tot_area']
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'] = c_content.loc['c_stock_ton_per_ha']['Values']*output['site_data']['tot_area']
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'] = c_content.loc['c_stock_tco2_per_ha']['Values']
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'] = c_content.loc['c_stock_ton_per_ha']['Values']
-
-    output['carbon_savings']['time_til_peat_is_lost_base_scenario'] = outcome.loc['base_scenario']['creditable_year']
-    output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] = outcome.loc['rewet_scenario']['creditable_year']
-    
-    //////////////////////////////////////////////////////////////////// 
-    // round
-
-    output['base_outcomes']['CH4'] = round(output['base_outcomes']['CH4'],2)
-    output['base_outcomes']['CO2'] = round(output['base_outcomes']['CO2'],2)
-    output['base_outcomes']['c_emission_gwp_subtotal'] = round(output['base_outcomes']['c_emission_gwp_subtotal'],2)
-    output['base_outcomes']['n2o_direct'] = round(output['base_outcomes']['n2o_direct'],2)
-    output['base_outcomes']['n2o_indirect'] = round(output['base_outcomes']['n2o_indirect'],2)
-    output['base_outcomes']['n2o_emission_gwp_subtotal'] =round(output['base_outcomes']['n2o_emission_gwp_subtotal'],2)
-    output['base_outcomes']['activity_gwp_subtotal'] = round(output['base_outcomes']['activity_gwp_subtotal'],2)
-    output['base_outcomes']['gwp_total'] = round(output['base_outcomes']['gwp_total'],2)
-    output['rewet_outcomes']['CH4'] = round(output['rewet_outcomes']['CH4'],2)
-    output['rewet_outcomes']['CO2'] = round(output['rewet_outcomes']['CO2'],2)
-    output['rewet_outcomes']['c_emission_gwp_subtotal'] = round(output['rewet_outcomes']['c_emission_gwp_subtotal'],2)
-    output['rewet_outcomes']['n2o_direct'] = round(output['rewet_outcomes']['n2o_direct'],2)
-    output['rewet_outcomes']['n2o_indirect'] = round(output['rewet_outcomes']['n2o_indirect'],2)
-    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = round(output['rewet_outcomes']['n2o_emission_gwp_subtotal'],2)
-    output['rewet_outcomes']['activity_gwp_subtotal'] = round(output['rewet_outcomes']['activity_gwp_subtotal'],2)
-    output['rewet_outcomes']['product_gwp_subtotal'] = round(output['rewet_outcomes']['product_gwp_subtotal'],2)
-    output['rewet_outcomes']['gwp_total'] = round(output['rewet_outcomes']['gwp_total'],2)
-    output['carbon_savings']['ghg_savings_total_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_total_per_year_per_site'],2)
-    output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_total_per_year_per_ha'],2)
-    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_stock_per_year_per_site'],2)
-    output['carbon_savings']['ghg_savings_stock_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_stock_per_year_per_ha'],2)
-    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_flow_per_year_per_site'],2)
-    output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_flow_per_year_per_ha'],2)
-    output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = round(output['carbon_savings']['ghg_savings_product_use_per_year_per_site'],2)
-    output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = round(output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'],2)
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'] = round(output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'],2)
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'] = round(output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'],2)
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'] =round(output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'],2)
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'] = round(output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'],2)
-    
-    if type(output['carbon_savings']['time_til_peat_is_lost_base_scenario']) != str:
-        output['carbon_savings']['time_til_peat_is_lost_base_scenario']= round(output['carbon_savings']['time_til_peat_is_lost_base_scenario'],2)
-
-    if type(output['carbon_savings']['time_til_peat_is_lost_rewet_scenario']) != str:
-        output['carbon_savings']['time_til_peat_is_lost_rewet_scenario']= round(output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'],2)
-    
-    return output
-}
-
-function set_run(inputs_dict, path_to_gest, output_file){
-    dict_of_csvs = Load_csvs(path_to_gest)
-    gest = dict_of_csvs['GEST_2_Static_Values.csv']
-    data_tab = Create_Data_Tab(inputs_dict, gest)
-    crop_use_tab = Create_crop_Use_Tab(inputs_dict, data_tab)
-    c_content_tab = Create_C_Content_Soil_Tab(inputs_dict)
-    sm_classes = Create_Soil_Moisture_Classes_Tab(inputs_dict)
-    outcome = Create_Outcome_Tab(inputs_dict, data_tab, crop_use_tab, c_content_tab, gest)
-    timeline = Create_Timeline_tab(inputs_dict, outcome, c_content_tab, gest)
-    output = Create_Output_tab(output_file, inputs_dict, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
-}
-
-function run_set(){
-    gest_df = Make_GEST_df()
-    SET_USR_OUTPT_FILE = './outputs/output_SET.json'
-    
-    input_dct = Create_Input_Dict()
-    set_run(input_dct, path_to_gest, SET_USR_OUTPT_FILE)
-    print("Done.")
 }
 */

@@ -103,7 +103,7 @@
                     <label for="peat_thick" class="form-label">Peat thickness (cm)</label> 
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="peat_thick" name="peat_thick" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['peat_thick']}}" required>
+                    <input type="number" class="validate form-control" id="peat_thick" name="peat_thick" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['peat_thick']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
