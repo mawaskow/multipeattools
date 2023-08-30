@@ -262,109 +262,95 @@ function Create_crop_Use_Tab(user_input, data){
     crop_use['ton_co2_per_ha'] = crop_use['ton_co2']*(-1);
     crop_use['ton_co2_per_site'] = crop_use['ton_co2_per_ha']*user_input['gen_site_data']['tot_area'];
 
-    //Save crop_use as a pandas dataframe
-    //crop_use = {'Values': crop_use};
     return crop_use;
 }
 
-function set_calculation(){
-    //console.log(document.getElementById("site_name"));
-    let gest = Make_GEST_df();
-    let inputs = Parse_SET_Input();
-    let data_tab = Create_Data_Tab(inputs, gest);
-    let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
-    console.log(crop_use_tab);
-}
-
-set_calculation();
-
-/*
 function Create_C_Content_Soil_Tab(user_input){
     //Initialize the C Content Soil dictionary
-    c_content = {}
+    let c_content = {};
 
     //Populate C Content dictionary
-    c_content['peat_type'] = user_input['gen_site_data']['peat_type']
+    c_content['peat_type'] = user_input['gen_site_data']['peat_type'];
 
-    if c_content['peat_type'] == 'Sphagnum':
-        c_content['c_content_per_cm_thick'] = 0.3496
-    elif c_content['peat_type'] == 'Herbaceous':
-        c_content['c_content_per_cm_thick'] = 0.5959
-    elif c_content['peat_type'] == 'Woody':
-        c_content['c_content_per_cm_thick'] = 0.54972
-    elif c_content['peat_type'] == 'Brown moss':
-        c_content['c_content_per_cm_thick'] = 0.84783
-    elif c_content['peat_type'] == 'Unknown':
-        c_content['c_content_per_cm_thick'] = 0.55224
-    elif c_content['peat_type'] == 'Humidified':
-        c_content['c_content_per_cm_thick'] = 0.91008
+    if(c_content['peat_type'] == 'Sphagnum'){
+        c_content['c_content_per_cm_thick'] = 0.3496;
+    }else if(c_content['peat_type'] == 'Herbaceous'){
+        c_content['c_content_per_cm_thick'] = 0.5959;
+    }else if(c_content['peat_type'] == 'Woody'){
+        c_content['c_content_per_cm_thick'] = 0.54972;
+    }else if(c_content['peat_type'] == 'Brown moss'){
+        c_content['c_content_per_cm_thick'] = 0.84783;
+    }else if(c_content['peat_type'] == 'Unknown'){
+        c_content['c_content_per_cm_thick'] = 0.55224;
+    }else if(c_content['peat_type'] == 'Humidified'){
+        c_content['c_content_per_cm_thick'] = 0.91008;
+    }else{
+        c_content['c_content_per_cm_thick'] = 0.55224;
+    }
+    c_content['peat_thick'] = user_input['gen_site_data']['peat_thick'];
+    c_content['c_stock_ton_per_ha'] = c_content['peat_thick']*c_content['c_content_per_cm_thick']*10;
+    c_content['c_stock_tco2_per_ha'] = c_content['c_stock_ton_per_ha']*(44/12);
 
-    c_content['peat_thick'] = user_input['gen_site_data']['peat_thick']
-    c_content['c_stock_ton_per_ha'] = c_content['peat_thick']*c_content['c_content_per_cm_thick']*10
-    c_content['c_stock_tco2_per_ha'] = c_content['c_stock_ton_per_ha']*(44/12)
-
-    //Save C Content Soil tab as a pandas dataframe
-    c_content = {'Values': c_content}
-    return pd.DataFrame.from_dict(c_content)
+    return c_content;
 }
 
 function Create_Soil_Moisture_Classes_Tab(user_input){
     //Initialize the Soil Moisture Classes dictionary
-    sm_classes = {'base': {}, 'rewet': {}}
+    let sm_classes = {'base': {}, 'rewet': {}};
 
     //Populate dictionary
-    if user_input['base']['med_gw_level_summer'] >= 0 and user_input['base']['med_gw_level_summer'] <= 140:
-        sm_classes['base']['summer_moist_class_num'] = '6+'
-        sm_classes['base']['summer_moist_class_name'] = 'Flooded (lower eulittoral)'
-        sm_classes['base']['summer_moist_class'] = '6+ (Flooded (lower eulittoral))'
-    elif user_input['base']['med_gw_level_summer'] >= -10 and user_input['base']['med_gw_level_summer'] < 0:
-        sm_classes['base']['summer_moist_class_num'] = '5+'
-        sm_classes['base']['summer_moist_class_name'] = 'Wet (upper eulittoral)'
-        sm_classes['base']['summer_moist_class'] = '5+ (Wet (upper eulittoral))'
-    elif user_input['base']['med_gw_level_summer'] >= -20 and user_input['base']['med_gw_level_summer'] < -10:
-        sm_classes['base']['summer_moist_class_num'] = '4+'
-        sm_classes['base']['summer_moist_class_name'] = 'Semi wet (very moist)'
-        sm_classes['base']['summer_moist_class'] = '4+ (Semi wet (very moist))'
-    elif user_input['base']['med_gw_level_summer'] >= -45 and user_input['base']['med_gw_level_summer'] < -20:
-        sm_classes['base']['summer_moist_class_num'] = '3+'
-        sm_classes['base']['summer_moist_class_name'] = 'Moist'
-        sm_classes['base']['summer_moist_class'] = '3+ (Moist)'
-    elif user_input['base']['med_gw_level_summer'] >= -85 and user_input['base']['med_gw_level_summer'] < -45:
-        sm_classes['base']['summer_moist_class_num'] = '2+'
-        sm_classes['base']['summer_moist_class_name'] = 'Moderate moist'
-        sm_classes['base']['summer_moist_class'] = '2+ (Moderate moist)'
-    elif user_input['base']['med_gw_level_summer'] < -85:
-        sm_classes['base']['summer_moist_class_num'] = '2-'
-        sm_classes['base']['summer_moist_class_name'] = 'Moderate dry'
-        sm_classes['base']['summer_moist_class'] = '2- (Moderate dry)'
+    if(user_input['base']['med_gw_level_summer'] >= 0 && user_input['base']['med_gw_level_summer'] <= 140){
+        sm_classes['base']['summer_moist_class_num'] = '6+';
+        sm_classes['base']['summer_moist_class_name'] = 'Flooded (lower eulittoral)';
+        sm_classes['base']['summer_moist_class'] = '6+ (Flooded (lower eulittoral))';
+    }else if(user_input['base']['med_gw_level_summer'] >= -10 && user_input['base']['med_gw_level_summer'] < 0){
+        sm_classes['base']['summer_moist_class_num'] = '5+';
+        sm_classes['base']['summer_moist_class_name'] = 'Wet (upper eulittoral)';
+        sm_classes['base']['summer_moist_class'] = '5+ (Wet (upper eulittoral))';
+    }else if(user_input['base']['med_gw_level_summer'] >= -20 && user_input['base']['med_gw_level_summer'] < -10){
+        sm_classes['base']['summer_moist_class_num'] = '4+';
+        sm_classes['base']['summer_moist_class_name'] = 'Semi wet (very moist)';
+        sm_classes['base']['summer_moist_class'] = '4+ (Semi wet (very moist))';
+    }else if(user_input['base']['med_gw_level_summer'] >= -45 && user_input['base']['med_gw_level_summer'] < -20){
+        sm_classes['base']['summer_moist_class_num'] = '3+';
+        sm_classes['base']['summer_moist_class_name'] = 'Moist';
+        sm_classes['base']['summer_moist_class'] = '3+ (Moist)';
+    }else if(user_input['base']['med_gw_level_summer'] >= -85 && user_input['base']['med_gw_level_summer'] < -45){
+        sm_classes['base']['summer_moist_class_num'] = '2+';
+        sm_classes['base']['summer_moist_class_name'] = 'Moderate moist';
+        sm_classes['base']['summer_moist_class'] = '2+ (Moderate moist)';
+    }else if(user_input['base']['med_gw_level_summer'] < -85){
+        sm_classes['base']['summer_moist_class_num'] = '2-';
+        sm_classes['base']['summer_moist_class_name'] = 'Moderate dry';
+        sm_classes['base']['summer_moist_class'] = '2- (Moderate dry)';
+    }
+    if(user_input['rewet']['med_gw_level_summer'] >= 0 && user_input['rewet']['med_gw_level_summer'] <= 140){
+        sm_classes['rewet']['summer_moist_class_num'] = '6+';
+        sm_classes['rewet']['summer_moist_class_name'] = 'Flooded (lower eulittoral)';
+        sm_classes['rewet']['summer_moist_class'] = '6+ (Flooded (lower eulittoral))';
+    }else if(user_input['rewet']['med_gw_level_summer'] >= -10 && user_input['rewet']['med_gw_level_summer'] < 0){
+        sm_classes['rewet']['summer_moist_class_num'] = '5+';
+        sm_classes['rewet']['summer_moist_class_name'] = 'Wet (upper eulittoral)';
+        sm_classes['rewet']['summer_moist_class'] = '5+ (Wet (upper eulittoral))';
+    }else if(user_input['rewet']['med_gw_level_summer'] >= -20 && user_input['rewet']['med_gw_level_summer'] < -10){
+        sm_classes['rewet']['summer_moist_class_num'] = '4+';
+        sm_classes['rewet']['summer_moist_class_name'] = 'Semi wet (very moist)';
+        sm_classes['rewet']['summer_moist_class'] = '4+ (Semi wet (very moist))';
+    }else if(user_input['rewet']['med_gw_level_summer'] >= -45 && user_input['rewet']['med_gw_level_summer'] < -20){
+        sm_classes['rewet']['summer_moist_class_num'] = '3+';
+        sm_classes['rewet']['summer_moist_class_name'] = 'Moist';
+        sm_classes['rewet']['summer_moist_class'] = '3+ (Moist)';
+    }else if(user_input['rewet']['med_gw_level_summer'] >= -85 && user_input['rewet']['med_gw_level_summer'] < -45){
+        sm_classes['rewet']['summer_moist_class_num'] = '2+';
+        sm_classes['rewet']['summer_moist_class_name'] = 'Moderate moist';
+        sm_classes['rewet']['summer_moist_class'] = '2+ (Moderate moist)';
+    }else if(user_input['rewet']['med_gw_level_summer'] < -85){
+        sm_classes['rewet']['summer_moist_class_num'] = '2-';
+        sm_classes['rewet']['summer_moist_class_name'] = 'Moderate dry';
+        sm_classes['rewet']['summer_moist_class'] = '2- (Moderate dry)';
+    }
 
-    if user_input['rewet']['med_gw_level_summer'] >= 0 and user_input['rewet']['med_gw_level_summer'] <= 140:
-        sm_classes['rewet']['summer_moist_class_num'] = '6+'
-        sm_classes['rewet']['summer_moist_class_name'] = 'Flooded (lower eulittoral)'
-        sm_classes['rewet']['summer_moist_class'] = '6+ (Flooded (lower eulittoral))'
-    elif user_input['rewet']['med_gw_level_summer'] >= -10 and user_input['rewet']['med_gw_level_summer'] < 0:
-        sm_classes['rewet']['summer_moist_class_num'] = '5+'
-        sm_classes['rewet']['summer_moist_class_name'] = 'Wet (upper eulittoral)'
-        sm_classes['rewet']['summer_moist_class'] = '5+ (Wet (upper eulittoral))'
-    elif user_input['rewet']['med_gw_level_summer'] >= -20 and user_input['rewet']['med_gw_level_summer'] < -10:
-        sm_classes['rewet']['summer_moist_class_num'] = '4+'
-        sm_classes['rewet']['summer_moist_class_name'] = 'Semi wet (very moist)'
-        sm_classes['rewet']['summer_moist_class'] = '4+ (Semi wet (very moist))'
-    elif user_input['rewet']['med_gw_level_summer'] >= -45 and user_input['rewet']['med_gw_level_summer'] < -20:
-        sm_classes['rewet']['summer_moist_class_num'] = '3+'
-        sm_classes['rewet']['summer_moist_class_name'] = 'Moist'
-        sm_classes['rewet']['summer_moist_class'] = '3+ (Moist)'
-    elif user_input['rewet']['med_gw_level_summer'] >= -85 and user_input['rewet']['med_gw_level_summer'] < -45:
-        sm_classes['rewet']['summer_moist_class_num'] = '2+'
-        sm_classes['rewet']['summer_moist_class_name'] = 'Moderate moist'
-        sm_classes['rewet']['summer_moist_class'] = '2+ (Moderate moist)'
-    elif user_input['rewet']['med_gw_level_summer'] < -85:
-        sm_classes['rewet']['summer_moist_class_num'] = '2-'
-        sm_classes['rewet']['summer_moist_class_name'] = 'Moderate dry'
-        sm_classes['rewet']['summer_moist_class'] = '2- (Moderate dry)'
-
-    //Save Soil Moisture Classes tab as a pandas dataframe
-    return pd.DataFrame.from_dict(sm_classes)
+    return sm_classes;
 }
 
 // Functions corresponding to calculations used in the N2O fertilizer tab
@@ -372,244 +358,249 @@ function Create_Soil_Moisture_Classes_Tab(user_input){
 //Direct N2O emissions
 
 function Manure_CO2Site_Base(manure_applied_base, tot_area){
+    let EF=0.02;
+    let N2O_CO2eq=265;
+    let N2O_N=EF*manure_applied_base;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_manure_base=N2O_site*N2O_CO2eq;
 
-    EF=0.02
-    N2O_CO2eq=265 //value from the CO2 equivalent table, just this value is used from the table
-    N2O_N=EF*manure_applied_base
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_manure_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_manure_base
+    return CO2_site_manure_base;
 }
 
 function Organic_Fert_CO2Site_Base(organic_applied_base,tot_area){
+    let EF=0.02;
+    let N2O_CO2eq=265;
+    let N2O_N=EF*organic_applied_base;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_organic_base=N2O_site*N2O_CO2eq;
 
-    EF=0.02
-    N2O_CO2eq=265 
-    N2O_N=EF*organic_applied_base
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_organic_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_organic_base
+    return CO2_site_organic_base;
 }
 
 function Grazing_CO2Site_Base(avg_n_animals_base, avg_days_base, n_excretion_value_b, EF_animal_b, tot_area){
+    let N2O_CO2eq=265;
+    let N_amount_base=(n_excretion_value_b*avg_n_animals_base*(avg_days_base/365)) / tot_area;
+    let N2O_N=EF_animal_b*N_amount_base;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_grazing_base=N2O_site*N2O_CO2eq;
 
-    N2O_CO2eq=265
-    N_amount_base=(n_excretion_value_b*avg_n_animals_base*(avg_days_base/365)) / tot_area
-    N2O_N=EF_animal_b*N_amount_base
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_grazing_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_grazing_base, N_amount_base
+    return CO2_site_grazing_base, N_amount_base;
 }
 
+//////////////////// returning 2 objects
+
 function Synth_CO2Site_Base(fert_applied_base, EF_fert_b, tot_area){
+    let N2O_CO2eq=265;
+    let N2O_N=EF_fert_b*fert_applied_base;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_synth_fert_base=N2O_site*N2O_CO2eq;
 
-    N2O_CO2eq=265 
-    N2O_N=EF_fert_b*fert_applied_base
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_synth_fert_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_synth_fert_base
+    return CO2_site_synth_fert_base;
 }
 
 function Residue_Left_Input_Base(answer_b, crop_b){
+    // List of all crop names
+    let crops = ["Cattail (Typha Sp.)", "Reed (Phragmites Australis)", "Peat Moss (Sphagnum Sp.)", "Grasses like Reed Canary Grass", "Alder (Alnus Sp.)", "Other" ];
+    let cropresidue_fraction_tot_yield_b = 0;
 
-    crops = ["Cattail (Typha sp.)", "Reed (Phragmites australis)", "Peat moss (Sphagnum sp.)", "Grasses like reed canary grass", "Alder (Alnus sp.)", "Other" ]  // List of all crop names
-    
-    if answer_b == "Yes" and crop_b in crops:
-        
-        if crop_b == "Cattail (Typha sp.)":
-            cropresidue_fraction_tot_yield_b = 0.11627907
-        elif crop_b == "Reed (Phragmites australis)":
-            cropresidue_fraction_tot_yield_b = 0.046511628
-        else:
-            cropresidue_fraction_tot_yield_b = 0.0
-            
-    else:
-        cropresidue_fraction_tot_yield_b = 0.0
-
-    return cropresidue_fraction_tot_yield_b
+    if(answer_b && (crop_b in crops)){
+        if(crop_b == "Cattail (Typha Sp.)"){
+            cropresidue_fraction_tot_yield_b = 0.11627907;
+        }else if(crop_b == "Reed (Phragmites Australis)"){
+            cropresidue_fraction_tot_yield_b = 0.046511628;
+        }else{
+            cropresidue_fraction_tot_yield_b = 0.0;
+        }
+    }else{
+        cropresidue_fraction_tot_yield_b = 0.0;
+    }
+    return cropresidue_fraction_tot_yield_b;
 }
 
 function crop_Residue_Base(cropresidue_fraction_tot_yield_b, crop_yield_base, tot_area){
+    let nitrogen_content=0.015;
+    let EF=0.02;
+    let N2O_CO2eq=265;
+    let amount_applied=cropresidue_fraction_tot_yield_b*crop_yield_base*1000*nitrogen_content;
+    let N2O_N=EF*amount_applied;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_cropres_base=N2O_site*N2O_CO2eq;
 
-    nitrogen_content=0.015
-    EF=0.02
-    N2O_CO2eq=265
-    amount_applied=cropresidue_fraction_tot_yield_b*crop_yield_base*1000*nitrogen_content
-    N2O_N=EF*amount_applied
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_cropres_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_cropres_base
+    return CO2_site_cropres_base;
 }
 
 function Basis_value_managed_soils(tot_area){
+    let N2O_CO2eq=265;
+    //Not sure why this value is 8
+    let N2O_ha=8;
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_managed_soil=N2O_site*N2O_CO2eq;
 
-    N2O_CO2eq=265
-    N2O_ha=8 //Not sure why this value is 8
-    N2O_site=N2O_ha*tot_area
-    CO2_site_managed_soil=N2O_site*N2O_CO2eq
-
-    return  CO2_site_managed_soil
+    return CO2_site_managed_soil;
 }
 
 function Total_Direct_N2Oemissions_Base(CO2_site_managed_soil, CO2_site_cropres_base, CO2_site_synth_fert_base, CO2_site_grazing_base, CO2_site_organic_base, CO2_site_manure_base ){
-
-    total_direct_N2Oemiss_base= (CO2_site_managed_soil + CO2_site_cropres_base + CO2_site_synth_fert_base + CO2_site_grazing_base + CO2_site_organic_base + CO2_site_manure_base)/1000
+    let total_direct_N2Oemiss_base= (CO2_site_managed_soil + CO2_site_cropres_base + CO2_site_synth_fert_base + CO2_site_grazing_base + CO2_site_organic_base + CO2_site_manure_base)/1000;
     
-    return total_direct_N2Oemiss_base
+    return total_direct_N2Oemiss_base;
 }
 
 //Indirect N2O Emissions
 
 function Animal_Ammonia_Base(manure_applied_base, N_amount_base, tot_area, avg_animals, avg_days){
+    let EF_ammonia=0.1035;
+    let EF_N2O_N=0.01;
+    let N2O_CO2eq=265;
+    let ammonia_applied= manure_applied_base + ((N_amount_base*avg_animals*(avg_days/365))/tot_area);
+    let volatilization_N= ammonia_applied*EF_ammonia;
+    let N2O_N=EF_N2O_N*volatilization_N;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_animal_amm_base=N2O_site*N2O_CO2eq;
 
-    EF_ammonia=0.1035
-    EF_N2O_N=0.01
-    N2O_CO2eq=265
-    ammonia_applied= manure_applied_base + ((N_amount_base*avg_animals*(avg_days/365))/tot_area)
-    volatilization_N= ammonia_applied*EF_ammonia
-    N2O_N=EF_N2O_N*volatilization_N
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_animal_amm_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_animal_amm_base
+    return CO2_site_animal_amm_base;
 }
 
 function Fert_Ammonia_Base(fert_applied_base, EF_ammonia_b, tot_area){
+    let EF_N2O_N=0.01
+    let N2O_CO2eq=265
+    let EF=0;
 
-    EF_N2O_N=0.01
-    N2O_CO2eq=265
+    if(EF_ammonia_b == 0.02){
+        EF = 0.015;
+    }else{
+        EF = 0.1;
+    }
+    let volatilization_N=fert_applied_base*EF;
+    let N2O_N=EF_N2O_N*volatilization_N;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_fert_amm_base=N2O_site*N2O_CO2eq;
 
-    if EF_ammonia_b == 0.02:
-        EF = 0.015
-    else:
-        EF = 0.1
-
-    volatilization_N=fert_applied_base*EF
-    N2O_N=EF_N2O_N*volatilization_N
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_fert_amm_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_fert_amm_base
+    return CO2_site_fert_amm_base;
 }
 
 function N_Oxide_Base(manure_applied_base, fert_applied_base, N_amount_base, avg_animals, avg_days, tot_area){
+    let EF_NOxide_ammonia=0.15;
+    let EF_N2O_N=0.01;
+    let N2O_CO2eq=265;
+    let N=manure_applied_base + fert_applied_base + ((N_amount_base*avg_animals*(avg_days/365))/tot_area);
+    let volatilization_N= EF_NOxide_ammonia*N;
+    let N2O_N=EF_N2O_N*volatilization_N;
+    let N2O_ha= N2O_N*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_NOxide_base=N2O_site*N2O_CO2eq;
 
-    EF_NOxide_ammonia=0.15
-    EF_N2O_N=0.01
-    N2O_CO2eq=265
-    N=manure_applied_base + fert_applied_base + ((N_amount_base*avg_animals*(avg_days/365))/tot_area)
-    volatilization_N= EF_NOxide_ammonia*N
-    N2O_N=EF_N2O_N*volatilization_N
-    N2O_ha= N2O_N*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_NOxide_base=N2O_site*N2O_CO2eq
-
-    return CO2_site_NOxide_base
+    return CO2_site_NOxide_base;
 }
 
 function Nitrate_Base(manure_applied_base, organic_applied_base, cropresidue_fraction_tot_yield_b, crop_yield, fert_applied_base, tot_area, rewet){
-    
-    EF_nitrate_leaching=0.3
-    EF_N2O_N_leached=0.025
-    N2O_CO2eq=265
+    let EF_nitrate_leaching=0.3;
+    let EF_N2O_N_leached=0.025;
+    let N2O_CO2eq=265;
 
+    let applied_animal=manure_applied_base + organic_applied_base;
+    let applied_remaining = 0;
 
-    applied_animal=manure_applied_base + organic_applied_base
+    if(rewet){
+        applied_remaining=organic_applied_base + (cropresidue_fraction_tot_yield_b*1000*crop_yield*0.015);
+    }else{
+        applied_remaining = organic_applied_base + cropresidue_fraction_tot_yield_b;
+    }
 
-    if rewet == True:
-        applied_remaining=organic_applied_base + (cropresidue_fraction_tot_yield_b*1000*crop_yield*0.015)
-    else:
-        applied_remaining = organic_applied_base + cropresidue_fraction_tot_yield_b
-        
-    nitrate_leached= (applied_animal +  fert_applied_base +  applied_remaining) * EF_nitrate_leaching
-    N2O_N_leached= nitrate_leached * EF_N2O_N_leached
-    N2O_ha= N2O_N_leached*(44/28)
-    N2O_site=N2O_ha*tot_area
-    CO2_site_nitrate_base=N2O_site*N2O_CO2eq
+    let nitrate_leached= (applied_animal +  fert_applied_base +  applied_remaining) * EF_nitrate_leaching;
+    let N2O_N_leached= nitrate_leached * EF_N2O_N_leached;
+    let N2O_ha= N2O_N_leached*(44/28);
+    let N2O_site=N2O_ha*tot_area;
+    let CO2_site_nitrate_base=N2O_site*N2O_CO2eq;
 
-    return CO2_site_nitrate_base
+    return CO2_site_nitrate_base;
 }
 
 function Total_Indirect_N2Oemissions_Base( CO2_site_nitrate_base, CO2_site_NOxide_base, CO2_site_fert_amm_base, CO2_site_animal_amm_base){
-
-    tot_indirect_N2Oemiss_base=(CO2_site_nitrate_base + CO2_site_NOxide_base + CO2_site_fert_amm_base + CO2_site_animal_amm_base)/1000
-    return tot_indirect_N2Oemiss_base
+    let tot_indirect_N2Oemiss_base=(CO2_site_nitrate_base + CO2_site_NOxide_base + CO2_site_fert_amm_base + CO2_site_animal_amm_base)/1000;
+    
+    return tot_indirect_N2Oemiss_base;
 }
 
 function Create_Outcome_Tab(user_input, data, crop_use, c_content, gest){
     //Initialize the Soil Moisture Classes dictionary
-    outcome = {'base': {}, 'rewet': {}, 'creditable_year': {}}
+    let outcome = {'base': {}, 'rewet': {}, 'creditable_year': {}};
 
     //Populate the base dictionary
-    outcome['base']['veg_ch4_gwp'] = float(data.loc['veg_ch4_gwp']['base'])*user_input['gen_site_data']['tot_area']
-    outcome['base']['veg_c02_gwp'] = float(data.loc['veg_c02_gwp']['base'])*user_input['gen_site_data']['tot_area']
+    outcome['base']['veg_ch4_gwp'] = parseFloat(data['base']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area'];
+    outcome['base']['veg_c02_gwp'] = parseFloat(data['base']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area'];
 
     outcome['base']['tot_direct_n2o'] = Total_Direct_N2Oemissions_Base(Basis_value_managed_soils(user_input['gen_site_data']['tot_area']), 
                                                                             crop_Residue_Base(Residue_Left_Input_Base(user_input['base']['crop_resid'], user_input['base']['crop_name']), user_input['base']['crop_yield'], user_input['gen_site_data']['tot_area']), 
-                                                                            Synth_CO2Site_Base(user_input['base']['amount_synth_fert'], data.loc['fert_ef']['base'], user_input['gen_site_data']['tot_area']),
-                                                                            Grazing_CO2Site_Base(user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], data.loc['n_excretion']['base'], data.loc['animal_ef']['base'], user_input['gen_site_data']['tot_area'])[0],
+                                                                            Synth_CO2Site_Base(user_input['base']['amount_synth_fert'], data['base']['fert_ef'], user_input['gen_site_data']['tot_area']),
+                                                                            Grazing_CO2Site_Base(user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], data['base']['n_excretion'], data['base']['animal_ef'], user_input['gen_site_data']['tot_area']),
                                                                             Organic_Fert_CO2Site_Base(user_input['base']['amount_org_fert'], user_input['gen_site_data']['tot_area']),
-                                                                            Manure_CO2Site_Base(user_input['base']['amount_manure'], user_input['gen_site_data']['tot_area']))
+                                                                            Manure_CO2Site_Base(user_input['base']['amount_manure'], user_input['gen_site_data']['tot_area']));
 
-    outcome['base']['tot_indirect_n2o'] = Total_Indirect_N2Oemissions_Base(Nitrate_Base(user_input['base']['amount_manure'], user_input['base']['amount_org_fert'], Residue_Left_Input_Base(user_input['base']['crop_resid'], user_input['base']['crop_name']), user_input['base']['crop_yield'], user_input['base']['amount_synth_fert'], user_input['gen_site_data']['tot_area'], False), 
-                                                                                 N_Oxide_Base(user_input['base']['amount_manure'], user_input['base']['amount_synth_fert'], data.loc['n_excretion']['base'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], user_input['gen_site_data']['tot_area']), 
-                                                                                 Fert_Ammonia_Base(user_input['base']['amount_synth_fert'], data.loc['fert_ef']['base'], user_input['gen_site_data']['tot_area']), 
-                                                                                 Animal_Ammonia_Base(user_input['base']['amount_manure'], data.loc['n_excretion']['base'], user_input['gen_site_data']['tot_area'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days']))
+    outcome['base']['tot_indirect_n2o'] = Total_Indirect_N2Oemissions_Base(Nitrate_Base(user_input['base']['amount_manure'], user_input['base']['amount_org_fert'], Residue_Left_Input_Base(user_input['base']['crop_resid'], user_input['base']['crop_name']), user_input['base']['crop_yield'], user_input['base']['amount_synth_fert'], user_input['gen_site_data']['tot_area'], false), 
+                                                                                 N_Oxide_Base(user_input['base']['amount_manure'], user_input['base']['amount_synth_fert'], data['base']['n_excretion'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], user_input['gen_site_data']['tot_area']), 
+                                                                                 Fert_Ammonia_Base(user_input['base']['amount_synth_fert'], data['base']['fert_ef'], user_input['gen_site_data']['tot_area']), 
+                                                                                 Animal_Ammonia_Base(user_input['base']['amount_manure'], data['base']['n_excretion'], user_input['gen_site_data']['tot_area'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days']));
     
-    outcome['base']['activity'] = ((user_input['base']['diesel_per_site']*3.35)+(user_input['base']['elec_per_site']*0.581))/1000
-    outcome['base']['total'] = sum((float(outcome['base']['veg_ch4_gwp']), float(outcome['base']['veg_c02_gwp']), float(outcome['base']['tot_direct_n2o']), float(outcome['base']['tot_indirect_n2o']), float(outcome['base']['activity'])), 0)
+    outcome['base']['activity'] = ((user_input['base']['diesel_per_site']*3.35)+(user_input['base']['elec_per_site']*0.581))/1000;
+    outcome['base']['total'] = [parseFloat(outcome['base']['veg_ch4_gwp']), parseFloat(outcome['base']['veg_c02_gwp']), parseFloat(outcome['base']['tot_direct_n2o']), parseFloat(outcome['base']['tot_indirect_n2o']), parseFloat(outcome['base']['activity'])].reduce((a, b) => a + b, 0);
     
     //Populate the Rewetting dictionary
-    outcome['rewet']['veg_ch4_gwp'] = float(data.loc['veg_ch4_gwp']['rewet'])*user_input['gen_site_data']['tot_area']
-    outcome['rewet']['veg_c02_gwp'] = float(data.loc['veg_c02_gwp']['rewet'])*user_input['gen_site_data']['tot_area']
+    outcome['rewet']['veg_ch4_gwp'] = parseFloat(data['rewet']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area'];
+    outcome['rewet']['veg_c02_gwp'] = parseFloat(data['rewet']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area'];
 
     outcome['rewet']['tot_direct_n2o'] = Total_Direct_N2Oemissions_Base(Basis_value_managed_soils(user_input['gen_site_data']['tot_area']), 
                                                                             crop_Residue_Base(Residue_Left_Input_Base(user_input['rewet']['crop_resid'], user_input['rewet']['crop_name']), user_input['rewet']['crop_yield'], user_input['gen_site_data']['tot_area']), 
-                                                                            Synth_CO2Site_Base(user_input['rewet']['amount_synth_fert'], data.loc['fert_ef']['rewet'], user_input['gen_site_data']['tot_area']),
-                                                                            Grazing_CO2Site_Base(user_input['rewet']['avg_num_animals'], user_input['rewet']['avg_num_days'], data.loc['n_excretion']['rewet'], data.loc['animal_ef']['rewet'], user_input['gen_site_data']['tot_area'])[0],
+                                                                            Synth_CO2Site_Base(user_input['rewet']['amount_synth_fert'], data['rewet']['fert_ef'], user_input['gen_site_data']['tot_area']),
+                                                                            Grazing_CO2Site_Base(user_input['rewet']['avg_num_animals'], user_input['rewet']['avg_num_days'], data['rewet']['n_excretion'], data['rewet']['animal_ef'], user_input['gen_site_data']['tot_area']),
                                                                             Organic_Fert_CO2Site_Base(user_input['rewet']['amount_org_fert'], user_input['gen_site_data']['tot_area']),
-                                                                            Manure_CO2Site_Base(user_input['rewet']['amount_manure'], user_input['gen_site_data']['tot_area']))
+                                                                            Manure_CO2Site_Base(user_input['rewet']['amount_manure'], user_input['gen_site_data']['tot_area']));
+
+    outcome['rewet']['tot_indirect_n2o'] = Total_Indirect_N2Oemissions_Base(Nitrate_Base(user_input['rewet']['amount_manure'], user_input['rewet']['amount_org_fert'], Residue_Left_Input_Base(user_input['rewet']['crop_resid'], user_input['rewet']['crop_name']), user_input['rewet']['crop_yield'], user_input['rewet']['amount_synth_fert'], user_input['gen_site_data']['tot_area'], true), 
+                                                                                 N_Oxide_Base(user_input['rewet']['amount_manure'], user_input['rewet']['amount_synth_fert'], data['base']['n_excretion'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], user_input['gen_site_data']['tot_area']), 
+                                                                                 Fert_Ammonia_Base(user_input['rewet']['amount_synth_fert'], data['rewet']['fert_ef']['rewet'], user_input['gen_site_data']['tot_area']), 
+                                                                                 Animal_Ammonia_Base(user_input['rewet']['amount_manure'], data['rewet']['n_excretion'], user_input['gen_site_data']['tot_area'], user_input['rewet']['avg_num_animals'], user_input['rewet']['avg_num_days']));
     
-    outcome['rewet']['tot_indirect_n2o'] = Total_Indirect_N2Oemissions_Base(Nitrate_Base(user_input['rewet']['amount_manure'], user_input['rewet']['amount_org_fert'], Residue_Left_Input_Base(user_input['rewet']['crop_resid'], user_input['rewet']['crop_name']), user_input['rewet']['crop_yield'], user_input['rewet']['amount_synth_fert'], user_input['gen_site_data']['tot_area'], True), 
-                                                                                 N_Oxide_Base(user_input['rewet']['amount_manure'], user_input['rewet']['amount_synth_fert'], data.loc['n_excretion']['base'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], user_input['gen_site_data']['tot_area']), 
-                                                                                 Fert_Ammonia_Base(user_input['rewet']['amount_synth_fert'], data.loc['fert_ef']['rewet'], user_input['gen_site_data']['tot_area']), 
-                                                                                 Animal_Ammonia_Base(user_input['rewet']['amount_manure'], data.loc['n_excretion']['rewet'], user_input['gen_site_data']['tot_area'], user_input['rewet']['avg_num_animals'], user_input['rewet']['avg_num_days']))
-    
-    outcome['rewet']['Product ton_co2_per_site'] = crop_use.loc['ton_co2_per_site']['Values']
-    outcome['rewet']['activity'] = ((user_input['rewet']['diesel_per_site']*3.35)+(user_input['rewet']['elec_per_site']*0.581))/1000
-    outcome['rewet']['total'] = sum((float(outcome['rewet']['veg_ch4_gwp']), float(outcome['rewet']['veg_c02_gwp']), float(outcome['rewet']['tot_direct_n2o']), float(outcome['rewet']['tot_indirect_n2o']), float(outcome['rewet']['activity']), float(outcome['rewet']['Product ton_co2_per_site'])), 0)
+    outcome['rewet']['Product ton_co2_per_site'] = crop_use['ton_co2_per_site'];
+    outcome['rewet']['activity'] = ((user_input['rewet']['diesel_per_site']*3.35)+(user_input['rewet']['elec_per_site']*0.581))/1000;
+    outcome['rewet']['total'] = [parseFloat(outcome['rewet']['veg_ch4_gwp']), parseFloat(outcome['rewet']['veg_c02_gwp']), parseFloat(outcome['rewet']['tot_direct_n2o']), parseFloat(outcome['rewet']['tot_indirect_n2o']), parseFloat(outcome['rewet']['activity']), parseFloat(outcome['rewet']['Product ton_co2_per_site'])].reduce((a, b) => a + b, 0);
 
     //Populate creditable_year tab
-    veg_num_base = data['base']['veg_class'].split(':', 1)[0]
-    veg_num_rewet = data['rewet']['veg_class'].split(':', 1)[0]
+    let veg_num_base = data['base']['veg_class'];
+    let veg_num_rewet = data['rewet']['veg_class'];
     
-    for i in range(2, 44):
-        if veg_num_base == gest.iloc[i]['Name']:
-            outcome['creditable_year']['base_scenario'] = float(c_content.loc['c_stock_ton_per_ha']['Values'])/(float(gest.iloc[i]['Total C-flux (ton C/ha)']))
-        
-        if veg_num_rewet == gest.iloc[i]['Name']:
-            if float(c_content.loc['c_stock_ton_per_ha']['Values'])/float(gest.iloc[i]['Total C-flux (ton C/ha)']) > 0:
-                outcome['creditable_year']['rewet_scenario'] = float(c_content.loc['c_stock_ton_per_ha']['Values'])/float(gest.iloc[i]['Total C-flux (ton C/ha)'])
-            else:
-                //outcome['creditable_year']['rewet_scenario'] = float('inf')
-                outcome['creditable_year']['rewet_scenario'] = "Infinity"
-    
-    //Save the outcome tab in a pandas database
-    return pd.DataFrame.from_dict(outcome)
+    for(let i =0; i< gest.index.length; i++){
+        if(veg_num_base == gest.at(i,'Name')){
+            outcome['creditable_year']['base_scenario'] = parseFloat(c_content['c_stock_ton_per_ha'])/(parseFloat(gest.at(i,'Total C-flux (ton C/ha)')));
+        }
+        if(veg_num_rewet == gest.at(i,'Name')){
+            if(parseFloat(c_content['c_stock_ton_per_ha'])/parseFloat(gest.at(i,'Total C-flux (ton C/ha)')) > 0){
+                outcome['creditable_year']['rewet_scenario'] = parseFloat(c_content['c_stock_ton_per_ha'])/parseFloat(gest.at(i,'Total C-flux (ton C/ha)'));
+            }else{
+                outcome['creditable_year']['rewet_scenario'] = "Infinity";
+            }
+        }
+    }
+    return outcome;
 }
 
+let gest = Make_GEST_df();
+let inputs = Parse_SET_Input();
+let data_tab = Create_Data_Tab(inputs, gest);
+let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
+let c_content_tab = Create_C_Content_Soil_Tab(inputs);
+let smc_tab = Create_Soil_Moisture_Classes_Tab(inputs);
+let outcome_tab = Create_Outcome_Tab(inputs, data_tab, crop_use_tab, c_content_tab, gest);
+console.log(outcome_tab);
+
+
+/*
 function Create_Timeline_tab(user_input, outcome, c_content, gest){
     //Initialize the Timeline dict
     timeline = {}
@@ -625,18 +616,18 @@ function Create_Timeline_tab(user_input, outcome, c_content, gest){
         timeline['base_GESTv2'][i] = user_input['base']['veg_class']
         timeline['rewet_emissions'][i] = outcome.loc['total']['rewet']
         timeline['rewet_GESTv2'][i] = user_input['rewet']['veg_class']
-        timeline['carbon_savings_flow'][i] = float(outcome.loc['tot_direct_n2o']['base']) + float(outcome.loc['tot_indirect_n2o']['base']) + float(outcome.loc['activity']['base']) - float(outcome.loc['tot_direct_n2o']['rewet']) - float(outcome.loc['tot_indirect_n2o']['rewet']) - float(outcome.loc['activity']['rewet'])
-        timeline['carbon_savings_stock'][i] = float(outcome.loc['veg_ch4_gwp']['base']) + float(outcome.loc['veg_c02_gwp']['base']) - float(outcome.loc['veg_ch4_gwp']['rewet']) - float(outcome.loc['veg_c02_gwp']['rewet'])
-        timeline['carbon_savings_product'][i] = (-1)*float(outcome.loc['Product ton_co2_per_site']['rewet'])
+        timeline['carbon_savings_flow'][i] = parseFloat(outcome.loc['tot_direct_n2o']['base']) + parseFloat(outcome.loc['tot_indirect_n2o']['base']) + parseFloat(outcome.loc['activity']['base']) - parseFloat(outcome.loc['tot_direct_n2o']['rewet']) - parseFloat(outcome.loc['tot_indirect_n2o']['rewet']) - parseFloat(outcome.loc['activity']['rewet'])
+        timeline['carbon_savings_stock'][i] = parseFloat(outcome.loc['veg_ch4_gwp']['base']) + parseFloat(outcome.loc['veg_c02_gwp']['base']) - parseFloat(outcome.loc['veg_ch4_gwp']['rewet']) - parseFloat(outcome.loc['veg_c02_gwp']['rewet'])
+        timeline['carbon_savings_product'][i] = (-1)*parseFloat(outcome.loc['Product ton_co2_per_site']['rewet'])
         timeline['carbon_savings_total'][i] = sum((timeline['carbon_savings_flow'][i], timeline['carbon_savings_stock'][i], timeline['carbon_savings_product'][i]), 0)
         timeline['base_GESTnr'][i] = timeline['base_GESTv2'][i].split(':', 1)[0]
         timeline['rewet_GESTnr'][i] = timeline['rewet_GESTv2'][i].split(':', 1)[0]
 
         for j in range(2, 44):
             if timeline['base_GESTnr'][i] == gest.iloc[j]['Name']:
-                timeline['c_sequestration_base'][i] = float(gest.iloc[j]['Total C-flux (ton C/ha)'])*user_input['gen_site_data']['tot_area']*(-1)
+                timeline['c_sequestration_base'][i] = parseFloat(gest.iloc[j]['Total C-flux (ton C/ha)'])*user_input['gen_site_data']['tot_area']*(-1)
             if timeline['rewet_GESTnr'][i] == gest.iloc[j]['Name']:
-                timeline['c_sequestration_rewet'][i] = float(gest.iloc[j]['Total C-flux (ton C/ha)'])*user_input['gen_site_data']['tot_area']*(-1)
+                timeline['c_sequestration_rewet'][i] = parseFloat(gest.iloc[j]['Total C-flux (ton C/ha)'])*user_input['gen_site_data']['tot_area']*(-1)
 
         if i == list(timeline['base_emissions'].keys())[0]:
             timeline['c_stock_soil_base'][i] = (c_content.loc['c_stock_ton_per_ha']['Values']*user_input['gen_site_data']['tot_area']) + timeline['c_sequestration_base'][i]
@@ -677,25 +668,25 @@ function Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcom
     output['site_data']['rewet_veg_class'] = user_input['rewet']['veg_class']
 
     //Populate the base_outcomes section
-    output['base_outcomes']['CH4'] = (float(data_tab.loc['veg_ch4_gwp']['base'])*user_input['gen_site_data']['tot_area'])
-    output['base_outcomes']['CO2'] = float(data_tab.loc['veg_c02_gwp']['base'])*user_input['gen_site_data']['tot_area']
-    output['base_outcomes']['c_emission_gwp_subtotal'] = float(output['base_outcomes']['CH4']) + float(output['base_outcomes']['CO2'])
+    output['base_outcomes']['CH4'] = (parseFloat(data_tab.loc['veg_ch4_gwp']['base'])*user_input['gen_site_data']['tot_area'])
+    output['base_outcomes']['CO2'] = parseFloat(data_tab.loc['veg_c02_gwp']['base'])*user_input['gen_site_data']['tot_area']
+    output['base_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['CH4']) + parseFloat(output['base_outcomes']['CO2'])
 
     output['base_outcomes']['n2o_direct'] = outcome.loc['tot_direct_n2o']['base']
     output['base_outcomes']['n2o_indirect'] = outcome.loc['tot_indirect_n2o']['base']
-    output['base_outcomes']['n2o_emission_gwp_subtotal'] = float(output['base_outcomes']['n2o_direct']) + float(output['base_outcomes']['n2o_indirect'])
+    output['base_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['n2o_direct']) + parseFloat(output['base_outcomes']['n2o_indirect'])
 
     output['base_outcomes']['activity_gwp_subtotal'] = outcome.loc['activity']['base']
     output['base_outcomes']['gwp_total'] = outcome.loc['total']['base']
 
     //Populate the rewet_outcomes section
-    output['rewet_outcomes']['CH4'] = (float(data_tab.loc['veg_ch4_gwp']['rewet'])*user_input['gen_site_data']['tot_area'])
-    output['rewet_outcomes']['CO2'] = (float(data_tab.loc['veg_c02_gwp']['rewet'])*user_input['gen_site_data']['tot_area'])
-    output['rewet_outcomes']['c_emission_gwp_subtotal'] = float(output['rewet_outcomes']['CH4']) + float(output['rewet_outcomes']['CO2'])
+    output['rewet_outcomes']['CH4'] = (parseFloat(data_tab.loc['veg_ch4_gwp']['rewet'])*user_input['gen_site_data']['tot_area'])
+    output['rewet_outcomes']['CO2'] = (parseFloat(data_tab.loc['veg_c02_gwp']['rewet'])*user_input['gen_site_data']['tot_area'])
+    output['rewet_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['CH4']) + parseFloat(output['rewet_outcomes']['CO2'])
 
     output['rewet_outcomes']['n2o_direct'] = outcome.loc['tot_direct_n2o']['rewet']
     output['rewet_outcomes']['n2o_indirect'] = outcome.loc['tot_indirect_n2o']['rewet']
-    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = float(output['rewet_outcomes']['n2o_direct']) + float(output['rewet_outcomes']['n2o_indirect'])
+    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['n2o_direct']) + parseFloat(output['rewet_outcomes']['n2o_indirect'])
 
     output['rewet_outcomes']['activity_gwp_subtotal'] = outcome.loc['activity']['rewet']
     output['rewet_outcomes']['product_gwp_subtotal'] = outcome.loc['Product ton_co2_per_site']['rewet']
@@ -704,9 +695,9 @@ function Create_Output_tab(output_file, user_input, sm_classes, data_tab, outcom
     //Populate carbon_savings section
     output['carbon_savings']['ghg_savings_total_per_year_per_site'] = output['base_outcomes']['gwp_total'] - output['rewet_outcomes']['gwp_total']
     output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = output['carbon_savings']['ghg_savings_total_per_year_per_site']/output['site_data']['tot_area']
-    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = float(outcome.loc['veg_ch4_gwp']['base']) + float(outcome.loc['veg_c02_gwp']['base']) - float(outcome.loc['veg_ch4_gwp']['rewet']) - float(outcome.loc['veg_c02_gwp']['rewet'])
+    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = parseFloat(outcome.loc['veg_ch4_gwp']['base']) + parseFloat(outcome.loc['veg_c02_gwp']['base']) - parseFloat(outcome.loc['veg_ch4_gwp']['rewet']) - parseFloat(outcome.loc['veg_c02_gwp']['rewet'])
     output['carbon_savings']['ghg_savings_stock_per_year_per_ha'] = output['carbon_savings']['ghg_savings_stock_per_year_per_site']/output['site_data']['tot_area']
-    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = float(outcome.loc['tot_direct_n2o']['base']) + float(outcome.loc['tot_indirect_n2o']['base']) +float(outcome.loc['activity']['base']) - float(outcome.loc['tot_direct_n2o']['rewet']) - float(outcome.loc['tot_indirect_n2o']['rewet']) - float(outcome.loc['activity']['rewet'])
+    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = parseFloat(outcome.loc['tot_direct_n2o']['base']) + parseFloat(outcome.loc['tot_indirect_n2o']['base']) +parseFloat(outcome.loc['activity']['base']) - parseFloat(outcome.loc['tot_direct_n2o']['rewet']) - parseFloat(outcome.loc['tot_indirect_n2o']['rewet']) - parseFloat(outcome.loc['activity']['rewet'])
     output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = output['carbon_savings']['ghg_savings_flow_per_year_per_site']/output['site_data']['tot_area']
     output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = crop_use.loc['ton_co2_per_site']['Values']*(-1)
     output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = crop_use.loc['ton_co2_per_ha']['Values']*(-1)
