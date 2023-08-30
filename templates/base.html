@@ -29,13 +29,14 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
             <!--materialize-->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js" integrity="sha512-E9vR5BfN3bwSc45BWl95328hvOcBYjMzKAKgdNM59yQXpTC4glztZyVoFJRp5qPc5A95zUZ8D5N7kEwUtJ9f6w==" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+            <!--dataframe javascript-->
+            <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
             <!--local script-->
             <!--<script src="../scripts/userinp.js"></script>-->
             <script src="{{url_for('static', filename='scripts/toggle_display.js')}}" async></script>
             <script src="{{url_for('static', filename='scripts/calc_ffp.js')}}" async></script>
             <script src="{{url_for('static', filename='scripts/calc_set.js')}}" async></script>
             <!--<script language="javascript" type="text/javascript" src="{{url_for('static', filename='node_modules/data-forge/dist/web/index.js')}}"></script>-->
-            <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
         {% endblock %}
         {% block head %}
             {% if title %}

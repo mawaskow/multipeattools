@@ -6,10 +6,10 @@ function Make_GEST_df(){
         ["G2","Moist grassland","3+, 3+/2+",NaN,NaN,NaN,"3+","2+",NaN,0.01,48,19.37,38,19.5,5.283027273],
         ["G3","Moist to very moist grassland","4+/3+",NaN,NaN,NaN,"3+",NaN,NaN,0.03,3,13.46,4,13.5,3.671809091],
         ["G3f","Periodically flooded grasslands","4~, 3~",NaN,NaN,"4+","3+","2+",NaN,-0.05,3,13.46,NaN,13,3.669409091],
-        ["G3s","Moist to very moist grassland with shunt  species","4+/3+, 3~, (3+, 3+/2+)",NaN,NaN,NaN,"3+","2+",NaN,0.75,7,13.46,NaN,14,3.693409091],
+        ["G3s","Moist to very moist grassland with shunt species","4+/3+, 3~, (3+, 3+/2+)",NaN,NaN,NaN,"3+","2+",NaN,0.75,7,13.46,NaN,14,3.693409091],
         ["G3m","Moist to very moist acidic Molinia meadows","4+/3+",NaN,NaN,NaN,"3+",NaN,NaN,4.85,6,6.45,NaN,11.5,1.904590909],
         ["G4","Very moist grassland","4+, 4~",NaN,NaN,"4+","3+",NaN,NaN,0.39,7,6.45,3,7,1.770790909],
-        ["G4s","Very moist grassland with shunt species ","4+",NaN,NaN,"4+",NaN,NaN,NaN,2.1,4,6.45,NaN,8.5,1.822090909],
+        ["G4s","Very moist grassland with shunt species","4+",NaN,NaN,"4+",NaN,NaN,NaN,2.1,4,6.45,NaN,8.5,1.822090909],
         ["G5","Wet grassland","5+/4+",NaN,NaN,"4+",NaN,NaN,NaN,0.05,3,-3.89,5,-4,-1.059409091],
         ["G5s","Wet grassland with shunt species","5+, 5+/4+, (4~)",NaN,"5+","4+","3+",NaN,NaN,2.93,4,-3.89,NaN,-1,-0.973009091],
         ["A1","Dry to moderately moist arable land","2+, 2-",NaN,NaN,NaN,NaN,"2+",-2,0.08,11,41.69,10,42,11.3724],
@@ -35,10 +35,10 @@ function Make_GEST_df(){
         ["S1","Dry to moderately moist grassland on peaty soils (Anmoor)","2-, 2+/2-, 2+",NaN,NaN,NaN,NaN,"2+",-2,-0.05,9,46.09,14,46,12.5685],
         ["S2","Dry to moderately moist arable land on peaty soils(Anmoor)","2+, 2-",NaN,NaN,NaN,NaN,"2+",-2,0.07,8,35.11,12,35,9.577554545],
         ["S3","Cropland (2+) flooded in summer (wet year)","3+",NaN,NaN,NaN,"3+",NaN,NaN,10.29,1,22.61,1,33,6.475063636],
-        ["S4","Grassland (2+/3+) flooded in summer (wet year) ","(5+), 5+/4+, (4+)",NaN,"5+","4+",NaN,NaN,NaN,26.02,7,-0.13,6,26,0.745145455],
+        ["S4","Grassland (2+/3+) flooded in summer (wet year)","(5+), 5+/4+, (4+)",NaN,"5+","4+",NaN,NaN,NaN,26.02,7,-0.13,6,26,0.745145455],
         ["S5","Simulated harvest (Paludiculture)","(5+), 5+/4+",NaN,"5+","4+",NaN,NaN,NaN,3.08,3,11.46,3,14.5,3.217854545],
         ["S6","Wet tall reeds (dry year)","(5+/4+), 4~, 4+",NaN,NaN,"4+","3+",NaN,NaN,0.79,7,10.72,NaN,11.5,2.947336364],
-        ["S7","Sphagnum lawn  at former peat cut areas","5+, 5+/4+",NaN,"5+","4+",NaN,NaN,NaN,37.27,3,2.83,2,40,1.889918182],
+        ["S7","Sphagnum lawn at former peat cut areas","5+, 5+/4+",NaN,"5+","4+",NaN,NaN,NaN,37.27,3,2.83,2,40,1.889918182],
         ["S8","Very wet reeds with lateral import of organic matter","6+, 6+/5+, (5~, 5+)","6+","5+","4+",NaN,NaN,NaN,42.27,18,2.39,18,44.5,1.919918182],
         ["S9","Ditches in low intensity grassland","6+","6+",NaN,NaN,NaN,NaN,NaN,3.17,3,"+/- 0",NaN,3,0.0951]
     ];
@@ -46,6 +46,7 @@ function Make_GEST_df(){
     let df = new DataFrame(data1, {columns: cols1});
     return df;
 }
+
 
 function Parse_SET_Input(){
     let inputs = {
@@ -94,6 +95,7 @@ function Parse_SET_Input(){
         };
     return inputs;
 }
+
 
 function Create_Data_Tab(user_input, gest){
     //Initiate the Data dict
@@ -261,21 +263,20 @@ function Create_crop_Use_Tab(user_input, data){
     crop_use['ton_co2_per_site'] = crop_use['ton_co2_per_ha']*user_input['gen_site_data']['tot_area'];
 
     //Save crop_use as a pandas dataframe
-    crop_use = {'Values': crop_use};
+    //crop_use = {'Values': crop_use};
     return crop_use;
 }
 
-function run_set(){
+function set_calculation(){
     //console.log(document.getElementById("site_name"));
     let gest = Make_GEST_df();
     let inputs = Parse_SET_Input();
     let data_tab = Create_Data_Tab(inputs, gest);
     let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
-    console.log(data_tab);
     console.log(crop_use_tab);
 }
 
-run_set();
+set_calculation();
 
 /*
 function Create_C_Content_Soil_Tab(user_input){
