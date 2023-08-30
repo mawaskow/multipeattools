@@ -1,7 +1,6 @@
-
+var DataFrame = dfd.DataFrame;
 // create GEST df in lieu of reading from csv
 function Make_GEST_df(){
-    var DataFrame = dfd.DataFrame;
     let data1 = [
         ["G1","Dry to moderately moist grassland","(2~), 2+, 2- ",NaN,NaN,NaN,NaN,"2+",-2,-0.01,24,31.44,16,31.5,8.574245455],
         ["G2","Moist grassland","3+, 3+/2+",NaN,NaN,NaN,"3+","2+",NaN,0.01,48,19.37,38,19.5,5.283027273],
@@ -144,14 +143,16 @@ function Create_Data_Tab(user_input, gest){
     }else if(data['base']['type_synth_fert'] == 'Ammonium Based'){
         data['base']['fert_ef'] = 0.01;
     }else{
-        data['base']['fert_ef'] = 0; //////////// IS THIS TRUE
+        //////////// IS THIS TRUE
+        data['base']['fert_ef'] = 0;
     }
     if(data['rewet']['type_synth_fert'] == 'Nitrate Based'){
         data['rewet']['fert_ef'] = 0.02;
     }else if(data['rewet']['type_synth_fert'] == 'Ammonium Based'){
         data['rewet']['fert_ef'] = 0.01;
     }else{
-        data['rewet']['fert_ef'] = 0; //////////// IS THIS TRUE
+        //////////// IS THIS TRUE
+        data['rewet']['fert_ef'] = 0;
     }
 
     //Find Crop Residues number
@@ -180,6 +181,8 @@ function Create_Data_Tab(user_input, gest){
         data['base']['crop_name'] = 5;
     }else if(user_input['base']['crop_name'] == 'Other'){
         data['base']['crop_name'] = 6;
+    }else{
+        data['base']['crop_name'] = 0;
     }
 
     if(user_input['rewet']['crop_name'] == 'Cattail (Typha Sp.)'){
@@ -194,6 +197,8 @@ function Create_Data_Tab(user_input, gest){
         data['rewet']['crop_name'] = 5;
     }else if(user_input['rewet']['crop_name'] == 'Other'){
         data['rewet']['crop_name'] = 6;
+    }else{
+        data['rewet']['crop_name'] = 0;
     }
 
     //Find Product Use Number
@@ -215,6 +220,8 @@ function Create_Data_Tab(user_input, gest){
         data['rewet']['crop_use'] = 8;
     }else if(user_input['rewet']['crop_use'] == 'Other Uses/Unknown'){
         data['rewet']['crop_use'] = 9;
+    }else{
+        data['rewet']['crop_use'] = 0;
     }
 
     //Perform Vegetation Class emission calculations
@@ -236,12 +243,6 @@ function Create_Data_Tab(user_input, gest){
     return data;
 }
 
-let gest = Make_GEST_df();
-let inputs = Parse_SET_Input();
-let data_tab = Create_Data_Tab(inputs, gest);
-//console.log(data_tab);
-
-/*
 function Create_crop_Use_Tab(user_input, data){
     //Initialize crop_use dictionary
     let crop_use = {};
@@ -249,21 +250,34 @@ function Create_crop_Use_Tab(user_input, data){
     //Populate the crop_use dictionary
     crop_use['crop_yield'] = user_input['rewet']['crop_yield'];
 
-    if data.loc['crop_use']['rewet'] == 2 or data.loc['crop_use']['rewet'] == 3 or data.loc['crop_use']['rewet'] == 4 or data.loc['crop_use']['rewet'] == 9:
-        crop_use['product_weight'] = 0
-    else:
-        crop_use['product_weight'] = crop_use['crop_yield']
-
-    crop_use['carbon_weight'] = crop_use['product_weight']*0.475
-    crop_use['ton_co2'] = crop_use['carbon_weight']*(44/12)
-    crop_use['ton_co2_per_ha'] = crop_use['ton_co2']*(-1)
-    crop_use['ton_co2_per_site'] = crop_use['ton_co2_per_ha']*user_input['gen_site_data']['tot_area']
+    if(data['rewet']['crop_use'] == 2 || data['rewet']['crop_use'] == 3 || data['rewet']['crop_use'] == 4 || data['rewet']['crop_use'] == 9){
+        crop_use['product_weight'] = 0;
+    }else{
+        crop_use['product_weight'] = crop_use['crop_yield'];
+    }
+    crop_use['carbon_weight'] = crop_use['product_weight']*0.475;
+    crop_use['ton_co2'] = crop_use['carbon_weight']*(44/12);
+    crop_use['ton_co2_per_ha'] = crop_use['ton_co2']*(-1);
+    crop_use['ton_co2_per_site'] = crop_use['ton_co2_per_ha']*user_input['gen_site_data']['tot_area'];
 
     //Save crop_use as a pandas dataframe
-    crop_use = {'Values': crop_use}
-    return pd.DataFrame.from_dict(crop_use)
+    crop_use = {'Values': crop_use};
+    return crop_use;
 }
 
+function run_set(){
+    //console.log(document.getElementById("site_name"));
+    let gest = Make_GEST_df();
+    let inputs = Parse_SET_Input();
+    let data_tab = Create_Data_Tab(inputs, gest);
+    let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
+    console.log(data_tab);
+    console.log(crop_use_tab);
+}
+
+run_set();
+
+/*
 function Create_C_Content_Soil_Tab(user_input){
     //Initialize the C Content Soil dictionary
     c_content = {}
