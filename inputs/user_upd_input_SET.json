@@ -10,7 +10,7 @@
      },
      "base": {
           "med_gw_level_summer": -70.0,
-          "veg_class": "G1: Dry to moderately moist grassland",
+          "veg_class": "G1",
           "amount_manure": 50.0,
           "amount_org_fert": 30.0,
           "type_synth_fert": "Ammonium Based",
@@ -19,14 +19,14 @@
           "avg_num_animals": 10.0,
           "avg_num_days": 200.0,
           "crop_yield": 50.0,
-          "crop_resid": true,
-          "crop_name": "Peat moss (Sphagnum sp.)",
+          "crop_resid": false,
+          "crop_name": "Peat Moss (Sphagnum Sp.)",
           "diesel_per_site": 50.0,
           "elec_per_site": 70.0
      },
      "rewet": {
           "med_gw_level_summer": 0.0,
-          "veg_class": "U18: Very wet Phragmites reeds",
+          "veg_class": "U18",
           "amount_manure": 75.0,
           "amount_org_fert": 60.0,
           "type_synth_fert": "Ammonium Based",
@@ -36,7 +36,7 @@
           "avg_num_days": 100.0,
           "crop_yield": 100.0,
           "crop_resid": true,
-          "crop_name": "Reed (Phragmites australis)",
+          "crop_name": "Reed (Phragmites Australis)",
           "diesel_per_site": 75.0,
           "elec_per_site": 50.0,
           "crop_use": "Paper"

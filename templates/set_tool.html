@@ -21,7 +21,7 @@
                     <label for="site_name" class="form-label">Site Name</label> 
                 </div>
                 <div class="col-6">
-                    <input type="text" class="validate form-control" id="site_name" name="site_name" value="{{inpt['gen_site_data']['site_name']}}" required>
+                    <input type="text" class="validate form-control" id="site_name" name="site_name" value="{{inpt['gen_site_data']['site_name']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -30,7 +30,7 @@
                     <label for="tot_area" class="form-label">Total area in ha.</label> 
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="tot_area" name="tot_area" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['tot_area']}}" required>
+                    <input type="number" class="validate form-control" id="tot_area" name="tot_area" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['tot_area']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -44,7 +44,7 @@
                     <label for="coords" class="form-label" style="margin-left: 2px;">Coordinates</label> 
                 </div>
                 <div class="col-6">
-                    <input type="text" class="validate form-control" id="coords" name="coords" value="{{inpt['gen_site_data']['coords']}}" required>
+                    <input type="text" class="validate form-control" id="coords" name="coords" value="{{inpt['gen_site_data']['coords']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -53,7 +53,7 @@
                     <label for="elevation" class="form-label">Elevation</label> 
                 </div>
                 <div class="col-4">
-                    <input type="text" class="validate form-control" id="elevation" name="elevation" value="{{inpt['gen_site_data']['elevation']}}" required>
+                    <input type="text" class="validate form-control" id="elevation" name="elevation" value="{{inpt['gen_site_data']['elevation']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
             <hr class="inf">
@@ -62,7 +62,7 @@
                     <label for="peat_type" class="form-label">Peat type</label> 
                 </div>
                 <div class="col-6">
-                    <select class="validate form-select" id="peat_type" name="peat_type" value="{{inpt['gen_site_data']['peat_type']}}" required>
+                    <select class="validate form-select" id="peat_type" name="peat_type" value="{{inpt['gen_site_data']['peat_type']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         <!--<option selected>Select peat type</option>-->
                         {% if inpt['gen_site_data']['peat_type'] == "Sphagnum" %}
                             <option selected value="Sphagnum">Sphagnum</option>                            
@@ -112,7 +112,7 @@
                     <label for="year_start" class="form-label">Year rewetting started</label> 
                 </div>
                 <div class="col-4">
-                    <input type="number" class="validate form-control" id="year_start" name="year_start" min="1900" max="3000" value="{{inpt['gen_site_data']['year_start']}}" required>
+                    <input type="number" class="validate form-control" id="year_start" name="year_start" min="1900" max="3000" value="{{inpt['gen_site_data']['year_start']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
         </div>
@@ -146,7 +146,7 @@
                             <label for="bs_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" required>
+                            <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -160,7 +160,7 @@
                             <label for="bs_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" required>
+                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['base']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
                                 {%else%}
@@ -369,7 +369,7 @@
                             <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" required>
+                            <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -383,7 +383,7 @@
                             <label for="rw_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" required>
+                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
                                 {%else%}
@@ -610,7 +610,7 @@
                             <label for="bs_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" required>
+                            <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -624,7 +624,7 @@
                             <label for="bs_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" required>
+                            <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -633,7 +633,7 @@
                             <label for="bs_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" required>
+                            <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['base']['type_synth_fert'][0] == "N" %}
                                     <option selected value="Nitrate Based">Nitrate based</option>                         
                                 {%else%}
@@ -653,7 +653,7 @@
                             <label for="bs_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_synth_fert']}}" required>
+                            <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_synth_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -662,7 +662,7 @@
                             <label for="bs_type_animals" class="form-label">Grazing animals</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" required>
+                            <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['base']['type_animals'][0] == "N" %}
                                     <option selected value="No Animals">No animal</option>
                                 {%else%}
@@ -702,7 +702,7 @@
                             <label for="bs_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_animals']}}" required>
+                            <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_animals']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -711,7 +711,7 @@
                             <label for="bs_avg_num_days" class="form-label">Average grazing days per year</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_days']}}" required>
+                            <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_days']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -720,7 +720,7 @@
                             <label for="bs_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['base']['crop_yield']}}" required>
+                            <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['base']['crop_yield']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -730,9 +730,9 @@
                                 <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
                             </div><div class="col-2 justify-content-center" style="justify-content: center;">
                                 {% if inpt['base']['crop_resid'] %}
-                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" checked>
+                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
                                 {%else%}
-                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid">
+                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()">
                                 {%endif%}
                             </div>
                         </div>
@@ -743,7 +743,7 @@
                             <label for="bs_crop_name" class="form-label">Crop</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" required>
+                            <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['base']['crop_name'][0] == "C" %}
                                     <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
                                 {%else%}
@@ -792,7 +792,7 @@
                             <label for="rw_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" required>
+                            <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -806,7 +806,7 @@
                             <label for="rw_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" required>
+                            <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -815,7 +815,7 @@
                             <label for="rw_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" required>
+                            <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['type_synth_fert'][0] == "N" %}
                                     <option selected value="Nitrate Based">Nitrate based</option>                         
                                 {%else%}
@@ -835,7 +835,7 @@
                             <label for="rw_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_synth_fert']}}" required>
+                            <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_synth_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -844,7 +844,7 @@
                             <label for="rw_type_animals" class="form-label">Grazing animals</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" required>
+                            <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['type_animals'][0] == "N" %}
                                     <option selected value="No Animals">No animal</option>
                                 {%else%}
@@ -884,7 +884,7 @@
                             <label for="rw_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_animals']}}" required>
+                            <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_animals']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -893,7 +893,7 @@
                             <label for="rw_avg_num_days" class="form-label">Average grazing days per year</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_days']}}" required>
+                            <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_days']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -902,7 +902,7 @@
                             <label for="rw_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['rewet']['crop_yield']}}" required>
+                            <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['rewet']['crop_yield']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -912,9 +912,9 @@
                                 <label for="rw_crop_resid" class="form-check-label">Crop residues</label>
                             </div><div class="col-2 justify-content-center" style="justify-content: center;">
                                 {% if inpt['rewet']['crop_resid'] %}
-                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" checked>
+                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
                                 {%else%}
-                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid">
+                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()">
                                 {%endif%}
                             </div>
                         </div>
@@ -925,7 +925,7 @@
                             <label for="rw_crop_name" class="form-label">Crop</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" required>
+                            <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['crop_name'][0] == "C" %}
                                     <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
                                 {%else%}
@@ -992,7 +992,7 @@
                             <label for="bs_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" required>
+                            <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -1006,7 +1006,7 @@
                             <label for="bs_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" required>
+                            <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                 </div>
@@ -1024,7 +1024,7 @@
                             <label for="rw_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" required>
+                            <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                     <hr class="inf">
@@ -1038,7 +1038,7 @@
                             <label for="rw_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" required>
+                            <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         </div>
                     </div>
                 </div>
@@ -1074,7 +1074,7 @@
                             <label for="rw_crop_use" class="form-label" style="margin-left: 2px;">Crop Use</label> 
                         </div>
                         <div class="col-4">
-                            <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" required>
+                            <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['crop_use'][0:3] == "Bui" %}
                                     <option selected value="Building Materials e.g insulation, taching, timber">Building material (e.g. insulation, tachine, timber)</option>
                                 {%else%}
