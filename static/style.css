@@ -190,6 +190,17 @@ svg > a:focus{
     box-shadow: 3px 3px 5px rgb(175, 175, 175);
 }
 
+/* remove up down arrows from number input */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 /*
 .tooltip > .tooltip-inner
