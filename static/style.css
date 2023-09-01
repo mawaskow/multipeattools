@@ -203,40 +203,39 @@ input[type=number] {
 }
 
 /*
-.tooltip > .tooltip-inner
-{
-    text-align: left;
-    color: #1A1A1A;
-    background: white;
+footer{
+    position: sticky;
+    bottom: 0;
+    width: 100%;
     padding: 10px;
-    margin: 9px;
-    border: 2px solid;
-    box-shadow: 3px 3px 5px rgb(175, 175, 175);
 }
 
-.tooltip{
-    opacity: 1 !important;
-}
-
-.tooltip .tooltip-arrow::before{
-    border-right-color: white !important;
-    border-left-color: white !important;
-    border-width: .6rem !important;
-}
-
-.tooltip.bs-tooltip-left .tooltip-arrow::before{
-    border-left-color: white !important;
-}
-
-.bs-tooltip-left .arrow::before{
-    border-left-color: white !important;
-}
-
-.tooltip .tooltip-arrow{
-    width: .9rem !important;
-    height: .45rem !important;
+.page-container{
+    position: relative;
+    min-height: 100vh;
 }
 */
+
+.page-container{
+    position: relative;
+    min-height: 100vh;
+}
+
+.content-wrap{
+    padding-bottom: 7rem
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 7rem;
+}
+
+footer{
+    padding: 10px;
+    margin: 10px;
+}
 
 /*
     _________   _________   __________

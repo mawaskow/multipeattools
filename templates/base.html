@@ -32,11 +32,9 @@
             <!--dataframe javascript-->
             <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
             <!--local script-->
-            <!--<script src="../scripts/userinp.js"></script>-->
             <script src="{{url_for('static', filename='scripts/toggle_display.js')}}" async></script>
             <script src="{{url_for('static', filename='scripts/calc_ffp.js')}}" async></script>
             <script src="{{url_for('static', filename='scripts/calc_set.js')}}" async></script>
-            <!--<script language="javascript" type="text/javascript" src="{{url_for('static', filename='node_modules/data-forge/dist/web/index.js')}}"></script>-->
         {% endblock %}
         {% block head %}
             {% if title %}
@@ -47,25 +45,30 @@
         {% endblock %}
     </head>
     <body style="padding-bottom: 10px;">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid justify-content-start">
-            <a class="navbar-brand" href="{{ url_for('homepage') }}">
-                <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-                MultiPeat Toolkit
-            </a>
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('set_tool') }}">SET Tool</a>    
-                </li>
-            </ul>
+        <div id="page-container">
+            <div id="content-wrap">
+                <nav class="navbar bg-body-tertiary">
+                    <div class="container-fluid justify-content-start">
+                    <a class="navbar-brand" href="{{ url_for('homepage') }}">
+                        <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                        MultiPeat Toolkit
+                    </a>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('set_tool') }}">SET Tool</a>    
+                        </li>
+                    </ul>
+                </div>
+                </nav>
+                <div id="content">{% block content %}{% endblock %}</div>
+            </div>
+            <div id="footer">{% block footer %}{% endblock %}</div>
         </div>
-        </nav>
-        <div id="content">{% block content %}{% endblock %}</div>
     </body>
 </html>

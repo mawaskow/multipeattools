@@ -9,10 +9,6 @@
         <h4 style="font-weight: bold;">
             FEASIBILITY & PRICING TOOL FOR CARBON FARMING
             <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
-            <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center">
-            <img src="{{url_for('static', filename='UG.png')}}" width="35" height="55" class="d-inline-block align-text-center">
-            <img src="{{url_for('static', filename='MMU.png')}}" width="45" height="55" class="d-inline-block align-text-center">
-            <img src="{{url_for('static', filename='interreg.png')}}" width="260" height="35" class="d-inline-block align-text-center">
         </h4>
         <p class="text-descr">With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
     </div>
@@ -642,4 +638,20 @@
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 </script>
 
+{% endblock %}
+
+{% block footer %}
+<footer class="border-top">
+    <div class="d-flex justify-content-center" style="padding-bottom: 5px;">
+    This tool was developed by Konstantinos Tzoulas, CF, and Niall Ó Brolcháin.
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex align-items-center" style="max-width: 800px;">
+            <img src="{{url_for('static', filename='interreg.png')}}" width="260" height="35" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+            <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+            <img src="{{url_for('static', filename='UG.png')}}" width="110" height="55" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+            <img src="{{url_for('static', filename='MMU.jpg')}}" width="135" height="55" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+        </div>
+    </div>
+</footer>
 {% endblock %}
