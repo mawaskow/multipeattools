@@ -29,11 +29,11 @@
 <div class="empty-spacing" style="padding-top: 10px;"></div>
 <div class="container user-input-div">
     <div style="margin-left: 25px;">
-        <h4 style="font-weight: bold;">
+        <h4>
             FEASIBILITY & PRICING TOOL FOR CARBON FARMING
             <img src="{{url_for('static', filename='FFP_logo.png')}}" width="70" height="55" class="d-inline-block align-text-center">
         </h4>
-        <p class="text-descr">With this tool, you have the ability to calculate the expected financial feasibility and pricing of a rewetting scheme.</p>
+        <p class="text-descr">This tool estimates the financial feasibility of peatland restoration projects and the expected profit from different sale prices of carbon credits.</p>
     </div>
     <div class="row gx-5 justify-content-center" style="padding-top: 15px;">
         <div class="col-sm-6" id="input-form-div">
@@ -155,12 +155,8 @@
             <div class="empty-spacing" style="padding-top: 20px;"></div>
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p style="font-weight: 600; margin-left: 25px;">Profitable?</p>
+                    <p style="margin-left: 25px;">Profitable?</p>
                 </div>
-                <!--
-                <div class="col-auto">
-                    <p id="is_prof" style="font-weight: 600; justify-self: center; float: right;">{{results_dict["profitable"]}}</p>
-                </div>-->
                 <div class="col-auto">
                     <h4>
                     {% if results_dict["profitable"] %}
@@ -226,7 +222,8 @@
         </svg>
     </div>
     <div class="col-sm" id="assum-descrip" style="margin-left: 25px; margin-top: -15px;">
-        <h5 style="font-weight: bold;">MODEL ASSUMPTIONS</h5>
+        <div class="empty-spacing" style="padding-top: 15px;"></div>
+        <h5>MODEL ASSUMPTIONS</h5>
         <div class="empty-spacing" style="padding-top: 10px;"></div>
         <p class="text-descr">This area allows you to amend the inbuilt assumptions this tool uses for calculations.</p>
     </div>
@@ -234,7 +231,7 @@
     <form action="/ffptool" method="POST" id="assum-form" enctype=multipart/form-data>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="empty-spacing" style="padding-top: 20px;"></div>
-        <p style="font-weight: 600;">
+        <p>
             <svg height="20" width="16" style="margin-right: 2px;">
                 <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Use long-term nominal interest rate and inflation rate for amending the value of money. Long-term fifty-year nominal interest rate and inflation rate are publicised by central banks.">
                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                
@@ -261,7 +258,7 @@
             <hr class="inf">
         </div>
         <div class="empty-spacing" style="padding-top: 20px;"></div>
-        <p style="font-weight: 600;">
+        <p>
             <svg height="20" width="16" style="margin-right: 2px;">
                 <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Use the carbon registry costs associated with the specific certification organisation that is anticipated to process and verify the sale of carbon credits from your specific project.">
                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                
@@ -357,7 +354,7 @@
             <hr class="inf">
         </div>
         <div class="empty-spacing" style="padding-top: 20px;"></div>
-        <p style="font-weight: 600; margin-left: 25px;">Investment servicing arrangements</p>
+        <p style="margin-left: 25px;">Investment servicing arrangements</p>
         <hr class="inf">
         <div style="margin-left: 25px;">
             <div class="row align-items-center justify-content-between">
@@ -395,7 +392,8 @@
         </svg>
     </div>
     <div class="col-sm" id="assum-descrip" style="margin-left: 25px; margin-top:-15px">
-        <h5 style="font-weight: bold;">COMPLETE RESULTS</h5>
+        <div class="empty-spacing" style="padding-top: 15px;"></div>
+        <h5>COMPLETE RESULTS</h5>
         <div class="empty-spacing" style="padding-top: 10px;"></div>
         <p class="text-descr">This area allows you to view all the results calculated from the tool.</p>
     </div>
@@ -403,7 +401,7 @@
         <div class="empty-spacing" style="padding-top: 10px;"></div>
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="font-weight: 600; margin-left: 25px;">Profitable?</p>
+                <p style="font-weight: bold;margin-left: 25px;">Profitable?</p>
             </div>
             <div class="col-auto">
                 <h4>

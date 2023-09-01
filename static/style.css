@@ -21,6 +21,11 @@ p.text-descr, label.text-descr{
     color:  #747474;
 }
 
+.form-select, .form-control{
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+}
+
 /* navbar */ 
 a.navbar-brand{
     font-size: 25px;
@@ -42,8 +47,8 @@ a.navbar-brand{
 }
 
 .nav-pills > .nav-item >a.on-page{
-    color: green;
-    background-color: rgb(146, 216, 150);
+    color: rgb(0, 105, 0);
+    background-color: rgb(140, 210, 145);
     padding: 5px 15px;
 }
 
@@ -208,19 +213,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/*
-footer{
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-}
-
-.page-container{
-    position: relative;
-    min-height: 100vh;
-}
-*/
 
 .page-container{
     position: relative;
@@ -279,35 +271,3 @@ footer{
     background-color: #cbdfe9;
     padding: 20px 45px 20px 20px;
 }
-
-/*
-.set_submit{
-
-}
-
-button.btn-success{
-    background: #5C93AC;
-    border-color: transparent;
-}
-
-button.btn-success:hover{
-    background: #91c0d6;
-    border-color: transparent;
-    color: #396d85;
-}
-
-.btn.btn-success:active {
-  color: #396d85;
-  background-color: #91c0d6;
-  border-color: transparent;
-  outline: none;
-}
-
-.btn.btn-success:focus {
-  color: #1c4558;
-  background-color: #5d8fa7;
-  border-color: transparent;
-  outline: none;
-  box-shadow: none;
-}
-*/
