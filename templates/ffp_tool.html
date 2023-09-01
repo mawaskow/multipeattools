@@ -1,6 +1,29 @@
 {% extends "base.html" %}
 
 {% block title %}FFP Tool{% endblock %}
+
+{% block navbar %}
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid justify-content-start">
+    <a class="navbar-brand" href="{{ url_for('homepage') }}">
+        <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        MultiPeat Toolkit
+    </a>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link on-page" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('set_tool') }}">SET Tool</a>    
+        </li>
+    </ul>
+</div>
+</nav>
+{% endblock %}
+
 {% block content %}
 
 <div class="empty-spacing" style="padding-top: 10px;"></div>
