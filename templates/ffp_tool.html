@@ -101,37 +101,39 @@
                 <hr class="inf">
                 <div class="form-check form-switch">
                     <div class="row align-items-center justify-content-center">
-                        {% if uform['invest_costs_inc'] %}
                         <div class="col-8">
-                            <label for="invest_costs_inc" class="form-check-label">Interest on finance included</label>
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="If finance is used to fund the scheme, include interest in the cost calculations. See 'More Inputs' for further information.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="invest_costs_inc" class="form-check-label" style="margin-left: 4px;">Interest on finance included</label>
                         </div><div class="col-4 d-flex justify-content-center">
+                            {% if uform['invest_costs_inc'] %}
                             <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" onkeyup="ffp_calculation()" checked>
+                            {% else %}
+                            <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" onkeyup="ffp_calculation()">
+                            {% endif %}
                         </div>
-                        {% else %}
-                        <div class="col-8">
-                            <label for="invest_costs_inc" class="form-check-label">Interest on finance included</label>
-                        </div><div class="col-4 d-flex justify-content-center">
-                            <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()">
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
                 <hr class="inf">
                 <div class="form-check form-switch">
                     <div class="row align-items-center justify-content-center">
-                        {% if uform['reg_costs_inc'] %}
                         <div class="col-8">
-                            <label for="reg_costs_inc" class="form-check-label">Registry costs included</label>
+                            <svg height="20" width="16">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="The costs for registering and auditing throughout the duration of the scheme. See 'More Inputs' for further information.">
+                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                </a>
+                            </svg>
+                            <label for="reg_costs_inc" class="form-check-label" style="margin-left: 4px;">Registry costs included</label>
                         </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
-                            <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()" checked>
+                            {% if uform['reg_costs_inc'] %}
+                            <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()" onkeyup="ffp_calculation()" checked>
+                            {% else %}
+                            <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()" onkeyup="ffp_calculation()">
+                            {% endif %}
                         </div>
-                        {% else %}
-                        <div class="col-8">
-                            <label for="reg_costs_inc" class="form-check-label">Registry costs included</label>
-                        </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
-                            <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()">
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
                 <hr class="inf">
@@ -157,7 +159,7 @@
                 <div class="col-8">
                     <p style="margin-left: 25px;">Profitable?</p>
                 </div>
-                <div class="col-auto">
+                <div class="col-4 d-flex justify-content-center">
                     <h4>
                     {% if results_dict["profitable"] %}
                     <span class="badge rounded-pill text-bg-success" id="is_prof">YES</span>
@@ -172,7 +174,7 @@
                 <div class="col-8">
                     <p style="margin-left: 25px;">Profit per carbon credit (€)</p>
                 </div>
-                <div class="col-4 justify-content-center">
+                <div class="col-4">
                     <p id="prof_p_cred">{{results_dict["profit_per_credit"]}}</p>
                 </div>
             </div>
@@ -200,14 +202,14 @@
                 <!--<button onclick="toggle_display()" id="assum_disp_btn">Assumptions</button>-->
                 <div class="col-auto text-center">
                     <div class="row justify-content-center">
-                        <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">ASSUMPTIONS</button>
-                        <p class="text-descr">Click here to view or amend the assumptions.</p>
+                        <button id="assum_disp_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">MORE INPUTS</button>
+                        <p class="text-descr">View or amend assumptions used in the tool.</p>
                     </div>
                 </div>
                 <div class="col-auto text-center">
                     <div class="row justify-content-center">
-                        <button id="comp_res_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">MORE RESULTS</button>
-                        <p class="text-descr">Click here to view the complete results of the tool.</p>
+                        <button id="comp_res_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">DETAILED RESULTS</button>
+                        <p class="text-descr">View the complete results of the tool.</p>
                     </div>
                 </div>
             </div>
