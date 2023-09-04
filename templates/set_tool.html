@@ -37,10 +37,10 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="container" style="max-width: 500px;">
             <div class="row align-items-center">
-                <div class="col-6">
+                <div class="col-7">
                     <label for="site_name" class="form-label">Site Name</label> 
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <input type="text" class="validate form-control" id="site_name" name="site_name" value="{{inpt['gen_site_data']['site_name']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             </div>
             <hr class="inf">
             <div class="row align-items-center">
-                <div class="col-6">
+                <div class="col-7">
                     <svg height="20" width="16">
                         <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Coordinates of site.">
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
@@ -63,7 +63,7 @@
                     </svg>
                     <label for="coords" class="form-label" style="margin-left: 4px;">Coordinates</label> 
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <input type="text" class="validate form-control" id="coords" name="coords" value="{{inpt['gen_site_data']['coords']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                 </div>
             </div>
@@ -78,10 +78,10 @@
             </div>
             <hr class="inf">
             <div class="row align-items-center">
-                <div class="col-6">
+                <div class="col-7">
                     <label for="peat_type" class="form-label">Peat type</label> 
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <select class="validate form-select" id="peat_type" name="peat_type" value="{{inpt['gen_site_data']['peat_type']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
                         <!--<option selected>Select peat type</option>-->
                         {% if inpt['gen_site_data']['peat_type'] == "Sphagnum" %}
@@ -171,7 +171,7 @@
                     </div>
                     <hr class="inf">
                     <div class="row align-items-center">
-                        <div class="col-8">
+                        <div class="col-4">
                             <svg height="20" width="16">
                                 <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
@@ -179,7 +179,7 @@
                             </svg>
                             <label for="bs_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
-                        <div class="col-4">
+                        <div class="col-8">
                             <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['base']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
@@ -337,9 +337,9 @@
                                     <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
                                 {%endif%}
                                 {% if inpt['base']['veg_class'][0:2] == "S2" %}
-                                    <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                    <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils (Anmoor)</option>
                                 {%else%}
-                                    <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                    <option value="S2">S2: Dry to moderately moist arable land on peaty soils (Anmoor)</option>
                                 {%endif%}
                                 {% if inpt['base']['veg_class'][0:2] == "S3" %}
                                     <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
@@ -394,7 +394,7 @@
                     </div>
                     <hr class="inf">
                     <div class="row align-items-center">
-                        <div class="col-8">
+                        <div class="col-4">
                             <svg height="20" width="16">
                                 <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
@@ -402,7 +402,7 @@
                             </svg>
                             <label for="rw_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
-                        <div class="col-4">
+                        <div class="col-8">
                             <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
@@ -560,9 +560,9 @@
                                     <option value="S1">S1: Dry to moderately moist grassland on peaty soils (Anmoor)</option>
                                 {%endif%}
                                 {% if inpt['rewet']['veg_class'][0:2] == "S2" %}
-                                    <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                    <option selected value="S2">S2: Dry to moderately moist arable land on peaty soils (Anmoor)</option>
                                 {%else%}
-                                    <option value="S2">S2: Dry to moderately moist arable land on peaty soils(Anmoor)</option>
+                                    <option value="S2">S2: Dry to moderately moist arable land on peaty soils (Anmoor)</option>
                                 {%endif%}
                                 {% if inpt['rewet']['veg_class'][0:2] == "S3" %}
                                     <option selected value="S3">S3: Cropland (2+) flooded in summer (wet year)</option>
@@ -759,10 +759,10 @@
                     </div>
                     <hr class="inf">
                     <div class="row align-items-center">
-                        <div class="col-8">
+                        <div class="col-6">
                             <label for="bs_crop_name" class="form-label">Crop</label> 
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['base']['crop_name'][0] == "C" %}
                                     <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
@@ -941,10 +941,10 @@
                     </div>
                     <hr class="inf">
                     <div class="row align-items-center">
-                        <div class="col-8">
+                        <div class="col-6">
                             <label for="rw_crop_name" class="form-label">Crop</label> 
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['crop_name'][0] == "C" %}
                                     <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
@@ -1085,7 +1085,7 @@
                     <p>After Rewetting</p>
                     <hr>
                     <div class="row align-items-center">
-                        <div class="col-8">
+                        <div class="col-4">
                             <svg height="20" width="16">
                                 <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Crop use.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
@@ -1093,7 +1093,7 @@
                             </svg>
                             <label for="rw_crop_use" class="form-label" style="margin-left: 4px;">Crop Use</label> 
                         </div>
-                        <div class="col-4">
+                        <div class="col-8">
                             <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" onchange="set_calculation()" onkeyup="set_calculation()" required>
                                 {% if inpt['rewet']['crop_use'][0:3] == "Bui" %}
                                     <option selected value="Building Materials e.g insulation, taching, timber">Building material (e.g. insulation, tachine, timber)</option>
@@ -1150,7 +1150,7 @@
 </div>
 
 <div class="empty-spacing" style="padding-top: 15px;"></div>
-<div class="container set-results-div" style="max-width: 600px;">
+<div class="container set-results-div">
     <div style="margin-left: 25px;">
         <div class="empty-spacing" style="padding-top: 10px;"></div>
         <h5 style="justify-content: center;">
