@@ -277,9 +277,9 @@ function update_results(results_dict){
         is_prof.className = "badge rounded-pill text-bg-danger";
     }
 
-    prof_p_cred.innerHTML = parseFloat(results_dict["profit_per_credit"]).toFixed(2);
-    prof_phpy.innerHTML = parseFloat(results_dict["profit_per_hectare_per_year"]).toFixed(2);
-    np_val.innerHTML = parseFloat(results_dict["net_present_value"]).toFixed(2);
+    prof_p_cred.innerHTML = parseFloat(results_dict["profit_per_credit"]).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    prof_phpy.innerHTML = parseFloat(results_dict["profit_per_hectare_per_year"]).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    np_val.innerHTML = parseFloat(results_dict["net_present_value"]).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
 }
 
 function update_complete_results(results_dict){
@@ -318,7 +318,7 @@ function update_complete_results(results_dict){
     beg_val.innerHTML = parseFloat(results_dict["beginning_value"]).toFixed(2);
     end_val_undisc.innerHTML = parseFloat(results_dict["ending_value_undisc"]).toFixed(2);
     end_val_disc.innerHTML = parseFloat(results_dict["ending_value_discounted"]).toFixed(2);
-    net_pres_val.innerHTML = parseFloat(results_dict["net_present_value"]).toFixed(2);
+    net_pres_val.innerHTML = parseFloat(results_dict["net_present_value"]).toFixed().toLocaleString("en-US");
     gro_pres_val.innerHTML = parseFloat(results_dict["gross_present_value"]).toFixed(2);
     tot_cost_undisc.innerHTML = parseFloat(results_dict["total_project_costs_undisc"]).toFixed(2);
     tot_cost_disc.innerHTML = parseFloat(results_dict["total_project_costs_disc"]).toFixed(2);
