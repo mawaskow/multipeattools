@@ -55,7 +55,7 @@
                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
-                        <label for="num_yrs" class="form-label" style="margin-left: 2px;">Project duration (years)</label>
+                        <label for="num_yrs" class="form-label" style="margin-left:4px;">Project duration (years)</label>
                     </div>
                     <div class="col-4" style="align-items: end;">
                         <input type="number" class="validate form-control" id="num_yrs" name="num_yrs" value="{{uform['num_yrs']}}" min="0" max="9999" step="0.001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
@@ -69,7 +69,7 @@
                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
-                        <label for="cred_p_hect_p_yr" class="form-label" style="margin-left: 2px;">Avg. credits/ha/annum</label>
+                        <label for="cred_p_hect_p_yr" class="form-label" style="margin-left:4px;">Avg. credits/ha/annum</label>
                     </div>
                     <div class="col-4 float-end">
                         <input type="number" class="validate form-control" id="cred_p_hect_p_yr" name="cred_p_hect_p_yr" value="{{uform['cred_p_hect_p_yr']}}" min="0" max="1000000000" step="0.001" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
@@ -92,43 +92,43 @@
                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
-                        <label for="invest_amt" class="form-label" style="margin-left: 2px; padding-right: 5px;">Investment / Financial inputs (€)</label>
+                        <label for="invest_amt" class="form-label" style="margin-left:4px; padding-right: 5px;">Investment / Financial inputs (€)</label>
                     </div>
                     <div class="col-4">
                         <input type="number" class="validate form-control" id="invest_amt" name="invest_amt" value="{{uform['invest_amt']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                     </div>
                 </div>
                 <hr class="inf">
-                <div class="form-check form-switch" style="display: grid;">
+                <div class="form-check form-switch">
                     <div class="row align-items-center justify-content-center">
                         {% if uform['invest_costs_inc'] %}
                         <div class="col-8">
                             <label for="invest_costs_inc" class="form-check-label">Interest on finance included</label>
-                        </div><div class="col-2 justify-content-center">
+                        </div><div class="col-4 d-flex justify-content-center">
                             <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()" onkeyup="ffp_calculation()" checked>
                         </div>
                         {% else %}
                         <div class="col-8">
                             <label for="invest_costs_inc" class="form-check-label">Interest on finance included</label>
-                        </div><div class="col-2 justify-content-center">
+                        </div><div class="col-4 d-flex justify-content-center">
                             <input type="checkbox" class="form-check-input" role="switch" id="invest_costs_inc" name="invest_costs_inc" value="{{uform['invest_costs_inc']}}" onclick="ffp_calculation()">
                         </div>
                         {% endif %}
                     </div>
                 </div>
                 <hr class="inf">
-                <div class="form-check form-switch" style="display: grid;">
+                <div class="form-check form-switch">
                     <div class="row align-items-center justify-content-center">
                         {% if uform['reg_costs_inc'] %}
                         <div class="col-8">
                             <label for="reg_costs_inc" class="form-check-label">Registry costs included</label>
-                        </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                        </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
                             <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()" checked>
                         </div>
                         {% else %}
                         <div class="col-8">
                             <label for="reg_costs_inc" class="form-check-label">Registry costs included</label>
-                        </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                        </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
                             <input type="checkbox" class="form-check-input" role="switch" id="reg_costs_inc" name="reg_costs_inc" value="{{uform['reg_costs_inc']}}" onclick="ffp_calculation()">
                         </div>
                         {% endif %}
@@ -146,7 +146,7 @@
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                        
                         </a>
                     </svg>
-                    <label for="price_p_cred" class="form-label" style="margin-left: 2px; padding-right: 5px; font-weight: 500;">Selling price of a carbon credit (€)</label>
+                    <label for="price_p_cred" class="form-label" style="margin-left:4px; padding-right: 5px; font-weight: 500;">Selling price of a carbon credit (€)</label>
                 </div>
                 <div class="col-4">
                     <input type="number" class="validate form-control" id="price_p_cred" name="price_p_cred" value="{{uform['price_p_cred']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
@@ -274,7 +274,7 @@
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                        
                         </a>
                     </svg>
-                    <label for="reg_acct_open_fee" class="form-label" style="margin-left: 2px;">
+                    <label for="reg_acct_open_fee" class="form-label" style="margin-left:4px;">
                         Registry account opening fee (€)</label>
                 </div>
                 <div class="col-4">
@@ -346,7 +346,7 @@
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                        
                         </a>
                     </svg>
-                    <label for="inspect_cycle_len" class="form-label" style="margin-left: 2px;">Inspection cycle duration in years</label>
+                    <label for="inspect_cycle_len" class="form-label" style="margin-left:4px;">Inspection cycle duration in years</label>
                 </div><div class="col-4">
                     <input type="number" class="validate form-control" id="inspect_cycle_len" name="inspect_cycle_len" value="{{aform['inspect_cycle_len']}}" min="0" max="1000000000" step="0.01" onchange="ffp_calculation()" onkeyup="ffp_calculation()" required>
                 </div>
@@ -452,7 +452,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 2px;">
+                <p style="margin-left:4px;">
                     <svg height="20" width="16" style="margin-right: 2px;">
                         <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Money received today is valued more than money received in the future. To convert future cash flows into their equivalent present value, a standard discount rate is applied.">
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
@@ -494,7 +494,7 @@
         <hr class="inf">
         <div class="row align-items-center">
             <div class="col-8">
-                <p style="margin-left: 2px;">
+                <p style="margin-left:4px;">
                     <svg height="20" width="16" style="margin-right: 2px;">
                         <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Money received today is valued more than money received in the future. To convert future cash flows into their equivalent present value, a standard discount rate is applied.">
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            

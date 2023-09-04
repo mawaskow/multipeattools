@@ -61,7 +61,7 @@
                             <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
                         </a>
                     </svg>
-                    <label for="coords" class="form-label" style="margin-left: 2px;">Coordinates</label> 
+                    <label for="coords" class="form-label" style="margin-left: 4px;">Coordinates</label> 
                 </div>
                 <div class="col-6">
                     <input type="text" class="validate form-control" id="coords" name="coords" value="{{inpt['gen_site_data']['coords']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -163,7 +163,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
                                 </a>
                             </svg>
-                            <label for="bs_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
+                            <label for="bs_med_gw_level_summer" class="form-label" style="margin-left: 4px;">Median groundwater level in summer (cm)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -177,7 +177,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
                                 </a>
                             </svg>
-                            <label for="bs_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
+                            <label for="bs_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
                         <div class="col-4">
                             <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -386,7 +386,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 2px;">Median groundwater level in summer (cm)</label> 
+                            <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 4px;">Median groundwater level in summer (cm)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -400,7 +400,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="rw_veg_class" class="form-label" style="margin-left: 2px;">Vegetation class</label> 
+                            <label for="rw_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
                         <div class="col-4">
                             <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -627,7 +627,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="bs_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
+                            <label for="bs_amount_manure" class="form-label" style="margin-left: 4px;">Animal manure applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -641,7 +641,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="bs_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
+                            <label for="bs_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -748,7 +748,7 @@
                         <div class="row align-items-center justify-content-center">
                             <div class="col-8">
                                 <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
-                            </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                            </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
                                 {% if inpt['base']['crop_resid'] %}
                                 <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
                                 {%else%}
@@ -809,7 +809,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="rw_amount_manure" class="form-label" style="margin-left: 2px;">Animal manure applied (k N/h)</label> 
+                            <label for="rw_amount_manure" class="form-label" style="margin-left: 4px;">Animal manure applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -823,7 +823,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="rw_amount_org_fert" class="form-label" style="margin-left: 2px;">Organic fertilizer applied (k N/h)</label> 
+                            <label for="rw_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -930,7 +930,7 @@
                         <div class="row align-items-center justify-content-center">
                             <div class="col-8">
                                 <label for="rw_crop_resid" class="form-check-label">Crop residues</label>
-                            </div><div class="col-2 justify-content-center" style="justify-content: center;">
+                            </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
                                 {% if inpt['rewet']['crop_resid'] %}
                                 <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
                                 {%else%}
@@ -1009,7 +1009,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="bs_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
+                            <label for="bs_diesel_per_site" class="form-label" style="margin-left: 4px;">Diesel Use</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -1023,7 +1023,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="bs_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
+                            <label for="bs_elec_per_site" class="form-label" style="margin-left: 4px;">Electricity Use (kW)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -1041,7 +1041,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="rw_diesel_per_site" class="form-label" style="margin-left: 2px;">Diesel Use</label> 
+                            <label for="rw_diesel_per_site" class="form-label" style="margin-left: 4px;">Diesel Use</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -1055,7 +1055,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="rw_elec_per_site" class="form-label" style="margin-left: 2px;">Electricity Use (kW)</label> 
+                            <label for="rw_elec_per_site" class="form-label" style="margin-left: 4px;">Electricity Use (kW)</label> 
                         </div>
                         <div class="col-4">
                             <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
@@ -1091,7 +1091,7 @@
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
-                            <label for="rw_crop_use" class="form-label" style="margin-left: 2px;">Crop Use</label> 
+                            <label for="rw_crop_use" class="form-label" style="margin-left: 4px;">Crop Use</label> 
                         </div>
                         <div class="col-4">
                             <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" onchange="set_calculation()" onkeyup="set_calculation()" required>
