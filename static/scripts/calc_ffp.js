@@ -268,6 +268,8 @@ function update_results(results_dict){
     let prof_p_cred= document.getElementById("prof_p_cred");
     let prof_phpy= document.getElementById("prof_phpy");
     let np_val= document.getElementById("np_val");
+    let cred_gen= document.getElementById("cred_gen");
+    let cost_p_cred= document.getElementById("cost_p_cred");
     //
     if(results_dict["profitable"]){
         is_prof.innerHTML = "YES";
@@ -280,6 +282,8 @@ function update_results(results_dict){
     prof_p_cred.innerHTML = parseFloat(results_dict["profit_per_credit"]).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     prof_phpy.innerHTML = parseFloat(results_dict["profit_per_hectare_per_year"]).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     np_val.innerHTML = parseFloat(results_dict["net_present_value"]).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    cred_gen.innerHTML = parseFloat(results_dict["credits_generated"]).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    cost_p_cred.innerHTML = parseFloat(results_dict["cost_per_credit"]).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
 function update_complete_results(results_dict){
