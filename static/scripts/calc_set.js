@@ -814,7 +814,6 @@ function Calc_Soil_Moisture_Classes(gwl){
     return sm_class_num;
 }
 
-
 function bs_set_veg_select(){
     $("#bs_veg_class option").remove();
     let el = document.getElementById("bs_veg_class");
@@ -832,14 +831,10 @@ function bs_set_veg_select(){
     for(let i =0; i< gest.index.length; i++){
         if(gest.at(i, class_dct[veg_num]) == veg_num){
             //console.log(gest.at(i,'Name'));
-            if($("#bs_veg_class option[value="+gest.at(i,'Name')+"]").length > 0){
-                console.log("Not again");
-            }else{
-                let opt = document.createElement('option');
-                opt.value = gest.at(i,'Name');
-                opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
-                el.appendChild(opt);
-            }
+            let opt = document.createElement('option');
+            opt.value = gest.at(i,'Name');
+            opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
+            el.appendChild(opt);
         }
     }
 }
@@ -861,14 +856,10 @@ function rw_set_veg_select(){
     for(let i =0; i< gest.index.length; i++){
         if(gest.at(i, class_dct[veg_num]) == veg_num){
             //console.log(gest.at(i,'Name'));
-            if($("#rw_veg_class option[value="+gest.at(i,'Name')+"]").length > 0){
-                console.log("Not again");
-            }else{
-                let opt = document.createElement('option');
-                opt.value = gest.at(i,'Name');
-                opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
-                el.appendChild(opt);
-            }
+            let opt = document.createElement('option');
+            opt.value = gest.at(i,'Name');
+            opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
+            el.appendChild(opt);
         }
     }
 }

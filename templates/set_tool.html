@@ -169,7 +169,7 @@
                             <label for="bs_med_gw_level_summer" class="form-label d-inline" style="margin-right:0px; margin-left: 4px;">Median groundwater level in summer (cm)</label>
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                            <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" onchange="set_calculation(); bs_set_veg_select()" onkeyup="set_calculation(); bs_set_veg_select()">
                         </div>
                     </div>
                     <hr class="inf">
@@ -183,8 +183,8 @@
                             <label for="bs_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
                         <div class="col-8">
-                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation(); bs_set_veg_select()" onkeyup="set_calculation(); bs_set_veg_select()">
-                                {% if inpt['base']['veg_class'][0:2] == "G1" %}
+                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
+                                <!--{% if inpt['base']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
                                 {%else%}
                                     <option value="G1">G1: Dry to moderately moist grassland</option>
@@ -373,7 +373,7 @@
                                     <option selected value="S8">S8: Ditches in low intensity grassland</option>
                                 {%else%}
                                     <option value="S8">S8: Ditches in low intensity grassland</option>
-                                {%endif%}
+                                {%endif%}-->
                             </select>
                         </div>
                     </div>
@@ -392,7 +392,7 @@
                             <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 4px;">Median groundwater level in summer (cm)</label> 
                         </div>
                         <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                            <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" onchange="set_calculation(); rw_set_veg_select()" onkeyup="set_calculation(); rw_set_veg_select()">
                         </div>
                     </div>
                     <hr class="inf">
@@ -406,8 +406,8 @@
                             <label for="rw_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
                         <div class="col-8">
-                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation(); rw_set_veg_select()" onkeyup="set_calculation(); rw_set_veg_select()">
-                                {% if inpt['rewet']['veg_class'][0:2] == "G1" %}
+                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
+                                <!--{% if inpt['rewet']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
                                 {%else%}
                                     <option value="G1">G1: Dry to moderately moist grassland</option>
@@ -596,7 +596,7 @@
                                     <option selected value="S8">S8: Ditches in low intensity grassland</option>
                                 {%else%}
                                     <option value="S8">S8: Ditches in low intensity grassland</option>
-                                {%endif%}
+                                {%endif%}-->
                             </select>
                         </div>
                     </div>
