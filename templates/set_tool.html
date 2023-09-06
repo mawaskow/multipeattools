@@ -138,17 +138,17 @@
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="row">
-                <div class="col set-header upper-base">
-                    <p>Groundwater and Vegetation</p>
-                </div>
-                <div class="col d-flex justify-content-end">
+            <div id="set-gw-tog" class="row d-flex justify-content-start">
+                <div class="col-1">
                     <svg id="set-gw-tog-down" height="20" width="20" style="display: block;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
                     </svg>
                     <svg id="set-gw-tog-up" height="20" width="20" style="display: none;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
                     </svg>
+                </div>
+                <div class="col set-header upper-base" style="padding-left: 0px;">
+                    <p>Groundwater and Vegetation</p>
                 </div>
             </div>
             <div id="set-gw-coll" style="display:none">
@@ -602,17 +602,17 @@
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="row">
-                <div class="col set-header upper-base">
-                    <p>Fertiliser Use</p>
-                </div>
-                <div class="col d-flex justify-content-end">
+            <div id="set-fu-tog" class="row d-flex justify-content-start">
+                <div class="col-1">
                     <svg id="set-fu-tog-down" height="20" width="20" style="display: block;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
                     </svg>
                     <svg id="set-fu-tog-up" height="20" width="20" style="display: none;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
                     </svg>
+                </div>
+                <div class="col set-header upper-base" style="padding-left: 0px;">
+                    <p>Fertiliser Use</p>
                 </div>
             </div>
             <div id="set-fu-coll" style="display:none">
@@ -984,17 +984,17 @@
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="row">
-                <div class="col set-header upper-base">
-                    <p>Land Management Activity</p>
-                </div>
-                <div class="col d-flex justify-content-end">
+            <div id="set-land-tog" class="row d-flex justify-content-start">
+                <div class="col-1">
                     <svg id="set-land-tog-down" height="20" width="20" style="display: block;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
                     </svg>
                     <svg id="set-land-tog-up" height="20" width="20" style="display: none;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
                     </svg>
+                </div>
+                <div class="col set-header upper-base" style="padding-left:0px">
+                    <p>Land Management Activity</p>
                 </div>
             </div>
             <div class="set-land-coll" id="set-land-coll" style="display: none;">
@@ -1066,17 +1066,17 @@
         </div>
         <div class="empty-spacing" style="padding-top: 15px;"></div>
         <div class="container set-base-div">
-            <div class="row">
-                <div class="col set-header upper-base">
-                    <p>Crop Use</p>
-                </div>
-                <div class="col d-flex justify-content-end">
+            <div id="set-cu-tog" class="row d-flex justify-content-start">
+                <div class="col-1">
                     <svg id="set-cu-tog-down" height="20" width="20" style="display: block;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
                     </svg>
                     <svg id="set-cu-tog-up" height="20" width="20" style="display: none;">
                         <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
                     </svg>
+                </div>
+                <div class="col set-header upper-base" style="padding-left:0px">
+                    <p>Crop Use</p>
                 </div>
             </div>
             <div class="set-cu-coll" id="set-cu-coll" style="display: none;">
@@ -1332,10 +1332,16 @@
             <hr>
             <div class="row align-items-center">
                 <div class="col-8">
-                    <p>Total per year per hectare</p>
+                    <p style="font-weight: bold; margin-left: -24px;">
+                        <svg height="20" width="16" style="margin-right: 4px;">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The tonnes of CO2-equivalent savings per year is equivalent to the average carbon credits per hectare per year, as used in the <a href={{ url_for('ffp_tool') }}>FFP tool</a>.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
+                        Total per hectare per year</p>
                 </div>
                 <div class="col-4">
-                    <p id="ghg_sav_tot_p_yr_p_ha">{{results['carbon_savings']['ghg_savings_total_per_year_per_ha']}}</p>
+                    <p id="ghg_sav_tot_p_yr_p_ha" style="font-weight: bold;">{{results['carbon_savings']['ghg_savings_total_per_year_per_ha']}}</p>
                 </div>
             </div>
             <hr>

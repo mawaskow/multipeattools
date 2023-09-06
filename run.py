@@ -107,6 +107,12 @@ def set_tool():
         return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     return render_template("set_tool.html", results= results_dct, inpt = input_dct)
 
+'''
+Admin
+'''
+@app.route('/login')
+def login():
+    return render_template("login.html")
 
 '''
 Error Handling

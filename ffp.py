@@ -316,8 +316,8 @@ def Conditional_Executor(user_list, assum_list):
         "total_project_costs_disc": "{:.2f}".format(total_project_costs_disc),
         "rate_of_return": round(rate_of_return,2),
         "CARG": round(CARG,2),
-        "gross_present_value": "{:.2f}".format(gross_present_value),
-        "net_present_value": round(net_present_value),
+        "gross_present_value": f"{round(gross_present_value):,}",
+        "net_present_value": f"{round(net_present_value):,}",
         "profit_per_credit": "{:.2f}".format(profit_per_credit),
         "profit_per_hectare_per_year": "{:.2f}".format(profit_per_hectare_per_year),
         "profitable": profitable

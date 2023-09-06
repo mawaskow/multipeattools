@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block navbar %}
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid justify-content-start">
+    <a class="navbar-brand" href="{{ url_for('homepage') }}">
+        <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        MultiPeat Toolkit
+    </a>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('set_tool') }}">SET Tool</a>    
+        </li>
+    </ul>
+</div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="textchunk container" style="justify-self: start;">
+    <h5>Login</h5>
+    <div class="col-4">
+        <form method="POST" action="/login">
+            <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+                <input class="form-control" type="text" name="username" placeholder="Your Username">
+            </div>
+            <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+                <input class="form-control" type="password" name="password" placeholder="Your Password">
+            </div>
+            <button class="btn btn-success" style="margin-top: 5px;">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

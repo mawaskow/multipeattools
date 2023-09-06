@@ -54,147 +54,66 @@ $("#a-close-btn").on('click', function(event){
     }
 });
 
-$("#set-land-tog-down").on('click', function(event){
+$("#set-land-tog").on('click', function(event){
     el = document.getElementById("set-land-coll");
     td = document.getElementById("set-land-tog-down");
     tu = document.getElementById("set-land-tog-up");
     
     if(el.style.display == 'none'){
-        el.style.display = 'block'
-    }
-
-    if(td.style.display != 'none'){
-        td.style.display = 'none'
-    }
-
-    if(tu.style.display == 'none'){
-        tu.style.display = 'block'
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
     }
 });
 
-$("#set-land-tog-up").on('click', function(event){
-    el = document.getElementById("set-land-coll");
-    td = document.getElementById("set-land-tog-down");
-    tu = document.getElementById("set-land-tog-up");
-    
-    if(el.style.display != 'none'){
-        el.style.display = 'none'
-    }
-
-    if(tu.style.display != 'none'){
-        tu.style.display = 'none'
-    }
-
-    if(td.style.display == 'none'){
-        td.style.display = 'block'
-    }
-});
-
-$("#set-gw-tog-down").on('click', function(event){
+$("#set-gw-tog").on('click', function(event){
     el = document.getElementById("set-gw-coll");
     td = document.getElementById("set-gw-tog-down");
     tu = document.getElementById("set-gw-tog-up");
     
     if(el.style.display == 'none'){
-        el.style.display = 'block'
-    }
-
-    if(td.style.display != 'none'){
-        td.style.display = 'none'
-    }
-
-    if(tu.style.display == 'none'){
-        tu.style.display = 'block'
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
     }
 });
 
-$("#set-gw-tog-up").on('click', function(event){
-    el = document.getElementById("set-gw-coll");
-    td = document.getElementById("set-gw-tog-down");
-    tu = document.getElementById("set-gw-tog-up");
-    
-    if(el.style.display != 'none'){
-        el.style.display = 'none'
-    }
-
-    if(tu.style.display != 'none'){
-        tu.style.display = 'none'
-    }
-
-    if(td.style.display == 'none'){
-        td.style.display = 'block'
-    }
-});
-
-
-$("#set-fu-tog-down").on('click', function(event){
+$("#set-fu-tog").on('click', function(event){
     el = document.getElementById("set-fu-coll");
     td = document.getElementById("set-fu-tog-down");
     tu = document.getElementById("set-fu-tog-up");
     
     if(el.style.display == 'none'){
-        el.style.display = 'block'
-    }
-
-    if(td.style.display != 'none'){
-        td.style.display = 'none'
-    }
-
-    if(tu.style.display == 'none'){
-        tu.style.display = 'block'
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
     }
 });
 
-$("#set-fu-tog-up").on('click', function(event){
-    el = document.getElementById("set-fu-coll");
-    td = document.getElementById("set-fu-tog-down");
-    tu = document.getElementById("set-fu-tog-up");
-    
-    if(el.style.display != 'none'){
-        el.style.display = 'none'
-    }
-
-    if(tu.style.display != 'none'){
-        tu.style.display = 'none'
-    }
-
-    if(td.style.display == 'none'){
-        td.style.display = 'block'
-    }
-});
-
-$("#set-cu-tog-down").on('click', function(event){
+$("#set-cu-tog").on('click', function(event){
     el = document.getElementById("set-cu-coll");
     td = document.getElementById("set-cu-tog-down");
     tu = document.getElementById("set-cu-tog-up");
     
     if(el.style.display == 'none'){
-        el.style.display = 'block'
-    }
-
-    if(td.style.display != 'none'){
-        td.style.display = 'none'
-    }
-
-    if(tu.style.display == 'none'){
-        tu.style.display = 'block'
-    }
-});
-
-$("#set-cu-tog-up").on('click', function(event){
-    el = document.getElementById("set-cu-coll");
-    td = document.getElementById("set-cu-tog-down");
-    tu = document.getElementById("set-cu-tog-up");
-    
-    if(el.style.display != 'none'){
-        el.style.display = 'none'
-    }
-
-    if(tu.style.display != 'none'){
-        tu.style.display = 'none'
-    }
-
-    if(td.style.display == 'none'){
-        td.style.display = 'block'
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
     }
 });
