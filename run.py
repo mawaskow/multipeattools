@@ -34,6 +34,7 @@ FFP_INIT_USR_INP_FILE = "./inputs/user_input_default.json"
 FFP_FIN_USR_INP_FILE = "./inputs/user_input_data.json"
 #SET FORM
 SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
+#SET_INIT_INPT_FILE = './inputs/user_input_empty_SET.json'
 GEST_CSV= ['./SET_Tool/csv_files/GEST_2_Static_Values.csv']
 SET_OUTPUT_FILE = './outputs/output_SET.json'
 SET_UPD_INPT_FILE = './inputs/user_upd_input_SET.json'
