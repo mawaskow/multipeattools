@@ -2,7 +2,7 @@ var DataFrame = dfd.DataFrame;
 // create GEST df in lieu of reading from csv
 function Make_GEST_df(){
     let data1 = [
-        ["G1","Dry to moderately moist grassland","(2~), 2+, 2- ",NaN,NaN,NaN,NaN,"2+",-2,-0.01,24,31.44,16,31.5,8.574245455],
+        ["G1","Dry to moderately moist grassland","(2~), 2+, 2- ",NaN,NaN,NaN,NaN,"2+","2-",-0.01,24,31.44,16,31.5,8.574245455],
         ["G2","Moist grassland","3+, 3+/2+",NaN,NaN,NaN,"3+","2+",NaN,0.01,48,19.37,38,19.5,5.283027273],
         ["G3","Moist to very moist grassland","4+/3+",NaN,NaN,NaN,"3+",NaN,NaN,0.03,3,13.46,4,13.5,3.671809091],
         ["G3f","Periodically flooded grasslands","4~, 3~",NaN,NaN,"4+","3+","2+",NaN,-0.05,3,13.46,NaN,13,3.669409091],
@@ -12,7 +12,7 @@ function Make_GEST_df(){
         ["G4s","Very moist grassland with shunt species","4+",NaN,NaN,"4+",NaN,NaN,NaN,2.1,4,6.45,NaN,8.5,1.822090909],
         ["G5","Wet grassland","5+/4+",NaN,NaN,"4+",NaN,NaN,NaN,0.05,3,-3.89,5,-4,-1.059409091],
         ["G5s","Wet grassland with shunt species","5+, 5+/4+, (4~)",NaN,"5+","4+","3+",NaN,NaN,2.93,4,-3.89,NaN,-1,-0.973009091],
-        ["A1","Dry to moderately moist arable land","2+, 2-",NaN,NaN,NaN,NaN,"2+",-2,0.08,11,41.69,10,42,11.3724],
+        ["A1","Dry to moderately moist arable land","2+, 2-",NaN,NaN,NaN,NaN,"2+","2-",0.08,11,41.69,10,42,11.3724],
         ["A2","Moist arable land","3+, 3+/2+",NaN,NaN,NaN,"3+","2+",NaN,0.17,6,23.44,4,23.5,6.397827273],
         ["U1","Moist bare peat","3~, 3+",NaN,NaN,NaN,"3+","2+",NaN,0.03,2,8.99,2,9,2.452718182],
         ["U2","Moist bog heath","3+",NaN,NaN,NaN,"3+",NaN,NaN,0.25,10,12.33,5,12.5,3.370227273],
@@ -32,8 +32,8 @@ function Make_GEST_df(){
         ["U18","Very wet Phragmites reeds","6+, (6+/5+, 5~)","6+","5+","4+",NaN,NaN,NaN,12.44,12,-12.38,8,0,-3.003163636],
         ["U19","Wet to very wet Sphagnum hollows","6+, (5+)","6+","5+",NaN,NaN,NaN,NaN,11.81,8,-4.58,8,7,-0.894790909],
         ["U20","Flooded tall reeds (> 20 cm above surface)","6+","6+",NaN,NaN,NaN,NaN,NaN,28.29,30,-32.74,6,-4.5,-8.080390909],
-        ["S1","Dry to moderately moist grassland on peaty soils (Anmoor)","2-, 2+/2-, 2+",NaN,NaN,NaN,NaN,"2+",-2,-0.05,9,46.09,14,46,12.5685],
-        ["S2","Dry to moderately moist arable land on peaty soils(Anmoor)","2+, 2-",NaN,NaN,NaN,NaN,"2+",-2,0.07,8,35.11,12,35,9.577554545],
+        ["S1","Dry to moderately moist grassland on peaty soils (Anmoor)","2-, 2+/2-, 2+",NaN,NaN,NaN,NaN,"2+","2-",-0.05,9,46.09,14,46,12.5685],
+        ["S2","Dry to moderately moist arable land on peaty soils(Anmoor)","2+, 2-",NaN,NaN,NaN,NaN,"2+","2-",0.07,8,35.11,12,35,9.577554545],
         ["S3","Cropland (2+) flooded in summer (wet year)","3+",NaN,NaN,NaN,"3+",NaN,NaN,10.29,1,22.61,1,33,6.475063636],
         ["S4","Grassland (2+/3+) flooded in summer (wet year)","(5+), 5+/4+, (4+)",NaN,"5+","4+",NaN,NaN,NaN,26.02,7,-0.13,6,26,0.745145455],
         ["S5","Simulated harvest (Paludiculture)","(5+), 5+/4+",NaN,"5+","4+",NaN,NaN,NaN,3.08,3,11.46,3,14.5,3.217854545],
@@ -47,6 +47,7 @@ function Make_GEST_df(){
     return df;
 }
 
+let gest = Make_GEST_df();
 
 function Parse_SET_Input(){
     let inputs = {
@@ -649,45 +650,6 @@ function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content,
     output['carbon_savings']['time_til_peat_is_lost_base_scenario'] = outcome['creditable_year']['base_scenario'];
     output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] = outcome['creditable_year']['rewet_scenario'];
     
-    //////////////////////////////////////////////////////////////////// 
-    // round
-
-    output['base_outcomes']['CH4'] = output['base_outcomes']['CH4'].toFixed(2);
-    output['base_outcomes']['CO2'] = output['base_outcomes']['CO2'].toFixed(2);
-    output['base_outcomes']['c_emission_gwp_subtotal'] = output['base_outcomes']['c_emission_gwp_subtotal'].toFixed(2);
-    output['base_outcomes']['n2o_direct'] = output['base_outcomes']['n2o_direct'].toFixed(2);
-    output['base_outcomes']['n2o_indirect'] = output['base_outcomes']['n2o_indirect'].toFixed(2);
-    output['base_outcomes']['n2o_emission_gwp_subtotal'] =output['base_outcomes']['n2o_emission_gwp_subtotal'].toFixed(2);
-    output['base_outcomes']['activity_gwp_subtotal'] = output['base_outcomes']['activity_gwp_subtotal'].toFixed(2);
-    output['base_outcomes']['gwp_total'] = output['base_outcomes']['gwp_total'].toFixed(2);
-    output['rewet_outcomes']['CH4'] = output['rewet_outcomes']['CH4'].toFixed(2);
-    output['rewet_outcomes']['CO2'] = output['rewet_outcomes']['CO2'].toFixed(2);
-    output['rewet_outcomes']['c_emission_gwp_subtotal'] = output['rewet_outcomes']['c_emission_gwp_subtotal'].toFixed(2);
-    output['rewet_outcomes']['n2o_direct'] = output['rewet_outcomes']['n2o_direct'].toFixed(2);
-    output['rewet_outcomes']['n2o_indirect'] = output['rewet_outcomes']['n2o_indirect'].toFixed(2);
-    output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = output['rewet_outcomes']['n2o_emission_gwp_subtotal'].toFixed(2);
-    output['rewet_outcomes']['activity_gwp_subtotal'] = output['rewet_outcomes']['activity_gwp_subtotal'].toFixed(2);
-    output['rewet_outcomes']['product_gwp_subtotal'] = output['rewet_outcomes']['product_gwp_subtotal'].toFixed(2);
-    output['rewet_outcomes']['gwp_total'] = output['rewet_outcomes']['gwp_total'].toFixed(2);
-    output['carbon_savings']['ghg_savings_total_per_year_per_site'] = output['carbon_savings']['ghg_savings_total_per_year_per_site'].toFixed(2);
-    output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = output['carbon_savings']['ghg_savings_total_per_year_per_ha'].toFixed(2);
-    output['carbon_savings']['ghg_savings_stock_per_year_per_site'] = output['carbon_savings']['ghg_savings_stock_per_year_per_site'].toFixed(2);
-    output['carbon_savings']['ghg_savings_stock_per_year_per_ha'] = output['carbon_savings']['ghg_savings_stock_per_year_per_ha'].toFixed(2);
-    output['carbon_savings']['ghg_savings_flow_per_year_per_site'] = output['carbon_savings']['ghg_savings_flow_per_year_per_site'].toFixed(2);
-    output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = output['carbon_savings']['ghg_savings_flow_per_year_per_ha'].toFixed(2);
-    output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = output['carbon_savings']['ghg_savings_product_use_per_year_per_site'].toFixed(2);
-    output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'].toFixed(2);
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'].toFixed(2);
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'].toFixed(2);
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'].toFixed(2);
-    output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'] = output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'].toFixed(2);
-    
-    if(typeof output['carbon_savings']['time_til_peat_is_lost_base_scenario'] != "string"){
-        output['carbon_savings']['time_til_peat_is_lost_base_scenario']= output['carbon_savings']['time_til_peat_is_lost_base_scenario'].toFixed(2);
-    }
-    if(typeof output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] != "string"){
-        output['carbon_savings']['time_til_peat_is_lost_rewet_scenario']= output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'].toFixed(2);
-    }
     return output;
 }
 
@@ -764,7 +726,7 @@ function update_set_results(results_dict){
 }
 
 function set_calculation(){
-    let gest = Make_GEST_df();
+    //let gest = Make_GEST_df(); //GEST db global
     let inputs = Parse_SET_Input();
     let data_tab = Create_Data_Tab(inputs, gest);
     let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
@@ -774,29 +736,6 @@ function set_calculation(){
     let output_tab = Create_Output_tab(inputs, smc_tab, data_tab, outcome_tab, c_content_tab, crop_use_tab);
     update_set_results(output_tab);
 }
-
-/*
-function set_run(inputs_dict, path_to_gest, output_file){
-    dict_of_csvs = Load_csvs(path_to_gest)
-    gest = dict_of_csvs['GEST_2_Static_Values.csv']
-    data_tab = Create_Data_Tab(inputs_dict, gest)
-    crop_use_tab = Create_crop_Use_Tab(inputs_dict, data_tab)
-    c_content_tab = Create_C_Content_Soil_Tab(inputs_dict)
-    sm_classes = Create_Soil_Moisture_Classes_Tab(inputs_dict)
-    outcome = Create_Outcome_Tab(inputs_dict, data_tab, crop_use_tab, c_content_tab, gest)
-    timeline = Create_Timeline_tab(inputs_dict, outcome, c_content_tab, gest)
-    output = Create_Output_tab(output_file, inputs_dict, sm_classes, data_tab, outcome, c_content_tab, crop_use_tab)
-}
-
-function run_set(){
-    gest_df = Make_GEST_df()
-    SET_USR_OUTPT_FILE = './outputs/output_SET.json'
-    
-    input_dct = Create_Input_Dict()
-    set_run(input_dct, path_to_gest, SET_USR_OUTPT_FILE)
-    print("Done.")
-}
-*/
 
 /*
 // this wasnt used in the output of the set.py so I'm ignoring it for now
@@ -851,3 +790,85 @@ function Create_Timeline_tab(user_input, outcome, c_content, gest){
     return pd.DataFrame.from_dict(timeline)
 }
 */
+
+///////////////////////////
+
+function Calc_Soil_Moisture_Classes(gwl){
+    //Initialize the Soil Moisture Classes dictionary
+    let sm_class_num = "";
+
+    //Populate dictionary
+    if(gwl >= 0 && gwl <= 140){
+        sm_class_num = '6+';
+    }else if(gwl >= -10 && gwl < 0){
+        sm_class_num = '5+';
+    }else if(gwl >= -20 && gwl < -10){
+        sm_class_num = '4+';
+    }else if(gwl >= -45 && gwl < -20){
+        sm_class_num = '3+';
+    }else if(gwl >= -85 && gwl < -45){
+        sm_class_num = '2+';
+    }else if(gwl < -85){
+        sm_class_num = '2-';
+    }
+    return sm_class_num;
+}
+
+
+function bs_set_veg_select(){
+    $("#bs_veg_class option").remove();
+    let el = document.getElementById("bs_veg_class");
+    let gwl = parseFloat(document.getElementById("bs_med_gw_level_summer").value);
+    let veg_num = Calc_Soil_Moisture_Classes(gwl);
+    //console.log(veg_num);
+    let class_dct = {
+        "6+": "smcd_6",
+        "5+": "smcd_5",
+        "4+": "smcd_4",
+        "3+": "smcd_3",
+        "2+": "smcd_2",
+        "2-": "smcd_l2"
+    };
+    for(let i =0; i< gest.index.length; i++){
+        if(gest.at(i, class_dct[veg_num]) == veg_num){
+            //console.log(gest.at(i,'Name'));
+            if($("#bs_veg_class option[value="+gest.at(i,'Name')+"]").length > 0){
+                console.log("Not again");
+            }else{
+                let opt = document.createElement('option');
+                opt.value = gest.at(i,'Name');
+                opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
+                el.appendChild(opt);
+            }
+        }
+    }
+}
+
+function rw_set_veg_select(){
+    $("#rw_veg_class option").remove();
+    let el = document.getElementById("rw_veg_class");
+    let gwl = parseFloat(document.getElementById("rw_med_gw_level_summer").value);
+    let veg_num = Calc_Soil_Moisture_Classes(gwl);
+    //console.log(veg_num);
+    let class_dct = {
+        "6+": "smcd_6",
+        "5+": "smcd_5",
+        "4+": "smcd_4",
+        "3+": "smcd_3",
+        "2+": "smcd_2",
+        "2-": "smcd_l2"
+    };
+    for(let i =0; i< gest.index.length; i++){
+        if(gest.at(i, class_dct[veg_num]) == veg_num){
+            //console.log(gest.at(i,'Name'));
+            if($("#rw_veg_class option[value="+gest.at(i,'Name')+"]").length > 0){
+                console.log("Not again");
+            }else{
+                let opt = document.createElement('option');
+                opt.value = gest.at(i,'Name');
+                opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
+                el.appendChild(opt);
+            }
+        }
+    }
+}

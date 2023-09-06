@@ -183,7 +183,7 @@
                             <label for="bs_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
                         <div class="col-8">
-                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
+                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation(); bs_set_veg_select()" onkeyup="set_calculation(); bs_set_veg_select()">
                                 {% if inpt['base']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
                                 {%else%}
@@ -406,7 +406,7 @@
                             <label for="rw_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class</label> 
                         </div>
                         <div class="col-8">
-                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
+                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation(); rw_set_veg_select()" onkeyup="set_calculation(); rw_set_veg_select()">
                                 {% if inpt['rewet']['veg_class'][0:2] == "G1" %}
                                     <option selected value="G1">G1: Dry to moderately moist grassland</option>
                                 {%else%}
@@ -1627,6 +1627,7 @@
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 </script>
+
 {% endblock %}
 
 {% block footer %}
