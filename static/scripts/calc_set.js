@@ -94,9 +94,31 @@ function Parse_SET_Input(){
             'crop_use': document.getElementById("rw_crop_use").value
         }
         };
+    
+    if(inputs["base"]["veg_class"] == ""){
+        bs_set_veg_select();
+        inputs["base"]["veg_class"] = document.getElementById("bs_veg_class").value;
+    }
+
+    if(inputs["rewet"]["veg_class"] == ""){
+        rw_set_veg_select();
+        inputs["rewet"]["veg_class"] = document.getElementById("rw_veg_class").value;
+    }
+
     return inputs;
 }
 
+function confirm_set_inputs(inputs){
+    if(!isNaN(inputs["gen_site_data"]["tot_area"])
+        && !isNaN(inputs["base"]["med_gw_level_summer"])
+        && !isNaN(inputs["rewet"]["med_gw_level_summer"])
+        && inputs["base"]["veg_class"] != ""
+        && inputs["rewet"]["veg_class"] != "")
+        {return true;
+    }else{
+        return false;
+    }
+}
 
 function Create_Data_Tab(user_input, gest){
     //Initiate the Data dict
@@ -728,13 +750,17 @@ function update_set_results(results_dict){
 function set_calculation(){
     //let gest = Make_GEST_df(); //GEST db global
     let inputs = Parse_SET_Input();
-    let data_tab = Create_Data_Tab(inputs, gest);
-    let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
-    let c_content_tab = Create_C_Content_Soil_Tab(inputs);
-    let smc_tab = Create_Soil_Moisture_Classes_Tab(inputs);
-    let outcome_tab = Create_Outcome_Tab(inputs, data_tab, crop_use_tab, c_content_tab, gest);
-    let output_tab = Create_Output_tab(inputs, smc_tab, data_tab, outcome_tab, c_content_tab, crop_use_tab);
-    update_set_results(output_tab);
+    let proceed= confirm_set_inputs(inputs);
+    console.log(proceed);
+    if(proceed){
+        let data_tab = Create_Data_Tab(inputs, gest);
+        let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
+        let c_content_tab = Create_C_Content_Soil_Tab(inputs);
+        let smc_tab = Create_Soil_Moisture_Classes_Tab(inputs);
+        let outcome_tab = Create_Outcome_Tab(inputs, data_tab, crop_use_tab, c_content_tab, gest);
+        let output_tab = Create_Output_tab(inputs, smc_tab, data_tab, outcome_tab, c_content_tab, crop_use_tab);
+        update_set_results(output_tab);
+    }
 }
 
 /*
