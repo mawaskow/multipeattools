@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Map{% endblock %}
 
 {% block navbar %}
 <nav class="navbar bg-body-tertiary">
@@ -11,7 +11,7 @@
     </a>
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link on-page" href="{{ url_for('homepage') }}">Home</a>
+            <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
@@ -26,10 +26,11 @@
 
 {% block content %}
 <div class="textchunk">
-    <h4>Welcome to the MultiPeat Toolkit</h4>
+    <h4>Bog Map Test</h4>
     <div style="padding-top: 10px;"></div>
-    <p>This site hosts the MultiPeat project's toolkit.</p>
-    <p>To use the tools, navigate to their tabs in the header bar.</p>
+    <div id="map_div">
+
+    </div>
 </div>
 
 {% endblock %}

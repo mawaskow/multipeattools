@@ -751,7 +751,7 @@ function set_calculation(){
     //let gest = Make_GEST_df(); //GEST db global
     let inputs = Parse_SET_Input();
     let proceed= confirm_set_inputs(inputs);
-    console.log(proceed);
+    //console.log(proceed);
     if(proceed){
         let data_tab = Create_Data_Tab(inputs, gest);
         let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
