@@ -30,7 +30,7 @@ const mapProjection=new Projection({
 
 const bogSource=new ImageWMS({
     url:serverURL,
-    params:{"LAYERS":"bogtest:bnm_reproj", "VERSION":"1.1.1", "FORMAT":"image/png"}
+    params:{"LAYERS":"multipeat:bnm_reproj", "VERSION":"1.1.1", "FORMAT":"image/png"}
 });
 
 const bogLayer= new ImageLayer({
@@ -41,7 +41,7 @@ const bogLayer= new ImageLayer({
 
 const ipolSource=new ImageWMS({
     url:serverURL,
-    params:{"LAYERS":"bogtest:gi_pol", "VERSION":"1.1.1", "FORMAT":"image/png"}
+    params:{"LAYERS":"multipeat:gi_pol", "VERSION":"1.1.1", "FORMAT":"image/png"}
 });
 
 const ipolLayer= new ImageLayer({
