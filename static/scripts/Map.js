@@ -19,7 +19,7 @@ import ImageWMS from 'https://cdn.skypack.dev/ol/source/ImageWMS.js';
 import TileWMS from 'https://cdn.skypack.dev/ol/source/TileWMS.js';
 import Projection from 'https://cdn.skypack.dev/ol/proj/Projection.js';
 
-const serverURL="http://localhost:8080/geoserver/wms";
+const serverURL="http://multipeat.insight-centre.org/geoserver/wms";
 
 const mapProjection=new Projection({
     code:'EPSG:3857',
