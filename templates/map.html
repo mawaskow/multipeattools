@@ -14,6 +14,9 @@
             <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link on-page" href="{{ url_for('map_page') }}">Map</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
         </li>
         <li class="nav-item">
@@ -25,10 +28,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="textchunk">
-    <h4>Bog Map</h4>
-    <div style="padding-top: 10px;"></div>
-    <div class="container" id="map"></div>
+<div>
+    <div class="container-fluid" id="map" style="padding-top: 12px; padding-bottom: 12px;"></div>
 </div>
 
 {% endblock %}

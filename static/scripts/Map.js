@@ -58,7 +58,9 @@ const osmLayer=new TileLayer({
 
 const view=new View({
     extent:[-1189593, 6692152.5, -665102.8125, 7450535],
-    center:[0,0],
+    // extent of boglayer//extent:[-882658.5, 6978113.4, -749958.0, 7124488.3],
+    //center:[0,0],
+    center:[816308.25,7051300.85],
     zoom:0,
     projection: mapProjection
 });
