@@ -289,15 +289,84 @@ select::-internal-list-box{
     border-radius: 0;
 }
 
-/* map */
+/* MAP */
 #map{
     height:100%;
     width:100%;
     position:fixed;
 }
 
-/*Popup*/
 .map {
     width: 100%;
     height: 400px;
   }
+
+.ol-popup {
+position: absolute;
+background-color: white;
+box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+padding: 15px;
+border-radius: 10px;
+border: 1px solid #cccccc;
+bottom: 12px;
+left: -50px;
+min-width: 280px;
+}
+.ol-popup:after, .ol-popup:before {
+top: 100%;
+border: solid transparent;
+content: " ";
+height: 0;
+width: 0;
+position: absolute;
+pointer-events: none;
+}
+.ol-popup:after {
+border-top-color: white;
+border-width: 10px;
+left: 48px;
+margin-left: -10px;
+}
+.ol-popup:before {
+border-top-color: #cccccc;
+border-width: 11px;
+left: 48px;
+margin-left: -11px;
+}
+.ol-popup-closer {
+text-decoration: none;
+position: absolute;
+top: 2px;
+right: 8px;
+}
+.ol-popup-closer:after {
+content: "✖";
+}
+#popup a:link{
+text-decoration: none;
+}
+
+/*draggable*/
+#draggable-header a:link{
+text-decoration: none;
+}
+
+#draggable {
+position: absolute;
+z-index: 9;
+background-color: #f1f1f1;
+border: 1px solid #d3d3d3;
+text-align: left;
+top:70px;
+left:70px;
+display:none;
+padding: 3px;
+}
+
+#draggable-header {
+padding: 1px;
+cursor: move;
+z-index: 10;
+background-color: #2196F3;
+color: #fff;
+}

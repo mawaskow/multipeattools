@@ -28,8 +28,38 @@
 {% endblock %}
 
 {% block content %}
+<ul>
+    <li class="nav-item active">
+        <a class="nav-link" href="#"><Layers class="badge rounded-pill text-bg-info" id="layers">Layers</span><span class="sr-only"></span></a>
+    </li>
+</ul>
+
 <div>
     <div class="container-fluid" id="map" style="padding-top: 12px; padding-bottom: 12px;"></div>
 </div>
 
+<!-- Draggable DIV -->
+<div id="draggable">
+    <div id="draggable-header"><div id="draggable-title">Title</div><a href="#" id="draggable-closer" class="ol-popup-closer"></a></div>
+    <div id="draggable-content">
+        <p>Move</p>
+        <p>this</p>
+        <p>DIV</p>
+    </div>
+
+</div>
+<!--Popup div-->
+<div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content">
+        <div id="bog-info"></div>
+        <div id="ipol-info"></div>
+        <div id="no-features"></div>
+    </div>
+</div>
+
+<script type="module" src="{{url_for('static', filename='scripts/Map.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/customFunctions.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Identify.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Layers.js')}}" ></script>
 {% endblock %}
