@@ -14,9 +14,9 @@ $('#layers').on('click', function(){
 
     layers.forEach(layer => {
         if(layer.get('name')){
-            const element = `<div class="form-check">
+            const element = `<div class="form-check drag">
             <input class="form-check-input" type="checkbox" value="" id=${layer.get('name')}>
-            <label class="form-check-label" for=${layer.get('name')}>
+            <label class="form-check-label d-flex align-self-center" for=${layer.get('name')}>
             ${layer.get('name')}</label>
             </div>`;
             layersDivContent.append(element);

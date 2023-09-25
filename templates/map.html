@@ -28,14 +28,29 @@
 {% endblock %}
 
 {% block content %}
-<ul>
-    <li class="nav-item active">
-        <a class="nav-link" href="#"><Layers class="badge rounded-pill text-bg-info" id="layers">Layers</span><span class="sr-only"></span></a>
-    </li>
-</ul>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+      <p class="navbar-brand">Peatland Map</p>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#"><Layers class="badge rounded-pill text-layer-pill" id="layers">Layers</span><span class="sr-only"></span></a>
+            </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" id="bogInput" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit" id="search">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
 
 <div>
-    <div class="container-fluid" id="map" style="padding-top: 12px; padding-bottom: 12px;"></div>
+    <div id="map"></div>
 </div>
 
 <!-- Draggable DIV -->
