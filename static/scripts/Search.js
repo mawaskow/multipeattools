@@ -36,8 +36,10 @@ searchBtn.on("click", function(){
 
     const featureRequest = new WFS().writeGetFeature({
         srsName:'EPSG:3857',
-        featureNS:'http://multipeat.insight-centre.org/geoserver/multipeat',
+        //featureNS:'http://multipeat.insight-centre.org/geoserver/multipeat',
+        featureNS:'multipeat',
         featurePrefix:'bnm_reproj',
+        //featurePrefix:'multipeat',
         featureTypes:['bnm_reproj'],
         outputFormat:'application/json',
         filter: new EqualTo('name',bog)
