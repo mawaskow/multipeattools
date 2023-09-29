@@ -108,7 +108,7 @@ def set_tool():
         return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     return render_template("set_tool.html", results= results_dct, inpt = input_dct)
 
-@app.route('/map')
+@app.route('/map', methods=['GET', 'POST'])
 def map_page():
     return render_template("map.html")
 
