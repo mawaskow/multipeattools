@@ -1,6 +1,11 @@
 import WFS from 'https://cdn.skypack.dev/ol/format/WFS.js';
+import OWS from 'https://cdn.skypack.dev/ol/format/OWS.js';
+import WMSCapabilities from 'https://cdn.skypack.dev/ol/format/WMSCapabilities.js';
+import WMSGetFeatureInfo from 'https://cdn.skypack.dev/ol/format/WMSGetFeatureInfo.js';
+import JSONFeature from 'https://cdn.skypack.dev/ol/format/JSONFeature.js';
 import GeoJSON from 'https://cdn.skypack.dev/ol/format/GeoJSON.js';
 import And from 'https://cdn.skypack.dev/ol/format/filter/And.js';
+import IsLike from 'https://cdn.skypack.dev/ol/format/filter/IsLike.js';
 import EqualTo from 'https://cdn.skypack.dev/ol/format/filter/EqualTo.js';
 import Vector from 'https://cdn.skypack.dev/ol/layer/Vector.js';
 import VectorSource from 'https://cdn.skypack.dev/ol/source/Vector.js';
@@ -11,7 +16,10 @@ const map=$('#map').data('map');
 
 const searchBtn=$('#search');
 
+//const wfsUrl='http://multipeat.insight-centre.org/geoserver/wfs';
 const wfsUrl='http://multipeat.insight-centre.org/geoserver/multipeat/wfs';
+const wmsUrl='http://multipeat.insight-centre.org/geoserver/multipeat/wms';
+
 
 const vectorSource=new VectorSource();
 const style=new Style({
@@ -35,6 +43,7 @@ searchBtn.on("click", function(){
     }
 
     const featureRequest = new WFS().writeGetFeature({
+    //const featureRequest = new WMS().writeGetFeature({
         srsName:'EPSG:3857',
         //featureNS:'http://multipeat.insight-centre.org/geoserver/multipeat',
         featureNS:'multipeat',
@@ -44,14 +53,15 @@ searchBtn.on("click", function(){
         outputFormat:'application/json',
         filter: new EqualTo('name',bog)
     });
-
+    console.log("Feature request constructed");
     fetch(wfsUrl,{
         method:'POST',
         body: new XMLSerializer().serializeToString(featureRequest)
     }).then(function(response){
+        console.log("wfsUrl fetched");
         return response.json();
     }).then(function(json){
-
+        console.log("json received");
         if(json.features.length>0)
         {
             const features= new GeoJSON().readFeatures(json)
