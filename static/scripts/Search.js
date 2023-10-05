@@ -57,7 +57,7 @@ searchBtn.on("click", function(){
         //featurePrefix:'multipeat',
         featureTypes:['bnm_reproj'],
         outputFormat:'application/json',
-        filter: new EqualTo('name',bog)
+        filter: new IsLike('name',bog)
     });
 
     console.log("Feature request constructed");
@@ -66,6 +66,7 @@ searchBtn.on("click", function(){
         body: new XMLSerializer().serializeToString(featureRequest)
     }).then(function(response){
         console.log("wfsUrl fetched");
+        console.log(response);
         return response.json();
     }).then(function(json){
         console.log("json received");
