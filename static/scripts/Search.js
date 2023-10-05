@@ -39,12 +39,13 @@ searchBtn.on("click", function(){
     const bog=$('#bogInput').val().toString();
 
     if(bog.length==0){
-        //window.alert('Please enter bog name');
-        /////////
+        window.alert('Please enter bog name');
+        /*
         fetch(wfsUrl,{
             method:'POST',
             body: "wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=multipeat:bnm_reproj"
         });
+        */
     }
 
     const featureRequest = new WFS().writeGetFeature({
@@ -60,9 +61,6 @@ searchBtn.on("click", function(){
     });
 
     console.log("Feature request constructed");
-    console.log(new XMLSerializer().serializeToString(featureRequest));
-    fetch("http://multipeat.insight-centre.org/geoserver/multipeat/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=multipeat:bnm_reproj");
-    console.log("fetched wfs");
     fetch(wfsUrl,{
         method:'POST',
         body: new XMLSerializer().serializeToString(featureRequest)
