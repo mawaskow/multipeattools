@@ -16,19 +16,16 @@ const map=$('#map').data('map');
 
 const searchBtn=$('#search');
 
-//const wfsUrl='http://multipeat.insight-centre.org/geoserver/wfs';
-const wfsUrl='http://multipeat.insight-centre.org/geoserver/multipeat/wfs';
-const wmsUrl='http://multipeat.insight-centre.org/geoserver/multipeat/wms';
+var wfsUrl='http://multipeat.insight-centre.org/geoserver/multipeat/wfs';
 
-
-const vectorSource=new VectorSource();
-const style=new Style({
+var vectorSource=new VectorSource();
+var style=new Style({
     stroke:new Stroke({
         color:'blue',
         width:2
     })
 });
-const vector=new Vector({
+var vector=new Vector({
     source:vectorSource,
     style:style
 });
@@ -48,7 +45,7 @@ searchBtn.on("click", function(){
         */
     }
 
-    const featureRequest = new WFS().writeGetFeature({
+    var featureRequest = new WFS().writeGetFeature({
     //const featureRequest = new WMS().writeGetFeature({
         srsName:'EPSG:3857',
         //featureNS:'http://multipeat.insight-centre.org/geoserver/multipeat',
@@ -63,6 +60,9 @@ searchBtn.on("click", function(){
     console.log("Feature request constructed");
     fetch(wfsUrl,{
         method:'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: new XMLSerializer().serializeToString(featureRequest)
     }).then(function(response){
         console.log("wfsUrl fetched");
@@ -72,7 +72,7 @@ searchBtn.on("click", function(){
         console.log("json received");
         if(json.features.length>0)
         {
-            const features= new GeoJSON().readFeatures(json)
+            var features= new GeoJSON().readFeatures(json)
             vectorSource.clear(true);
             vectorSource.addFeatures(features);
 
