@@ -60,9 +60,11 @@ searchBtn.on("click", function(){
     console.log("Feature request constructed");
     fetch(wfsUrl,{
         method:'POST',
+        mode:'no-cors',
         headers: {
             "Content-Type": "application/json"
         },
+        credentials: 'include',
         body: new XMLSerializer().serializeToString(featureRequest)
     }).then(function(response){
         console.log("wfsUrl fetched");
