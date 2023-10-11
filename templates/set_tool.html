@@ -84,7 +84,19 @@
             <hr class="inf">
             <div class="row align-items-center">
                 <div class="col-7">
-                    <label for="peat_type" class="form-label d-inline">Peat type</label> 
+                    <svg height="20" width="16">
+                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                        data-bs-content="Select the type of peat soil in your site.<br>
+                            - Sphagnum peat: formed in raised bog and blanket bog sites<br>
+                            - Herbaceous peat: includes most fen peats (reed, tall sedge, etc.)<br>
+                            - Woody peat: is formed in carr forests<br>
+                            - Brownmoss peat: is formed in moss dominated, base-rich fens<br>
+                            - Unknown: select this if you don't know the peat type<br>
+                            - Humified: select this if your peat does not contain any recognizable plant remains.">
+                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
+                        </a>
+                    </svg>
+                    <label for="peat_type" class="form-label d-inline" style="margin-left: 4px;">Peat type</label> 
                     <p style="color: red;" class="d-inline">*</p>
                 </div>
                 <div class="col-5">
@@ -165,7 +177,10 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Median groundwater level.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                data-bs-content="Summer defined as 1 April - 30 September<br>
+                                    + is water level above the soil<br>
+                                    - is water level beneath the soil">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
                                 </a>
                             </svg>
@@ -179,7 +194,7 @@
                     <div class="row align-items-center">
                         <div class="col-4">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="This is the GESType. Select the best fit vegetation from the dropdown list after changing or confirming the groundwater level value.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
                                 </a>
                             </svg>
@@ -199,7 +214,10 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Median groundwater level.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                data-bs-content="Summer defined as 1 April - 30 September<br>
+                                    + is water level above the soil<br>
+                                    - is water level beneath the soil">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -213,7 +231,7 @@
                     <div class="row align-items-center">
                         <div class="col-4">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Vegetation class.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="This is the GESType. Select the best fit vegetation from the dropdown list after changing or confirming the groundwater level value.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -252,7 +270,7 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Animal manure.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -266,7 +284,7 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Organic fertilizer.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -434,7 +452,7 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Animal manure.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -448,7 +466,7 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Organic fertilizer.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -634,7 +652,20 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Diesel Use.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                data-bs-content=
+                                "Estimate the diesel use of all activities.<br>
+                                If you don't know the diesel use you can calculate this:<br>
+                                Multiply the horse power of the tractor/ machine in kW and multiply that with 0.305 (l/kW). Multiply that with the time required to do the activity. If the activity includes tillage multiply by 1.5.<br>
+                                <br>
+                                Example cultivator:<br>
+                                110kW* 0.305 l/kW*0.75 hours/ha*1.5(correction factor tillage)= 37.7 l/ha<br>
+                                <br>
+                                Example mowing:<br>
+                                80 kW * 0.305 l/kW *0.5 hours/ha = 12.2 l/ha<br>
+                                <br>
+                                Total is the sum of all activities: 49.9 l/ha<br>
+                                Multiply with the site area to determine the total for the site.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -648,7 +679,11 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Electricity Use.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                data-bs-content=
+                                    "Estimate the yearly electricity use of all electric equipment that uses power from the electricity grid, such as water pumping stations.<br>
+                                    <br>
+                                    If the equipment uses power from solar panels, windmills or other renewable sources do not fill this in here. In this case you need to determine the GHG-emission from electricity use separately and add this to the output calculated by the SET.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -666,7 +701,20 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Diesel Use.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                data-bs-content=
+                                "Estimate the diesel use of all activities.<br>
+                                If you don't know the diesel use you can calculate this:<br>
+                                Multiply the horse power of the tractor/ machine in kW and multiply that with 0.305 (l/kW). Multiply that with the time required to do the activity. If the activity includes tillage multiply by 1.5.<br>
+                                <br>
+                                Example cultivator:<br>
+                                110kW* 0.305 l/kW*0.75 hours/ha*1.5(correction factor tillage)= 37.7 l/ha<br>
+                                <br>
+                                Example mowing:<br>
+                                80 kW * 0.305 l/kW *0.5 hours/ha = 12.2 l/ha<br>
+                                <br>
+                                Total is the sum of all activities: 49.9 l/ha<br>
+                                Multiply with the site area to determine the total for the site.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -680,7 +728,11 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Electricity Use.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                data-bs-content=
+                                    "Estimate the yearly electricity use of all electric equipment that uses power from the electricity grid, such as water pumping stations.<br>
+                                    <br>
+                                    If the equipment uses power from solar panels, windmills or other renewable sources do not fill this in here. In this case you need to determine the GHG-emission from electricity use separately and add this to the output calculated by the SET.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
@@ -716,7 +768,10 @@
                     <div class="row align-items-center">
                         <div class="col-4">
                             <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Crop use.">
+                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                data-bs-content=
+                                    "Select the best fitting application of the harvested crop.<br>
+                                    If the crop has a lifetime of at least 10 yrs and it replaces a fossil based product, the carbon in the crop is treated as emission reduction.">
                                     <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                 </a>
                             </svg>
