@@ -51,7 +51,7 @@ map.on('singleclick', function (evt) {
   const hdms = toStringHDMS(toLonLat(coordinate));
 
   // getting the layer source: getting the layer itself
-  const bogLayer=getLayerByName('Bogs');
+  const bogLayer=getLayerByName('Bord_na_Mona');
   const bogSource=bogLayer.getSource();
 
   const view=map.getView();
@@ -62,6 +62,8 @@ map.on('singleclick', function (evt) {
   bogInfo.html('');
   const ipolInfo=$('#ipol-info');
   ipolInfo.html('');
+  const IEInfo=$('#IE-info');
+  IEInfo.html('');
   const noFeatures=$('#no-features');
   noFeatures.html('<p>No features</p>');
 
@@ -90,7 +92,7 @@ map.on('singleclick', function (evt) {
         })
     }
 
-    const ipolLayer=getLayerByName('IrishPolicies');
+    const ipolLayer=getLayerByName('Irish_Policies');
     const ipolSource=ipolLayer.getSource();
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    
@@ -99,6 +101,7 @@ map.on('singleclick', function (evt) {
             url:ipolUrl,
             method:'GET',
             success:function(result){
+              // how to add more than one return feature?
                 const ipol=result.features[0];
                 if(ipol){
                     const ipolPol=ipol.properties.p_name;
@@ -107,6 +110,29 @@ map.on('singleclick', function (evt) {
                     ipolInfo.html(`<h5>Policy Info</h5> 
                         <p>Name: ${ipolPol}</p>
                         <p>County: ${ipolCounty}</p>`);
+                    noFeatures.html('');
+                }
+
+            }
+        })
+    }
+
+    const IELayer=getLayerByName('Irish_Peatlands');
+    const IESource=IELayer.getSource();
+    const IEUrl=IESource.getFeatureInfoUrl(coordinate, resolution, projection,
+        {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    
+    if(IEUrl){
+        $.ajax({
+            url:IEUrl,
+            method:'GET',
+            success:function(result){
+                const IE=result.features[0];
+                console.log(IE);
+                if(IE){
+                    const IEgc=IE.properties.gridcode;
+
+                    IEInfo.html(`<h5>Bog Type</h5> 
+                        <p>Code: ${IEgc}</p>`);
                     noFeatures.html('');
                 }
 

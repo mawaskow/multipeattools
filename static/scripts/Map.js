@@ -28,15 +28,26 @@ const mapProjection=new Projection({
     global:false
 });
 
-const bogSource=new ImageWMS({
+const bnmSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:bnm_reproj", "VERSION":"1.1.1", "FORMAT":"image/png"}
 });
 
-const bogLayer= new ImageLayer({
-    source:bogSource,
+const bnmLayer= new ImageLayer({
+    source:bnmSource,
     // @ts-ignore
-    name:'Bogs'
+    name:'Bord_na_Mona'
+});
+
+const IESource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:dipm", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const IELayer= new ImageLayer({
+    source:IESource,
+    // @ts-ignore
+    name:'Irish_Peatlands'
 });
 
 const ipolSource=new ImageWMS({
@@ -47,7 +58,7 @@ const ipolSource=new ImageWMS({
 const ipolLayer= new ImageLayer({
     source:ipolSource,
     // @ts-ignore
-    name:'IrishPolicies'
+    name:'Irish_Policies'
 });
 
 const osmLayer=new TileLayer({
@@ -67,7 +78,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, bogLayer, ipolLayer],
+    layers:[osmLayer, IELayer, ipolLayer, bnmLayer],
     view:view
 });
 
