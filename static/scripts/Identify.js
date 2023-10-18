@@ -129,10 +129,11 @@ map.on('singleclick', function (evt) {
                 const IE=result.features[0];
                 console.log(IE);
                 if(IE){
-                    const IEgc=IE.properties.gridcode;
+                    //const IEgc=IE.properties.gridcode;
+                    const IEgc=IE.properties.site_type;
 
                     IEInfo.html(`<h5>Bog Type</h5> 
-                        <p>Code: ${IEgc}</p>`);
+                        <p>${IEgc}</p>`);
                     noFeatures.html('');
                 }
 

@@ -1,5 +1,11 @@
+/* 
+This script runs the SET tool. It reads the values in from the form entries,
+filters the GEST options based on groundwater level input, runs the calculation,
+and updates the outputs.
+*/
+
 var DataFrame = dfd.DataFrame;
-// create GEST df in lieu of reading from csv
+// create GEST dataframe for calculations in lieu of reading from csv
 function Make_GEST_df(){
     let data1 = [
         ["G1","Dry to moderately moist grassland","(2~), 2+, 2- ",NaN,NaN,NaN,NaN,"2+","2-",-0.01,24,31.44,16,31.5,8.574245455],
@@ -50,6 +56,7 @@ function Make_GEST_df(){
 let gest = Make_GEST_df();
 
 function Parse_SET_Input(){
+    // reads inputs from form fields
     let inputs = {
         'gen_site_data': 
             {'site_name': document.getElementById("site_name").value,
@@ -109,6 +116,7 @@ function Parse_SET_Input(){
 }
 
 function confirm_set_inputs(inputs){
+    // validity checking
     if(!isNaN(inputs["gen_site_data"]["tot_area"])
         && !isNaN(inputs["base"]["med_gw_level_summer"])
         && !isNaN(inputs["rewet"]["med_gw_level_summer"])
@@ -121,6 +129,8 @@ function confirm_set_inputs(inputs){
 }
 
 function Create_Data_Tab(user_input, gest){
+    // creates the data tab, as seen in the original SET excel file
+
     //Initiate the Data dict
     let data = {'base': {}, 'rewet': {}};
 
@@ -269,6 +279,8 @@ function Create_Data_Tab(user_input, gest){
 }
 
 function Create_crop_Use_Tab(user_input, data){
+    // creates the crop use tab, as seen in the original SET excel file
+    
     //Initialize crop_use dictionary
     let crop_use = {};
 
@@ -289,6 +301,8 @@ function Create_crop_Use_Tab(user_input, data){
 }
 
 function Create_C_Content_Soil_Tab(user_input){
+    // creates the c content soil tab, as seen in the original SET excel file
+
     //Initialize the C Content Soil dictionary
     let c_content = {};
 
@@ -318,6 +332,8 @@ function Create_C_Content_Soil_Tab(user_input){
 }
 
 function Create_Soil_Moisture_Classes_Tab(user_input){
+    // creates the soil moisture classes tab, as seen in the original SET excel file
+
     //Initialize the Soil Moisture Classes dictionary
     let sm_classes = {'base': {}, 'rewet': {}};
 
@@ -375,7 +391,7 @@ function Create_Soil_Moisture_Classes_Tab(user_input){
 
     return sm_classes;
 }
-
+////////////////////////////////////////////////////
 // Functions corresponding to calculations used in the N2O fertilizer tab
 
 //Direct N2O emissions
@@ -551,7 +567,12 @@ function Total_Indirect_N2Oemissions_Base( CO2_site_nitrate_base, CO2_site_NOxid
     return tot_indirect_N2Oemiss_base;
 }
 
+// end auxiliary functions
+/////////////////////////////////////////////////////////
+
 function Create_Outcome_Tab(user_input, data, crop_use, c_content, gest){
+    // creates the outcome tab, as seen in the original SET excel file
+
     //Initialize the Soil Moisture Classes dictionary
     let outcome = {'base': {}, 'rewet': {}, 'creditable_year': {}};
 
@@ -614,6 +635,8 @@ function Create_Outcome_Tab(user_input, data, crop_use, c_content, gest){
 }
 
 function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content, crop_use){
+    // creates the output tab, as seen in the original SET excel file
+
     //Initialise Output dict
     let output = {'site_data': {}, 'base_outcomes': {}, 'rewet_outcomes': {}, 'carbon_savings': {}};
 
@@ -676,6 +699,7 @@ function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content,
 }
 
 function update_set_results(results_dict){ 
+    // update results
     let base_CH4= document.getElementById("base_CH4");
     let base_CO2= document.getElementById("base_CO2");
     let base_c_emission_gwp_subtotal= document.getElementById("base_c_emission_gwp_subtotal");
@@ -695,6 +719,7 @@ function update_set_results(results_dict){
     let rewet_gwp_total= document.getElementById("rewet_gwp_total");
     let ghg_sav_tot_p_yr_p_site= document.getElementById("ghg_sav_tot_p_yr_p_site");
     let ghg_sav_tot_p_yr_p_ha= document.getElementById("ghg_sav_tot_p_yr_p_ha");
+    let ghg_sav_tot_p_yr_p_ha2= document.getElementById("ghg_sav_tot_p_yr_p_ha2");
     let ghg_sav_stock_p_yr_p_site= document.getElementById("ghg_sav_stock_p_yr_p_site");
     let ghg_sav_stock_p_yr_p_ha= document.getElementById("ghg_sav_stock_p_yr_p_ha");
     let ghg_sav_flow_p_yr_p_site= document.getElementById("ghg_sav_flow_p_yr_p_site");
@@ -727,6 +752,7 @@ function update_set_results(results_dict){
     rewet_gwp_total.innerHTML = parseFloat(results_dict["rewet_outcomes"]["gwp_total"]).toFixed(2);
     ghg_sav_tot_p_yr_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_total_per_year_per_site"]).toFixed(2);
     ghg_sav_tot_p_yr_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_total_per_year_per_ha"]).toFixed(2);
+    ghg_sav_tot_p_yr_p_ha2.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_total_per_year_per_ha"]).toFixed(2);
     ghg_sav_stock_p_yr_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_stock_per_year_per_site"]).toFixed(2);
     ghg_sav_stock_p_yr_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_stock_per_year_per_ha"]).toFixed(2);
     ghg_sav_flow_p_yr_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["ghg_savings_flow_per_year_per_site"]).toFixed(2);
@@ -748,10 +774,9 @@ function update_set_results(results_dict){
 }
 
 function set_calculation(){
-    //let gest = Make_GEST_df(); //GEST db global
+    // run set calculation
     let inputs = Parse_SET_Input();
     let proceed= confirm_set_inputs(inputs);
-    //console.log(proceed);
     if(proceed){
         let data_tab = Create_Data_Tab(inputs, gest);
         let crop_use_tab = Create_crop_Use_Tab(inputs, data_tab);
@@ -763,63 +788,9 @@ function set_calculation(){
     }
 }
 
-/*
-// this wasnt used in the output of the set.py so I'm ignoring it for now
-
-function Create_Timeline_tab(user_input, outcome, c_content, gest){
-    //Initialize the Timeline dict
-    let timeline = {}
-    let list_colnames = ['base_emissions', 'base_GESTv2', 'rewet_emissions', 'rewet_GESTv2', 'carbon_savings_flow', 'carbon_savings_stock', 'carbon_savings_product', 'carbon_savings_total', 'base_GESTnr', 'c_sequestration_base', 'c_stock_soil_base', 'stock_savings_creditable', 'rewet_GESTnr', 'c_sequestration_rewet', 'c_credits_' + user_input['gen_site_data']['site_name']]
-    for i in list_colnames:
-        timeline[i] = {}
-        for j in range(int(user_input['gen_site_data']['year_start']), int(user_input['gen_site_data']['year_start'])+50):
-            timeline[i][j] = None
-
-    //Populate dict column by column
-    for i in range(list(timeline['base_emissions'].keys())[0], list(timeline['base_emissions'].keys())[-1]+1):
-        timeline['base_emissions'][i] = outcome.loc['total']['base']
-        timeline['base_GESTv2'][i] = user_input['base']['veg_class']
-        timeline['rewet_emissions'][i] = outcome.loc['total']['rewet']
-        timeline['rewet_GESTv2'][i] = user_input['rewet']['veg_class']
-        timeline['carbon_savings_flow'][i] = parseFloat(outcome.loc['tot_direct_n2o']['base']) + parseFloat(outcome.loc['tot_indirect_n2o']['base']) + parseFloat(outcome.loc['activity']['base']) - parseFloat(outcome.loc['tot_direct_n2o']['rewet']) - parseFloat(outcome.loc['tot_indirect_n2o']['rewet']) - parseFloat(outcome.loc['activity']['rewet'])
-        timeline['carbon_savings_stock'][i] = parseFloat(outcome.loc['veg_ch4_gwp']['base']) + parseFloat(outcome.loc['veg_c02_gwp']['base']) - parseFloat(outcome.loc['veg_ch4_gwp']['rewet']) - parseFloat(outcome.loc['veg_c02_gwp']['rewet'])
-        timeline['carbon_savings_product'][i] = (-1)*parseFloat(outcome.loc['Product ton_co2_per_site']['rewet'])
-        timeline['carbon_savings_total'][i] = sum((timeline['carbon_savings_flow'][i], timeline['carbon_savings_stock'][i], timeline['carbon_savings_product'][i]), 0)
-        timeline['base_GESTnr'][i] = timeline['base_GESTv2'][i].split(':', 1)[0]
-        timeline['rewet_GESTnr'][i] = timeline['rewet_GESTv2'][i].split(':', 1)[0]
-
-        for j in range(2, 44):
-            if timeline['base_GESTnr'][i] == gest.iloc[j]['Name']:
-                timeline['c_sequestration_base'][i] = parseFloat(gest.iloc[j]['Total C-flux (ton C/ha)'])*user_input['gen_site_data']['tot_area']*(-1)
-            if timeline['rewet_GESTnr'][i] == gest.iloc[j]['Name']:
-                timeline['c_sequestration_rewet'][i] = parseFloat(gest.iloc[j]['Total C-flux (ton C/ha)'])*user_input['gen_site_data']['tot_area']*(-1)
-
-        if i == list(timeline['base_emissions'].keys())[0]:
-            timeline['c_stock_soil_base'][i] = (c_content.loc['c_stock_ton_per_ha']['Values']*user_input['gen_site_data']['tot_area']) + timeline['c_sequestration_base'][i]
-        else:
-            timeline['c_stock_soil_base'][i] = timeline['c_stock_soil_base'][i-1] + timeline['c_sequestration_base'][i]
-
-        if timeline['c_stock_soil_base'][i] > 0:
-            timeline['stock_savings_creditable'][i] = 1
-        else:
-            timeline['stock_savings_creditable'][i] = 0
-
-        if timeline['stock_savings_creditable'][i] == 1:
-            timeline['c_credits_' + user_input['gen_site_data']['site_name']][i] = timeline['carbon_savings_total'][i]
-        else:
-            if timeline['c_sequestration_rewet'][i] > 0:
-                timeline['c_credits_' + user_input['gen_site_data']['site_name']][i] = timeline['carbon_savings_flow'][i] + timeline['carbon_savings_product'][i] + (timeline['c_sequestration_rewet'][i]*(44/12))
-            else:
-                timeline['c_credits_' + user_input['gen_site_data']['site_name']][i] = timeline['carbon_savings_flow'][i] + timeline['carbon_savings_product'][i]
-
-    //Save the outcome tab in a pandas database
-    return pd.DataFrame.from_dict(timeline)
-}
-*/
-
-///////////////////////////
-
 function Calc_Soil_Moisture_Classes(gwl){
+    // for filtering the GEST types by groundwaterlevel
+
     //Initialize the Soil Moisture Classes dictionary
     let sm_class_num = "";
 
@@ -841,6 +812,7 @@ function Calc_Soil_Moisture_Classes(gwl){
 }
 
 function bs_set_veg_select(){
+    // for filtering GEST types by groundwaterlevel
     $("#bs_veg_class option").remove();
     let el = document.getElementById("bs_veg_class");
     let gwl = parseFloat(document.getElementById("bs_med_gw_level_summer").value);
@@ -866,6 +838,7 @@ function bs_set_veg_select(){
 }
 
 function rw_set_veg_select(){
+    // for filtering GEST types by groundwaterlevel
     $("#rw_veg_class option").remove();
     let el = document.getElementById("rw_veg_class");
     let gwl = parseFloat(document.getElementById("rw_med_gw_level_summer").value);
