@@ -50,6 +50,50 @@ const IELayer= new ImageLayer({
     name:'Irish_Peatlands'
 });
 
+const PSSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:proj_sites", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const PSLayer= new ImageLayer({
+    source:PSSource,
+    // @ts-ignore
+    name:'Project_Sites'
+});
+
+const D1Source=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:dipm1", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const D1Layer= new ImageLayer({
+    source:D1Source,
+    // @ts-ignore
+    name:'Raised_Bog'
+});
+
+const D2Source=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:dipm2", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const D2Layer= new ImageLayer({
+    source:D2Source,
+    // @ts-ignore
+    name:'LL_Atlantic_Bog'
+});
+
+const D3Source=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:dipm3", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const D3Layer= new ImageLayer({
+    source:D3Source,
+    // @ts-ignore
+    name:'HL_Montane_Bog'
+});
+
 const ipolSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:gi_pol", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -77,7 +121,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, IELayer, ipolLayer, bnmLayer],
+    layers:[osmLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, bnmLayer],
     view:view
 });
 

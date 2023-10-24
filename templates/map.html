@@ -71,7 +71,25 @@
         <div id="ipol-info"></div>
         <div id="IE-info"></div>
         <div id="no-features"></div>
+        <div id="offc-trigger">
+            <br>
+            <button id="offc-btn" class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offc-div" aria-controls="offcanvasScrolling">View More</button>
+        </div>
     </div>
+</div>
+
+<!--offcanvas div-->
+<div id="offc-div" class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" aria-labelledby="offc-lab">
+  <div class="offcanvas-header">
+    <h5 id="offc-lab" class="offcanvas-title">Location Information</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div id="offc-bog-info"></div>
+    <div id="offc-IE-info"></div>
+    <div id="offc-ipol-info"></div>
+    <div id="offc-no-features"></div>
+  </div>
 </div>
 
 <script type="module" src="{{url_for('static', filename='scripts/Map.js')}}" ></script>
@@ -79,4 +97,5 @@
 <script type="module" src="{{url_for('static', filename='scripts/Identify.js')}}" ></script>
 <script type="module" src="{{url_for('static', filename='scripts/Layers.js')}}" ></script>
 <script type="module" src="{{url_for('static', filename='scripts/Search.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Offcanv.js')}}" ></script>
 {% endblock %}

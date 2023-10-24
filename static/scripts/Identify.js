@@ -78,12 +78,11 @@ map.on('singleclick', function (evt) {
                 const bog=result.features[0];
                 if(bog){
                     const bogName=bog.properties.name;
-                    const bogGroup=bog.properties.boggroup;
+                    //const bogGroup=bog.properties.boggroup;
                     const bogArea=bog.properties.area_km2;
 
                     bogInfo.html(`<h5>Bog Info</h5> 
                         <p>Name: ${bogName}</p>
-                        <p>Group: ${bogGroup}</p>
                         <p>Area (sqkm): ${bogArea.toFixed(2)}</p>`);
                     noFeatures.html('');
                     }
@@ -105,11 +104,10 @@ map.on('singleclick', function (evt) {
                 const ipol=result.features[0];
                 if(ipol){
                     const ipolPol=ipol.properties.p_name;
-                    const ipolCounty=ipol.properties.a_name;
+                    //const ipolCounty=ipol.properties.a_name;
 
-                    ipolInfo.html(`<h5>Policy Info</h5> 
-                        <p>Name: ${ipolPol}</p>
-                        <p>County: ${ipolCounty}</p>`);
+                    ipolInfo.html(`<br><h5>Policy Info</h5> 
+                        <p>Name: ${ipolPol}</p>`);
                     noFeatures.html('');
                 }
 
@@ -132,7 +130,7 @@ map.on('singleclick', function (evt) {
                     //const IEgc=IE.properties.gridcode;
                     const IEgc=IE.properties.site_type;
 
-                    IEInfo.html(`<h5>Bog Type</h5> 
+                    IEInfo.html(`<br><h5>Bog Type</h5> 
                         <p>${IEgc}</p>`);
                     noFeatures.html('');
                 }
