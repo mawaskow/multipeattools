@@ -30,7 +30,9 @@ map.on('singleclick', function (evt) {
     // HL Montane Bog
     const D3Info=$('#offc-D3-info');
     D3Info.html('');
-    // counties
+    // policies
+    const ipolHead=$('#offc-ipol-header');
+    ipolHead.html('');
     const ipolInfo=$('#offc-ipol-info');
     ipolInfo.html('');
     // default
@@ -73,20 +75,25 @@ map.on('singleclick', function (evt) {
             url:ipolUrl,
             method:'GET',
             success:function(result){
-            // how to add more than one return feature?
-                const ipol=result.features[0];
-                if(ipol){
-                    const ipolPol=ipol.properties.name;
-                    const lvlPol=ipol.properties.level;
-                    const lnkPol=ipol.properties.link;
-  
-                    ipolInfo.html(`<br><h5>Policy Info</h5> 
-                        <p>Name: ${ipolPol}</p>
-                        <p>Level: ${lvlPol}</p>
-                        <a href=${lnkPol}>Link to Policy</a>`);
-                    noFeatures.html('');
-                }
+                ipolHead.html(`<br><h5>Policy Info</h5>`);
+                for (let i=0; i < result.features.length; i++){
+                    const ipol=result.features[i];
+                    if(ipol){
+                        const ipolPol=ipol.properties.name;
+                        const lvlPol=ipol.properties.level;
+                        const clsPol=ipol.properties.classif;
+                        const lnkPol=ipol.properties.link;
 
+                        var element = 
+                            `<p>Name: ${ipolPol}</p>
+                            <p>Level: ${lvlPol}</p>
+                            <p>Classification: ${clsPol}</p>
+                            <a href=${lnkPol}>Link to Policy</a>
+                            <br>`;
+                        ipolInfo.append(element);
+                        noFeatures.html('');
+                    }
+                }
             }
         })
     }

@@ -115,9 +115,6 @@ map.on('singleclick', function (evt) {
           url:ipolUrl,
           method:'GET',
           success:function(result){
-            console.log(result);
-            console.log(result.features);
-            // how to add more than one return feature?
               const ipol=result.features[0];
               if(ipol){
                   const ipolPol=ipol.properties.name;
