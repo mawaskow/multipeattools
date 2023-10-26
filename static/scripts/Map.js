@@ -96,13 +96,13 @@ const D3Layer= new ImageLayer({
 
 const ipolSource=new ImageWMS({
     url:serverURL,
-    params:{"LAYERS":"multipeat:gi_pol", "VERSION":"1.1.1", "FORMAT":"image/png"}
+    params:{"LAYERS":"multipeat:geo_pol", "VERSION":"1.1.1", "FORMAT":"image/png"}
 });
 
 const ipolLayer= new ImageLayer({
     source:ipolSource,
     // @ts-ignore
-    name:'Irish_Policies'
+    name:'Policies'
 });
 
 const osmLayer=new TileLayer({
