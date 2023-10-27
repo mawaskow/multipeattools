@@ -76,7 +76,7 @@ map.on('singleclick', function (evt) {
             method:'GET',
             success:function(result){
                 ipolHead.html(`<br><h5>Policy Info</h5>`);
-                for (let i=0; i < result.features.length; i++){
+                for (let i=result.features.length; i >= 0; i--){
                     const ipol=result.features[i];
                     if(ipol){
                         const ipolPol=ipol.properties.name;
@@ -89,7 +89,7 @@ map.on('singleclick', function (evt) {
                             <p>Level: ${lvlPol}</p>
                             <p>Classification: ${clsPol}</p>
                             <a href=${lnkPol}>Link to Policy</a>
-                            <br>`;
+                            <br><br>`;
                         ipolInfo.append(element);
                         noFeatures.html('');
                     }
