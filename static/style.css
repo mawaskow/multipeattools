@@ -396,3 +396,38 @@ span.Economy{
     color: #000;
     background-color: #cca7ba;
 }
+
+/* MAP */
+
+.enr-class-pill{
+    color: #000;
+    background-color: #fbe5a2;
+}
+.clm-class-pill{
+    color: #000;
+    background-color: #f3cda2;
+}
+.comm-class-pill{
+    color: #000;
+    background-color: #bcd6ad;
+}
+.econ-class-pill{
+    color: #000;
+    background-color: #cca7ba;
+}
+.env-class-pill{
+    color: #000;
+    background-color: #a7c2c7;
+}
+.bio-class-pill{
+    color: #000;
+    background-color: #df9d9c;
+}
+.land-class-pill{
+    color: #000;
+    background-color: #aac3f0;
+}
+.res-class-pill{
+    color: #000;
+    background-color: #b1a8d4;
+}

@@ -71,6 +71,8 @@ map.on('singleclick', function (evt) {
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    
     if(ipolUrl){
+        var polList = [];
+        // gets features
         $.ajax({
             url:ipolUrl,
             method:'GET',
@@ -79,23 +81,42 @@ map.on('singleclick', function (evt) {
                 for (let i=result.features.length; i >= 0; i--){
                     const ipol=result.features[i];
                     if(ipol){
-                        const ipolPol=ipol.properties.name;
-                        const lvlPol=ipol.properties.level;
-                        const clsPol=ipol.properties.classif;
-                        const lnkPol=ipol.properties.link;
-
-                        var element = 
-                            `<p>Name: ${ipolPol}</p>
-                            <p>Level: ${lvlPol}</p>
-                            <p>Classification: ${clsPol}</p>
-                            <a href=${lnkPol}>Link to Policy</a>
-                            <br><br>`;
-                        ipolInfo.append(element);
-                        noFeatures.html('');
+                        var polDct = 
+                            {'name':ipol.properties.name, 
+                            'level':ipol.properties.level, 
+                            'class':ipol.properties.classif, 
+                            'link':ipol.properties.link};
+                        polList.push(polDct);
                     }
                 }
             }
         })
+        //console.log(polList)
+        // formats features
+        for (let i=0; i <=polList.length; i++){
+            console.log(polList);
+            console.log(polList.features);
+            if(polList[i]['level']=='County'){
+                var element = 
+                    `<p>Name: ${polList[i]['name']}</p>
+                    <p>Level: ${polList[i]['level']}</p>
+                    <p>Classification: ${polList[i]['class']}</p>
+                    <a href=${polList[i]['link']}>Link to Policy</a>
+                    <br><br>`;
+                ipolInfo.append(element);
+                noFeatures.html('');
+            }
+        }
+    /*
+    var element = 
+        `<p>Name: ${ipolPol}</p>
+        <p>Level: ${lvlPol}</p>
+        <p>Classification: ${clsPol}</p>
+        <a href=${lnkPol}>Link to Policy</a>
+        <br><br>`;
+    ipolInfo.append(element);
+    noFeatures.html('');
+    */
     }
   
     const PSLayer=getLayerByName('Project_Sites');
