@@ -8,6 +8,17 @@ const map=$('#map').data('map');
 const container = document.getElementById('offc-div');
 const content = document.getElementById('offcanvas-body');
 
+const pillDct = 
+    {'Economy': `econ-class-pill`,
+    'Land Use': `land-class-pill`,
+    'Environmental Quality':`env-class-pill`,
+    'Community and Culture':`comm-class-pill`,
+    'Climate Action':`clm-class-pill`,
+    'Energy':`enr-class-pill`,
+    'Biodiversity':`bio-class-pill`,
+    'Research and Applied Sciences':`res-class-pill`
+    };
+
 map.on('singleclick', function (evt) {
     const coordinate = evt.coordinate;
   
@@ -33,8 +44,18 @@ map.on('singleclick', function (evt) {
     // policies
     const ipolHead=$('#offc-ipol-header');
     ipolHead.html('');
-    const ipolInfo=$('#offc-ipol-info');
-    ipolInfo.html('');
+    ////////////////
+    const locPolInfo=$('#local-pol');
+    locPolInfo.html('');
+    const regPolInfo=$('#reg-pol');
+    regPolInfo.html('');
+    const natPolInfo=$('#nat-pol');
+    natPolInfo.html('');
+    const euPolInfo=$('#eu-pol');
+    euPolInfo.html('');
+    const globPolInfo=$('#glob-pol');
+    globPolInfo.html('');
+    ///////////////
     // default
     const noFeatures=$('#offc-no-features');
     noFeatures.html('<p>No features</p>');
@@ -83,8 +104,8 @@ map.on('singleclick', function (evt) {
                     const ipol=result.features[i];
                     if(ipol){
                         polList.push(
-                            {"name":ipol.properties.name, 
-                            "level":ipol.properties.level, 
+                            {'name':ipol.properties.name, 
+                            'level':ipol.properties.level, 
                             'class':ipol.properties.classif, 
                             'link':ipol.properties.link}
                         );
@@ -96,51 +117,27 @@ map.on('singleclick', function (evt) {
         // does by level first 
         // [someday we can make this more efficient but for this presentation...]
         for (let i=0; i < polList.length; i++){
-            if(polList[i]["level"]=="County"){
-                var element = 
-                    `<p>Name: ${polList[i]['name']}</p>
-                    <p>Level: ${polList[i]['level']}</p>
-                    <p>Classification: ${polList[i]['class']}</p>
-                    <a href=${polList[i]['link']}>Link to Policy</a>
-                    <br><br>`;
-                ipolInfo.append(element);
-                noFeatures.html('');
+            var element = 
+                `<p>Name: ${polList[i]['name']}</p>
+                <p>Level: ${polList[i]['level']}</p>
+                <p style="display: inline">Classification:</p>
+                <p style="display: inline" class="badge rounded-pill ${pillDct[polList[i]['class']]}">${polList[i]['class']}</p>
+                <br>
+                <a href=${polList[i]['link']}>Link to Policy</a>
+                <br><br>`;
+            if(polList[i]['level']=="County"){
+                locPolInfo.append(element);
+            }else if(polList[i]["level"]=="Regional"){
+                regPolInfo.append(element);
+            }else if(polList[i]["level"]=="National"){
+                natPolInfo.append(element);
+            }else if(polList[i]["level"]=="European"){
+                euPolInfo.append(element);
+            }else if(polList[i]["level"]=="Global"){
+                globPolInfo.append(element);
             }
+            noFeatures.html('');
         }
-        for (let i=0; i < polList.length; i++){
-            if(polList[i]['level']=='Regional'){
-                var element = 
-                    `<p>Name: ${polList[i]['name']}</p>
-                    <p>Level: ${polList[i]['level']}</p>
-                    <p>Classification: ${polList[i]['class']}</p>
-                    <a href=${polList[i]['link']}>Link to Policy</a>
-                    <br><br>`;
-                ipolInfo.append(element);
-                noFeatures.html('');
-            }
-        }
-        for (let i=0; i < polList.length; i++){
-            if(polList[i]['level']=='National'){
-                var element = 
-                    `<p>Name: ${polList[i]['name']}</p>
-                    <p>Level: ${polList[i]['level']}</p>
-                    <p>Classification: ${polList[i]['class']}</p>
-                    <a href=${polList[i]['link']}>Link to Policy</a>
-                    <br><br>`;
-                ipolInfo.append(element);
-                noFeatures.html('');
-            }
-        }
-    /*
-    var element = 
-        `<p>Name: ${ipolPol}</p>
-        <p>Level: ${lvlPol}</p>
-        <p>Classification: ${clsPol}</p>
-        <a href=${lnkPol}>Link to Policy</a>
-        <br><br>`;
-    ipolInfo.append(element);
-    noFeatures.html('');
-    */
     }
   
     const PSLayer=getLayerByName('Project_Sites');

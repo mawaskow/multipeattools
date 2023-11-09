@@ -57,7 +57,7 @@ map.on('singleclick', function (evt) {
   // bnm
   const bogInfo=$('#bog-info');
   bogInfo.html('');
-  // counties
+  // policies
   const ipolInfo=$('#ipol-info');
   ipolInfo.html('');
   // dipm
