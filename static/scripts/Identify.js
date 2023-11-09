@@ -115,7 +115,7 @@ map.on('singleclick', function (evt) {
           url:ipolUrl,
           method:'GET',
           success:function(result){
-              const ipol=result.features[0];
+              const ipol=result.features[result.features.length-1];
               if(ipol){
                   const ipolPol=ipol.properties.name;
                   const lvlPol=ipol.properties.level;

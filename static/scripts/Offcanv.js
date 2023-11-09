@@ -71,32 +71,56 @@ map.on('singleclick', function (evt) {
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    
     if(ipolUrl){
-        var polList = [];
+        var polList= [];
         // gets features
         $.ajax({
             url:ipolUrl,
             method:'GET',
+            async:false,
             success:function(result){
                 ipolHead.html(`<br><h5>Policy Info</h5>`);
-                for (let i=result.features.length; i >= 0; i--){
+                for (let i=0; i < result.features.length; i++){
                     const ipol=result.features[i];
                     if(ipol){
-                        var polDct = 
-                            {'name':ipol.properties.name, 
-                            'level':ipol.properties.level, 
+                        polList.push(
+                            {"name":ipol.properties.name, 
+                            "level":ipol.properties.level, 
                             'class':ipol.properties.classif, 
-                            'link':ipol.properties.link};
-                        polList.push(polDct);
+                            'link':ipol.properties.link}
+                        );
                     }
                 }
             }
         })
-        //console.log(polList)
         // formats features
-        for (let i=0; i <=polList.length; i++){
-            console.log(polList);
-            console.log(polList.features);
-            if(polList[i]['level']=='County'){
+        // does by level first 
+        // [someday we can make this more efficient but for this presentation...]
+        for (let i=0; i < polList.length; i++){
+            if(polList[i]["level"]=="County"){
+                var element = 
+                    `<p>Name: ${polList[i]['name']}</p>
+                    <p>Level: ${polList[i]['level']}</p>
+                    <p>Classification: ${polList[i]['class']}</p>
+                    <a href=${polList[i]['link']}>Link to Policy</a>
+                    <br><br>`;
+                ipolInfo.append(element);
+                noFeatures.html('');
+            }
+        }
+        for (let i=0; i < polList.length; i++){
+            if(polList[i]['level']=='Regional'){
+                var element = 
+                    `<p>Name: ${polList[i]['name']}</p>
+                    <p>Level: ${polList[i]['level']}</p>
+                    <p>Classification: ${polList[i]['class']}</p>
+                    <a href=${polList[i]['link']}>Link to Policy</a>
+                    <br><br>`;
+                ipolInfo.append(element);
+                noFeatures.html('');
+            }
+        }
+        for (let i=0; i < polList.length; i++){
+            if(polList[i]['level']=='National'){
                 var element = 
                     `<p>Name: ${polList[i]['name']}</p>
                     <p>Level: ${polList[i]['level']}</p>
