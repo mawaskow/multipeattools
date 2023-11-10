@@ -57,12 +57,6 @@ map.on('singleclick', function (evt) {
   // bnm
   const bogInfo=$('#bog-info');
   bogInfo.html('');
-  // policies
-  const ipolInfo=$('#ipol-info');
-  ipolInfo.html('');
-  // dipm
-  const IEInfo=$('#IE-info');
-  IEInfo.html('');
   // project sites
   const PSInfo=$('#PS-info');
   PSInfo.html('');
@@ -105,33 +99,6 @@ map.on('singleclick', function (evt) {
             }
         })
     }
-
-  const ipolLayer=getLayerByName('Policies');
-  const ipolSource=ipolLayer.getSource();
-  const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
-      {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    
-  if(ipolUrl){
-      $.ajax({
-          url:ipolUrl,
-          method:'GET',
-          success:function(result){
-              const ipol=result.features[result.features.length-1];
-              if(ipol){
-                  const ipolPol=ipol.properties.name;
-                  const lvlPol=ipol.properties.level;
-                  const lnkPol=ipol.properties.link;
-                  //const ipolCounty=ipol.properties.a_name;
-
-                  ipolInfo.html(`<br><h5>Policy Info</h5> 
-                      <p>Name: ${ipolPol}</p>
-                      <p>Level: ${lvlPol}</p>
-                      <a href=${lnkPol}>Link to Policy</a>`);
-                  noFeatures.html('');
-              }
-
-          }
-      })
-  }
 
   const PSLayer=getLayerByName('Project_Sites');
   const PSSource=PSLayer.getSource();

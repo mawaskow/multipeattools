@@ -123,7 +123,7 @@ map.on('singleclick', function (evt) {
                 <p style="display: inline">Classification:</p>
                 <p style="display: inline" class="badge rounded-pill ${pillDct[polList[i]['class']]}">${polList[i]['class']}</p>
                 <br>
-                <a href=${polList[i]['link']}>Link to Policy</a>
+                <a href=${polList[i]['link']} target="_blank" rel="noopener noreferrer">Link to Policy</a>
                 <br><br>`;
             if(polList[i]['level']=="County"){
                 locPolInfo.append(element);
