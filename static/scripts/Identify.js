@@ -115,7 +115,7 @@ map.on('singleclick', function (evt) {
                     const Sname=PS.properties.site_name;
                     const Pname=PS.properties.proj_name;
 
-                    PSInfo.html(`<br><h5>Project Info</h5> 
+                    PSInfo.html(`<h5>Project Info</h5> 
                         <p>Site Name: ${Sname}</p>
                         <p>Project Name: ${Pname}</p>`);
                     noFeatures.html('');
@@ -139,8 +139,7 @@ map.on('singleclick', function (evt) {
                 if(D1){
                     const D1gc=D1.properties.site_type;
 
-                    D1Info.html(`<br><h5>Bog Type</h5> 
-                      <p>${D1gc}</p>`);
+                    D1Info.html(`<p>Site Type: ${D1gc}</p>`);
                     noFeatures.html('');
                     }
 
@@ -162,8 +161,7 @@ map.on('singleclick', function (evt) {
                 if(D2){
                     const D2gc=D2.properties.site_type;
 
-                    D2Info.html(`<br><h5>Bog Type</h5> 
-                      <p>${D2gc}</p>`);
+                    D2Info.html(`<p>Site Type: ${D2gc}</p>`);
                     noFeatures.html('');
                     }
 
@@ -185,8 +183,7 @@ map.on('singleclick', function (evt) {
                 if(D3){
                     const D3gc=D3.properties.site_type;
 
-                    D3Info.html(`<br><h5>Bog Type</h5> 
-                      <p>${D3gc}</p>`);
+                    D3Info.html(`<p>Site Type: ${D3gc}</p>`);
                     noFeatures.html('');
                     }
 
