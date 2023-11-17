@@ -414,3 +414,50 @@ function ffp_calculation(){
     update_results(results_dict)
     update_complete_results(results_dict)
 }
+
+// Export assumptions and results to CSV
+$("#ffp_csv_btn").on('click', function(event){
+    let rows = [
+        ["Results"],
+        ["Credits Generated", document.getElementById("r_cred_gen").innerHTML],
+        ["Cost per Credit", document.getElementById("r_cost_p_cred").innerHTML],
+        ["Net Present Value", parseFloat(document.getElementById("r_net_pres_val").innerHTML.replace(/,/g, ''))],
+        ["Gross Present Value", parseFloat(document.getElementById("r_gro_pres_val").innerHTML.replace(/,/g, ''))],
+        ["CARG", document.getElementById("r_carg").innerHTML],
+        ["Profit per Credit", document.getElementById("r_prof_p_cred").innerHTML],
+        ["Profit per Hectare per Year", document.getElementById("r_prof_p_hect_p_yr").innerHTML],
+        ["Rate of Return", document.getElementById("r_rate_return").innerHTML],
+        ["Profitable", document.getElementById("r_prof").innerHTML],
+        ["Arguments"],
+        ["Number of Years", document.getElementById("num_yrs").value],
+        ["Credits per Hectare per Year", document.getElementById("cred_p_hect_p_yr").value],
+        ["Hectares for Restoration", document.getElementById("hect_restored").value],
+        ["Investment Amount", document.getElementById("invest_amt").value],
+        ["Start Year", document.getElementById("start_yr").value],
+        ["Price per Credit", document.getElementById("price_p_cred").value],
+        ["Investment Costs Included", document.getElementById("invest_costs_inc").checked],
+        ["Registration Costs Included", document.getElementById("reg_costs_inc").checked],
+        ["Assumptions"],
+        ["Nominal Interest Rate", document.getElementById("nom_int_rt").value],
+        ["Inflation Rate", document.getElementById("inflation_rt").value],
+        ["Registry Account Opening Fee", document.getElementById("reg_acct_open_fee").value],
+        ["Registry Listing Cost per Credit", document.getElementById("reg_listing_cost_p_credit").value],
+        ["Registry Conversion Cost Fee per Inspection", document.getElementById("reg_conv_cost_fee_p_inspect").value],
+        ["Registry Conversion Cost per Credit above Minimum Threshold of Credits", document.getElementById("reg_conv_cost_p_cred_abv_min_thresh_of_credits").value],
+        ["Registration Levy Cost per Credit", document.getElementById("reg_levy_cost_p_cred").value],
+        ["Validation and Verification Application Cost per Inspection", document.getElementById("valid_and_verif_app_cost_p_inspect").value],
+        ["Validation and Verification Statement Cost per Inspection", document.getElementById("valid_and_verif_stmnt_cost_p_inspect").value],
+        ["Validation and Verification Inspector Travel Cost per Inspection", document.getElementById("valid_and_verif_inspctr_travel_cost_p_inspect").value],
+        ["Inspection Cycle Length", document.getElementById("inspect_cycle_len").value],
+        ["Minimum Threshold of Credits", document.getElementById("min_thresh_of_credits").value],
+        ["Interest Rate", document.getElementById("interest_rt").value],
+        ["Payments per Year", document.getElementById("payments_p_yr").value]
+    ];
+    let csvContent = "data:text/csv;charset=utf-8,";
+    rows.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+});

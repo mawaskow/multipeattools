@@ -862,3 +862,89 @@ function rw_set_veg_select(){
         }
     }
 }
+
+// Export assumptions and results to CSV
+
+$("#set_csv_btn").on('click', function(event){
+    let rows = [
+        ["Results"],
+        ["Base CH4", document.getElementById("base_CH4").innerHTML],
+        ["Base CO2", document.getElementById("base_CO2").innerHTML],
+        ["Base Carbon Emission GWP Subtotal", document.getElementById("base_c_emission_gwp_subtotal").innerHTML],
+        ["Base N2O Direct", document.getElementById("base_n2o_direct").innerHTML],
+        ["Base N2O Indirect", document.getElementById("base_n2o_indirect").innerHTML],
+        ["Base N2O Emission GWP Subtotal", document.getElementById("base_n2o_emission_gwp_subtotal").innerHTML],
+        ["Base Activity GWP Subtotal", document.getElementById("base_activity_gwp_subtotal").innerHTML],
+        ["Base GWP Total", document.getElementById("base_gwp_total").innerHTML],
+        ["Rewet CH4", document.getElementById("rewet_CH4").innerHTML],
+        ["Rewet CO2", document.getElementById("rewet_CO2").innerHTML],
+        ["Rewet Carbon Emission GWP Subtotal", document.getElementById("rewet_c_emission_gwp_subtotal").innerHTML],
+        ["Rewet N2O Direct", document.getElementById("rewet_n2o_direct").innerHTML],
+        ["Rewet N2O Indirect", document.getElementById("rewet_n2o_indirect").innerHTML],
+        ["Rewet N2O Emission GWP Subtotal", document.getElementById("rewet_n2o_emission_gwp_subtotal").innerHTML],
+        ["Rewet Activity GWP Subtotal", document.getElementById("rewet_activity_gwp_subtotal").innerHTML],
+        ["Rewet Product GWP Subtotal", document.getElementById("rewet_product_gwp_subtotal").innerHTML],
+        ["Rewet GWP Total", document.getElementById("rewet_gwp_total").innerHTML],
+        ["GHG Savings Total per Year per Site", document.getElementById("ghg_sav_tot_p_yr_p_site").innerHTML],
+        ["GHG Savings Total per Year per Ha", document.getElementById("ghg_sav_tot_p_yr_p_ha").innerHTML],
+        ["GHG Savings Stock per Year per Site", document.getElementById("ghg_sav_stock_p_yr_p_site").innerHTML],
+        ["GHG Savings Stock per Year per Ha", document.getElementById("ghg_sav_stock_p_yr_p_ha").innerHTML],
+        ["GHG Savings Flow per Year per Site", document.getElementById("ghg_sav_flow_p_yr_p_site").innerHTML],
+        ["GHG Savings Flow per Year per Ha", document.getElementById("ghg_sav_flow_p_yr_p_ha").innerHTML],
+        ["GHG Savings Product Use per Year per Site", document.getElementById("ghg_sav_pu_p_yr_p_site").innerHTML],
+        ["GHG Savings Product Use per Year per Ha", document.getElementById("ghg_sav_pu_p_yr_p_ha").innerHTML],
+        ["Carbon Stock TCO2 per Site", document.getElementById("cs_tco2_p_site").innerHTML],
+        ["Carbon Stock Ton C per Site", document.getElementById("cs_ton_c_p_site").innerHTML],
+        ["Carbon Stock TCO2 per Ha", document.getElementById("cs_tco2_p_ha").innerHTML],
+        ["Carbon Stock Ton C per Ha", document.getElementById("cs_ton_c_p_ha").innerHTML],
+        ["Base Years til Peat Lost", document.getElementById("base_til_peat_loss").innerHTML],
+        ["Rewet Years til Peat Lost", document.getElementById("rewet_til_peat_loss").innerHTML],
+        ["Inputs"],
+        ["General Site Data"],
+        ["Site Name", document.getElementById("site_name").value],
+        ["Total Area", document.getElementById("tot_area").value],
+        ["Coordinates", document.getElementById("coords").value],
+        ["Elevation", document.getElementById("elevation").value],
+        ["Peat Type", document.getElementById("peat_type").value],
+        ["Peat Thickness", document.getElementById("peat_thick").value],
+        ["Year Rewetting Starts", document.getElementById("year_start").value],
+        ["Base"],
+        ["Median Groundwater Level", document.getElementById("bs_med_gw_level_summer").value],
+        ["Vegetation Class", document.getElementById("bs_veg_class").value],
+        ["Amount Manure", document.getElementById("bs_amount_manure").value],
+        ["Amount Organic Fertilizer", document.getElementById("bs_amount_org_fert").value],
+        ["Type Synthetic Fertilizer", document.getElementById("bs_type_synth_fert").value],
+        ["Amount Synthetic Fertilizer", document.getElementById("bs_amount_synth_fert").value],
+        ["Type of Grazing Animals", document.getElementById("bs_type_animals").value],
+        ["Number of Grazing Animals", document.getElementById("bs_avg_num_animals").value],
+        ["Average Number of Grazing Days", document.getElementById("bs_avg_num_days").value],
+        ["Crop Yield", document.getElementById("bs_crop_yield").value],
+        ["Include Crop Residuals", document.getElementById("bs_crop_resid").checked],
+        ["Crop Name", document.getElementById("bs_crop_name").value],
+        ["Diesel per Site", document.getElementById("bs_diesel_per_site").value],
+        ["Electricity per Site", document.getElementById("bs_elec_per_site").value],
+        ["Rewet"],
+        ["Median Groundwater Level", document.getElementById("rw_med_gw_level_summer").value],
+        ["Vegetation Class", document.getElementById("rw_veg_class").value],
+        ["Amount Manure", document.getElementById("rw_amount_manure").value],
+        ["Amount Organic Fertilizer", document.getElementById("rw_amount_org_fert").value],
+        ["Type Synthetic Fertilizer", document.getElementById("rw_type_synth_fert").value],
+        ["Amount Synthetic Fertilizer", document.getElementById("rw_amount_synth_fert").value],
+        ["Type of Grazing Animals", document.getElementById("rw_type_animals").value],
+        ["Average Number of Grazing Animals", document.getElementById("rw_avg_num_animals").value],
+        ["Average Number of Grazing Days", document.getElementById("rw_avg_num_days").value],
+        ["Crop Yield", document.getElementById("rw_crop_yield").value],
+        ["Include Crop Residuals", document.getElementById("rw_crop_resid").checked],
+        ["Crop Name", document.getElementById("rw_crop_name").value],
+        ["Diesel per Site", document.getElementById("rw_diesel_per_site").value],
+        ["Electricity per Site", document.getElementById("rw_elec_per_site").value],
+        ["Crop Use", document.getElementById("rw_crop_use").value]
+    ];
+    let csvContent = "data:text/csv;charset=utf-8,";
+    rows.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+});
