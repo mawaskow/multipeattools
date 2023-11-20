@@ -948,3 +948,139 @@ $("#set_csv_btn").on('click', function(event){
     var encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
 });
+
+function chart_gwp_baseline(output_tab){
+    const ctx = document.getElementById('graph_baseline');
+    let CH4 = parseFloat(output_tab['base_outcomes']['CH4']);
+    let CO2 = parseFloat(output_tab['base_outcomes']['CO2']);
+    let N2O_dir = parseFloat(output_tab['base_outcomes']['n2o_direct']);
+    let N2O_ind = parseFloat(output_tab['base_outcomes']['n2o_indirect']);
+    let activity = parseFloat(output_tab['base_outcomes']['activity_gwp_subtotal']);
+
+    const labels = ["Base Outcomes GWP"];
+    const data = {
+    labels: labels,
+    datasets: [
+        {
+        label: 'CH4',
+        data: [CH4],
+        backgroundColor: '#11833E',
+        },
+        {
+        label: 'CO2',
+        data: [CO2],
+        backgroundColor: "#80CE77",
+        },
+        {
+        label: 'N2O Direct',
+        data: [N2O_dir],
+        backgroundColor: "#B39A3F",
+        },
+        {
+        label: 'N2O Indirect',
+        data: [N2O_ind],
+        backgroundColor: "#E4D08B",
+        },
+        {
+        label: 'Activity',
+        data: [activity],
+        backgroundColor: "#B9B9B8",
+        }
+      ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'GWP Results'
+            },
+          },
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true
+            }
+          }
+        }
+      };
+
+    new Chart(ctx, config);
+}
+
+function chart_gwp_rewet(output_tab){
+    const ctx = document.getElementById('graph_rewet');
+    let CH4 = parseFloat(output_tab['rewet_outcomes']['CH4']);
+    let CO2 = parseFloat(output_tab['rewet_outcomes']['CO2']);
+    let N2O_dir = parseFloat(output_tab['rewet_outcomes']['n2o_direct']);
+    let N2O_ind = parseFloat(output_tab['rewet_outcomes']['n2o_indirect']);
+    let product = parseFloat(output_tab['rewet_outcomes']['product_gwp_subtotal']);
+    let activity = parseFloat(output_tab['rewet_outcomes']['activity_gwp_subtotal']);
+
+    const labels = ["Rewetting Outcomes GWP"];
+    const data = {
+    labels: labels,
+    datasets: [
+        {
+        label: 'CH4',
+        data: [CH4],
+        backgroundColor: '#11833E',
+        },
+        {
+        label: 'CO2',
+        data: [CO2],
+        backgroundColor: "#80CE77",
+        },
+        {
+        label: 'N2O Direct',
+        data: [N2O_dir],
+        backgroundColor: "#B39A3F",
+        },
+        {
+        label: 'N2O Indirect',
+        data: [N2O_ind],
+        backgroundColor: "#E4D08B",
+        },
+        {
+        label: 'Products',
+        data: [product],
+        backgroundColor: "#4EECEF",
+        },
+        {
+        label: 'Activity',
+        data: [activity],
+        backgroundColor: "#B9B9B8",
+        }
+      ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'GWP Results'
+            },
+          },
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true
+            }
+          }
+        }
+      };
+
+    new Chart(ctx, config);
+}

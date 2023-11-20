@@ -1310,10 +1310,153 @@
     </div>
 </div>
 
+<!--charts-->
+<div>
+    <canvas id="graph_baseline"></canvas>
+    <canvas id="graph_rewet"></canvas>
+</div>
+
 <!--popover script-->
 <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
+
+<!--chart script-->
+<script>
+    // gwp baseline
+    const base_ctx = document.getElementById('graph_baseline');
+    let base_CH4 = parseFloat(document.getElementById("base_CH4").innerHTML);
+    let base_CO2 = parseFloat(document.getElementById("base_CO2").innerHTML);
+    let base_N2O_dir = parseFloat(document.getElementById("base_n2o_direct").innerHTML);
+    let base_N2O_ind = parseFloat(document.getElementById("base_n2o_indirect").innerHTML);
+    let base_activity = parseFloat(document.getElementById("base_activity_gwp_subtotal").innerHTML);
+
+    const base_labels = ["Base Outcomes GWP"];
+    const base_data = {
+    labels: base_labels,
+    datasets: [
+        {
+        label: 'CH4',
+        data: [base_CH4],
+        backgroundColor: '#11833E',
+        },
+        {
+        label: 'CO2',
+        data: [base_CO2],
+        backgroundColor: "#80CE77",
+        },
+        {
+        label: 'N2O Direct',
+        data: [base_N2O_dir],
+        backgroundColor: "#B39A3F",
+        },
+        {
+        label: 'N2O Indirect',
+        data: [base_N2O_ind],
+        backgroundColor: "#E4D08B",
+        },
+        {
+        label: 'Activity',
+        data: [base_activity],
+        backgroundColor: "#B9B9B8",
+        }
+      ]
+    };
+
+    const base_config = {
+        type: 'bar',
+        data: base_data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'GWP Results'
+            },
+          },
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true
+            }
+          }
+        }
+      };
+
+    new Chart(base_ctx, base_config);
+// rewet chart
+    const rewet_ctx = document.getElementById('graph_rewet');
+    let rewet_CH4 = parseFloat(document.getElementById("rewet_CH4").innerHTML);
+    let rewet_CO2 = parseFloat(document.getElementById("rewet_CO2").innerHTML);
+    let rewet_N2O_dir = parseFloat(document.getElementById("rewet_n2o_direct").innerHTML);
+    let rewet_N2O_ind = parseFloat(document.getElementById("rewet_n2o_indirect").innerHTML);
+    let rewet_product = parseFloat(document.getElementById("rewet_product_gwp_subtotal").innerHTML);
+    let rewet_activity = parseFloat(document.getElementById("rewet_activity_gwp_subtotal").innerHTML);
+
+    const rewet_labels = ["Rewetting Outcomes GWP"];
+    const rewet_data = {
+    labels: rewet_labels,
+    datasets: [
+        {
+        label: 'CH4',
+        data: [rewet_CH4],
+        backgroundColor: '#11833E',
+        },
+        {
+        label: 'CO2',
+        data: [rewet_CO2],
+        backgroundColor: "#80CE77",
+        },
+        {
+        label: 'N2O Direct',
+        data: [rewet_N2O_dir],
+        backgroundColor: "#B39A3F",
+        },
+        {
+        label: 'N2O Indirect',
+        data: [rewet_N2O_ind],
+        backgroundColor: "#E4D08B",
+        },
+        {
+        label: 'Products',
+        data: [rewet_product],
+        backgroundColor: "#4EECEF",
+        },
+        {
+        label: 'Activity',
+        data: [rewet_activity],
+        backgroundColor: "#B9B9B8",
+        }
+      ]
+    };
+
+    const rewet_config = {
+        type: 'bar',
+        data: rewet_data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'GWP Results'
+            },
+          },
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true
+            }
+          }
+        }
+      };
+
+    new Chart(rewet_ctx, rewet_config);
+
 </script>
 
 {% endblock %}
