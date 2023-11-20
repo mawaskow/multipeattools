@@ -244,7 +244,7 @@ footer{
     |_______|   |________|      |__|
 */
 
-.set-input-div, .set-results-div, .set-base-div, .set-rewet-div{   
+.set-input-div, .set-results-div, .set-base-div, .set-rewet-div, .set-graphs-div{   
     border-radius: 20px;
 }
 
@@ -277,6 +277,12 @@ footer{
     background-color: #cbdfe9;
     padding: 20px 45px 20px 20px;
     max-width: 600px;
+}
+
+.set-graphs-div{
+    background-color: whitesmoke;
+    padding: 20px 20px 20px 20px;
+    max-width: 800px;
 }
 
 .form-select{

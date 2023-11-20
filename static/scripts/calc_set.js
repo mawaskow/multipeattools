@@ -56,118 +56,62 @@ function Make_GEST_df(){
 let gest = Make_GEST_df();
 
 ////////////////////////////////////////////////
-// gwp baseline
-const base_ctx = document.getElementById('graph_baseline');
+const ctx = document.getElementById('gwp_graph');
 let base_CH4 = parseFloat(document.getElementById("base_CH4").innerHTML);
 let base_CO2 = parseFloat(document.getElementById("base_CO2").innerHTML);
 let base_N2O_dir = parseFloat(document.getElementById("base_n2o_direct").innerHTML);
 let base_N2O_ind = parseFloat(document.getElementById("base_n2o_indirect").innerHTML);
 let base_activity = parseFloat(document.getElementById("base_activity_gwp_subtotal").innerHTML);
-const base_labels = ["Base Outcomes GWP"];
-const base_data = {
-labels: base_labels,
-datasets: [
-    {
-    label: 'CH4',
-    data: [base_CH4],
-    backgroundColor: '#11833E',
-    },
-    {
-    label: 'CO2',
-    data: [base_CO2],
-    backgroundColor: "#80CE77",
-    },
-    {
-    label: 'N2O Direct',
-    data: [base_N2O_dir],
-    backgroundColor: "#B39A3F",
-    },
-    {
-    label: 'N2O Indirect',
-    data: [base_N2O_ind],
-    backgroundColor: "#E4D08B",
-    },
-    {
-    label: 'Activity',
-    data: [base_activity],
-    backgroundColor: "#B9B9B8",
-    }
-    ]
-};
-const base_config = {
-    type: 'bar',
-    data: base_data,
-    options: {
-        plugins: {
-        title: {
-            display: true,
-            text: 'GWP Results'
-        },
-        },
-        responsive: true,
-        scales: {
-        x: {
-            stacked: true,
-        },
-        y: {
-            stacked: true
-        }
-        }
-    }
-    };
-let base_chart = new Chart(base_ctx, base_config);
-// rewet chart
-const rewet_ctx = document.getElementById('graph_rewet');
 let rewet_CH4 = parseFloat(document.getElementById("rewet_CH4").innerHTML);
 let rewet_CO2 = parseFloat(document.getElementById("rewet_CO2").innerHTML);
 let rewet_N2O_dir = parseFloat(document.getElementById("rewet_n2o_direct").innerHTML);
 let rewet_N2O_ind = parseFloat(document.getElementById("rewet_n2o_indirect").innerHTML);
 let rewet_product = parseFloat(document.getElementById("rewet_product_gwp_subtotal").innerHTML);
 let rewet_activity = parseFloat(document.getElementById("rewet_activity_gwp_subtotal").innerHTML);
-const rewet_labels = ["Rewetting Outcomes GWP"];
-const rewet_data = {
-labels: rewet_labels,
+const labels = ["Base Scenario", "After Rewetting"];
+const data = {
+labels: labels,
 datasets: [
     {
     label: 'CH4',
-    data: [rewet_CH4],
+    data: [base_CH4, rewet_CH4],
     backgroundColor: '#11833E',
     },
     {
     label: 'CO2',
-    data: [rewet_CO2],
+    data: [base_CO2, rewet_CO2],
     backgroundColor: "#80CE77",
     },
     {
     label: 'N2O Direct',
-    data: [rewet_N2O_dir],
+    data: [base_N2O_dir, rewet_N2O_dir],
     backgroundColor: "#B39A3F",
     },
     {
     label: 'N2O Indirect',
-    data: [rewet_N2O_ind],
+    data: [base_N2O_ind, rewet_N2O_ind],
     backgroundColor: "#E4D08B",
     },
     {
     label: 'Products',
-    data: [rewet_product],
+    data: [0, rewet_product],
     backgroundColor: "#4EECEF",
     },
     {
     label: 'Activity',
-    data: [rewet_activity],
+    data: [base_activity, rewet_activity],
     backgroundColor: "#B9B9B8",
     }
     ]
 };
-const rewet_config = {
+const config = {
     type: 'bar',
-    data: rewet_data,
+    data: data,
     options: {
         plugins: {
         title: {
             display: true,
-            text: 'GWP Results'
+            text: 'GWP Outcomes'
         },
         },
         responsive: true,
@@ -176,12 +120,17 @@ const rewet_config = {
             stacked: true,
         },
         y: {
-            stacked: true
+            stacked: true,
+            title: {
+                display: true,
+                text: '(CO2-eq/year)'
+            }
         }
         }
     }
     };
-let rewet_chart = new Chart(rewet_ctx, rewet_config);
+let gwp_chart = new Chart(ctx, config);
+
 ////////////////////////////////////////////////
 
 function Parse_SET_Input(){
@@ -914,11 +863,7 @@ function set_calculation(){
         let outcome_tab = Create_Outcome_Tab(inputs, data_tab, crop_use_tab, c_content_tab, gest);
         let output_tab = Create_Output_tab(inputs, smc_tab, data_tab, outcome_tab, c_content_tab, crop_use_tab);
         update_set_results(output_tab);
-        // this let inside the if statment might be an issue
-        // but how else to pass the chart object for updates??
-        // if this doesnt work, initialize as "empty chart" then change?
-        base_chart = update_base_chart(base_chart, output_tab);
-        rewet_chart = update_rewet_chart(rewet_chart, output_tab);
+        gwp_chart = update_gwp_chart(gwp_chart, output_tab);
     }
 }
 
@@ -1083,174 +1028,30 @@ $("#set_csv_btn").on('click', function(event){
     window.open(encodedUri);
 });
 
-/*
-function chart_gwp_baseline(output_tab){
-    const ctx = document.getElementById('graph_baseline');
-    let CH4 = parseFloat(output_tab['base_outcomes']['CH4']);
-    let CO2 = parseFloat(output_tab['base_outcomes']['CO2']);
-    let N2O_dir = parseFloat(output_tab['base_outcomes']['n2o_direct']);
-    let N2O_ind = parseFloat(output_tab['base_outcomes']['n2o_indirect']);
-    let activity = parseFloat(output_tab['base_outcomes']['activity_gwp_subtotal']);
-
-    const labels = ["Base Outcomes GWP"];
-    const data = {
-    labels: labels,
-    datasets: [
-        {
-        label: 'CH4',
-        data: [CH4],
-        backgroundColor: '#11833E',
-        },
-        {
-        label: 'CO2',
-        data: [CO2],
-        backgroundColor: "#80CE77",
-        },
-        {
-        label: 'N2O Direct',
-        data: [N2O_dir],
-        backgroundColor: "#B39A3F",
-        },
-        {
-        label: 'N2O Indirect',
-        data: [N2O_ind],
-        backgroundColor: "#E4D08B",
-        },
-        {
-        label: 'Activity',
-        data: [activity],
-        backgroundColor: "#B9B9B8",
-        }
-      ]
-    };
-
-    const config = {
-        type: 'bar',
-        data: data,
-        options: {
-          plugins: {
-            title: {
-              display: true,
-              text: 'GWP Results'
-            },
-          },
-          responsive: true,
-          scales: {
-            x: {
-              stacked: true,
-            },
-            y: {
-              stacked: true
-            }
-          }
-        }
-      };
-
-    let base_chart = new Chart(ctx, config);
-    return base_chart;
-}
-
-function chart_gwp_rewet(output_tab){
-    const ctx = document.getElementById('graph_rewet');
-    let CH4 = parseFloat(output_tab['rewet_outcomes']['CH4']);
-    let CO2 = parseFloat(output_tab['rewet_outcomes']['CO2']);
-    let N2O_dir = parseFloat(output_tab['rewet_outcomes']['n2o_direct']);
-    let N2O_ind = parseFloat(output_tab['rewet_outcomes']['n2o_indirect']);
-    let product = parseFloat(output_tab['rewet_outcomes']['product_gwp_subtotal']);
-    let activity = parseFloat(output_tab['rewet_outcomes']['activity_gwp_subtotal']);
-
-    const labels = ["Rewetting Outcomes GWP"];
-    const data = {
-    labels: labels,
-    datasets: [
-        {
-        label: 'CH4',
-        data: [CH4],
-        backgroundColor: '#11833E',
-        },
-        {
-        label: 'CO2',
-        data: [CO2],
-        backgroundColor: "#80CE77",
-        },
-        {
-        label: 'N2O Direct',
-        data: [N2O_dir],
-        backgroundColor: "#B39A3F",
-        },
-        {
-        label: 'N2O Indirect',
-        data: [N2O_ind],
-        backgroundColor: "#E4D08B",
-        },
-        {
-        label: 'Products',
-        data: [product],
-        backgroundColor: "#4EECEF",
-        },
-        {
-        label: 'Activity',
-        data: [activity],
-        backgroundColor: "#B9B9B8",
-        }
-      ]
-    };
-
-    const config = {
-        type: 'bar',
-        data: data,
-        options: {
-          plugins: {
-            title: {
-              display: true,
-              text: 'GWP Results'
-            },
-          },
-          responsive: true,
-          scales: {
-            x: {
-              stacked: true,
-            },
-            y: {
-              stacked: true
-            }
-          }
-        }
-      };
-
-    let rewet_chart = new Chart(ctx, config);
-    return rewet_chart;
-}
-*/
-
-function update_base_chart(base_chart, output_tab){
-    let CH4 = parseFloat(output_tab['base_outcomes']['CH4']);
-    let CO2 = parseFloat(output_tab['base_outcomes']['CO2']);
-    let N2O_dir = parseFloat(output_tab['base_outcomes']['n2o_direct']);
-    let N2O_ind = parseFloat(output_tab['base_outcomes']['n2o_indirect']);
-    let activity = parseFloat(output_tab['base_outcomes']['activity_gwp_subtotal']);
-    base_chart.data.datasets[0].data[0] = CH4;
-    base_chart.data.datasets[1].data[0] = CO2;
-    base_chart.data.datasets[2].data[0] = N2O_dir;
-    base_chart.data.datasets[3].data[0] = N2O_ind;
-    base_chart.data.datasets[4].data[0] = activity;
-    base_chart.update();
-    return base_chart;
-}
-
-function update_rewet_chart(rewet_chart, output_tab){
-    let CH4 = parseFloat(output_tab['rewet_outcomes']['CH4']);
-    let CO2 = parseFloat(output_tab['rewet_outcomes']['CO2']);
-    let N2O_dir = parseFloat(output_tab['rewet_outcomes']['n2o_direct']);
-    let N2O_ind = parseFloat(output_tab['rewet_outcomes']['n2o_indirect']);
-    let product = parseFloat(output_tab['rewet_outcomes']['product_gwp_subtotal']);
-    let activity = parseFloat(output_tab['rewet_outcomes']['activity_gwp_subtotal']);
-    rewet_chart.data.datasets[0].data[0] = CH4;
-    rewet_chart.data.datasets[1].data[0] = CO2;
-    rewet_chart.data.datasets[2].data[0] = N2O_dir;
-    rewet_chart.data.datasets[3].data[0] = N2O_ind;
-    rewet_chart.data.datasets[4].data[0] = product;
-    rewet_chart.data.datasets[5].data[0] = activity;
-    rewet_chart.update();
-    return rewet_chart;
+function update_gwp_chart(gwp_chart, output_tab){
+    let base_CH4 = parseFloat(output_tab['base_outcomes']['CH4']);
+    let base_CO2 = parseFloat(output_tab['base_outcomes']['CO2']);
+    let base_N2O_dir = parseFloat(output_tab['base_outcomes']['n2o_direct']);
+    let base_N2O_ind = parseFloat(output_tab['base_outcomes']['n2o_indirect']);
+    let base_activity = parseFloat(output_tab['base_outcomes']['activity_gwp_subtotal']);
+    let rewet_CH4 = parseFloat(output_tab['rewet_outcomes']['CH4']);
+    let rewet_CO2 = parseFloat(output_tab['rewet_outcomes']['CO2']);
+    let rewet_N2O_dir = parseFloat(output_tab['rewet_outcomes']['n2o_direct']);
+    let rewet_N2O_ind = parseFloat(output_tab['rewet_outcomes']['n2o_indirect']);
+    let rewet_product = parseFloat(output_tab['rewet_outcomes']['product_gwp_subtotal']);
+    let rewet_activity = parseFloat(output_tab['rewet_outcomes']['activity_gwp_subtotal']);
+    gwp_chart.data.datasets[0].data[0] = base_CH4;
+    gwp_chart.data.datasets[1].data[0] = base_CO2;
+    gwp_chart.data.datasets[2].data[0] = base_N2O_dir;
+    gwp_chart.data.datasets[3].data[0] = base_N2O_ind;
+    // skip gwp_chart.data.datasets[4].data[0] because base product stays 0
+    gwp_chart.data.datasets[5].data[0] = base_activity;
+    gwp_chart.data.datasets[0].data[1] = rewet_CH4;
+    gwp_chart.data.datasets[1].data[1] = rewet_CO2;
+    gwp_chart.data.datasets[2].data[1] = rewet_N2O_dir;
+    gwp_chart.data.datasets[3].data[1] = rewet_N2O_ind;
+    gwp_chart.data.datasets[4].data[1] = rewet_product;
+    gwp_chart.data.datasets[5].data[1] = rewet_activity;
+    gwp_chart.update();
+    return gwp_chart;
 }
