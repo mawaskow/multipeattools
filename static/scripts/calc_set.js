@@ -53,7 +53,46 @@ function Make_GEST_df(){
     return df;
 }
 
+////////////////////////////////////////////////
+//// CREATE GEST DF ////////////////////////////
+////////////////////////////////////////////////
 let gest = Make_GEST_df();
+
+////////////////////////////////////////////////
+//// POPULATE GEST DROPDOWNS //////////////////////////
+////////////////////////////////////////////////
+$("#bs_veg_class option").remove();
+let bs_el = document.getElementById("bs_veg_class");
+let bs_gwl = parseFloat(document.getElementById("bs_med_gw_level_summer").value);
+let bs_veg_num = Calc_Soil_Moisture_Classes(bs_gwl);
+let vg_class_dct = {
+    "6+": "smcd_6",
+    "5+": "smcd_5",
+    "4+": "smcd_4",
+    "3+": "smcd_3",
+    "2+": "smcd_2",
+    "2-": "smcd_l2"
+};
+for(let i =0; i< gest.index.length; i++){
+    if(gest.at(i, vg_class_dct[bs_veg_num]) == bs_veg_num){
+        let bs_opt = document.createElement('option');
+        bs_opt.value = gest.at(i,'Name');
+        bs_opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
+        bs_el.appendChild(bs_opt);
+    }
+}
+$("#rw_veg_class option").remove();
+let rw_el = document.getElementById("rw_veg_class");
+let rw_gwl = parseFloat(document.getElementById("rw_med_gw_level_summer").value);
+let rw_veg_num = Calc_Soil_Moisture_Classes(rw_gwl);
+for(let i =0; i< gest.index.length; i++){
+    if(gest.at(i, vg_class_dct[rw_veg_num]) == rw_veg_num){
+        let rw_opt = document.createElement('option');
+        rw_opt.value = gest.at(i,'Name');
+        rw_opt.innerHTML = gest.at(i,'Name') + ": " + gest.at(i,'GEST');
+        rw_el.appendChild(rw_opt);
+    }
+}
 
 ////////////////////////////////////////////////
 //// CREATE GWP GRAPH //////////////////////////
@@ -940,7 +979,7 @@ function set_calculation(){
         update_set_results(output_tab);
         gwp_chart = update_gwp_chart(gwp_chart, output_tab);
         let timeline = Create_Timeline_tab(inputs, outcome_tab, c_content_tab, gest);
-        time_chart = make_timeline_chart(timeline);
+        //time_chart = make_timeline_chart(timeline);
     }
 }
 
