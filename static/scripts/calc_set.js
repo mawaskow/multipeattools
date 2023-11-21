@@ -712,6 +712,70 @@ function Create_Outcome_Tab(user_input, data, crop_use, c_content, gest){
     return outcome;
 }
 
+////////////////
+function Create_Timeline_tab(inputs, outcome, c_content, gest){
+    /*
+    Parameters: user input file address, outcome df, c content df, and gest csv
+    Returns: timeline df
+    Purpose: Create Timeline tab using information from the user input json, 
+    GEST 2.0 csv, and the outcome and C content soil tabs.
+    */
+    //Open the json file and convert to dict
+    //Initialize the Timeline dict
+    let timeline = {};
+    let list_colnames = ['base_emissions', 'base_GESTv2', 'rewet_emissions', 'rewet_GESTv2', 'carbon_savings_flow', 'carbon_savings_stock', 'carbon_savings_product', 'carbon_savings_total', 'base_GESTnr', 'c_sequestration_base', 'c_stock_soil_base', 'stock_savings_creditable', 'rewet_GESTnr', 'c_sequestration_rewet', 'c_credits_' + inputs['gen_site_data']['site_name']];
+    for(let i=0; i < list_colnames.length; i++){
+        timeline[list_colnames[i]] = {};
+        for(let j=parseInt(inputs.gen_site_data.year_start); j < parseInt(inputs.gen_site_data.year_start)+50; j++){
+            timeline[list_colnames[i]][j] = null;
+        }
+    }
+    //Populate dict column by column
+    for(let i = parseInt(inputs.gen_site_data.year_start); i<parseInt(inputs.gen_site_data.year_start)+50; i++){
+        timeline['base_emissions'][i] = outcome['base']['total'];
+        timeline['base_GESTv2'][i] = inputs['base']['veg_class'];
+        timeline['rewet_emissions'][i] = outcome['rewet']['total'];
+        timeline['rewet_GESTv2'][i] = inputs['rewet']['veg_class'];
+        timeline['carbon_savings_flow'][i] = parseFloat(outcome['base']['tot_direct_n2o']) + parseFloat(outcome['base']['tot_indirect_n2o']) + parseFloat(outcome['base']['activity']) - parseFloat(outcome['rewet']['tot_direct_n2o']) - parseFloat(outcome['rewet']['tot_indirect_n2o']) - parseFloat(outcome['rewet']['activity']);
+        timeline['carbon_savings_stock'][i] = parseFloat(outcome['base']['veg_ch4_gwp']) + parseFloat(outcome['base']['veg_c02_gwp']) - parseFloat(outcome['rewet']['veg_ch4_gwp']) - parseFloat(outcome['rewet']['veg_c02_gwp']);
+        timeline['carbon_savings_product'][i] = (-1)*parseFloat(outcome['rewet']['Product ton_co2_per_site']);
+        timeline['carbon_savings_total'][i] = [timeline['carbon_savings_flow'][i], timeline['carbon_savings_stock'][i], timeline['carbon_savings_product'][i]].reduce((a, b) => a + b, 0);
+        timeline['base_GESTnr'][i] = timeline['base_GESTv2'][i];
+        timeline['rewet_GESTnr'][i] = timeline['rewet_GESTv2'][i];
+
+        for(let j=0; j<gest.index.length; j++){
+            if(timeline['base_GESTnr'][i] == gest.at(j,'Name')){
+                timeline['c_sequestration_base'][i] = parseFloat(gest.at(j,'Total C-flux (ton C/ha)'))*inputs['gen_site_data']['tot_area']*(-1);
+            }
+            if(timeline['rewet_GESTnr'][i] == gest.at(j,'Name')){
+                timeline['c_sequestration_rewet'][i] = parseFloat(gest.at(j,'Total C-flux (ton C/ha)'))*inputs['gen_site_data']['tot_area']*(-1);
+            }
+        }
+        if(i == parseInt(inputs.gen_site_data.year_start)){
+            timeline['c_stock_soil_base'][i] = (c_content['c_stock_ton_per_ha']*inputs['gen_site_data']['tot_area']) + timeline['c_sequestration_base'][i];
+        }else{
+            timeline['c_stock_soil_base'][i] = timeline['c_stock_soil_base'][i-1] + timeline['c_sequestration_base'][i];
+        }
+        if(timeline['c_stock_soil_base'][i] > 0){
+            timeline['stock_savings_creditable'][i] = 1;
+        }else{
+            timeline['stock_savings_creditable'][i] = 0;
+        }
+        if(timeline['stock_savings_creditable'][i] == 1){
+            timeline['c_credits_' + inputs['gen_site_data']['site_name']][i] = timeline['carbon_savings_total'][i];
+        }else{
+            if(timeline['c_sequestration_rewet'][i] > 0){
+                timeline['c_credits_' + inputs['gen_site_data']['site_name']][i] = timeline['carbon_savings_flow'][i] + timeline['carbon_savings_product'][i] + (timeline['c_sequestration_rewet'][i]*(44/12));
+            }else{
+                timeline['c_credits_' + inputs['gen_site_data']['site_name']][i] = timeline['carbon_savings_flow'][i] + timeline['carbon_savings_product'][i];
+            }
+        }
+    }
+    //Save the outcome tab in a pandas database
+    return timeline;
+}
+////////////////////////////
+
 function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content, crop_use){
     // creates the output tab, as seen in the original SET excel file
 
@@ -864,6 +928,8 @@ function set_calculation(){
         let output_tab = Create_Output_tab(inputs, smc_tab, data_tab, outcome_tab, c_content_tab, crop_use_tab);
         update_set_results(output_tab);
         gwp_chart = update_gwp_chart(gwp_chart, output_tab);
+        let timeline = Create_Timeline_tab(inputs, outcome_tab, c_content_tab, gest);
+        
     }
 }
 
