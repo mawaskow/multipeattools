@@ -56,6 +56,8 @@ function Make_GEST_df(){
 let gest = Make_GEST_df();
 
 ////////////////////////////////////////////////
+//// CREATE GWP GRAPH //////////////////////////
+////////////////////////////////////////////////
 const ctx = document.getElementById('gwp_graph');
 let base_CH4 = parseFloat(document.getElementById("base_CH4").innerHTML);
 let base_CO2 = parseFloat(document.getElementById("base_CO2").innerHTML);
@@ -130,8 +132,17 @@ const config = {
     }
     };
 let gwp_chart = new Chart(ctx, config);
-
 ////////////////////////////////////////////////
+
+///////////////////////////////////////////////
+////////// CREATE TIMELINE GRAPH //////////////
+///////////////////////////////////////////////
+// title : Emissions Scenario
+// y-axis: GHG emission (t CO2-eq /yr)
+// x axis: years
+// Datasets: Baseline, Rewetting, carbon savings total, ccredits sitename
+
+///////////////////////////////////////////////
 
 function Parse_SET_Input(){
     // reads inputs from form fields
@@ -929,7 +940,7 @@ function set_calculation(){
         update_set_results(output_tab);
         gwp_chart = update_gwp_chart(gwp_chart, output_tab);
         let timeline = Create_Timeline_tab(inputs, outcome_tab, c_content_tab, gest);
-        
+        time_chart = make_timeline_chart(timeline);
     }
 }
 
@@ -1120,4 +1131,80 @@ function update_gwp_chart(gwp_chart, output_tab){
     gwp_chart.data.datasets[5].data[1] = rewet_activity;
     gwp_chart.update();
     return gwp_chart;
+}
+
+function make_timeline_chart(timeline){
+    const tml = document.getElementById('timeline_graph');
+    let year_start = parseFloat(document.getElementById("year_start").value);
+    let site_name = document.getElementById("site_name").value;
+    let labels = [];
+    for(let i= year_start; i < year_start+50; i++){
+        labels.push(i);
+    }
+    let base_emis = [];
+    let rewet_emis = [];
+    let carbon_sav = [];
+    let c_cred = [];
+    for(let i= year_start; i < year_start+50; i++){
+        base_emis.push(timeline['base_emissions'][i]);
+        rewet_emis.push(timeline['rewet_emissions'][i]);
+        carbon_sav.push(timeline['carbon_savings_total'][i]);
+        c_cred.push(timeline['c_credits_' + site_name][i]);
+    }
+    let tml_data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Base Emissions',
+                data: base_emis,
+                fill: false,
+                borderColor: '#177521'
+            },
+            {
+                label: 'Rewetted Emissions',
+                data: rewet_emis,
+                fill: false,
+                borderColor: '#6abdd4'
+            },
+            {
+                label: 'Carbon Savings Total',
+                data: carbon_sav,
+                fill: false,
+                borderColor: '#87d676'
+            },
+            {
+                label: 'Carbon Credits for '+ site_name,
+                data: c_cred,
+                fill: false,
+                borderColor: '#d4b87b'
+            }
+        ]
+    }
+    let tml_config = {
+        type: 'line',
+        data: tml_data,
+        options: {
+            plugins: {
+            title: {
+                display: true,
+                text: 'Emission Scenario'
+            },
+            },
+            responsive: true,
+            scales: {
+            x: {
+                stacked: true,
+            },
+            y: {
+                stacked: true,
+                title: {
+                    display: true,
+                    text: 'GHG Emission (t CO2-eq/year)'
+                }
+            }
+            }
+        }
+    };
+    let time_graph = new Chart(tml, tml_config);
+    return time_graph;
 }
