@@ -1,25 +1,26 @@
-/* 
-This script runs the SET tool. It reads the values in from the form entries,
+/* This script runs the SET tool. It reads the values in from the form entries,
 filters the GEST options based on groundwater level input, runs the calculation,
-and updates the outputs.
+and updates the outputs (text and chart), as well as creates csvs for download. */
+/*ON PAGE LOAD:
+    gest df created
+    default values extracted from page
+    gest dropdown populated
+    gwp graph creation
+    timeline graph creation
+  ON FORM CLICK/CHANGE:
+    new values extracted from page
+    set_tool_calc()
+    graph updates
 */
 
-/*
-ON PAGE LOAD:
-gest df created
-default values extracted from page
-gest dropdown populated
-gwp graph creation
-timeline graph creation
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// ON PAGE LOAD ////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-ON FORM CLICK/CHANGE:
-new values extracted from page
-set_tool_calc()
-graph updates
-*/
-
+////////////////////////////////////////////////////////////////////////
+// create GEST dataframe for calculations in lieu of reading from csv //
+////////////////////////////////////////////////////////////////////////
 var DataFrame = dfd.DataFrame;
-// create GEST dataframe for calculations in lieu of reading from csv
 function Make_GEST_df(){
     let data1 = [
         ["G1","Dry to moderately moist grassland","(2~), 2+, 2- ",NaN,NaN,NaN,NaN,"2+","2-",-0.01,24,31.44,16,31.5,8.574245455],
@@ -185,28 +186,19 @@ const config = {
     }
     };
 let gwp_chart = new Chart(ctx, config);
-////////////////////////////////////////////////
 
 ///////////////////////////////////////////////
 ////////// CREATE TIMELINE GRAPH //////////////
 ///////////////////////////////////////////////
-// title : Emissions Scenario
-// y-axis: GHG emission (t CO2-eq /yr)
-// x axis: years
-// Datasets: Baseline, Rewetting, carbon savings total, ccredits sitename
-
 let tl_startdate = parseInt(document.getElementById("year_start").value);
 let tl_sitename = document.getElementById("site_name").value;
 let tl_area = parseFloat(document.getElementById("tot_area").value);
 let tl_bs_vc = document.getElementById("bs_veg_class").value;
 let tl_rw_vc = document.getElementById("rw_veg_class").value;
-
 let tl_base_CH4= parseFloat(document.getElementById("base_CH4").innerHTML);
 let tl_base_CO2= parseFloat(document.getElementById("base_CO2").innerHTML);
-
 let tl_rewet_CH4= parseFloat(document.getElementById("rewet_CH4").innerHTML);
 let tl_rewet_CO2= parseFloat(document.getElementById("rewet_CO2").innerHTML);
-
 let tl_base_gwp = parseFloat(document.getElementById("base_gwp_total").innerHTML);
 let tl_rewet_gwp = parseFloat(document.getElementById("rewet_gwp_total").innerHTML);
 let tl_cs_ton_c_p_ha= parseFloat(document.getElementById("cs_ton_c_p_ha").innerHTML);
@@ -217,7 +209,6 @@ let tl_rewet_n2o_direct= parseFloat(document.getElementById("rewet_n2o_direct").
 let tl_rewet_n2o_indirect= parseFloat(document.getElementById("rewet_n2o_indirect").innerHTML);
 let tl_rewet_activity= parseFloat(document.getElementById("rewet_activity_gwp_subtotal").innerHTML);
 let tl_rewet_product= parseFloat(document.getElementById("rewet_product_gwp_subtotal").innerHTML);
-
 let tl_init = {};
 let tl_colnames = ['base_emissions', 'base_GESTv2', 'rewet_emissions', 'rewet_GESTv2', 'carbon_savings_flow', 'carbon_savings_stock', 'carbon_savings_product', 'carbon_savings_total', 'base_GESTnr', 'c_sequestration_base', 'c_stock_soil_base', 'stock_savings_creditable', 'rewet_GESTnr', 'c_sequestration_rewet', 'c_credits_' + tl_sitename];
 for(let i=0; i < tl_colnames.length; i++){
@@ -238,7 +229,6 @@ for(let i = tl_startdate; i<tl_startdate+50; i++){
     tl_init['carbon_savings_total'][i] = [tl_init['carbon_savings_flow'][i], tl_init['carbon_savings_stock'][i], tl_init['carbon_savings_product'][i]].reduce((a, b) => a + b, 0);
     tl_init['base_GESTnr'][i] = tl_init['base_GESTv2'][i];
     tl_init['rewet_GESTnr'][i] = tl_init['rewet_GESTv2'][i];
-
     for(let j=0; j<gest.index.length; j++){
         if(tl_init['base_GESTnr'][i] == gest.at(j,'Name')){
             tl_init['c_sequestration_base'][i] = parseFloat(gest.at(j,'Total C-flux (ton C/ha)'))*tl_area*(-1);
@@ -267,7 +257,6 @@ for(let i = tl_startdate; i<tl_startdate+50; i++){
         }
     }
 }
-console.log(tl_init); //////returning NaNs
 /////////////// NOW FOR CHART TIME ////////////
 const tml = document.getElementById('timeline_graph');
 let tl_year_start = parseFloat(document.getElementById("year_start").value);
@@ -342,7 +331,9 @@ let tml_config = {
 };
 let time_graph = new Chart(tml, tml_config);
 
-///////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// ON FORM ENTRY/UPDATE ////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function Parse_SET_Input(){
     // reads inputs from form fields
@@ -390,17 +381,14 @@ function Parse_SET_Input(){
             'crop_use': document.getElementById("rw_crop_use").value
         }
         };
-    
     if(inputs["base"]["veg_class"] == ""){
         bs_set_veg_select();
         inputs["base"]["veg_class"] = document.getElementById("bs_veg_class").value;
     }
-
     if(inputs["rewet"]["veg_class"] == ""){
         rw_set_veg_select();
         inputs["rewet"]["veg_class"] = document.getElementById("rw_veg_class").value;
     }
-
     return inputs;
 }
 
@@ -419,19 +407,15 @@ function confirm_set_inputs(inputs){
 
 function Create_Data_Tab(user_input, gest){
     // creates the data tab, as seen in the original SET excel file
-
     //Initiate the Data dict
     let data = {'base': {}, 'rewet': {}};
-
     //Start populating the data dict with simple data
     data['base']['veg_class'] = user_input['base']['veg_class'];
     data['base']['type_animals'] = user_input['base']['type_animals'];
     data['base']['type_synth_fert'] = user_input['base']['type_synth_fert'];
-
     data['rewet']['veg_class'] = user_input['rewet']['veg_class'];
     data['rewet']['type_animals'] = user_input['rewet']['type_animals'];
     data['rewet']['type_synth_fert'] = user_input['rewet']['type_synth_fert'];
-
     //Calculate the Animal Emission Factor and Nitrogen Excretion per head per year
     if(data['base']['type_animals'] == 'No Animals'){
         data['base']['animal_ef'] = 0;
@@ -452,7 +436,6 @@ function Create_Data_Tab(user_input, gest){
         data['base']['animal_ef'] = 0.02;
         data['base']['n_excretion'] = 76.5;
     }
-
     if(data['rewet']['type_animals'] == data['base']['type_animals']){
         data['rewet']['animal_ef'] = data['base']['animal_ef'];
         data['rewet']['n_excretion'] = data['base']['n_excretion'];
@@ -460,7 +443,6 @@ function Create_Data_Tab(user_input, gest){
         data['rewet']['animal_ef'] = 0;
         data['rewet']['n_excretion'] = 0;
     }
-
     //Calculate Synthetic Fertilizer emission factor
     if(data['base']['type_synth_fert'] == 'Nitrate Based'){
         data['base']['fert_ef'] = 0.02;
@@ -478,20 +460,17 @@ function Create_Data_Tab(user_input, gest){
         //////////// IS THIS TRUE
         data['rewet']['fert_ef'] = 0;
     }
-
     //Find Crop Residues number
     if(user_input['base']['crop_resid']){
         data['base']['crop_resid'] = 1;
     }else{
         data['base']['crop_resid'] = 2;
     }
-
     if(user_input['rewet']['crop_resid']){
         data['rewet']['crop_resid'] = 1;
     }else{
         data['rewet']['crop_resid'] = 2;
     }
-
     //Find Number of crop Name
     if(user_input['base']['crop_name'] == 'Cattail (Typha Sp.)'){
         data['base']['crop_name'] = 1;
@@ -508,7 +487,6 @@ function Create_Data_Tab(user_input, gest){
     }else{
         data['base']['crop_name'] = 0;
     }
-
     if(user_input['rewet']['crop_name'] == 'Cattail (Typha Sp.)'){
         data['rewet']['crop_name'] = 1;
     }else if(user_input['rewet']['crop_name'] == 'Reed (Phragmites Australis)'){
@@ -524,7 +502,6 @@ function Create_Data_Tab(user_input, gest){
     }else{
         data['rewet']['crop_name'] = 0;
     }
-
     //Find Product Use Number
     if(user_input['rewet']['crop_use'] == 'Building Materials e.g insulation, taching, timber'){
         data['rewet']['crop_use'] = 1;
@@ -547,11 +524,9 @@ function Create_Data_Tab(user_input, gest){
     }else{
         data['rewet']['crop_use'] = 0;
     }
-
     //Perform Vegetation Class emission calculations
     let veg_num_base = data['base']['veg_class'];
     let veg_num_rewet = data['rewet']['veg_class'];
-    
     for(let i =0; i< gest.index.length; i++){
         if(veg_num_base == gest.at(i,'Name')){
             data['base']['veg_ch4_gwp'] = gest.at(i,'CH4_GWP');
@@ -569,13 +544,10 @@ function Create_Data_Tab(user_input, gest){
 
 function Create_crop_Use_Tab(user_input, data){
     // creates the crop use tab, as seen in the original SET excel file
-    
     //Initialize crop_use dictionary
     let crop_use = {};
-
     //Populate the crop_use dictionary
     crop_use['crop_yield'] = user_input['rewet']['crop_yield'];
-
     if(data['rewet']['crop_use'] == 2 || data['rewet']['crop_use'] == 3 || data['rewet']['crop_use'] == 4 || data['rewet']['crop_use'] == 9){
         crop_use['product_weight'] = 0;
     }else{
@@ -585,19 +557,15 @@ function Create_crop_Use_Tab(user_input, data){
     crop_use['ton_co2'] = crop_use['carbon_weight']*(44/12);
     crop_use['ton_co2_per_ha'] = crop_use['ton_co2']*(-1);
     crop_use['ton_co2_per_site'] = crop_use['ton_co2_per_ha']*user_input['gen_site_data']['tot_area'];
-
     return crop_use;
 }
 
 function Create_C_Content_Soil_Tab(user_input){
     // creates the c content soil tab, as seen in the original SET excel file
-
     //Initialize the C Content Soil dictionary
     let c_content = {};
-
     //Populate C Content dictionary
     c_content['peat_type'] = user_input['gen_site_data']['peat_type'];
-
     if(c_content['peat_type'] == 'Sphagnum'){
         c_content['c_content_per_cm_thick'] = 0.3496;
     }else if(c_content['peat_type'] == 'Herbaceous'){
@@ -616,16 +584,13 @@ function Create_C_Content_Soil_Tab(user_input){
     c_content['peat_thick'] = user_input['gen_site_data']['peat_thick'];
     c_content['c_stock_ton_per_ha'] = c_content['peat_thick']*c_content['c_content_per_cm_thick']*10;
     c_content['c_stock_tco2_per_ha'] = c_content['c_stock_ton_per_ha']*(44/12);
-
     return c_content;
 }
 
 function Create_Soil_Moisture_Classes_Tab(user_input){
     // creates the soil moisture classes tab, as seen in the original SET excel file
-
     //Initialize the Soil Moisture Classes dictionary
     let sm_classes = {'base': {}, 'rewet': {}};
-
     //Populate dictionary
     if(user_input['base']['med_gw_level_summer'] >= 0 && user_input['base']['med_gw_level_summer'] <= 140){
         sm_classes['base']['summer_moist_class_num'] = '6+';
@@ -677,14 +642,13 @@ function Create_Soil_Moisture_Classes_Tab(user_input){
         sm_classes['rewet']['summer_moist_class_name'] = 'Moderate dry';
         sm_classes['rewet']['summer_moist_class'] = '2- (Moderate dry)';
     }
-
     return sm_classes;
 }
+
 ////////////////////////////////////////////////////
 // Functions corresponding to calculations used in the N2O fertilizer tab
-
+////////////////////////////////////////////////////
 //Direct N2O emissions
-
 function Manure_CO2Site_Base(manure_applied_base, tot_area){
     let EF=0.02;
     let N2O_CO2eq=265;
@@ -692,7 +656,6 @@ function Manure_CO2Site_Base(manure_applied_base, tot_area){
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_manure_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_manure_base;
 }
 
@@ -703,7 +666,6 @@ function Organic_Fert_CO2Site_Base(organic_applied_base,tot_area){
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_organic_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_organic_base;
 }
 
@@ -714,11 +676,8 @@ function Grazing_CO2Site_Base(avg_n_animals_base, avg_days_base, n_excretion_val
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_grazing_base=N2O_site*N2O_CO2eq;
-
     return [CO2_site_grazing_base, N_amount_base];
 }
-
-//////////////////// returning 2 objects
 
 function Synth_CO2Site_Base(fert_applied_base, EF_fert_b, tot_area){
     let N2O_CO2eq=265;
@@ -726,7 +685,6 @@ function Synth_CO2Site_Base(fert_applied_base, EF_fert_b, tot_area){
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_synth_fert_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_synth_fert_base;
 }
 
@@ -734,7 +692,6 @@ function Residue_Left_Input_Base(answer_b, crop_b){
     // List of all crop names
     let crops = ["Cattail (Typha Sp.)", "Reed (Phragmites Australis)", "Peat Moss (Sphagnum Sp.)", "Grasses like Reed Canary Grass", "Alder (Alnus Sp.)", "Other" ];
     let cropresidue_fraction_tot_yield_b = 0;
-
     if(answer_b && crops.includes(crop_b)){
         if(crop_b == "Cattail (Typha Sp.)"){
             cropresidue_fraction_tot_yield_b = 0.11627907;
@@ -758,7 +715,6 @@ function crop_Residue_Base(cropresidue_fraction_tot_yield_b, crop_yield_base, to
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_cropres_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_cropres_base;
 }
 
@@ -768,18 +724,15 @@ function Basis_value_managed_soils(tot_area){
     let N2O_ha=8;
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_managed_soil=N2O_site*N2O_CO2eq;
-
     return CO2_site_managed_soil;
 }
 
 function Total_Direct_N2Oemissions_Base(CO2_site_managed_soil, CO2_site_cropres_base, CO2_site_synth_fert_base, CO2_site_grazing_base, CO2_site_organic_base, CO2_site_manure_base ){
     let total_direct_N2Oemiss_base= (CO2_site_managed_soil + CO2_site_cropres_base + CO2_site_synth_fert_base + CO2_site_grazing_base + CO2_site_organic_base + CO2_site_manure_base)/1000;
-    
     return total_direct_N2Oemiss_base;
 }
 
 //Indirect N2O Emissions
-
 function Animal_Ammonia_Base(manure_applied_base, N_amount_base, tot_area, avg_animals, avg_days){
     let EF_ammonia=0.1035;
     let EF_N2O_N=0.01;
@@ -790,7 +743,6 @@ function Animal_Ammonia_Base(manure_applied_base, N_amount_base, tot_area, avg_a
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_animal_amm_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_animal_amm_base;
 }
 
@@ -798,7 +750,6 @@ function Fert_Ammonia_Base(fert_applied_base, EF_ammonia_b, tot_area){
     let EF_N2O_N=0.01
     let N2O_CO2eq=265
     let EF=0;
-
     if(EF_ammonia_b == 0.02){
         EF = 0.015;
     }else{
@@ -809,7 +760,6 @@ function Fert_Ammonia_Base(fert_applied_base, EF_ammonia_b, tot_area){
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_fert_amm_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_fert_amm_base;
 }
 
@@ -823,7 +773,6 @@ function N_Oxide_Base(manure_applied_base, fert_applied_base, N_amount_base, avg
     let N2O_ha= N2O_N*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_NOxide_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_NOxide_base;
 }
 
@@ -831,83 +780,69 @@ function Nitrate_Base(manure_applied_base, organic_applied_base, cropresidue_fra
     let EF_nitrate_leaching=0.3;
     let EF_N2O_N_leached=0.025;
     let N2O_CO2eq=265;
-
     let applied_animal=manure_applied_base + organic_applied_base;
     let applied_remaining = 0;
-
     if(rewet){
         applied_remaining=organic_applied_base + (cropresidue_fraction_tot_yield_b*1000*crop_yield*0.015);
     }else{
         applied_remaining = organic_applied_base + cropresidue_fraction_tot_yield_b;
     }
-
     let nitrate_leached= (applied_animal +  fert_applied_base +  applied_remaining) * EF_nitrate_leaching;
     let N2O_N_leached= nitrate_leached * EF_N2O_N_leached;
     let N2O_ha= N2O_N_leached*(44/28);
     let N2O_site=N2O_ha*tot_area;
     let CO2_site_nitrate_base=N2O_site*N2O_CO2eq;
-
     return CO2_site_nitrate_base;
 }
 
 function Total_Indirect_N2Oemissions_Base( CO2_site_nitrate_base, CO2_site_NOxide_base, CO2_site_fert_amm_base, CO2_site_animal_amm_base){
     let tot_indirect_N2Oemiss_base=(CO2_site_nitrate_base + CO2_site_NOxide_base + CO2_site_fert_amm_base + CO2_site_animal_amm_base)/1000;
-    
     return tot_indirect_N2Oemiss_base;
 }
 
 // end auxiliary functions
-/////////////////////////////////////////////////////////
+//////////////////////////////////////////
+//////// CREATE TABS /////////////////////
+//////////////////////////////////////////
 
 function Create_Outcome_Tab(user_input, data, crop_use, c_content, gest){
     // creates the outcome tab, as seen in the original SET excel file
-
     //Initialize the Soil Moisture Classes dictionary
     let outcome = {'base': {}, 'rewet': {}, 'creditable_year': {}};
-
     //Populate the base dictionary
     outcome['base']['veg_ch4_gwp'] = parseFloat(data['base']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area'];
     outcome['base']['veg_c02_gwp'] = parseFloat(data['base']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area'];
-
     outcome['base']['tot_direct_n2o'] = Total_Direct_N2Oemissions_Base(Basis_value_managed_soils(user_input['gen_site_data']['tot_area']), 
                                                                             crop_Residue_Base(Residue_Left_Input_Base(user_input['base']['crop_resid'], user_input['base']['crop_name']), user_input['base']['crop_yield'], user_input['gen_site_data']['tot_area']), 
                                                                             Synth_CO2Site_Base(user_input['base']['amount_synth_fert'], data['base']['fert_ef'], user_input['gen_site_data']['tot_area']),
                                                                             Grazing_CO2Site_Base(user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], data['base']['n_excretion'], data['base']['animal_ef'], user_input['gen_site_data']['tot_area'])[0],
                                                                             Organic_Fert_CO2Site_Base(user_input['base']['amount_org_fert'], user_input['gen_site_data']['tot_area']),
                                                                             Manure_CO2Site_Base(user_input['base']['amount_manure'], user_input['gen_site_data']['tot_area']));
-
     outcome['base']['tot_indirect_n2o'] = Total_Indirect_N2Oemissions_Base(Nitrate_Base(user_input['base']['amount_manure'], user_input['base']['amount_org_fert'], Residue_Left_Input_Base(user_input['base']['crop_resid'], user_input['base']['crop_name']), user_input['base']['crop_yield'], user_input['base']['amount_synth_fert'], user_input['gen_site_data']['tot_area'], false), 
                                                                                  N_Oxide_Base(user_input['base']['amount_manure'], user_input['base']['amount_synth_fert'], data['base']['n_excretion'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], user_input['gen_site_data']['tot_area']), 
                                                                                  Fert_Ammonia_Base(user_input['base']['amount_synth_fert'], data['base']['fert_ef'], user_input['gen_site_data']['tot_area']), 
                                                                                  Animal_Ammonia_Base(user_input['base']['amount_manure'], data['base']['n_excretion'], user_input['gen_site_data']['tot_area'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days']));
-                                                                             
     outcome['base']['activity'] = ((user_input['base']['diesel_per_site']*3.35)+(user_input['base']['elec_per_site']*0.581))/1000;
     outcome['base']['total'] = [parseFloat(outcome['base']['veg_ch4_gwp']), parseFloat(outcome['base']['veg_c02_gwp']), parseFloat(outcome['base']['tot_direct_n2o']), parseFloat(outcome['base']['tot_indirect_n2o']), parseFloat(outcome['base']['activity'])].reduce((a, b) => a + b, 0);
-    
     //Populate the Rewetting dictionary
     outcome['rewet']['veg_ch4_gwp'] = parseFloat(data['rewet']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area'];
     outcome['rewet']['veg_c02_gwp'] = parseFloat(data['rewet']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area'];
-
     outcome['rewet']['tot_direct_n2o'] = Total_Direct_N2Oemissions_Base(Basis_value_managed_soils(user_input['gen_site_data']['tot_area']), 
                                                                             crop_Residue_Base(Residue_Left_Input_Base(user_input['rewet']['crop_resid'], user_input['rewet']['crop_name']), user_input['rewet']['crop_yield'], user_input['gen_site_data']['tot_area']), 
                                                                             Synth_CO2Site_Base(user_input['rewet']['amount_synth_fert'], data['rewet']['fert_ef'], user_input['gen_site_data']['tot_area']),
                                                                             Grazing_CO2Site_Base(user_input['rewet']['avg_num_animals'], user_input['rewet']['avg_num_days'], data['rewet']['n_excretion'], data['rewet']['animal_ef'], user_input['gen_site_data']['tot_area'])[0],
                                                                             Organic_Fert_CO2Site_Base(user_input['rewet']['amount_org_fert'], user_input['gen_site_data']['tot_area']),
                                                                             Manure_CO2Site_Base(user_input['rewet']['amount_manure'], user_input['gen_site_data']['tot_area']));
-
     outcome['rewet']['tot_indirect_n2o'] = Total_Indirect_N2Oemissions_Base(Nitrate_Base(user_input['rewet']['amount_manure'], user_input['rewet']['amount_org_fert'], Residue_Left_Input_Base(user_input['rewet']['crop_resid'], user_input['rewet']['crop_name']), user_input['rewet']['crop_yield'], user_input['rewet']['amount_synth_fert'], user_input['gen_site_data']['tot_area'], true), 
                                                                                  N_Oxide_Base(user_input['rewet']['amount_manure'], user_input['rewet']['amount_synth_fert'], data['base']['n_excretion'], user_input['base']['avg_num_animals'], user_input['base']['avg_num_days'], user_input['gen_site_data']['tot_area']), 
                                                                                  Fert_Ammonia_Base(user_input['rewet']['amount_synth_fert'], data['rewet']['fert_ef'], user_input['gen_site_data']['tot_area']), 
                                                                                  Animal_Ammonia_Base(user_input['rewet']['amount_manure'], data['rewet']['n_excretion'], user_input['gen_site_data']['tot_area'], user_input['rewet']['avg_num_animals'], user_input['rewet']['avg_num_days']));
-    
     outcome['rewet']['Product ton_co2_per_site'] = crop_use['ton_co2_per_site'];
     outcome['rewet']['activity'] = ((user_input['rewet']['diesel_per_site']*3.35)+(user_input['rewet']['elec_per_site']*0.581))/1000;
     outcome['rewet']['total'] = [parseFloat(outcome['rewet']['veg_ch4_gwp']), parseFloat(outcome['rewet']['veg_c02_gwp']), parseFloat(outcome['rewet']['tot_direct_n2o']), parseFloat(outcome['rewet']['tot_indirect_n2o']), parseFloat(outcome['rewet']['activity']), parseFloat(outcome['rewet']['Product ton_co2_per_site'])].reduce((a, b) => a + b, 0);
-
     //Populate creditable_year tab
     let veg_num_base = data['base']['veg_class'];
     let veg_num_rewet = data['rewet']['veg_class'];
-    
     for(let i =0; i< gest.index.length; i++){
         if(veg_num_base == gest.at(i,'Name')){
             outcome['creditable_year']['base_scenario'] = parseFloat(c_content['c_stock_ton_per_ha'])/(parseFloat(gest.at(i,'Total C-flux (ton C/ha)')));
@@ -923,14 +858,11 @@ function Create_Outcome_Tab(user_input, data, crop_use, c_content, gest){
     return outcome;
 }
 
-////////////////
 function Create_Timeline_tab(inputs, outcome, c_content, gest){
-    /*
-    Parameters: user input file address, outcome df, c content df, and gest csv
+    /* Parameters: user input file address, outcome df, c content df, and gest csv
     Returns: timeline df
     Purpose: Create Timeline tab using information from the user input json, 
-    GEST 2.0 csv, and the outcome and C content soil tabs.
-    */
+    GEST 2.0 csv, and the outcome and C content soil tabs. */
     //Open the json file and convert to dict
     //Initialize the Timeline dict
     let timeline = {};
@@ -953,7 +885,6 @@ function Create_Timeline_tab(inputs, outcome, c_content, gest){
         timeline['carbon_savings_total'][i] = [timeline['carbon_savings_flow'][i], timeline['carbon_savings_stock'][i], timeline['carbon_savings_product'][i]].reduce((a, b) => a + b, 0);
         timeline['base_GESTnr'][i] = timeline['base_GESTv2'][i];
         timeline['rewet_GESTnr'][i] = timeline['rewet_GESTv2'][i];
-
         for(let j=0; j<gest.index.length; j++){
             if(timeline['base_GESTnr'][i] == gest.at(j,'Name')){
                 timeline['c_sequestration_base'][i] = parseFloat(gest.at(j,'Total C-flux (ton C/ha)'))*inputs['gen_site_data']['tot_area']*(-1);
@@ -982,17 +913,13 @@ function Create_Timeline_tab(inputs, outcome, c_content, gest){
             }
         }
     }
-    //Save the outcome tab in a pandas database
     return timeline;
 }
-////////////////////////////
 
 function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content, crop_use){
     // creates the output tab, as seen in the original SET excel file
-
     //Initialise Output dict
     let output = {'site_data': {}, 'base_outcomes': {}, 'rewet_outcomes': {}, 'carbon_savings': {}};
-
     //Populate the site_data section
     output['site_data']['site_name'] = user_input['gen_site_data']['site_name'];
     output['site_data']['coords'] = user_input['gen_site_data']['coords'];
@@ -1004,32 +931,25 @@ function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content,
     output['site_data']['sm_class_rewet'] = sm_classes['rewet']['summer_moist_class'];
     output['site_data']['base_veg_class'] = user_input['base']['veg_class'];
     output['site_data']['rewet_veg_class'] = user_input['rewet']['veg_class'];
-
     //Populate the base_outcomes section
     output['base_outcomes']['CH4'] = (parseFloat(data_tab['base']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area']);
     output['base_outcomes']['CO2'] = parseFloat(data_tab['base']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area'];
     output['base_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['CH4']) + parseFloat(output['base_outcomes']['CO2']);
-
     output['base_outcomes']['n2o_direct'] = outcome['base']['tot_direct_n2o'];
     output['base_outcomes']['n2o_indirect'] = outcome['base']['tot_indirect_n2o'];
     output['base_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['base_outcomes']['n2o_direct']) + parseFloat(output['base_outcomes']['n2o_indirect']);
-
     output['base_outcomes']['activity_gwp_subtotal'] = outcome['base']['activity'];
     output['base_outcomes']['gwp_total'] = outcome['base']['total'];
-
     //Populate the rewet_outcomes section
     output['rewet_outcomes']['CH4'] = (parseFloat(data_tab['rewet']['veg_ch4_gwp'])*user_input['gen_site_data']['tot_area']);
     output['rewet_outcomes']['CO2'] = (parseFloat(data_tab['rewet']['veg_c02_gwp'])*user_input['gen_site_data']['tot_area']);
     output['rewet_outcomes']['c_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['CH4']) + parseFloat(output['rewet_outcomes']['CO2']);
-
     output['rewet_outcomes']['n2o_direct'] = outcome['rewet']['tot_direct_n2o'];
     output['rewet_outcomes']['n2o_indirect'] = outcome['rewet']['tot_indirect_n2o'];
     output['rewet_outcomes']['n2o_emission_gwp_subtotal'] = parseFloat(output['rewet_outcomes']['n2o_direct']) + parseFloat(output['rewet_outcomes']['n2o_indirect']);
-
     output['rewet_outcomes']['activity_gwp_subtotal'] = outcome['rewet']['activity'];
     output['rewet_outcomes']['product_gwp_subtotal'] = outcome['rewet']['Product ton_co2_per_site'];
     output['rewet_outcomes']['gwp_total'] = outcome['rewet']['total'];
-
     //Populate carbon_savings section
     output['carbon_savings']['ghg_savings_total_per_year_per_site'] = output['base_outcomes']['gwp_total'] - output['rewet_outcomes']['gwp_total'];
     output['carbon_savings']['ghg_savings_total_per_year_per_ha'] = output['carbon_savings']['ghg_savings_total_per_year_per_site']/output['site_data']['tot_area'];
@@ -1039,17 +959,18 @@ function Create_Output_tab(user_input, sm_classes, data_tab, outcome, c_content,
     output['carbon_savings']['ghg_savings_flow_per_year_per_ha'] = output['carbon_savings']['ghg_savings_flow_per_year_per_site']/output['site_data']['tot_area'];
     output['carbon_savings']['ghg_savings_product_use_per_year_per_site'] = crop_use['ton_co2_per_site']*(-1);
     output['carbon_savings']['ghg_savings_product_use_per_year_per_ha'] = crop_use['ton_co2_per_ha']*(-1);
-    
     output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site'] = c_content['c_stock_tco2_per_ha']*output['site_data']['tot_area'];
     output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site'] = c_content['c_stock_ton_per_ha']*output['site_data']['tot_area'];
     output['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha'] = c_content['c_stock_tco2_per_ha'];
     output['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha'] = c_content['c_stock_ton_per_ha'];
-
     output['carbon_savings']['time_til_peat_is_lost_base_scenario'] = outcome['creditable_year']['base_scenario'];
     output['carbon_savings']['time_til_peat_is_lost_rewet_scenario'] = outcome['creditable_year']['rewet_scenario'];
-    
     return output;
 }
+
+///////////////////////////////////////////////////////
+//////////// WORKING WITH RESULTS /////////////////////
+///////////////////////////////////////////////////////
 
 function update_set_results(results_dict){ 
     // update results
@@ -1085,7 +1006,7 @@ function update_set_results(results_dict){
     let cs_ton_c_p_ha= document.getElementById("cs_ton_c_p_ha");
     let base_til_peat_loss= document.getElementById("base_til_peat_loss");
     let rewet_til_peat_loss= document.getElementById("rewet_til_peat_loss");
-
+    // updates
     base_CH4.innerHTML = parseFloat(results_dict["base_outcomes"]["CH4"]).toFixed(2);
     base_CO2.innerHTML = parseFloat(results_dict["base_outcomes"]["CO2"]).toFixed(2);
     base_c_emission_gwp_subtotal.innerHTML = parseFloat(results_dict["base_outcomes"]["c_emission_gwp_subtotal"]).toFixed(2);
@@ -1116,15 +1037,18 @@ function update_set_results(results_dict){
     cs_ton_c_p_site.innerHTML = parseFloat(results_dict["carbon_savings"]["carbon_stock_peat_soil_start_year_ton_c_per_site"]).toFixed(2);
     cs_tco2_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["carbon_stock_peat_soil_start_year_tco2_per_ha"]).toFixed(2);
     cs_ton_c_p_ha.innerHTML = parseFloat(results_dict["carbon_savings"]["carbon_stock_peat_soil_start_year_ton_c_per_ha"]).toFixed(2);
-    
+    // handle "Infinity" value
     if(results_dict["carbon_savings"]["time_til_peat_is_lost_base_scenario"] != "Infinity"){
         base_til_peat_loss.innerHTML = parseFloat(results_dict["carbon_savings"]["time_til_peat_is_lost_base_scenario"]).toFixed(2);
     }
     if(results_dict["carbon_savings"]["time_til_peat_is_lost_rewet_scenario"] != "Infinity"){
         rewet_til_peat_loss.innerHTML = parseFloat(results_dict["carbon_savings"]["time_til_peat_is_lost_rewet_scenario"]).toFixed(2);
     }
-
 }
+
+////////////////////////////////////////////////////////////////
+///////// CALLS ALL FUNCTIONS ON FORM CHANGE/ UPDATE ///////////
+////////////////////////////////////////////////////////////////
 
 function set_calculation(){
     // run set calculation
@@ -1140,16 +1064,18 @@ function set_calculation(){
         update_set_results(output_tab);
         gwp_chart = update_gwp_chart(gwp_chart, output_tab);
         let timeline = Create_Timeline_tab(inputs, outcome_tab, c_content_tab, gest);
-        //time_chart = make_timeline_chart(timeline);
+        time_graph = update_set_timeline_chart(time_graph, timeline);
     }
 }
 
+////////////////////////////////////////////////////
+/////// HANDLE AUTO POPULATION OF DROPDOWNS ////////
+////////////////////////////////////////////////////
+
 function Calc_Soil_Moisture_Classes(gwl){
     // for filtering the GEST types by groundwaterlevel
-
     //Initialize the Soil Moisture Classes dictionary
     let sm_class_num = "";
-
     //Populate dictionary
     if(gwl >= 0 && gwl <= 140){
         sm_class_num = '6+';
@@ -1219,7 +1145,9 @@ function rw_set_veg_select(){
     }
 }
 
-// Export assumptions and results to CSV
+///////////////////////////////////////////////////////
+/////////////// CSV EXPORTS ///////////////////////////
+///////////////////////////////////////////////////////
 
 $("#set_csv_btn").on('click', function(event){
     let rows = [
@@ -1305,6 +1233,10 @@ $("#set_csv_btn").on('click', function(event){
     window.open(encodedUri);
 });
 
+///////////////////////////////////////////////////////
+//////// UPDATE GRAPHS ////////////////////////////////
+///////////////////////////////////////////////////////
+
 function update_gwp_chart(gwp_chart, output_tab){
     let base_CH4 = parseFloat(output_tab['base_outcomes']['CH4']);
     let base_CO2 = parseFloat(output_tab['base_outcomes']['CO2']);
@@ -1332,9 +1264,8 @@ function update_gwp_chart(gwp_chart, output_tab){
     gwp_chart.update();
     return gwp_chart;
 }
-/*
-function make_timeline_chart(timeline){
-    const tml = document.getElementById('timeline_graph');
+
+function update_set_timeline_chart(cur_chart, timeline){
     let year_start = parseFloat(document.getElementById("year_start").value);
     let site_name = document.getElementById("site_name").value;
     let labels = [];
@@ -1351,61 +1282,11 @@ function make_timeline_chart(timeline){
         carbon_sav.push(timeline['carbon_savings_total'][i]);
         c_cred.push(timeline['c_credits_' + site_name][i]);
     }
-    let tml_data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'Base Emissions',
-                data: base_emis,
-                fill: false,
-                borderColor: '#177521'
-            },
-            {
-                label: 'Rewetted Emissions',
-                data: rewet_emis,
-                fill: false,
-                borderColor: '#6abdd4'
-            },
-            {
-                label: 'Carbon Savings Total',
-                data: carbon_sav,
-                fill: false,
-                borderColor: '#87d676'
-            },
-            {
-                label: 'Carbon Credits for '+ site_name,
-                data: c_cred,
-                fill: false,
-                borderColor: '#d4b87b'
-            }
-        ]
-    }
-    let tml_config = {
-        type: 'line',
-        data: tml_data,
-        options: {
-            plugins: {
-            title: {
-                display: true,
-                text: 'Emission Scenario'
-            },
-            },
-            responsive: true,
-            scales: {
-            x: {
-                stacked: true,
-            },
-            y: {
-                stacked: true,
-                title: {
-                    display: true,
-                    text: 'GHG Emission (t CO2-eq/year)'
-                }
-            }
-            }
-        }
-    };
-    let time_graph = new Chart(tml, tml_config);
-    return time_graph;
+    cur_chart.data.datasets[0].data = base_emis;
+    cur_chart.data.datasets[1].data = rewet_emis;
+    cur_chart.data.datasets[2].data = carbon_sav;
+    cur_chart.data.datasets[3].data = c_cred;
+    cur_chart.data.datasets[3].label = 'Carbon Credits for '+ site_name;
+    cur_chart.update();
+    return cur_chart;
 }
-*/
