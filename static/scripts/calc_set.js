@@ -4,6 +4,20 @@ filters the GEST options based on groundwater level input, runs the calculation,
 and updates the outputs.
 */
 
+/*
+ON PAGE LOAD:
+gest df created
+default values extracted from page
+gest dropdown populated
+gwp graph creation
+timeline graph creation
+
+ON FORM CLICK/CHANGE:
+new values extracted from page
+set_tool_calc()
+graph updates
+*/
+
 var DataFrame = dfd.DataFrame;
 // create GEST dataframe for calculations in lieu of reading from csv
 function Make_GEST_df(){
@@ -59,7 +73,7 @@ function Make_GEST_df(){
 let gest = Make_GEST_df();
 
 ////////////////////////////////////////////////
-//// POPULATE GEST DROPDOWNS //////////////////////////
+//// POPULATE GEST DROPDOWNS ///////////////////
 ////////////////////////////////////////////////
 $("#bs_veg_class option").remove();
 let bs_el = document.getElementById("bs_veg_class");
@@ -180,6 +194,153 @@ let gwp_chart = new Chart(ctx, config);
 // y-axis: GHG emission (t CO2-eq /yr)
 // x axis: years
 // Datasets: Baseline, Rewetting, carbon savings total, ccredits sitename
+
+let tl_startdate = parseInt(document.getElementById("year_start").value);
+let tl_sitename = document.getElementById("site_name").value;
+let tl_area = parseFloat(document.getElementById("tot_area").value);
+let tl_bs_vc = document.getElementById("bs_veg_class").value;
+let tl_rw_vc = document.getElementById("rw_veg_class").value;
+
+let tl_base_CH4= parseFloat(document.getElementById("base_CH4").innerHTML);
+let tl_base_CO2= parseFloat(document.getElementById("base_CO2").innerHTML);
+
+let tl_rewet_CH4= parseFloat(document.getElementById("rewet_CH4").innerHTML);
+let tl_rewet_CO2= parseFloat(document.getElementById("rewet_CO2").innerHTML);
+
+let tl_base_gwp = parseFloat(document.getElementById("base_gwp_total").innerHTML);
+let tl_rewet_gwp = parseFloat(document.getElementById("rewet_gwp_total").innerHTML);
+let tl_cs_ton_c_p_ha= parseFloat(document.getElementById("cs_ton_c_p_ha").innerHTML);
+let tl_base_n2o_direct= parseFloat(document.getElementById("base_n2o_direct").innerHTML);
+let tl_base_n2o_indirect= parseFloat(document.getElementById("base_n2o_indirect").innerHTML);
+let tl_base_activity= parseFloat(document.getElementById("base_activity_gwp_subtotal").innerHTML);
+let tl_rewet_n2o_direct= parseFloat(document.getElementById("rewet_n2o_direct").innerHTML);
+let tl_rewet_n2o_indirect= parseFloat(document.getElementById("rewet_n2o_indirect").innerHTML);
+let tl_rewet_activity= parseFloat(document.getElementById("rewet_activity_gwp_subtotal").innerHTML);
+let tl_rewet_product= parseFloat(document.getElementById("rewet_product_gwp_subtotal").innerHTML);
+
+let tl_init = {};
+let tl_colnames = ['base_emissions', 'base_GESTv2', 'rewet_emissions', 'rewet_GESTv2', 'carbon_savings_flow', 'carbon_savings_stock', 'carbon_savings_product', 'carbon_savings_total', 'base_GESTnr', 'c_sequestration_base', 'c_stock_soil_base', 'stock_savings_creditable', 'rewet_GESTnr', 'c_sequestration_rewet', 'c_credits_' + tl_sitename];
+for(let i=0; i < tl_colnames.length; i++){
+    tl_init[tl_colnames[i]] = {};
+    for(let j=tl_startdate; j < tl_startdate+50; j++){
+        tl_init[tl_colnames[i]][j] = null;
+    }
+}
+//Populate dict column by column
+for(let i = tl_startdate; i<tl_startdate+50; i++){
+    tl_init['base_emissions'][i] = tl_base_gwp;
+    tl_init['base_GESTv2'][i] = tl_bs_vc;
+    tl_init['rewet_emissions'][i] = tl_rewet_gwp;
+    tl_init['rewet_GESTv2'][i] = tl_rw_vc;
+    tl_init['carbon_savings_flow'][i] = tl_base_n2o_direct + tl_base_n2o_indirect + tl_base_activity - tl_rewet_n2o_direct - tl_rewet_n2o_indirect - tl_rewet_activity;
+    tl_init['carbon_savings_stock'][i] = (tl_base_CH4/tl_area) + (tl_base_CO2/tl_area) - (tl_rewet_CH4/tl_area) - (tl_rewet_CO2/tl_area);
+    tl_init['carbon_savings_product'][i] = (-1)*tl_rewet_product;
+    tl_init['carbon_savings_total'][i] = [tl_init['carbon_savings_flow'][i], tl_init['carbon_savings_stock'][i], tl_init['carbon_savings_product'][i]].reduce((a, b) => a + b, 0);
+    tl_init['base_GESTnr'][i] = tl_init['base_GESTv2'][i];
+    tl_init['rewet_GESTnr'][i] = tl_init['rewet_GESTv2'][i];
+
+    for(let j=0; j<gest.index.length; j++){
+        if(tl_init['base_GESTnr'][i] == gest.at(j,'Name')){
+            tl_init['c_sequestration_base'][i] = parseFloat(gest.at(j,'Total C-flux (ton C/ha)'))*tl_area*(-1);
+        }
+        if(tl_init['rewet_GESTnr'][i] == gest.at(j,'Name')){
+            tl_init['c_sequestration_rewet'][i] = parseFloat(gest.at(j,'Total C-flux (ton C/ha)'))*tl_area*(-1);
+        }
+    }
+    if(i == tl_startdate){
+        tl_init['c_stock_soil_base'][i] = (tl_cs_ton_c_p_ha*tl_area) + tl_init['c_sequestration_base'][i];
+    }else{
+        tl_init['c_stock_soil_base'][i] = tl_init['c_stock_soil_base'][i-1] + tl_init['c_sequestration_base'][i];
+    }
+    if(tl_init['c_stock_soil_base'][i] > 0){
+        tl_init['stock_savings_creditable'][i] = 1;
+    }else{
+        tl_init['stock_savings_creditable'][i] = 0;
+    }
+    if(tl_init['stock_savings_creditable'][i] == 1){
+        tl_init['c_credits_' + tl_sitename][i] = tl_init['carbon_savings_total'][i];
+    }else{
+        if(tl_init['c_sequestration_rewet'][i] > 0){
+            tl_init['c_credits_' + tl_sitename][i] = tl_init['carbon_savings_flow'][i] + tl_init['carbon_savings_product'][i] + (tl_init['c_sequestration_rewet'][i]*(44/12));
+        }else{
+            tl_init['c_credits_' + tl_sitename][i] = tl_init['carbon_savings_flow'][i] + tl_init['carbon_savings_product'][i];
+        }
+    }
+}
+console.log(tl_init); //////returning NaNs
+/////////////// NOW FOR CHART TIME ////////////
+const tml = document.getElementById('timeline_graph');
+let tl_year_start = parseFloat(document.getElementById("year_start").value);
+let tl_site_name = document.getElementById("site_name").value;
+let tl_labels = [];
+for(let i= tl_year_start; i < tl_year_start+50; i++){
+    tl_labels.push(i);
+}
+let tl_base_emis = [];
+let tl_rewet_emis = [];
+let tl_carbon_sav = [];
+let tl_c_cred = [];
+for(let i= tl_year_start; i < tl_year_start+50; i++){
+    tl_base_emis.push(tl_init['base_emissions'][i]);
+    tl_rewet_emis.push(tl_init['rewet_emissions'][i]);
+    tl_carbon_sav.push(tl_init['carbon_savings_total'][i]);
+    tl_c_cred.push(tl_init['c_credits_' + tl_site_name][i]);
+}
+let tml_data = {
+    labels: tl_labels,
+    datasets: [
+        {
+            label: 'Base Emissions',
+            data: tl_base_emis,
+            fill: false,
+            borderColor: '#177521'
+        },
+        {
+            label: 'Rewetted Emissions',
+            data: tl_rewet_emis,
+            fill: false,
+            borderColor: '#6abdd4'
+        },
+        {
+            label: 'Carbon Savings Total',
+            data: tl_carbon_sav,
+            fill: false,
+            borderColor: '#87d676'
+        },
+        {
+            label: 'Carbon Credits for '+ tl_site_name,
+            data: tl_c_cred,
+            fill: false,
+            borderColor: '#d4b87b'
+        }
+    ]
+}
+let tml_config = {
+    type: 'line',
+    data: tml_data,
+    options: {
+        plugins: {
+        title: {
+            display: true,
+            text: 'Emission Scenario'
+        },
+        },
+        responsive: true,
+        scales: {
+        x: {
+            stacked: true,
+        },
+        y: {
+            stacked: true,
+            title: {
+                display: true,
+                text: 'GHG Emission (t CO2-eq/year)'
+            }
+        }
+        }
+    }
+};
+let time_graph = new Chart(tml, tml_config);
 
 ///////////////////////////////////////////////
 
@@ -1171,7 +1332,7 @@ function update_gwp_chart(gwp_chart, output_tab){
     gwp_chart.update();
     return gwp_chart;
 }
-
+/*
 function make_timeline_chart(timeline){
     const tml = document.getElementById('timeline_graph');
     let year_start = parseFloat(document.getElementById("year_start").value);
@@ -1247,3 +1408,4 @@ function make_timeline_chart(timeline){
     let time_graph = new Chart(tml, tml_config);
     return time_graph;
 }
+*/
