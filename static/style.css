@@ -33,31 +33,48 @@ a.navbar-brand{
     color: #1a1a1a;
 }
 
-.nav-pills > .nav-item >a {
+.nav-tabs > .nav-item{
+    background-color: #d3dee9;
+    margin-left: 20px;
+    border-radius: 0px;
+}
+
+.nav-tabs > .nav-item >a {
     color: #1a1a1a;
-    font-size: 17px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 15px;
+    border-radius: 0px;
+}
+
+.nav-tabs > .nav-item >a:hover{
+    background-color: #e1ecf0;
     padding: 5px 15px;
 }
 
-.nav-pills > .nav-item >a:hover{
-    color: green;
-    background-color: rgb(146, 216, 150);
-    padding: 5px 15px;
-}
-
-.nav-pills > .nav-item >a.on-page{
-    color: rgb(0, 105, 0);
-    background-color: rgb(140, 210, 145);
+.nav-tabs > .nav-item >a.on-page{
+    background-color: #f0f7f9;
     padding: 5px 15px;
 }
 
 nav.navbar.bg-body-tertiary{
-    background-color: rgb(126, 202, 130);
+    background-color: white;
+}
+
+.navbar{
+    padding: 0px;
 }
 
 .navbar > .container-fluid > a{
     padding-left: 5px;
+}
+
+.search-svg-block{
+    background-color: #9fbbcf;
+}
+
+.search-entry{
+    background-color: #d3dee9;
 }
 
 /* general */
