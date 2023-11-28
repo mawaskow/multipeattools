@@ -250,6 +250,7 @@ input[type=number] {
 footer{
     padding: 10px;
     margin: 10px;
+    background-color: #9fbbcf;
 }
 
 /*
@@ -424,33 +425,66 @@ span.Economy{
 
 .enr-class-pill{
     color: #000;
-    background-color: #fbe5a2;
+    background-color: #f9f19e;
 }
 .clm-class-pill{
     color: #000;
-    background-color: #f3cda2;
+    background-color: #e59391;
 }
 .comm-class-pill{
     color: #000;
-    background-color: #bcd6ad;
+    background-color: #f3c370;
 }
 .econ-class-pill{
     color: #000;
-    background-color: #cca7ba;
+    background-color: #c9b0ce;
 }
 .env-class-pill{
     color: #000;
-    background-color: #a7c2c7;
+    background-color: #82cac9;
 }
 .bio-class-pill{
     color: #000;
-    background-color: #df9d9c;
+    background-color: #c1d992;
 }
 .land-class-pill{
     color: #000;
-    background-color: #aac3f0;
+    background-color: #c8b8a0;
 }
 .res-class-pill{
     color: #000;
-    background-color: #b1a8d4;
+    background-color: #9fbbcf;
+}
+
+
+.tool-nav-bar{
+    background-color: #d3dee9;
+}
+
+.tool-nav{
+    color: black;
+    text-align: left;
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+.tool-nav-hr{
+    color:white;
+    border-width: 3px;
+}
+
+.tool-nav-bar >a:hover{
+    margin: 5px 15px;
+    color: #000;
+}
+
+.tool-nav-bar > .on-tool> a{
+    color: #000;
+}
+
+.tool-nav-bar > .on-tool{
+    background-color: #9fbbcf;
+    margin: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

@@ -2,1313 +2,1353 @@
 
 {% block navbar %}
 <nav class="navbar bg-body-tertiary">
-    <div class="container-fluid justify-content-start">
-    <a class="navbar-brand" href="{{ url_for('homepage') }}">
-        <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-        MultiPeat Toolkit
-    </a>
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('map_page') }}">Map</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link on-page" href="{{ url_for('set_tool') }}">SET Tool</a>    
-        </li>
-    </ul>
-</div>
+    <div class="container-fluid justify-content-start d-inline-block">
+        <a class="navbar-brand d-inline-block" href="{{ url_for('homepage') }}">
+            <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="50" height="40" class="align-middle" style="padding-right: 5px;">
+            <img src="{{url_for('static', filename='ASPECT_logo.png')}}" alt="Logo" width="75" height="40" class="align-middle" style="padding-right: 10px;">
+        </a>
+        <div class="d-inline-block align-middle">
+            <h3 class="d-inline-block" style="margin-right: 2px;">Peatland</h3> <h3 style="color: #9fbbcf; font-weight: bold;" class="d-inline-block">TOOLKIT</h3>
+            <p class="d-block" style="font-size: small; margin-top: -7px;">Advancing capabilities to measure and regenerate wetlands</p>
+        </div>
+        <div class="d-inline-flex align-middle justify-content-end" style="padding-left: 15px;">
+            <div class="d-inline-flex input-group" role="search">
+                <span class="input-group-text d-inline-block search-svg-block" style="height:30px; width:30px; padding:0px">
+                    <svg height="18" width="18" class="align-middle">
+                        <image style="height:18px; width:18px" xlink:href="{{ url_for('static', filename='search.svg') }}"></image>
+                    </svg>
+                </span>
+                <input class="form-control d-inline-block search-entry" style="height:30px;" type="search" placeholder="KEYWORD SEARCH" id="header-search" aria-label="Search">
+            </div>
+            <a style="padding-left: 10px;" class="d-inline-flex align-middle justify-content-end" href="{{url_for('login')}}">Login</a>
+            <div class="d-inline-flex align-middle" style="border-right: 1px solid #9fbbcf; height: 30px; padding: 0px 5px;"></div>
+            <p class="d-inline-flex align-middle" style="padding-left: 10px;">Language</p>
+        </div>
+    </div>
+    <div style="background-color: #9fbbcf; height: 25px; width: 100%;" class="position-absolute bottom-0"></div>
+    <div style="padding-top: 10px;" class="position-relative">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('map_page') }}">SITES & POLICIES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link on-page" href="{{ url_for('toolbox') }}">USE THE TOOLS</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 {% endblock %}
 
 {% block title %}SET Tool{% endblock %}
 {% block content %}
-<div class="empty-spacing" style="padding-top: 10px;"></div>
-<div class="container set-input-div" style="display: grid;">
-    <div style="margin-left: 25px;">
-        <h4 style="font-weight: 500; justify-content: center;">
-            SITE EMISSIONS TOOL
-        </h4>
-        <p style="padding-top: 10px; color:#00705e" class="text-descr">This tool helps calculate the greenhouse gas emissions of managed wetland areas and how much emission reduction is eligible for claiming carbon credits.</p>
-        <p style="color: red;" class="d-inline">* denotes required field.</p>    
-    </div>
-    <div class="empty-spacing" style="padding-top: 15px;"></div>
-    <form action="/settool" method="POST" id="set-form" enctype=multipart/form-data>
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <div class="container set-site-div">
-            <div class="row align-items-center">
-                <div class="col-7">
-                    <label for="site_name" class="form-label">Site Name</label> 
-                </div>
-                <div class="col-5">
-                    <input type="text" class="validate form-control" id="site_name" name="site_name" value="{{inpt['gen_site_data']['site_name']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                </div>
+
+<div class="container" style="padding:0px; margin:0px;max-width: none;">
+    <div class="row justify-content-start">
+        <div class="d-block col-4 tool-nav-bar" style="padding:0px;max-width: 200px;">
+            <hr class="tool-nav-hr">
+            <div class="row on-tool">
+                <a class="tool-nav" href="{{url_for('set_tool')}}">SET</a>
             </div>
-            <hr class="inf">
-            <div class="row align-items-center">
-                <div class="col-8">
-                    <label for="tot_area" class="form-label d-inline">Total area in ha.</label> 
-                    <p style="color: red;" class="d-inline">*</p>
-                </div>
-                <div class="col-4">
-                    <input type="number" class="validate form-control" id="tot_area" name="tot_area" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['tot_area']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
-                </div>
-            </div>
-            <hr class="inf">
-            <div class="row align-items-center">
-                <div class="col-7">
-                    <svg height="20" width="16">
-                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Coordinates of site.">
-                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
-                        </a>
-                    </svg>
-                    <label for="coords" class="form-label" style="margin-left: 4px;">Coordinates</label> 
-                </div>
-                <div class="col-5">
-                    <input type="text" class="validate form-control" id="coords" name="coords" value="{{inpt['gen_site_data']['coords']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                </div>
-            </div>
-            <hr class="inf">
-            <div class="row align-items-center">
-                <div class="col-8">
-                    <label for="elevation" class="form-label">Elevation</label> 
-                </div>
-                <div class="col-4">
-                    <input type="text" class="validate form-control" id="elevation" name="elevation" value="{{inpt['gen_site_data']['elevation']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                </div>
-            </div>
-            <hr class="inf">
-            <div class="row align-items-center">
-                <div class="col-7">
-                    <svg height="20" width="16">
-                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                        data-bs-content="Select the type of peat soil in your site.<br>
-                            - Sphagnum peat: formed in raised bog and blanket bog sites<br>
-                            - Herbaceous peat: includes most fen peats (reed, tall sedge, etc.)<br>
-                            - Woody peat: is formed in carr forests<br>
-                            - Brownmoss peat: is formed in moss dominated, base-rich fens<br>
-                            - Unknown: select this if you don't know the peat type<br>
-                            - Humified: select this if your peat does not contain any recognizable plant remains.">
-                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
-                        </a>
-                    </svg>
-                    <label for="peat_type" class="form-label d-inline" style="margin-left: 4px;">Peat type</label> 
-                    <p style="color: red;" class="d-inline">*</p>
-                </div>
-                <div class="col-5">
-                    <select class="validate form-select" id="peat_type" name="peat_type" value="{{inpt['gen_site_data']['peat_type']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        <!--<option selected>Select peat type</option>-->
-                        {% if inpt['gen_site_data']['peat_type'] == "Sphagnum" %}
-                            <option selected value="Sphagnum">Sphagnum</option>                            
-                        {%else%}
-                            <option value="Sphagnum">Sphagnum</option>                        
-                        {%endif%}
-                        {% if inpt['gen_site_data']['peat_type'] == "Herbaceous" %}
-                            <option selected value="Herbaceous">Herbaceous</option>
-                        {%else%}
-                            <option value="Herbaceous">Herbaceous</option>
-                        {%endif%}
-                        {% if inpt['gen_site_data']['peat_type'] == "Woody" %}
-                            <option selected value="Woody">Woody</option>
-                        {%else%}
-                            <option value="Woody">Woody</option>
-                        {%endif%}
-                        {% if inpt['gen_site_data']['peat_type'] == "Brown moss" %}
-                            <option selected value="Brown moss">Brown moss</option>
-                        {%else%}
-                            <option value="Brown moss">Brown moss</option>
-                        {%endif%}
-                        {% if inpt['gen_site_data']['peat_type'] == "Unknown" %}
-                            <option selected value="Unknown">Unknown</option>
-                        {%else%}
-                            <option value="Unknown">Unknown</option>
-                        {%endif%}
-                        {% if inpt['gen_site_data']['peat_type'] == "Humidified" %}
-                            <option selected value="Humidified">Humidified</option>
-                        {%else%}
-                            <option value="Humidified">Humidified</option>
-                        {%endif%}
-                    </select>
-                </div>
-            </div>
-            <hr class="inf">
-            <div class="row align-items-center">
-                <div class="col-8">
-                    <label for="peat_thick" class="form-label d-inline" style="margin-right:0px;">Peat thickness (cm)</label>
-                </div>
-                <div class="col-4">
-                    <input type="number" class="validate form-control" id="peat_thick" name="peat_thick" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['peat_thick']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                </div>
-            </div>
-            <hr class="inf">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-8">
-                    <label for="year_start" class="form-label">Year rewetting started</label> 
-                </div>
-                <div class="col-4">
-                    <input type="number" class="validate form-control" id="year_start" name="year_start" min="1900" max="3000" value="{{inpt['gen_site_data']['year_start']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                </div>
-            </div>
+            <hr class="tool-nav-hr">
+            <a class="tool-nav" href="{{url_for('ffp_tool')}}">FFP</a>
+            <hr class="tool-nav-hr">
+            <a class="tool-nav" href="{{url_for('toolbox')}}">Policy Analyser</a>
+            <hr class="tool-nav-hr">
+            <a class="tool-nav" href="{{url_for('toolbox')}}">Policy Development</a>
+            <hr class="tool-nav-hr">
+            <a class="tool-nav" href="{{url_for('toolbox')}}">Biodiversity Analyser</a>
+            <hr class="tool-nav-hr">
+            <a class="tool-nav" href="{{url_for('toolbox')}}">Key Metric Analyser</a>
+            <hr class="tool-nav-hr">
         </div>
-        <div class="empty-spacing" style="padding-top: 15px;"></div>
-        <div class="container set-base-div">
-            <div id="set-gw-tog" class="row d-flex justify-content-start">
-                <div class="col-1">
-                    <svg id="set-gw-tog-down" height="20" width="20" style="display: block;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
-                    </svg>
-                    <svg id="set-gw-tog-up" height="20" width="20" style="display: none;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
-                    </svg>
-                </div>
-                <div class="col set-header upper-base" style="padding-left: 0px;">
-                    <p>Groundwater and Vegetation</p>
-                </div>
-            </div>
-            <div id="set-gw-coll" style="display:none">
-                <div class="empty-spacing" style="padding-top: 15px;"></div>
-                <div class="upper-base">
-                    <p>Baseline</p>
-                    <hr>    
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                                data-bs-content="Summer defined as 1 April - 30 September<br>
-                                    + is water level above the soil<br>
-                                    - is water level beneath the soil">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
-                                </a>
-                            </svg>
-                            <label for="bs_med_gw_level_summer" class="form-label d-inline" style="margin-right:0px; margin-left: 4px;">Median groundwater level in summer (cm)</label>
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" onkeyup="set_calculation(); bs_set_veg_select()" onchange="set_calculation(); bs_set_veg_select()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="This is the GESType. Select the best fit vegetation from the dropdown list after changing or confirming the groundwater level value.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
-                                </a>
-                            </svg>
-                            <label for="bs_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class *</label> 
-                        </div>
-                        <div class="col-8">
-                            <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
-                                <!--populated with javascript-->
-                            </select>
-                        </div>
-                    </div>
+        <div class="col-8">
+            <div class="container">
+                <div style="margin-left: 25px; padding-top: 10px;">
+                    <h4 style="font-weight: 500; justify-content: center;">
+                        SITE EMISSIONS TOOL
+                    </h4>
+                    <p style="padding-top: 10px; color:#00705e" class="text-descr">This tool helps calculate the greenhouse gas emissions of managed wetland areas and how much emission reduction is eligible for claiming carbon credits.</p>
+                    <p style="color: red;" class="d-inline">* denotes required field.</p>    
                 </div>
                 <div class="empty-spacing" style="padding-top: 15px;"></div>
-                <div class="container set-rewet-div">
-                    <p>After Rewetting</p>
-                    <hr>
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                                data-bs-content="Summer defined as 1 April - 30 September<br>
-                                    + is water level above the soil<br>
-                                    - is water level beneath the soil">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 4px;">Median groundwater level in summer (cm)</label> 
+                <form action="/settool" method="POST" id="set-form" enctype=multipart/form-data>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="container set-site-div">
+                        <div class="row align-items-center">
+                            <div class="col-7">
+                                <label for="site_name" class="form-label">Site Name</label> 
+                            </div>
+                            <div class="col-5">
+                                <input type="text" class="validate form-control" id="site_name" name="site_name" value="{{inpt['gen_site_data']['site_name']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" onkeyup="set_calculation(); rw_set_veg_select()" onchange="set_calculation(); rw_set_veg_select()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="This is the GESType. Select the best fit vegetation from the dropdown list after changing or confirming the groundwater level value.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="rw_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class *</label> 
-                        </div>
-                        <div class="col-8">
-                            <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
-                                <!--populated with javascript-->
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <p style="margin-top: 10px; margin-left: 20px; color: #4d4d4d; font-size: 14px;">* Change groundwater level to see more vegetation class options.</p>
-            </div>
-        </div>
-        <div class="empty-spacing" style="padding-top: 15px;"></div>
-        <div class="container set-base-div">
-            <div id="set-fu-tog" class="row d-flex justify-content-start">
-                <div class="col-1">
-                    <svg id="set-fu-tog-down" height="20" width="20" style="display: block;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
-                    </svg>
-                    <svg id="set-fu-tog-up" height="20" width="20" style="display: none;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
-                    </svg>
-                </div>
-                <div class="col set-header upper-base" style="padding-left: 0px;">
-                    <p>Fertiliser Use</p>
-                </div>
-            </div>
-            <div id="set-fu-coll" style="display:none">
-                <div class="empty-spacing" style="padding-top: 15px;"></div>
-                <div class="upper-base">
-                    <p>Baseline</p>
-                    <hr>
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="bs_amount_manure" class="form-label" style="margin-left: 4px;">Animal manure applied (k N/h)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="bs_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-7">
-                            <label for="bs_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
-                        </div>
-                        <div class="col-5">
-                            <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {% if inpt['base']['type_synth_fert'][0] == "N" %}
-                                    <option selected value="Nitrate Based">Nitrate based</option>                         
-                                {%else%}
-                                    <option value="Nitrate Based">Nitrate based</option>                      
-                                {%endif%}
-                                {% if inpt['base']['type_synth_fert'][0] == "A" %}
-                                    <option selected value="Ammonium Based">Ammonium based</option>
-                                {%else%}
-                                    <option value="Ammonium Based">Ammonium based</option>
-                                {%endif%}
-                            </select>
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="bs_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_synth_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="bs_type_animals" class="form-label">Grazing animals</label> 
-                        </div>
-                        <div class="col-4">
-                            <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {% if inpt['base']['type_animals'][0] == "N" %}
-                                    <option selected value="No Animals">No animal</option>
-                                {%else%}
-                                    <option value="No Animals">No animal</option>
-                                {%endif%}
-                                {% if inpt['base']['type_animals'][0] == "D" %}
-                                    <option selected value="Dairy Cattle">Dairy cows</option>
-                                {%else%}
-                                    <option value="Dairy Cattle">Dairy cows</option>
-                                {%endif%}
-                                {% if inpt['base']['type_animals'][0] == "B" %}
-                                    <option selected value="Beef Cattle">Beef cattle</option>
-                                {%else%}
-                                    <option value="Beef Cattle">Beef cattle</option>
-                                {%endif%}
-                                {% if inpt['base']['type_animals'][0] == "S" %}
-                                    <option selected value="Sheep">Sheep</option>
-                                {%else%}
-                                    <option value="Sheep">Sheep</option>
-                                {%endif%}
-                                {% if inpt['base']['type_animals'][0] == "G" %}
-                                    <option selected value="Goats">Goats</option>
-                                {%else%}
-                                    <option value="Goats">Goats</option>
-                                {%endif%}
-                                {% if inpt['base']['type_animals'][0] == "W" %}
-                                    <option selected value="Water Buffalo">Water buffalo</option>
-                                {%else%}
-                                    <option value="Water Buffalo">Water buffalo</option>
-                                {%endif%}
-                            </select>
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="bs_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_animals']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="bs_avg_num_days" class="form-label">Average grazing days per year</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_days']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="bs_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['base']['crop_yield']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="form-check form-switch" style="display: grid;">
-                        <div class="row align-items-center justify-content-center">
+                        <hr class="inf">
+                        <div class="row align-items-center">
                             <div class="col-8">
-                                <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
-                            </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
-                                {% if inpt['base']['crop_resid'] %}
-                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
-                                {%else%}
-                                <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {%endif%}
+                                <label for="tot_area" class="form-label d-inline">Total area in ha.</label> 
+                                <p style="color: red;" class="d-inline">*</p>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" class="validate form-control" id="tot_area" name="tot_area" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['tot_area']}}" onchange="set_calculation()" onkeyup="set_calculation()" required>
+                            </div>
+                        </div>
+                        <hr class="inf">
+                        <div class="row align-items-center">
+                            <div class="col-7">
+                                <svg height="20" width="16">
+                                    <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Coordinates of site.">
+                                        <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
+                                    </a>
+                                </svg>
+                                <label for="coords" class="form-label" style="margin-left: 4px;">Coordinates</label> 
+                            </div>
+                            <div class="col-5">
+                                <input type="text" class="validate form-control" id="coords" name="coords" value="{{inpt['gen_site_data']['coords']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                            </div>
+                        </div>
+                        <hr class="inf">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <label for="elevation" class="form-label">Elevation</label> 
+                            </div>
+                            <div class="col-4">
+                                <input type="text" class="validate form-control" id="elevation" name="elevation" value="{{inpt['gen_site_data']['elevation']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                            </div>
+                        </div>
+                        <hr class="inf">
+                        <div class="row align-items-center">
+                            <div class="col-7">
+                                <svg height="20" width="16">
+                                    <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                    data-bs-content="Select the type of peat soil in your site.<br>
+                                        - Sphagnum peat: formed in raised bog and blanket bog sites<br>
+                                        - Herbaceous peat: includes most fen peats (reed, tall sedge, etc.)<br>
+                                        - Woody peat: is formed in carr forests<br>
+                                        - Brownmoss peat: is formed in moss dominated, base-rich fens<br>
+                                        - Unknown: select this if you don't know the peat type<br>
+                                        - Humified: select this if your peat does not contain any recognizable plant remains.">
+                                        <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
+                                    </a>
+                                </svg>
+                                <label for="peat_type" class="form-label d-inline" style="margin-left: 4px;">Peat type</label> 
+                                <p style="color: red;" class="d-inline">*</p>
+                            </div>
+                            <div class="col-5">
+                                <select class="validate form-select" id="peat_type" name="peat_type" value="{{inpt['gen_site_data']['peat_type']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    <!--<option selected>Select peat type</option>-->
+                                    {% if inpt['gen_site_data']['peat_type'] == "Sphagnum" %}
+                                        <option selected value="Sphagnum">Sphagnum</option>                            
+                                    {%else%}
+                                        <option value="Sphagnum">Sphagnum</option>                        
+                                    {%endif%}
+                                    {% if inpt['gen_site_data']['peat_type'] == "Herbaceous" %}
+                                        <option selected value="Herbaceous">Herbaceous</option>
+                                    {%else%}
+                                        <option value="Herbaceous">Herbaceous</option>
+                                    {%endif%}
+                                    {% if inpt['gen_site_data']['peat_type'] == "Woody" %}
+                                        <option selected value="Woody">Woody</option>
+                                    {%else%}
+                                        <option value="Woody">Woody</option>
+                                    {%endif%}
+                                    {% if inpt['gen_site_data']['peat_type'] == "Brown moss" %}
+                                        <option selected value="Brown moss">Brown moss</option>
+                                    {%else%}
+                                        <option value="Brown moss">Brown moss</option>
+                                    {%endif%}
+                                    {% if inpt['gen_site_data']['peat_type'] == "Unknown" %}
+                                        <option selected value="Unknown">Unknown</option>
+                                    {%else%}
+                                        <option value="Unknown">Unknown</option>
+                                    {%endif%}
+                                    {% if inpt['gen_site_data']['peat_type'] == "Humidified" %}
+                                        <option selected value="Humidified">Humidified</option>
+                                    {%else%}
+                                        <option value="Humidified">Humidified</option>
+                                    {%endif%}
+                                </select>
+                            </div>
+                        </div>
+                        <hr class="inf">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <label for="peat_thick" class="form-label d-inline" style="margin-right:0px;">Peat thickness (cm)</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" class="validate form-control" id="peat_thick" name="peat_thick" min="0" max="9999" step="0.01" value="{{inpt['gen_site_data']['peat_thick']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                            </div>
+                        </div>
+                        <hr class="inf">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-8">
+                                <label for="year_start" class="form-label">Year rewetting started</label> 
+                            </div>
+                            <div class="col-4">
+                                <input type="number" class="validate form-control" id="year_start" name="year_start" min="1900" max="3000" value="{{inpt['gen_site_data']['year_start']}}" onchange="set_calculation()" onkeyup="set_calculation()">
                             </div>
                         </div>
                     </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <label for="bs_crop_name" class="form-label">Crop</label> 
+                    <div class="empty-spacing" style="padding-top: 15px;"></div>
+                    <div class="container set-base-div">
+                        <div id="set-gw-tog" class="row d-flex justify-content-start">
+                            <div class="col-1">
+                                <svg id="set-gw-tog-down" height="20" width="20" style="display: block;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                                </svg>
+                                <svg id="set-gw-tog-up" height="20" width="20" style="display: none;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                                </svg>
+                            </div>
+                            <div class="col set-header upper-base" style="padding-left: 0px;">
+                                <p>Groundwater and Vegetation</p>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {% if inpt['base']['crop_name'][0] == "C" %}
-                                    <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
-                                {%else%}
-                                    <option value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
-                                {%endif%}
-                                {% if inpt['base']['crop_name'][0] == "R" %}
-                                    <option selected value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
-                                {%else%}
-                                    <option value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
-                                {%endif%}
-                                {% if inpt['base']['crop_name'][0] == "P" %}
-                                    <option selected value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
-                                {%else%}
-                                    <option value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
-                                {%endif%}
-                                {% if inpt['base']['crop_name'][0] == "G" %}
-                                    <option selected value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
-                                {%else%}
-                                    <option value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
-                                {%endif%}
-                                {% if inpt['base']['crop_name'][0] == "A" %}
-                                    <option selected value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
-                                {%else%}
-                                    <option value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
-                                {%endif%}
-                                {% if inpt['base']['crop_name'][0] == "O" %}
-                                    <option selected value="Other">Other</option>
-                                {%else%}
-                                    <option value="Other">Other</option>
-                                {%endif%}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="empty-spacing" style="padding-top: 15px;"></div>
-                <div class="container set-rewet-div">
-                    <p>After Rewetting</p>
-                    <hr>
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="rw_amount_manure" class="form-label" style="margin-left: 4px;">Animal manure applied (k N/h)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="rw_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-7">
-                            <label for="rw_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
-                        </div>
-                        <div class="col-5">
-                            <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {% if inpt['rewet']['type_synth_fert'][0] == "N" %}
-                                    <option selected value="Nitrate Based">Nitrate based</option>                         
-                                {%else%}
-                                    <option value="Nitrate Based">Nitrate based</option>                      
-                                {%endif%}
-                                {% if inpt['rewet']['type_synth_fert'][0] == "A" %}
-                                    <option  selected value="Ammonium Based">Ammonium based</option>
-                                {%else%}
-                                    <option value="Ammonium Based">Ammonium based</option>
-                                {%endif%}
-                            </select>
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="rw_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_synth_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                        <div id="set-gw-coll" style="display:none">
+                            <div class="empty-spacing" style="padding-top: 15px;"></div>
+                            <div class="upper-base">
+                                <p>Baseline</p>
+                                <hr>    
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                            data-bs-content="Summer defined as 1 April - 30 September<br>
+                                                + is water level above the soil<br>
+                                                - is water level beneath the soil">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
+                                            </a>
+                                        </svg>
+                                        <label for="bs_med_gw_level_summer" class="form-label d-inline" style="margin-right:0px; margin-left: 4px;">Median groundwater level in summer (cm)</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_med_gw_level_summer" name="bs_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['base']['med_gw_level_summer']}}" onkeyup="set_calculation(); bs_set_veg_select()" onchange="set_calculation(); bs_set_veg_select()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="This is the GESType. Select the best fit vegetation from the dropdown list after changing or confirming the groundwater level value.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>
+                                            </a>
+                                        </svg>
+                                        <label for="bs_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class *</label> 
+                                    </div>
+                                    <div class="col-8">
+                                        <select class="validate form-select" id="bs_veg_class" name="bs_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            <!--populated with javascript-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="empty-spacing" style="padding-top: 15px;"></div>
+                            <div class="container set-rewet-div">
+                                <p>After Rewetting</p>
+                                <hr>
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                            data-bs-content="Summer defined as 1 April - 30 September<br>
+                                                + is water level above the soil<br>
+                                                - is water level beneath the soil">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="rw_med_gw_level_summer" class="form-label" style="margin-left: 4px;">Median groundwater level in summer (cm)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_med_gw_level_summer" name="rw_med_gw_level_summer" min="-999" max="999" step="0.001" value="{{inpt['rewet']['med_gw_level_summer']}}" onkeyup="set_calculation(); rw_set_veg_select()" onchange="set_calculation(); rw_set_veg_select()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="This is the GESType. Select the best fit vegetation from the dropdown list after changing or confirming the groundwater level value.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="rw_veg_class" class="form-label" style="margin-left: 4px;">Vegetation class *</label> 
+                                    </div>
+                                    <div class="col-8">
+                                        <select class="validate form-select" id="rw_veg_class" name="rw_veg_class" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            <!--populated with javascript-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="margin-top: 10px; margin-left: 20px; color: #4d4d4d; font-size: 14px;">* Change groundwater level to see more vegetation class options.</p>
                         </div>
                     </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="rw_type_animals" class="form-label">Grazing animals</label> 
+                    <div class="empty-spacing" style="padding-top: 15px;"></div>
+                    <div class="container set-base-div">
+                        <div id="set-fu-tog" class="row d-flex justify-content-start">
+                            <div class="col-1">
+                                <svg id="set-fu-tog-down" height="20" width="20" style="display: block;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                                </svg>
+                                <svg id="set-fu-tog-up" height="20" width="20" style="display: none;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                                </svg>
+                            </div>
+                            <div class="col set-header upper-base" style="padding-left: 0px;">
+                                <p>Fertiliser Use</p>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {% if inpt['rewet']['type_animals'][0] == "N" %}
-                                    <option selected value="No Animals">No animal</option>
-                                {%else%}
-                                    <option value="No Animals">No animal</option>
-                                {%endif%}
-                                {% if inpt['rewet']['type_animals'][0] == "D" %}
-                                    <option selected value="Dairy Cattle">Dairy cows</option>
-                                {%else%}
-                                    <option value="Dairy Cattle">Dairy cows</option>
-                                {%endif%}
-                                {% if inpt['rewet']['type_animals'][0] == "B" %}
-                                    <option selected value="Beef Cattle">Beef cattle</option>
-                                {%else%}
-                                    <option value="Beef Cattle">Beef cattle</option>
-                                {%endif%}
-                                {% if inpt['rewet']['type_animals'][0] == "S" %}
-                                    <option selected value="Sheep">Sheep</option>
-                                {%else%}
-                                    <option value="Sheep">Sheep</option>
-                                {%endif%}
-                                {% if inpt['rewet']['type_animals'][0] == "G" %}
-                                    <option selected value="Goats">Goats</option>
-                                {%else%}
-                                    <option value="Goats">Goats</option>
-                                {%endif%}
-                                {% if inpt['rewet']['type_animals'][0] == "W" %}
-                                    <option selected value="Water Buffalo">Water buffalo</option>
-                                {%else%}
-                                    <option value="Water Buffalo">Water buffalo</option>
-                                {%endif%}
-                            </select>
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="rw_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_animals']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="rw_avg_num_days" class="form-label">Average grazing days per year</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_days']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <label for="rw_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['rewet']['crop_yield']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="form-check form-switch" style="display: grid;">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-8">
-                                <label for="rw_crop_resid" class="form-check-label">Crop residues</label>
-                            </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
-                                {% if inpt['rewet']['crop_resid'] %}
-                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
-                                {%else%}
-                                <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {%endif%}
+                        <div id="set-fu-coll" style="display:none">
+                            <div class="empty-spacing" style="padding-top: 15px;"></div>
+                            <div class="upper-base">
+                                <p>Baseline</p>
+                                <hr>
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="bs_amount_manure" class="form-label" style="margin-left: 4px;">Animal manure applied (k N/h)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_amount_manure" name="bs_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="bs_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-7">
+                                        <label for="bs_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                                    </div>
+                                    <div class="col-5">
+                                        <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {% if inpt['base']['type_synth_fert'][0] == "N" %}
+                                                <option selected value="Nitrate Based">Nitrate based</option>                         
+                                            {%else%}
+                                                <option value="Nitrate Based">Nitrate based</option>                      
+                                            {%endif%}
+                                            {% if inpt['base']['type_synth_fert'][0] == "A" %}
+                                                <option selected value="Ammonium Based">Ammonium based</option>
+                                            {%else%}
+                                                <option value="Ammonium Based">Ammonium based</option>
+                                            {%endif%}
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="bs_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_amount_synth_fert" name="bs_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_synth_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="bs_type_animals" class="form-label">Grazing animals</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <select class="validate form-select" id="bs_type_animals" name="bs_type_animals" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {% if inpt['base']['type_animals'][0] == "N" %}
+                                                <option selected value="No Animals">No animal</option>
+                                            {%else%}
+                                                <option value="No Animals">No animal</option>
+                                            {%endif%}
+                                            {% if inpt['base']['type_animals'][0] == "D" %}
+                                                <option selected value="Dairy Cattle">Dairy cows</option>
+                                            {%else%}
+                                                <option value="Dairy Cattle">Dairy cows</option>
+                                            {%endif%}
+                                            {% if inpt['base']['type_animals'][0] == "B" %}
+                                                <option selected value="Beef Cattle">Beef cattle</option>
+                                            {%else%}
+                                                <option value="Beef Cattle">Beef cattle</option>
+                                            {%endif%}
+                                            {% if inpt['base']['type_animals'][0] == "S" %}
+                                                <option selected value="Sheep">Sheep</option>
+                                            {%else%}
+                                                <option value="Sheep">Sheep</option>
+                                            {%endif%}
+                                            {% if inpt['base']['type_animals'][0] == "G" %}
+                                                <option selected value="Goats">Goats</option>
+                                            {%else%}
+                                                <option value="Goats">Goats</option>
+                                            {%endif%}
+                                            {% if inpt['base']['type_animals'][0] == "W" %}
+                                                <option selected value="Water Buffalo">Water buffalo</option>
+                                            {%else%}
+                                                <option value="Water Buffalo">Water buffalo</option>
+                                            {%endif%}
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="bs_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_avg_num_animals" name="bs_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_animals']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="bs_avg_num_days" class="form-label">Average grazing days per year</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_avg_num_days" name="bs_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['base']['avg_num_days']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="bs_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_crop_yield" name="bs_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['base']['crop_yield']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="form-check form-switch" style="display: grid;">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="col-8">
+                                            <label for="bs_crop_resid" class="form-check-label">Crop residues</label>
+                                        </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
+                                            {% if inpt['base']['crop_resid'] %}
+                                            <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
+                                            {%else%}
+                                            <input type="checkbox" class="form-check-input" role="switch" id="bs_crop_resid" name="bs_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <label for="bs_crop_name" class="form-label">Crop</label> 
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="validate form-select" id="bs_crop_name" name="bs_crop_name" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {% if inpt['base']['crop_name'][0] == "C" %}
+                                                <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
+                                            {%else%}
+                                                <option value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
+                                            {%endif%}
+                                            {% if inpt['base']['crop_name'][0] == "R" %}
+                                                <option selected value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
+                                            {%else%}
+                                                <option value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
+                                            {%endif%}
+                                            {% if inpt['base']['crop_name'][0] == "P" %}
+                                                <option selected value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
+                                            {%else%}
+                                                <option value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
+                                            {%endif%}
+                                            {% if inpt['base']['crop_name'][0] == "G" %}
+                                                <option selected value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
+                                            {%else%}
+                                                <option value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
+                                            {%endif%}
+                                            {% if inpt['base']['crop_name'][0] == "A" %}
+                                                <option selected value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
+                                            {%else%}
+                                                <option value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
+                                            {%endif%}
+                                            {% if inpt['base']['crop_name'][0] == "O" %}
+                                                <option selected value="Other">Other</option>
+                                            {%else%}
+                                                <option value="Other">Other</option>
+                                            {%endif%}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="empty-spacing" style="padding-top: 15px;"></div>
+                            <div class="container set-rewet-div">
+                                <p>After Rewetting</p>
+                                <hr>
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="rw_amount_manure" class="form-label" style="margin-left: 4px;">Animal manure applied (k N/h)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_amount_manure" name="rw_amount_manure" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_manure']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Fill in the nitrogen (N) content of the total yearly application.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="rw_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-7">
+                                        <label for="rw_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                                    </div>
+                                    <div class="col-5">
+                                        <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {% if inpt['rewet']['type_synth_fert'][0] == "N" %}
+                                                <option selected value="Nitrate Based">Nitrate based</option>                         
+                                            {%else%}
+                                                <option value="Nitrate Based">Nitrate based</option>                      
+                                            {%endif%}
+                                            {% if inpt['rewet']['type_synth_fert'][0] == "A" %}
+                                                <option  selected value="Ammonium Based">Ammonium based</option>
+                                            {%else%}
+                                                <option value="Ammonium Based">Ammonium based</option>
+                                            {%endif%}
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="rw_amount_synth_fert" class="form-label">Amount applied (k N/h)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_amount_synth_fert" name="rw_amount_synth_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_synth_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="rw_type_animals" class="form-label">Grazing animals</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <select class="validate form-select" id="rw_type_animals" name="rw_type_animals" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {% if inpt['rewet']['type_animals'][0] == "N" %}
+                                                <option selected value="No Animals">No animal</option>
+                                            {%else%}
+                                                <option value="No Animals">No animal</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['type_animals'][0] == "D" %}
+                                                <option selected value="Dairy Cattle">Dairy cows</option>
+                                            {%else%}
+                                                <option value="Dairy Cattle">Dairy cows</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['type_animals'][0] == "B" %}
+                                                <option selected value="Beef Cattle">Beef cattle</option>
+                                            {%else%}
+                                                <option value="Beef Cattle">Beef cattle</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['type_animals'][0] == "S" %}
+                                                <option selected value="Sheep">Sheep</option>
+                                            {%else%}
+                                                <option value="Sheep">Sheep</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['type_animals'][0] == "G" %}
+                                                <option selected value="Goats">Goats</option>
+                                            {%else%}
+                                                <option value="Goats">Goats</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['type_animals'][0] == "W" %}
+                                                <option selected value="Water Buffalo">Water buffalo</option>
+                                            {%else%}
+                                                <option value="Water Buffalo">Water buffalo</option>
+                                            {%endif%}
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="rw_avg_num_animals" class="form-label">Avergage number of grazing animals</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_avg_num_animals" name="rw_avg_num_animals" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_animals']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="rw_avg_num_days" class="form-label">Average grazing days per year</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_avg_num_days" name="rw_avg_num_days" min="0" max="9999" step="0.01" value="{{inpt['rewet']['avg_num_days']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <label for="rw_crop_yield" class="form-label">Crop yield (ton dm/ha/yr)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_crop_yield" name="rw_crop_yield" min="0" max="9999" step="0.01" value="{{inpt['rewet']['crop_yield']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="form-check form-switch" style="display: grid;">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="col-8">
+                                            <label for="rw_crop_resid" class="form-check-label">Crop residues</label>
+                                        </div><div class="col-4 d-flex justify-content-center" style="justify-content: center;">
+                                            {% if inpt['rewet']['crop_resid'] %}
+                                            <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()" checked>
+                                            {%else%}
+                                            <input type="checkbox" class="form-check-input" role="switch" id="rw_crop_resid" name="rw_crop_resid" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <label for="rw_crop_name" class="form-label">Crop</label> 
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {% if inpt['rewet']['crop_name'][0] == "C" %}
+                                                <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
+                                            {%else%}
+                                                <option value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_name'][0] == "R" %}
+                                                <option selected value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
+                                            {%else%}
+                                                <option value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_name'][0] == "P" %}
+                                                <option selected value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
+                                            {%else%}
+                                                <option value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_name'][0] == "G" %}
+                                                <option selected value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
+                                            {%else%}
+                                                <option value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_name'][0] == "A" %}
+                                                <option selected value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
+                                            {%else%}
+                                                <option value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_name'][0] == "O" %}
+                                                <option selected value="Other">Other</option>
+                                            {%else%}
+                                                <option value="Other">Other</option>
+                                            {%endif%}
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <label for="rw_crop_name" class="form-label">Crop</label> 
+                    <div class="empty-spacing" style="padding-top: 15px;"></div>
+                    <div class="container set-base-div">
+                        <div id="set-land-tog" class="row d-flex justify-content-start">
+                            <div class="col-1">
+                                <svg id="set-land-tog-down" height="20" width="20" style="display: block;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                                </svg>
+                                <svg id="set-land-tog-up" height="20" width="20" style="display: none;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                                </svg>
+                            </div>
+                            <div class="col set-header upper-base" style="padding-left:0px">
+                                <p>Land Management Activity</p>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <select class="validate form-select" id="rw_crop_name" name="rw_crop_name" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {% if inpt['rewet']['crop_name'][0] == "C" %}
-                                    <option selected value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
-                                {%else%}
-                                    <option value="Cattail (Typha Sp.)">Cattail (Typha sp.)</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_name'][0] == "R" %}
-                                    <option selected value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
-                                {%else%}
-                                    <option value="Reed (Phragmites Australis)">Reed (Phragmites australis)</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_name'][0] == "P" %}
-                                    <option selected value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
-                                {%else%}
-                                    <option value="Peat Moss (Sphagnum Sp.)">Peat moss (Sphagnum sp.)</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_name'][0] == "G" %}
-                                    <option selected value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
-                                {%else%}
-                                    <option value="Grasses like Reed Canary Grass">Grasses like reed canary grass</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_name'][0] == "A" %}
-                                    <option selected value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
-                                {%else%}
-                                    <option value="Alder (Alnus Sp.)">Alder (Alnus sp.)</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_name'][0] == "O" %}
-                                    <option selected value="Other">Other</option>
-                                {%else%}
-                                    <option value="Other">Other</option>
-                                {%endif%}
-                            </select>
+                        <div class="set-land-coll" id="set-land-coll" style="display: none;">
+                            <div class="empty-spacing" style="padding-top: 15px;"></div>
+                            <div class="upper-base">
+                                <p>Baseline</p>
+                                <hr>
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                            data-bs-content=
+                                            "Estimate the diesel use of all activities.<br>
+                                            If you don't know the diesel use you can calculate this:<br>
+                                            Multiply the horse power of the tractor/ machine in kW and multiply that with 0.305 (l/kW). Multiply that with the time required to do the activity. If the activity includes tillage multiply by 1.5.<br>
+                                            <br>
+                                            Example cultivator:<br>
+                                            110kW* 0.305 l/kW*0.75 hours/ha*1.5(correction factor tillage)= 37.7 l/ha<br>
+                                            <br>
+                                            Example mowing:<br>
+                                            80 kW * 0.305 l/kW *0.5 hours/ha = 12.2 l/ha<br>
+                                            <br>
+                                            Total is the sum of all activities: 49.9 l/ha<br>
+                                            Multiply with the site area to determine the total for the site.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="bs_diesel_per_site" class="form-label" style="margin-left: 4px;">Diesel Use</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                            data-bs-content=
+                                                "Estimate the yearly electricity use of all electric equipment that uses power from the electricity grid, such as water pumping stations.<br>
+                                                <br>
+                                                If the equipment uses power from solar panels, windmills or other renewable sources do not fill this in here. In this case you need to determine the GHG-emission from electricity use separately and add this to the output calculated by the SET.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="bs_elec_per_site" class="form-label" style="margin-left: 4px;">Electricity Use (kW)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="empty-spacing" style="padding-top: 15px;"></div>
+                            <div class="container set-rewet-div">
+                                <p>After Rewetting</p>
+                                <hr>
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                            data-bs-content=
+                                            "Estimate the diesel use of all activities.<br>
+                                            If you don't know the diesel use you can calculate this:<br>
+                                            Multiply the horse power of the tractor/ machine in kW and multiply that with 0.305 (l/kW). Multiply that with the time required to do the activity. If the activity includes tillage multiply by 1.5.<br>
+                                            <br>
+                                            Example cultivator:<br>
+                                            110kW* 0.305 l/kW*0.75 hours/ha*1.5(correction factor tillage)= 37.7 l/ha<br>
+                                            <br>
+                                            Example mowing:<br>
+                                            80 kW * 0.305 l/kW *0.5 hours/ha = 12.2 l/ha<br>
+                                            <br>
+                                            Total is the sum of all activities: 49.9 l/ha<br>
+                                            Multiply with the site area to determine the total for the site.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="rw_diesel_per_site" class="form-label" style="margin-left: 4px;">Diesel Use</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                                <hr class="inf">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                            data-bs-content=
+                                                "Estimate the yearly electricity use of all electric equipment that uses power from the electricity grid, such as water pumping stations.<br>
+                                                <br>
+                                                If the equipment uses power from solar panels, windmills or other renewable sources do not fill this in here. In this case you need to determine the GHG-emission from electricity use separately and add this to the output calculated by the SET.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="rw_elec_per_site" class="form-label" style="margin-left: 4px;">Electricity Use (kW)</label> 
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="empty-spacing" style="padding-top: 15px;"></div>
-        <div class="container set-base-div">
-            <div id="set-land-tog" class="row d-flex justify-content-start">
-                <div class="col-1">
-                    <svg id="set-land-tog-down" height="20" width="20" style="display: block;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
-                    </svg>
-                    <svg id="set-land-tog-up" height="20" width="20" style="display: none;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
-                    </svg>
-                </div>
-                <div class="col set-header upper-base" style="padding-left:0px">
-                    <p>Land Management Activity</p>
-                </div>
-            </div>
-            <div class="set-land-coll" id="set-land-coll" style="display: none;">
+                    <div class="empty-spacing" style="padding-top: 15px;"></div>
+                    <div class="container set-base-div">
+                        <div id="set-cu-tog" class="row d-flex justify-content-start">
+                            <div class="col-1">
+                                <svg id="set-cu-tog-down" height="20" width="20" style="display: block;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                                </svg>
+                                <svg id="set-cu-tog-up" height="20" width="20" style="display: none;">
+                                    <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                                </svg>
+                            </div>
+                            <div class="col set-header upper-base" style="padding-left:0px">
+                                <p>Crop Use</p>
+                            </div>
+                        </div>
+                        <div class="set-cu-coll" id="set-cu-coll" style="display: none;">
+                            <div class="empty-spacing" style="padding-top: 15px;"></div>
+                            <div class="container set-rewet-div">
+                                <p>After Rewetting</p>
+                                <hr>
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <svg height="20" width="16">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
+                                            data-bs-content=
+                                                "Select the best fitting application of the harvested crop.<br>
+                                                If the crop has a lifetime of at least 10 yrs and it replaces a fossil based product, the carbon in the crop is treated as emission reduction.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        <label for="rw_crop_use" class="form-label" style="margin-left: 4px;">Crop Use</label> 
+                                    </div>
+                                    <div class="col-8">
+                                        <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" onchange="set_calculation()" onkeyup="set_calculation()">
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Bui" %}
+                                                <option selected value="Building Materials e.g insulation, taching, timber">Building material (e.g. insulation, tachine, timber)</option>
+                                            {%else%}
+                                                <option value="Building Materials e.g insulation, taching, timber">Building material (e.g. insulation, tachine, timber)</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Bed" %}
+                                                <option selected value="Bedding Material">Bedding material</option>
+                                            {%else%}
+                                                <option value="Bedding Material">Bedding material</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Foo" %}
+                                                <option selected selected value="Food Application">Food application</option>
+                                            {%else%}
+                                                <option value="Food Application">Food application</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Fod" %}
+                                                <option selected value="Fodder/Feed Application">Fodder/feed application</option>
+                                            {%else%}
+                                                <option value="Fodder/Feed Application">Fodder/feed application</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Ene" %}
+                                                <option selected value="Energy Use: biogas, combustion, wood etc">Energy use (e.g. biogas, combustion, wood)</option>
+                                            {%else%}
+                                                <option value="Energy Use: biogas, combustion, wood etc">Energy use (e.g. biogas, combustion, wood)</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Pap" %}
+                                                <option selected value="Paper">Paper</option>
+                                            {%else%}
+                                                <option value="Paper">Paper</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Ext" %}
+                                                <option selected value="Extraction of Ingredients/Building Blocks: proteins, fibres, cellulose etc">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
+                                            {%else%}
+                                                <option value="Extraction of Ingredients/Building Blocks: proteins, fibres, cellulose etc">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Hig" %}
+                                                <option selected value="High Quality Substrate in Horticulture">High quality substrate in agriculture</option>
+                                            {%else%}
+                                                <option value="High Quality Substrate in Horticulture">High quality substrate in agriculture</option>
+                                            {%endif%}
+                                            {% if inpt['rewet']['crop_use'][0:3] == "Oth" %}
+                                                <option selected value="Other Uses/Unknown">Other uses/ unknown</option>
+                                            {%else%}
+                                                <option value="Other Uses/Unknown">Other uses/ unknown</option>
+                                            {%endif%}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="empty-spacing" style="padding-top: 15px;"></div>
-                <div class="upper-base">
-                    <p>Baseline</p>
-                    <hr>
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                                data-bs-content=
-                                "Estimate the diesel use of all activities.<br>
-                                If you don't know the diesel use you can calculate this:<br>
-                                Multiply the horse power of the tractor/ machine in kW and multiply that with 0.305 (l/kW). Multiply that with the time required to do the activity. If the activity includes tillage multiply by 1.5.<br>
-                                <br>
-                                Example cultivator:<br>
-                                110kW* 0.305 l/kW*0.75 hours/ha*1.5(correction factor tillage)= 37.7 l/ha<br>
-                                <br>
-                                Example mowing:<br>
-                                80 kW * 0.305 l/kW *0.5 hours/ha = 12.2 l/ha<br>
-                                <br>
-                                Total is the sum of all activities: 49.9 l/ha<br>
-                                Multiply with the site area to determine the total for the site.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="bs_diesel_per_site" class="form-label" style="margin-left: 4px;">Diesel Use</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_diesel_per_site" name="bs_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
-                    </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                                data-bs-content=
-                                    "Estimate the yearly electricity use of all electric equipment that uses power from the electricity grid, such as water pumping stations.<br>
-                                    <br>
-                                    If the equipment uses power from solar panels, windmills or other renewable sources do not fill this in here. In this case you need to determine the GHG-emission from electricity use separately and add this to the output calculated by the SET.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="bs_elec_per_site" class="form-label" style="margin-left: 4px;">Electricity Use (kW)</label> 
-                        </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="bs_elec_per_site" name="bs_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['base']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
-                        </div>
+                <div class="col-auto text-center">
+                    <div class="row justify-content-center">
+                        <p class="text-descr" style="margin-bottom: 5px;">Export results and assumptions</p>
+                        <button id="set_csv_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">DOWNLOAD CSV</button>
                     </div>
                 </div>
-                <div class="empty-spacing" style="padding-top: 15px;"></div>
-                <div class="container set-rewet-div">
-                    <p>After Rewetting</p>
+            </div>
+
+            <div class="empty-spacing" style="padding-top: 15px;"></div>
+            <div class="container set-results-div">
+                <div style="margin-left: 25px;">
+                    <div class="empty-spacing" style="padding-top: 10px;"></div>
+                    <h5 style="justify-content: center;">
+                        RESULTS
+                    </h5>
+                    <br>
+                    <p>For FFP Tool</p>
                     <hr>
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                                data-bs-content=
-                                "Estimate the diesel use of all activities.<br>
-                                If you don't know the diesel use you can calculate this:<br>
-                                Multiply the horse power of the tractor/ machine in kW and multiply that with 0.305 (l/kW). Multiply that with the time required to do the activity. If the activity includes tillage multiply by 1.5.<br>
-                                <br>
-                                Example cultivator:<br>
-                                110kW* 0.305 l/kW*0.75 hours/ha*1.5(correction factor tillage)= 37.7 l/ha<br>
-                                <br>
-                                Example mowing:<br>
-                                80 kW * 0.305 l/kW *0.5 hours/ha = 12.2 l/ha<br>
-                                <br>
-                                Total is the sum of all activities: 49.9 l/ha<br>
-                                Multiply with the site area to determine the total for the site.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="rw_diesel_per_site" class="form-label" style="margin-left: 4px;">Diesel Use</label> 
+                    <div style="margin-left: 25px;">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <p style="font-weight: bold;">
+                                    <svg height="20" width="16" style="margin-right: 4px;">
+                                        <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Average carbon credits per hectare per year, as used in the <a href={{ url_for('ffp_tool') }}>FFP tool</a>.">
+                                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                        </a>
+                                    </svg>
+                                    Avg. credits/ha/annum</p>
+                            </div>
+                            <div class="col-2">
+                                <p id="ghg_sav_tot_p_yr_p_ha" style="font-weight: bold;">{{results['carbon_savings']['ghg_savings_total_per_year_per_ha']}}</p>
+                            </div>
+                            <div class="col-4 d-flex justify-content-end">
+                                <p style="font-weight: bold;">tCO2-eq/ year/ ha</p>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_diesel_per_site" name="rw_diesel_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['diesel_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                        <br>
+                    </div>
+                    <p>Baseline Outcomes</p>
+                    <hr>
+                    <div style="margin-left: 25px;">
+                        <p>C Emissions from Soil</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>CH4</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_CH4">{{results['base_outcomes']['CH4']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>CO2</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_CO2">{{results['base_outcomes']['CO2']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Subtotal</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_c_emission_gwp_subtotal">{{results['base_outcomes']['c_emission_gwp_subtotal']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <p>N2O Emissions from Soil</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>N2O Direct</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_n2o_direct">{{results['base_outcomes']['n2o_direct']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>N2O Indirect</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_n2o_indirect">{{results['base_outcomes']['n2o_indirect']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Subtotal</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_n2o_emission_gwp_subtotal">{{results['base_outcomes']['n2o_emission_gwp_subtotal']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <p>Activity</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Subtotal</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_activity_gwp_subtotal">{{results['base_outcomes']['activity_gwp_subtotal']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <p>TOTAL</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Total</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_gwp_total">{{results['base_outcomes']['gwp_total']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <hr class="inf">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                                data-bs-content=
-                                    "Estimate the yearly electricity use of all electric equipment that uses power from the electricity grid, such as water pumping stations.<br>
-                                    <br>
-                                    If the equipment uses power from solar panels, windmills or other renewable sources do not fill this in here. In this case you need to determine the GHG-emission from electricity use separately and add this to the output calculated by the SET.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="rw_elec_per_site" class="form-label" style="margin-left: 4px;">Electricity Use (kW)</label> 
+                    <div class="empty-spacing" style="padding-top: 20px;"></div>
+                    <p>Rewetting Outcomes</p>
+                    <hr>
+                    <div style="margin-left: 25px;">
+                        <p>C Emissions from Soil</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>CH4</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_CH4">{{results['rewet_outcomes']['CH4']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>CO2</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_CO2">{{results['rewet_outcomes']['CO2']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Subtotal</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_c_emission_gwp_subtotal">{{results['rewet_outcomes']['c_emission_gwp_subtotal']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
                         </div>
-                        <div class="col-4">
-                            <input type="number" class="validate form-control" id="rw_elec_per_site" name="rw_elec_per_site" min="0" max="9999" step="0.01" value="{{inpt['rewet']['elec_per_site']}}" onchange="set_calculation()" onkeyup="set_calculation()">
+                        <p>N2O Emissions from Soil</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>N2O Direct</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_n2o_direct">{{results['rewet_outcomes']['n2o_direct']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>N2O Indirect</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_n2o_indirect">{{results['rewet_outcomes']['n2o_indirect']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Subtotal</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_n2o_emission_gwp_subtotal">{{results['rewet_outcomes']['n2o_emission_gwp_subtotal']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <p>Activity</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Subtotal</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_activity_gwp_subtotal">{{results['rewet_outcomes']['activity_gwp_subtotal']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <p>Product</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Subtotal</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_product_gwp_subtotal">{{results['rewet_outcomes']['product_gwp_subtotal']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <p>TOTAL</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>GWP Total</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_gwp_total">{{results['rewet_outcomes']['gwp_total']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="empty-spacing" style="padding-top: 20px;"></div>
+                    <p>Carbon Savings</p>
+                    <hr>
+                    <div style="margin-left: 25px;">
+                        <p>Greenhouse Gas Savings</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Total per year per site</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_tot_p_yr_p_site">{{results['carbon_savings']['ghg_savings_total_per_year_per_site']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ site</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p style="margin-left: -24px;">
+                                        <svg height="20" width="16" style="margin-right: 4px;">
+                                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The tonnes of CO2-equivalent savings per year is equivalent to the average carbon credits per hectare per year, as used in the <a href={{ url_for('ffp_tool') }}>FFP tool</a>.">
+                                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                            </a>
+                                        </svg>
+                                        Total per hectare per year</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_tot_p_yr_p_ha2">{{results['carbon_savings']['ghg_savings_total_per_year_per_ha']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ ha</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Stock per year per site</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_stock_p_yr_p_site">{{results['carbon_savings']['ghg_savings_stock_per_year_per_site']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ site</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Stock per year per hectare</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_stock_p_yr_p_ha">{{results['carbon_savings']['ghg_savings_stock_per_year_per_ha']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ ha</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Flow per year per site</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_flow_p_yr_p_site">{{results['carbon_savings']['ghg_savings_flow_per_year_per_site']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ site</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Flow per year per hectare</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_flow_p_yr_p_ha">{{results['carbon_savings']['ghg_savings_flow_per_year_per_ha']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ ha</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Product use per year per site</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_pu_p_yr_p_site">{{results['carbon_savings']['ghg_savings_product_use_per_year_per_site']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ site</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Product use per year per hectare</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="ghg_sav_pu_p_yr_p_ha">{{results['carbon_savings']['ghg_savings_product_use_per_year_per_ha']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ year/ ha</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="empty-spacing" style="padding-top: 20px;"></div>
+                        <p>Carbon Stock Peat Soil Start Year</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>TCO2 per site</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="cs_tco2_p_site">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ site</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Tons carbon per site</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="cs_ton_c_p_site">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>ton C/ site</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>TCO2 per hectare</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="cs_tco2_p_ha">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>tCO2-eq/ ha</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Tons carbon per hectare</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="cs_ton_c_p_ha">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>ton C/ ha</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="empty-spacing" style="padding-top: 20px;"></div>
+                        <p>Time Until Peat Is Lost</p>
+                        <hr>
+                        <div style="margin-left: 25px;">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>Baseline</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="base_til_peat_loss">{{results['carbon_savings']['time_til_peat_is_lost_base_scenario']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>years</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <p>With Rewetting</p>
+                                </div>
+                                <div class="col-2">
+                                    <p id="rewet_til_peat_loss">{{results['carbon_savings']['time_til_peat_is_lost_rewet_scenario']}}</p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <p>years</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="empty-spacing" style="padding-top: 15px;"></div>
-        <div class="container set-base-div">
-            <div id="set-cu-tog" class="row d-flex justify-content-start">
-                <div class="col-1">
-                    <svg id="set-cu-tog-down" height="20" width="20" style="display: block;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
-                    </svg>
-                    <svg id="set-cu-tog-up" height="20" width="20" style="display: none;">
-                        <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
-                    </svg>
-                </div>
-                <div class="col set-header upper-base" style="padding-left:0px">
-                    <p>Crop Use</p>
-                </div>
-            </div>
-            <div class="set-cu-coll" id="set-cu-coll" style="display: none;">
-                <div class="empty-spacing" style="padding-top: 15px;"></div>
-                <div class="container set-rewet-div">
-                    <p>After Rewetting</p>
-                    <hr>
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <svg height="20" width="16">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" 
-                                data-bs-content=
-                                    "Select the best fitting application of the harvested crop.<br>
-                                    If the crop has a lifetime of at least 10 yrs and it replaces a fossil based product, the carbon in the crop is treated as emission reduction.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            <label for="rw_crop_use" class="form-label" style="margin-left: 4px;">Crop Use</label> 
-                        </div>
-                        <div class="col-8">
-                            <select class="validate form-select" id="rw_crop_use" name="rw_crop_use" onchange="set_calculation()" onkeyup="set_calculation()">
-                                {% if inpt['rewet']['crop_use'][0:3] == "Bui" %}
-                                    <option selected value="Building Materials e.g insulation, taching, timber">Building material (e.g. insulation, tachine, timber)</option>
-                                {%else%}
-                                    <option value="Building Materials e.g insulation, taching, timber">Building material (e.g. insulation, tachine, timber)</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Bed" %}
-                                    <option selected value="Bedding Material">Bedding material</option>
-                                {%else%}
-                                    <option value="Bedding Material">Bedding material</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Foo" %}
-                                    <option selected selected value="Food Application">Food application</option>
-                                {%else%}
-                                    <option value="Food Application">Food application</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Fod" %}
-                                    <option selected value="Fodder/Feed Application">Fodder/feed application</option>
-                                {%else%}
-                                    <option value="Fodder/Feed Application">Fodder/feed application</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Ene" %}
-                                    <option selected value="Energy Use: biogas, combustion, wood etc">Energy use (e.g. biogas, combustion, wood)</option>
-                                {%else%}
-                                    <option value="Energy Use: biogas, combustion, wood etc">Energy use (e.g. biogas, combustion, wood)</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Pap" %}
-                                    <option selected value="Paper">Paper</option>
-                                {%else%}
-                                    <option value="Paper">Paper</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Ext" %}
-                                    <option selected value="Extraction of Ingredients/Building Blocks: proteins, fibres, cellulose etc">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
-                                {%else%}
-                                    <option value="Extraction of Ingredients/Building Blocks: proteins, fibres, cellulose etc">Extraction of ingredients/ building blocks (e.g. protein, fibres, cellulose)</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Hig" %}
-                                    <option selected value="High Quality Substrate in Horticulture">High quality substrate in agriculture</option>
-                                {%else%}
-                                    <option value="High Quality Substrate in Horticulture">High quality substrate in agriculture</option>
-                                {%endif%}
-                                {% if inpt['rewet']['crop_use'][0:3] == "Oth" %}
-                                    <option selected value="Other Uses/Unknown">Other uses/ unknown</option>
-                                {%else%}
-                                    <option value="Other Uses/Unknown">Other uses/ unknown</option>
-                                {%endif%}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <div class="empty-spacing" style="padding-top: 15px;"></div>
-    <div class="col-auto text-center">
-        <div class="row justify-content-center">
-            <p class="text-descr" style="margin-bottom: 5px;">Export results and assumptions</p>
-            <button id="set_csv_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">DOWNLOAD CSV</button>
         </div>
     </div>
 </div>
 
-<div class="empty-spacing" style="padding-top: 15px;"></div>
-<div class="container set-results-div">
-    <div style="margin-left: 25px;">
-        <div class="empty-spacing" style="padding-top: 10px;"></div>
-        <h5 style="justify-content: center;">
-            RESULTS
-        </h5>
-        <br>
-        <p>For FFP Tool</p>
-        <hr>
-        <div style="margin-left: 25px;">
-            <div class="row align-items-center">
-                <div class="col-6">
-                    <p style="font-weight: bold;">
-                        <svg height="20" width="16" style="margin-right: 4px;">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Average carbon credits per hectare per year, as used in the <a href={{ url_for('ffp_tool') }}>FFP tool</a>.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                            </a>
-                        </svg>
-                        Avg. credits/ha/annum</p>
-                </div>
-                <div class="col-2">
-                    <p id="ghg_sav_tot_p_yr_p_ha" style="font-weight: bold;">{{results['carbon_savings']['ghg_savings_total_per_year_per_ha']}}</p>
-                </div>
-                <div class="col-4 d-flex justify-content-end">
-                    <p style="font-weight: bold;">tCO2-eq/ year/ ha</p>
-                </div>
-            </div>
-            <br>
-        </div>
-        <p>Baseline Outcomes</p>
-        <hr>
-        <div style="margin-left: 25px;">
-            <p>C Emissions from Soil</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>CH4</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_CH4">{{results['base_outcomes']['CH4']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>CO2</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_CO2">{{results['base_outcomes']['CO2']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Subtotal</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_c_emission_gwp_subtotal">{{results['base_outcomes']['c_emission_gwp_subtotal']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <p>N2O Emissions from Soil</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>N2O Direct</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_n2o_direct">{{results['base_outcomes']['n2o_direct']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>N2O Indirect</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_n2o_indirect">{{results['base_outcomes']['n2o_indirect']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Subtotal</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_n2o_emission_gwp_subtotal">{{results['base_outcomes']['n2o_emission_gwp_subtotal']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <p>Activity</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Subtotal</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_activity_gwp_subtotal">{{results['base_outcomes']['activity_gwp_subtotal']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <p>TOTAL</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Total</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_gwp_total">{{results['base_outcomes']['gwp_total']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="empty-spacing" style="padding-top: 20px;"></div>
-        <p>Rewetting Outcomes</p>
-        <hr>
-        <div style="margin-left: 25px;">
-            <p>C Emissions from Soil</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>CH4</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_CH4">{{results['rewet_outcomes']['CH4']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>CO2</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_CO2">{{results['rewet_outcomes']['CO2']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Subtotal</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_c_emission_gwp_subtotal">{{results['rewet_outcomes']['c_emission_gwp_subtotal']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <p>N2O Emissions from Soil</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>N2O Direct</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_n2o_direct">{{results['rewet_outcomes']['n2o_direct']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>N2O Indirect</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_n2o_indirect">{{results['rewet_outcomes']['n2o_indirect']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Subtotal</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_n2o_emission_gwp_subtotal">{{results['rewet_outcomes']['n2o_emission_gwp_subtotal']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <p>Activity</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Subtotal</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_activity_gwp_subtotal">{{results['rewet_outcomes']['activity_gwp_subtotal']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <p>Product</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Subtotal</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_product_gwp_subtotal">{{results['rewet_outcomes']['product_gwp_subtotal']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <p>TOTAL</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>GWP Total</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_gwp_total">{{results['rewet_outcomes']['gwp_total']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="empty-spacing" style="padding-top: 20px;"></div>
-        <p>Carbon Savings</p>
-        <hr>
-        <div style="margin-left: 25px;">
-            <p>Greenhouse Gas Savings</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Total per year per site</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_tot_p_yr_p_site">{{results['carbon_savings']['ghg_savings_total_per_year_per_site']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ site</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p style="margin-left: -24px;">
-                            <svg height="20" width="16" style="margin-right: 4px;">
-                                <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The tonnes of CO2-equivalent savings per year is equivalent to the average carbon credits per hectare per year, as used in the <a href={{ url_for('ffp_tool') }}>FFP tool</a>.">
-                                    <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
-                                </a>
-                            </svg>
-                            Total per hectare per year</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_tot_p_yr_p_ha2">{{results['carbon_savings']['ghg_savings_total_per_year_per_ha']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ ha</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Stock per year per site</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_stock_p_yr_p_site">{{results['carbon_savings']['ghg_savings_stock_per_year_per_site']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ site</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Stock per year per hectare</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_stock_p_yr_p_ha">{{results['carbon_savings']['ghg_savings_stock_per_year_per_ha']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ ha</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Flow per year per site</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_flow_p_yr_p_site">{{results['carbon_savings']['ghg_savings_flow_per_year_per_site']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ site</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Flow per year per hectare</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_flow_p_yr_p_ha">{{results['carbon_savings']['ghg_savings_flow_per_year_per_ha']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ ha</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Product use per year per site</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_pu_p_yr_p_site">{{results['carbon_savings']['ghg_savings_product_use_per_year_per_site']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ site</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Product use per year per hectare</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="ghg_sav_pu_p_yr_p_ha">{{results['carbon_savings']['ghg_savings_product_use_per_year_per_ha']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ year/ ha</p>
-                    </div>
-                </div>
-            </div>
-            <div class="empty-spacing" style="padding-top: 20px;"></div>
-            <p>Carbon Stock Peat Soil Start Year</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>TCO2 per site</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="cs_tco2_p_site">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_site']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ site</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Tons carbon per site</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="cs_ton_c_p_site">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_site']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>ton C/ site</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>TCO2 per hectare</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="cs_tco2_p_ha">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_tco2_per_ha']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>tCO2-eq/ ha</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Tons carbon per hectare</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="cs_ton_c_p_ha">{{results['carbon_savings']['carbon_stock_peat_soil_start_year_ton_c_per_ha']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>ton C/ ha</p>
-                    </div>
-                </div>
-            </div>
-            <div class="empty-spacing" style="padding-top: 20px;"></div>
-            <p>Time Until Peat Is Lost</p>
-            <hr>
-            <div style="margin-left: 25px;">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>Baseline</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="base_til_peat_loss">{{results['carbon_savings']['time_til_peat_is_lost_base_scenario']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>years</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <p>With Rewetting</p>
-                    </div>
-                    <div class="col-2">
-                        <p id="rewet_til_peat_loss">{{results['carbon_savings']['time_til_peat_is_lost_rewet_scenario']}}</p>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <p>years</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="empty-spacing" style="padding-top: 10px;"></div>
+
 
 <!--charts-->
 <div class="empty-spacing" style="padding-top: 20px;"></div>
