@@ -4,26 +4,40 @@
 
 {% block navbar %}
 <nav class="navbar bg-body-tertiary">
-    <div class="container-fluid justify-content-start">
-    <a class="navbar-brand" href="{{ url_for('homepage') }}">
-        <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-        MultiPeat Toolkit
-    </a>
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link on-page" href="{{ url_for('map_page') }}">Map</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('ffp_tool') }}">FFP Tool</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('set_tool') }}">SET Tool</a>    
-        </li>
-    </ul>
-</div>
+    <div class="container-fluid justify-content-start d-inline-block">
+        <a class="navbar-brand d-inline-block" href="{{ url_for('homepage') }}">
+            <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="50" height="40" class="align-middle" style="padding-right: 5px;">
+            <img src="{{url_for('static', filename='ASPECT_logo.png')}}" alt="Logo" width="75" height="40" class="align-middle" style="padding-right: 10px;">
+        </a>
+        <div class="d-inline-block align-middle">
+            <h3 class="d-inline-block" style="margin-right: 2px;">Peatland</h3> <h3 style="color: #9fbbcf; font-weight: bold;" class="d-inline-block">TOOLKIT</h3>
+            <p class="d-block" style="font-size: small; margin-top: -7px;">Advancing capabilities to measure and regenerate wetlands</p>
+        </div>
+        <div class="d-inline-flex align-middle justify-content-end" style="padding-left: 15px;">
+            <div class="d-inline-flex input-group" role="search">
+                <span class="input-group-text d-inline-block search-svg-block" style="height:30px; width:30px; padding:0px">
+                    <svg height="18" width="18" class="align-middle">
+                        <image style="height:18px; width:18px" xlink:href="{{ url_for('static', filename='search.svg') }}"></image>
+                    </svg>
+                </span>
+                <input class="form-control d-inline-block search-entry" style="height:30px;" type="search" placeholder="KEYWORD SEARCH" id="header-search" aria-label="Search">
+            </div>
+            <a style="padding-left: 10px;" class="d-inline-flex align-middle justify-content-end" href="{{url_for('login')}}">Login</a>
+            <div class="d-inline-flex align-middle" style="border-right: 1px solid #9fbbcf; height: 30px; padding: 0px 5px;"></div>
+            <p class="d-inline-flex align-middle" style="padding-left: 10px;">Language</p>
+        </div>
+    </div>
+    <div style="background-color: #9fbbcf; height: 25px; width: 100%;" class="position-absolute bottom-0"></div>
+    <div style="padding-top: 10px;" class="position-relative">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link on-page" href="{{ url_for('map_page') }}">SITES & POLICIES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('toolbox') }}">USE THE TOOLS</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 {% endblock %}
 
@@ -48,9 +62,18 @@
     </div>
 </nav>
 
-
-<div>
-    <div id="map"></div>
+<div class="container" style="padding:0px; margin:0px;">
+    <div class="row justify-content-start">
+        <div class="d-block col-4 map-nav" style="padding:0px;max-width: 200px;">
+            <p>Info and Dropdowns</p>
+        </div>
+        <div class="col-8">
+            <div id="map" style="max-height: 50%; display: block;"></div>
+            <div class="pol-div">
+                <p>Policy Info instead of offcanvas</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Draggable DIV -->
