@@ -493,7 +493,10 @@ span.Economy{
     background-color: #d3dee9;
 }
 
-.pol-div{
+.map-pol-div{
     background-color: #f0f7f9;
-    display: block;
+}
+
+.ol-viewport{
+    padding:0px;
 }

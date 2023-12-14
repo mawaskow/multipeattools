@@ -42,50 +42,35 @@
 {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-      <p class="navbar-brand">Peatland Map</p>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="#"><Layers class="badge rounded-pill text-layer-pill" id="layers">Layers</span><span class="sr-only"></span></a>
-            </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" id="bogInput" aria-label="Search">
-          <button class="btn btn-outline-success" type="button" id="search">Search</button>
-        </form>
-      </div>
-    </div>
-</nav>
-
-<div class="container" style="padding:0px; margin:0px;">
-    <div class="row justify-content-start">
-        <div class="d-block col-4 map-nav" style="padding:0px;max-width: 200px;">
-            <p>Info and Dropdowns</p>
+<div class="container-fluid" style="padding:0px; margin:0px;height:100vh;">
+    <div class="row justify-content-start" style="margin:0px;">
+        <div class="d-block col-3 map-nav" style="padding-left:5px;max-width: 200px;height:100vh;">
+            <div id="sites-div"></div>
+            <div id="layers-tog">
+                <p style="font-weight: bold;">Layers</p>
+            </div>
+            <div id="layers-div"></div>
+            <div id="pol-filter-tog">
+                <p style="font-weight: bold;">Policies</p>
+            </div>
+            <div id="pol-filter-div"></div>
         </div>
-        <div class="col-8">
-            <div id="map" style="max-height: 50%; display: block;"></div>
-            <div class="pol-div">
-                <p>Policy Info instead of offcanvas</p>
+        <div class="col" style="padding:0px; max-width: 100%; height:100vh;">
+            <div id="map" class="row" style="max-height: 50%; max-width: 100%; display:block; position:static; margin:0px;"></div>
+            <div id="pol-div" class="row map-pol-div" style="display:block; max-width: 100%; margin:0px; height:100vh;">
+                <p style="font-weight: bold;">Policy Info</p>
+                <p>Click on the map to view relevant policies.</p>
+                <div id="local-pol"></div>
+                <div id="reg-pol"></div>
+                <div id="nat-pol"></div>
+                <div id="eu-pol"></div>
+                <div id="glob-pol"></div>
+                <div id="offc-no-features"></div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Draggable DIV -->
-<div id="draggable">
-    <div id="draggable-header"><div id="draggable-title">Title</div><a href="#" id="draggable-closer" class="ol-popup-closer"></a></div>
-    <div id="draggable-content">
-        <p>Move</p>
-        <p>this</p>
-        <p>DIV</p>
-    </div>
-
-</div>
 <!--Popup div-->
 <div id="popup" class="ol-popup">
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
@@ -96,27 +81,7 @@
         <div id="D2-info"></div>
         <div id="D3-info"></div>
         <div id="no-features"></div>
-        <div id="offc-trigger">
-            <p style="margin-top: 8px;"> </p>
-            <button id="offc-btn" class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offc-div" aria-controls="offcanvasScrolling">View Policies</button>
-        </div>
     </div>
-</div>
-
-<!--offcanvas div-->
-<div id="offc-div" class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" aria-labelledby="offc-lab">
-  <div class="offcanvas-header">
-    <h5 id="offc-lab" class="offcanvas-title">Policy Information</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div id="local-pol"></div>
-    <div id="reg-pol"></div>
-    <div id="nat-pol"></div>
-    <div id="eu-pol"></div>
-    <div id="glob-pol"></div>
-    <div id="offc-no-features"></div>
-  </div>
 </div>
 
 <script type="module" src="{{url_for('static', filename='scripts/Map.js')}}" ></script>
