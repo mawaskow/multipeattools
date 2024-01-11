@@ -41,5 +41,5 @@ pol_filt_lst.forEach(pol => {
     ${pol}</label>
     </div>`;
     polDivContent.append(element);
-    $(`#pol`).prop('checked');
+    $(`#${pol}`).prop('checked', true);
 });
