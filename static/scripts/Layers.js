@@ -30,7 +30,7 @@ $('.form-check-input').on('change', function(){
 const pol_filt_lst = 
     ["Biodiversity", "ClimateAction", "Economy", 
     "LandUse", "Culture", "Energy", "Research", "EnvQuality"];
-
+// make dictionary instead for having spaces in display names?
 const polDivContent=$('#pol-filter-div');
 polDivContent.html('');
 

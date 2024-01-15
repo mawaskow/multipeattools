@@ -117,6 +117,19 @@ const ipolLayer= new ImageLayer({
     display: 'Policies'
 });
 
+// Polish Alkaline Fens
+const alkFenSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:pl_alk_fen", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const alkFenLayer= new ImageLayer({
+    source:alkFenSource,
+    // @ts-ignore
+    name:'PL_Alk_Fens',
+    display: 'Alkaline Fens'
+});
+
 const osmLayer=new TileLayer({
     source:new OSM(),
     // @ts-ignore
@@ -134,7 +147,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, bnmLayer],
+    layers:[osmLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, bnmLayer, alkFenLayer],
     view:view
 });
 
