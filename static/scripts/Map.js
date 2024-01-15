@@ -50,7 +50,7 @@ const IESource=new ImageWMS({
 const IELayer= new ImageLayer({
     source:IESource,
     // @ts-ignore
-    name:'Irish_Counties',
+    name:null,
     display: 'Irish Counties'
 });
 
@@ -113,7 +113,7 @@ const ipolSource=new ImageWMS({
 const ipolLayer= new ImageLayer({
     source:ipolSource,
     // @ts-ignore
-    name:'Policies',
+    name:null,
     display: 'Policies'
 });
 
