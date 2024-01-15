@@ -179,7 +179,7 @@ const config = {
             stacked: true,
             title: {
                 display: true,
-                text: '(CO2-eq/year)'
+                text: 't (CO2-eq/year)'
             }
         }
         }
@@ -1282,6 +1282,7 @@ function update_set_timeline_chart(cur_chart, timeline){
         carbon_sav.push(timeline['carbon_savings_total'][i]);
         c_cred.push(timeline['c_credits_' + site_name][i]);
     }
+    cur_chart.data.labels= labels;
     cur_chart.data.datasets[0].data = base_emis;
     cur_chart.data.datasets[1].data = rewet_emis;
     cur_chart.data.datasets[2].data = carbon_sav;
