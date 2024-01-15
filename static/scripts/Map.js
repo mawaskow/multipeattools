@@ -28,6 +28,7 @@ const mapProjection=new Projection({
     global:false
 });
 
+// Bord Na Mona layers
 const bnmSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:bnm_reproj", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -36,9 +37,11 @@ const bnmSource=new ImageWMS({
 const bnmLayer= new ImageLayer({
     source:bnmSource,
     // @ts-ignore
-    name:'Bord_na_Mona'
+    name:'Bord_na_Mona',
+    display: 'Bord na Mona'
 });
 
+// Irish Counties
 const IESource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:dipm", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -47,9 +50,11 @@ const IESource=new ImageWMS({
 const IELayer= new ImageLayer({
     source:IESource,
     // @ts-ignore
-    name:'Irish_Peatlands'
+    name:'Irish_Counties',
+    display: 'Irish Counties'
 });
 
+// Project Sites Resource
 const PSSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:proj_sites", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -58,9 +63,11 @@ const PSSource=new ImageWMS({
 const PSLayer= new ImageLayer({
     source:PSSource,
     // @ts-ignore
-    name:'Project_Sites'
+    name:'Project_Sites',
+    display: 'Project Sites'
 });
 
+// Irish Peat Classes
 const D1Source=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:dipm1", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -69,7 +76,8 @@ const D1Source=new ImageWMS({
 const D1Layer= new ImageLayer({
     source:D1Source,
     // @ts-ignore
-    name:'Raised_Bog'
+    name:'Raised_Bog',
+    display: 'Raised Bog'
 });
 
 const D2Source=new ImageWMS({
@@ -80,7 +88,8 @@ const D2Source=new ImageWMS({
 const D2Layer= new ImageLayer({
     source:D2Source,
     // @ts-ignore
-    name:'LL_Atlantic_Bog'
+    name:'LL_Atlantic_Bog',
+    display: 'LL Atlantic Bog'
 });
 
 const D3Source=new ImageWMS({
@@ -91,9 +100,11 @@ const D3Source=new ImageWMS({
 const D3Layer= new ImageLayer({
     source:D3Source,
     // @ts-ignore
-    name:'HL_Montane_Bog'
+    name:'HL_Montane_Bog',
+    display: 'HL Montane Bog'
 });
 
+// Policies
 const ipolSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:geo_pol", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -102,13 +113,15 @@ const ipolSource=new ImageWMS({
 const ipolLayer= new ImageLayer({
     source:ipolSource,
     // @ts-ignore
-    name:'Policies'
+    name:'Policies',
+    display: 'Policies'
 });
 
 const osmLayer=new TileLayer({
     source:new OSM(),
     // @ts-ignore
-    name:'Basemap'
+    name:'Basemap',
+    display: 'Basemap'
 });
 
 const view=new View({

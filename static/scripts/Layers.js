@@ -11,7 +11,7 @@ layers.forEach(layer => {
         const element = `<div class="form-check drag">
         <input class="form-check-input" type="checkbox" value="" id=${layer.get('name')}>
         <label class="form-check-label d-flex align-self-center" for=${layer.get('name')}>
-        ${layer.get('name')}</label>
+        ${layer.get('display')}</label>
         </div>`;
         layersDivContent.append(element);
         $(`#${layer.get('name')}`).prop('checked', layer.getVisible());
