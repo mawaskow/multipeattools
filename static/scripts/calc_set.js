@@ -1233,6 +1233,20 @@ $("#set_csv_btn").on('click', function(event){
     window.open(encodedUri);
 });
 
+$("#set_gwp_btn").on('click', function(event){
+    var set_gwp_img = document.createElement('a');
+    set_gwp_img.href = gwp_chart.toBase64Image();
+    set_gwp_img.download = 'set_gwp_img.png';
+    set_gwp_img.click();
+});
+
+$("#set_emis_btn").on('click', function(event){
+    var set_emis_img = document.createElement('a');
+    set_emis_img.href = time_graph.toBase64Image();
+    set_emis_img.download = 'set_emis_img.png';
+    set_emis_img.click();
+});
+
 ///////////////////////////////////////////////////////
 //////// UPDATE GRAPHS ////////////////////////////////
 ///////////////////////////////////////////////////////
