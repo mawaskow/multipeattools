@@ -1,4 +1,5 @@
 import {getLayerByName} from './customFunctions.js'
+import {getLayerByDisplay} from './customFunctions.js'
 
 const map=$('#map').data('map');
 
@@ -43,7 +44,7 @@ map.on('singleclick', function (evt) {
     const noFeatures=$('#offc-no-features');
     noFeatures.html('<p>No features</p>');
   
-    const ipolLayer=getLayerByName('Policies');
+    const ipolLayer=getLayerByDisplay('Policies');
     const ipolSource=ipolLayer.getSource();
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    

@@ -10,3 +10,13 @@ export function getLayerByName(layerName){
     });
     return layer;
 }
+
+export function getLayerByDisplay(layerDisplayName){
+    let layer=null;
+
+    mapLayers.forEach(lyr => {
+        if(lyr.get('display')===layerDisplayName)
+        layer=lyr;
+    });
+    return layer;
+}
