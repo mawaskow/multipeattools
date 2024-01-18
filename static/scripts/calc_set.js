@@ -298,25 +298,29 @@ let tml_data = {
             label: 'Base Emissions',
             data: tl_base_emis,
             fill: false,
-            borderColor: '#177521'
+            borderColor: '#177521',
+            pointRadius: 0
         },
         {
             label: 'Rewetted Emissions',
             data: tl_rewet_emis,
             fill: false,
-            borderColor: '#6abdd4'
+            borderColor: '#6abdd4',
+            pointRadius: 0
         },
         {
             label: 'Carbon Savings Total',
             data: tl_carbon_sav,
             fill: false,
-            borderColor: '#87d676'
+            borderColor: '#87d676',
+            pointRadius: 0
         },
         {
             label: 'Carbon Credits for '+ tl_site_name,
             data: tl_c_cred,
             fill: false,
-            borderColor: '#d4b87b'
+            borderColor: '#d4b87b',
+            pointRadius: 0
         }
     ]
 }
@@ -327,13 +331,16 @@ let tml_config = {
         plugins: {
         title: {
             display: true,
-            text: 'Emission Scenario'
+            text: 'Scenario GHG Emission Timelines'
         },
         },
         responsive: true,
         scales: {
         x: {
             stacked: true,
+            ticks: {
+                maxTicksLimit: 10
+            }
         },
         y: {
             stacked: true,
