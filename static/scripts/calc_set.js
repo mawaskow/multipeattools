@@ -160,6 +160,19 @@ datasets: [
     }
     ]
 };
+Chart.register({
+    id: 'addChartBg',
+    beforeDraw: function (chart, easing) {
+        if (chart.config.options.chartArea && chart.config.options.chartArea.backgroundColor) {
+            var chx = chart.ctx;
+            var chartArea = chart.chartArea;
+            chx.save();
+            chx.fillStyle = chart.config.options.chartArea.backgroundColor;
+            chx.fillRect(0, 0, ctx.scrollWidth, ctx.scrollHeight);
+            chx.restore();
+        }
+    }
+});
 const config = {
     type: 'bar',
     data: data,
@@ -168,7 +181,7 @@ const config = {
         title: {
             display: true,
             text: 'GWP Outcomes'
-        },
+        }
         },
         responsive: true,
         scales: {
@@ -182,6 +195,9 @@ const config = {
                 text: 't (CO2-eq/year)'
             }
         }
+        },
+        chartArea: {
+            backgroundColor: 'whitesmoke'
         }
     }
     };
@@ -326,6 +342,9 @@ let tml_config = {
                 text: 'GHG Emission (t CO2-eq/year)'
             }
         }
+        },
+        chartArea: {
+            backgroundColor: 'whitesmoke'
         }
     }
 };
