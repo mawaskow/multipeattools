@@ -117,3 +117,16 @@ $("#set-cu-tog").on('click', function(event){
         tu.style.display = 'none';
     }
 });
+
+$("#map-pol-size-btn").on('click', function(event){
+    map = document.getElementById("map");
+    btn = document.getElementById("map-pol-size-btn");
+    
+    if(map.style.maxHeight == '50%'){
+        map.style.maxHeight = '100%';
+        btn.innerHTML = 'Shrink Map View';
+    }else if(map.style.maxHeight == '100%'){
+        map.style.maxHeight = '50%';
+        btn.innerHTML = 'Expand Map View';
+    }
+});
