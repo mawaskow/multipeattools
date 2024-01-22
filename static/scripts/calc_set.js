@@ -337,13 +337,11 @@ let tml_config = {
         responsive: true,
         scales: {
         x: {
-            stacked: true,
             ticks: {
                 maxTicksLimit: 10
             }
         },
         y: {
-            stacked: true,
             title: {
                 display: true,
                 text: 'GHG Emission (t CO2-eq/year)'
