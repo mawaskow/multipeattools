@@ -97,3 +97,20 @@ map.on('singleclick', function (evt) {
     }
 
 });
+
+const pol_filt_dct = 
+{"biodiv":"Biodiversity", "clmact":"Climate Action", "econ":"Economy", 
+"lu":"Land Use", "cultr":"Culture", "engr":"Energy", "resr":"Research", "envqual": "Env. Quality"};
+// make dictionary instead for having spaces in display names?
+const polDivContent=$('#pol-filter-div');
+polDivContent.html('');
+
+for (let pol in pol_filt_dct) {
+    const element = `<div class="form-check drag">
+    <input class="form-check-input" type="checkbox" value="" id=${pol}>
+    <label class="form-check-label d-flex align-self-center" for=${pol}>
+    ${pol_filt_dct[pol]}</label>
+    </div>`;
+    polDivContent.append(element);
+    $(`#${pol}`).prop('checked', true);
+};
