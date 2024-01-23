@@ -69,9 +69,12 @@ map.on('singleclick', function (evt) {
   // HL Montane Bog
   const D3Info=$('#D3-info');
   D3Info.html('');
-  // HL Montane Bog
+  // alkaline fens
   const PlAlkFenInfo=$('#PlAlkFen-info');
   PlAlkFenInfo.html('');
+  // corine-18
+  const corineInfo=$('#corine-info');
+  corineInfo.html('');
   // default
   const noFeatures=$('#no-features');
   noFeatures.html('<p>No features</p>');
@@ -215,6 +218,29 @@ map.on('singleclick', function (evt) {
             }
         })
     }
+
+  const corineLayer=getLayerByName('Corine18');
+  const corineSource=corineLayer.getSource();
+  const corineUrl=corineSource.getFeatureInfoUrl(coordinate, resolution, projection,
+    {'INFO_FORMAT':'application/json'});
+
+    if(corineUrl){
+        $.ajax({
+            url:corineUrl,
+            method:'GET',
+            success:function(result){
+                const corine=result.features[0];
+                if(corine){
+                    const corineName=corine.properties.site_type;
+
+                    corineInfo.html(`<p>CORINE-18 Class: ${corineName}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+
 
   overlay.setPosition(coordinate);
 });

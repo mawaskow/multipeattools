@@ -130,6 +130,19 @@ const alkFenLayer= new ImageLayer({
     display: 'Alkaline Fens'
 });
 
+// CORINE-18 data for PL and IE for 411, 412, and 322
+const corineSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:corine18", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const corineLayer= new ImageLayer({
+    source:corineSource,
+    // @ts-ignore
+    name:'Corine18',
+    display: 'CORINE'
+});
+
 const osmLayer=new TileLayer({
     source:new OSM(),
     // @ts-ignore
@@ -147,7 +160,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, bnmLayer, alkFenLayer],
+    layers:[osmLayer, corineLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, bnmLayer, alkFenLayer],
     view:view
 });
 
