@@ -55,11 +55,11 @@ ROUTES
 '''
 @app.route('/')
 def landingpage():
-    return redirect(url_for('homepage'))
+    return redirect(url_for('map_page'))
     
-@app.route('/home')
-def homepage():
-    return render_template('home.html')
+@app.route('/map', methods=['GET', 'POST'])
+def map_page():
+    return render_template("map.html")
 
 @app.route('/tools')
 def toolbox():
@@ -111,10 +111,6 @@ def set_tool():
         # same as above where load json and dct and calc values
         return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     return render_template("set_tool.html", results= results_dct, inpt = input_dct)
-
-@app.route('/map', methods=['GET', 'POST'])
-def map_page():
-    return render_template("map.html")
 
 '''
 Admin
