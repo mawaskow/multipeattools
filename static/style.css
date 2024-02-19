@@ -33,13 +33,7 @@ a.navbar-brand{
     color: #1a1a1a;
 }
 
-.nav-tabs > .nav-item{
-    background-color: #d3dee9;
-    margin-left: 20px;
-    border-radius: 0px;
-}
-
-.nav-tabs > .nav-item >a {
+.navvbar-nav > .nav-item >a {
     color: #1a1a1a;
     font-size: 15px;
     font-weight: 500;
@@ -47,13 +41,13 @@ a.navbar-brand{
     border-radius: 0px;
 }
 
-.nav-tabs > .nav-item >a:hover{
-    background-color: #e1ecf0;
+.navvbar-nav > .nav-item >a:hover{
+    color: #e1ecf0;
     padding: 5px 15px;
 }
 
-.nav-tabs > .nav-item >a.on-page{
-    background-color: #f0f7f9;
+.navbar-nav > .nav-item >a.on-page{
+    color: #f0f7f9;
     padding: 5px 15px;
 }
 
