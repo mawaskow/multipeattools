@@ -334,8 +334,13 @@ select::-internal-list-box{
     padding:5px;
 }
 
-#layers-div{
+#map-lyr-box{
     background-color:#d3dee9; 
+    padding:5px;
+}
+
+#layers-div{
+    background-color:white; 
     padding:5px;
 }
 

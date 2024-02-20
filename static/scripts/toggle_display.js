@@ -119,11 +119,11 @@ $("#set-cu-tog").on('click', function(event){
 });
 
 $("#map-layers-btn").on('click', function(event){
-    ld = document.getElementById("layers-div");
+    ld = document.getElementById("map-lyr-box");
     sv = document.getElementById("map-layers-svg")
     if(ld.style.display == 'none'){
         ld.style.display = 'block';
-        sv.style.left = 150;
+        sv.style.left = 175;
     }else if(ld.style.display == 'block'){
         ld.style.display = 'none';
         sv.style.left = 0;

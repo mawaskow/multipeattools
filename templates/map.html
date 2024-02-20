@@ -88,8 +88,12 @@
             <image xlink:href="{{ url_for('static', filename='file-earmark-text.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
-    <div id="layers-div" style="position: absolute; top: 60px; left: 0; width:150px; display:none;"></div>
+    <div id="map-lyr-box" style="position: absolute; top: 60px; left: 0; width:175px; display:none;">
+        <p style="font-weight: bold; color: #747474; margin-left: 5px;">SITE TYPES</p>
+        <div id="layers-div" style="padding-left: 5px;"></div>
+    </div>
 </div>
+
 
 <!--Popup div-->
 <div id="popup" class="ol-popup">
