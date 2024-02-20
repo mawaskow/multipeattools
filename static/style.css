@@ -307,43 +307,6 @@ select::-internal-list-box{
     border-radius: 0;
 }
 
-/* MAP */
-#map{
-    height:100%;
-    width:100%;
-    /*position:fixed;*/
-    max-height: 100%; 
-    max-width: 100%; 
-    display:flex; 
-    position:absolute; 
-    margin:0px;
-}
-
-#map-layers-svg{
-    background-color:#9fbbcf; 
-    padding:5px;
-}
-
-#map-data-svg{
-    background-color:#9fbbcf; 
-    padding:5px;
-}
-
-#map-pol-svg{
-    background-color:#9fbbcf; 
-    padding:5px;
-}
-
-#map-lyr-box{
-    background-color:#d3dee9; 
-    padding:5px;
-}
-
-#layers-div{
-    background-color:white; 
-    padding:5px;
-}
-
 /*Overlay*/
 
 .ol-popup {
@@ -516,7 +479,7 @@ span.Economy{
     background-color: #9fbbcf;
 }
 
-
+/*navbar*/
 .tool-nav-bar{
     background-color: #d3dee9;
 }
@@ -549,12 +512,132 @@ span.Economy{
     padding-bottom: 5px;
 }
 
+/* MAP */
+#map{
+    height:100%;
+    width:100%;
+    /*position:fixed;*/
+    max-height: 100%; 
+    max-width: 100%; 
+    display:flex; 
+    position:absolute; 
+    margin:0px;
+}
+
+#map-layers-svg{
+    background-color:#9fbbcf; 
+    padding:5px;
+}
+
+#map-data-svg{
+    background-color:#9fbbcf; 
+    padding:5px;
+}
+
+#map-pol-svg{
+    background-color:#9fbbcf; 
+    padding:5px;
+}
+
+#map-pol-cls-svg{
+    background-color:#9fbbcf; 
+    padding:5px;
+}
+
+#map-lyr-box{
+    background-color:#d3dee9; 
+    padding:5px;
+}
+
+#layers-div{
+    background-color:white; 
+    padding:5px;
+}
+
+/*map policy box*/
+#map-pol-box{
+    background-color: #d3dee9;
+}
+
 .map-nav{
     background-color: #d3dee9;
 }
 
-.map-pol-div{
-    background-color: #f0f7f9;
+#map-pols-div{
+    background-color:white; 
+    padding:5px;
+}
+
+#lvl-filter-div > .form-check-input{
+    border-radius: 0px;
+    height: 30px;
+    width: 30px;
+}
+
+/*policy level selection*/
+
+input[type="checkbox"]:checked + #cnty-fltr-svg {
+    fill:#72CAC3;
+}
+
+input[type="checkbox"]:checked + #reg-fltr-svg {
+    fill:#72CAC3;
+}
+
+input[type="checkbox"]:checked + #ntl-fltr-svg {
+    fill:#72CAC3;
+}
+
+input[type="checkbox"]:checked + #glb-fltr-svg {
+    fill:#72CAC3;
+}
+
+/*Policy class check box*/
+
+#map-pols-cls-div > div > label{
+    color:  #1a1a1a;
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+    padding-left: 5px;
+    font-weight: bold;
+    /*margin: 2px 2px 2px 25px;*/
+}
+
+.pol-cls-inp{
+    border-radius: 0px;
+    height: 18px;
+    width: 18px;
+    border-color: transparent;
+    margin-left: 5px;
+}
+
+.pol-cls-inp:checked{
+    background-color:#72CAC3;
+}
+
+.enr-cls-clr{
+    background-color: #faf8d4;
+}
+.clm-cls-clr{
+    background-color: #f3ceca;
+}
+.comm-cls-clr{
+    background-color: #fae2be;
+}
+.econ-cls-clr{
+    background-color: #e4d9e8;
+}
+.env-cls-clr{
+    background-color: #cbe7e6;
+}
+.bio-cls-clr{
+    background-color: #e3eece;
+}
+.land-cls-clr{
+    background-color: #e4dcd1;
+}
+.res-cls-clr{
+    background-color: #d3dee9;
 }
 
 .ol-viewport{

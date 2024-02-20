@@ -120,12 +120,42 @@ $("#set-cu-tog").on('click', function(event){
 
 $("#map-layers-btn").on('click', function(event){
     ld = document.getElementById("map-lyr-box");
-    sv = document.getElementById("map-layers-svg")
+    sv = document.getElementById("map-layers-svg");
     if(ld.style.display == 'none'){
         ld.style.display = 'block';
-        sv.style.left = 175;
+        sv.style.left = `175px`;
     }else if(ld.style.display == 'block'){
         ld.style.display = 'none';
         sv.style.left = 0;
+    }
+});
+
+$("#map-pol-btn").on('click', function(event){
+    ld = document.getElementById("map-pol-box");
+    sv = document.getElementById("map-pol-svg");
+    cs = document.getElementById("map-pol-cls-svg");
+    cd = document.getElementById("map-pols-cls-div");
+    if(ld.style.display == 'none'){
+        ld.style.display = 'block';
+        sv.style.right = `400px`;
+        cs.style.display = 'block';
+    }else if(ld.style.display == 'block'){
+        ld.style.display = 'none';
+        sv.style.right = 0;
+        cs.style.display = 'none';
+        cd.style.display = 'none';
+        cs.style.right = `400px`;
+    }
+});
+
+$("#map-pol-cls-btn").on('click', function(event){
+    cd = document.getElementById("map-pols-cls-div");
+    cs = document.getElementById("map-pol-cls-svg")
+    if(cd.style.display == 'none'){
+        cd.style.display = 'block';
+        cs.style.right = `550px`;
+    }else if(cd.style.display == 'block'){
+        cd.style.display = 'none';
+        cs.style.right = `400px`;
     }
 });

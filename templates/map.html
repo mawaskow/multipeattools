@@ -53,26 +53,8 @@
 
 {% block content %}
 <div class="container-fluid" style="padding:0px; margin:0px;height:100vh; position:relative">
-    <div id="sites-div" style="display:none"></div>
-    <div id="layers-tog" style="display:none">
-        <p style="font-weight: bold;">Layers</p>
-    </div>
-    <div id="pol-filter-tog" style="display:none">
-        <p style="font-weight: bold;">Policies</p>
-    </div>
-    <div id="pol-filter-div" style="display:none;"></div>
-    <div id="pol-div" class="row map-pol-div" style="display:none; max-width: 100%; margin:0px; height:100vh;">
-        <p style="font-weight: bold;">Policy Info</p>
-        <p>Click on the map to view relevant policies.</p>
-        <div id="local-pol"></div>
-        <div id="reg-pol"></div>
-        <div id="nat-pol"></div>
-        <div id="eu-pol"></div>
-        <div id="glob-pol"></div>
-        <div id="offc-no-features"></div>
-    </div>
-    <!--map starts-->
     <div id="map"></div>
+    <!--map page buttons-->
     <button id="map-layers-btn">
         <svg id="map-layers-svg" height="50" width="50" style="position: absolute; top: 75px; left: 0; ">
             <image xlink:href="{{ url_for('static', filename='geo-alt.svg') }}" style="height:40px; width:40px;"></image>
@@ -88,9 +70,94 @@
             <image xlink:href="{{ url_for('static', filename='file-earmark-text.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
+    <button id="map-pol-cls-btn">
+        <svg id="map-pol-cls-svg" width="50" height="50" fill="white" style="position: absolute; top: 105px; right: 400px; display:none;">
+            <image xlink:href="{{ url_for('static', filename='list-task.svg') }}" style="height:40px; width:40px;"></image>        
+        </svg>
+    </button>
+    <!--layer box-->
     <div id="map-lyr-box" style="position: absolute; top: 60px; left: 0; width:175px; display:none;">
         <p style="font-weight: bold; color: #747474; margin-left: 5px;">SITE TYPES</p>
-        <div id="layers-div" style="padding-left: 5px;"></div>
+        <div id="layers-div" style="padding-left: 10px;"></div>
+    </div>
+    <!--policy box-->
+    <div id="map-pol-box" style="position: absolute; top: 0; right: 0; width:400px; min-height: 150px; display:none;">
+        <div id="map-pol-default" class="row">
+            <p style="font-weight: bold; color: #747474; margin-left: 5px;">Policy Information</p>
+            <p style="color: #747474; margin-left: 5px;">Click on the map to view relevant policies.</p>
+        </div>
+        <!--policy box level selection buttons-->
+        <div id="lvl-filter-div" class="d-inline-flex">
+            <p style="color: #747474; margin-left: 5px;">Levels:</p>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="county-fltr" style="display: none;" value="" checked/>
+                <svg id="cnty-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-c-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512"/>
+                </svg>
+            </label>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="regional-fltr" style="display: none;" value="" checked/>
+                <svg id="reg-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-r-square-fill" viewBox="0 0 16 16">
+                    <path d="M6.835 5.092v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z"/>
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5z"/>
+                </svg>
+            </label>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="national-fltr" style="display: none;" value="" checked/>
+                <svg id="ntl-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
+                    <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
+                </svg>
+            </label>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="global-fltr" style="display: none;" value="" checked/>
+                <svg id="glb-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-globe-europe-africa" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M3.668 2.501l-.288.646a.847.847 0 0 0 1.479.815l.245-.368a.81.81 0 0 1 1.034-.275.81.81 0 0 0 .724 0l.261-.13a1 1 0 0 1 .775-.05l.984.34q.118.04.243.054c.784.093.855.377.694.801-.155.41-.616.617-1.035.487l-.01-.003C8.274 4.663 7.748 4.5 6 4.5 4.8 4.5 3.5 5.62 3.5 7c0 1.96.826 2.166 1.696 2.382.46.115.935.233 1.304.618.449.467.393 1.181.339 1.877C6.755 12.96 6.674 14 8.5 14c1.75 0 3-3.5 3-4.5 0-.262.208-.468.444-.7.396-.392.87-.86.556-1.8-.097-.291-.396-.568-.641-.756-.174-.133-.207-.396-.052-.551a.33.33 0 0 1 .42-.042l1.085.724c.11.072.255.058.348-.035.15-.15.415-.083.489.117.16.43.445 1.05.849 1.357L15 8A7 7 0 1 1 3.668 2.501"/>
+                </svg>
+            </label>
+        </div>
+        <div id="map-pols-div" style="margin: 5px; min-height: 75px;">
+            <div id="coun-pol"></div>
+            <div id="reg-pol"></div>
+            <div id="nat-pol"></div>
+            <div id="eu-pol"></div>
+            <div id="glob-pol"></div>
+            <div id="offc-no-features"></div>
+        </div>
+    </div>
+    <!--policy class box-->
+    <div id="map-pols-cls-div" style="position: absolute; top: 105px; right: 400px; width:150px; display:none;">
+        <div class="bio-cls-clr">
+            <input id="bio-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="bio-cls-bx">Biodiversity</label>
+        </div>
+        <div class="clm-cls-clr">
+            <input id="clm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="clm-cls-bx">Climate Action</label>
+        </div>
+        <div class="enr-cls-clr">
+            <input id="enr-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="enr-cls-bx">Energy</label>
+        </div>
+        <div class="econ-cls-clr">
+            <input id="econ-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="econ-cls-bx">Economy</label>
+        </div>
+        <div class="land-cls-clr">
+            <input id="land-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="land-cls-bx">Land Use</label>
+        </div>
+        <div class="comm-cls-clr">
+            <input id="comm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="comm-cls-bx">Culture</label>
+        </div>
+        <div class="res-cls-clr">
+            <input id="res-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="res-cls-bx">Research</label>
+        </div>
+        <div class="env-cls-clr">
+            <input id="env-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="env-cls-bx">Env. Quality</label>
+        </div>
     </div>
 </div>
 

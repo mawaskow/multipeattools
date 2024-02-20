@@ -54,9 +54,6 @@ map.on('singleclick', function (evt) {
   const resolution=view.getResolution();
   const projection=view.getProjection();
 
-  // bnm
-  const bogInfo=$('#bog-info');
-  bogInfo.html('');
   // project sites
   const PSInfo=$('#PS-info');
   PSInfo.html('');
@@ -78,33 +75,6 @@ map.on('singleclick', function (evt) {
   // default
   const noFeatures=$('#no-features');
   noFeatures.html('<p>No features</p>');
-
-  // getting the layer source: getting the layer itself
-  const bogLayer=getLayerByName('Bord_na_Mona');
-  const bogSource=bogLayer.getSource();
-  const bogUrl=bogSource.getFeatureInfoUrl(coordinate, resolution, projection,
-    {'INFO_FORMAT':'application/json'});
-
-    if(bogUrl){
-        $.ajax({
-            url:bogUrl,
-            method:'GET',
-            success:function(result){
-                const bog=result.features[0];
-                if(bog){
-                    const bogName=bog.properties.name;
-                    //const bogGroup=bog.properties.boggroup;
-                    const bogArea=bog.properties.area_km2;
-
-                    bogInfo.html(`<h5>Bog Info</h5> 
-                        <p>Name: ${bogName}</p>
-                        <p>Area (sqkm): ${bogArea.toFixed(2)}</p>`);
-                    noFeatures.html('');
-                    }
-
-            }
-        })
-    }
 
   const PSLayer=getLayerByName('Project_Sites');
   const PSSource=PSLayer.getSource();
