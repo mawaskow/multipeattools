@@ -423,8 +423,14 @@ color: #000;
     border-color: transparent;
 }
 */
+.drag > .form-check-input{
+    border-radius: 0px;
+    height: 22px;
+    width: 22px;
+}
+
 .drag > .form-check-label{
-    margin-left: 2px;
+    margin-left: 4px;
 }
 
 #draggable-title{

@@ -28,19 +28,6 @@ const mapProjection=new Projection({
     global:false
 });
 
-// Irish Counties
-const IESource=new ImageWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:dipm", "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const IELayer= new ImageLayer({
-    source:IESource,
-    // @ts-ignore
-    name:null,
-    display: 'Irish Counties'
-});
-
 // Project Sites Resource
 const PSSource=new ImageWMS({
     url:serverURL,
@@ -147,7 +134,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, corineLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, alkFenLayer],
+    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, alkFenLayer],
     view:view
 });
 

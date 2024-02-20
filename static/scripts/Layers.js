@@ -19,7 +19,7 @@ layers.forEach(layer => {
     if(layer.get('name')){
         const element = `<div class="form-check drag">
         <input class="form-check-input ${lyrClrLib[layer.get('name')]}" type="checkbox" value="" id=${layer.get('name')}>
-        <label class="form-check-label d-flex align-self-center" for=${layer.get('name')}>
+        <label class="form-check-label" for=${layer.get('name')}>
         ${layer.get('display')}</label>
         </div>`;
         layersDivContent.append(element);
