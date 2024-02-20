@@ -52,34 +52,43 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid" style="padding:0px; margin:0px;height:100vh;">
-    <div class="row justify-content-start" style="margin:0px;">
-        <div class="d-block col-3 map-nav" style="padding-left:10px;max-width:200px;height:100vh;">
-            <div id="sites-div"></div>
-            <div id="layers-tog">
-                <p style="font-weight: bold;">Layers</p>
-            </div>
-            <div id="layers-div"></div>
-            <div id="pol-filter-tog">
-                <p style="font-weight: bold;">Policies</p>
-            </div>
-            <div id="pol-filter-div"></div>
-            <button id="map-pol-size-btn" class="btn btn-success btn-sm justify-self-center" style="font-weight: 500; max-width: 175px; margin-top: 10px;">Expand Map View</button>
-        </div>
-        <div class="col" style="padding:0px; max-width: 100%; height:100vh;">
-            <div id="map" class="row" style="max-height: 50%; max-width: 100%; display:block; position:static; margin:0px;"></div>
-            <div id="pol-div" class="row map-pol-div" style="display:block; max-width: 100%; margin:0px; height:100vh;">
-                <p style="font-weight: bold;">Policy Info</p>
-                <p>Click on the map to view relevant policies.</p>
-                <div id="local-pol"></div>
-                <div id="reg-pol"></div>
-                <div id="nat-pol"></div>
-                <div id="eu-pol"></div>
-                <div id="glob-pol"></div>
-                <div id="offc-no-features"></div>
-            </div>
-        </div>
+<div class="container-fluid" style="padding:0px; margin:0px;height:100vh; position:relative">
+    <div id="sites-div" style="display:none"></div>
+    <div id="layers-tog" style="display:none">
+        <p style="font-weight: bold;">Layers</p>
     </div>
+    <div id="pol-filter-tog" style="display:none">
+        <p style="font-weight: bold;">Policies</p>
+    </div>
+    <div id="pol-filter-div" style="display:none;"></div>
+    <div id="pol-div" class="row map-pol-div" style="display:none; max-width: 100%; margin:0px; height:100vh;">
+        <p style="font-weight: bold;">Policy Info</p>
+        <p>Click on the map to view relevant policies.</p>
+        <div id="local-pol"></div>
+        <div id="reg-pol"></div>
+        <div id="nat-pol"></div>
+        <div id="eu-pol"></div>
+        <div id="glob-pol"></div>
+        <div id="offc-no-features"></div>
+    </div>
+    <!--map starts-->
+    <div id="map" style="max-height: 100%; max-width: 100%; display:flex; position:absolute; margin:0px;"></div>
+    <button id="map-layers-btn">
+        <svg id="map-layers-svg" height="50" width="50" style="position: absolute; top: 75; left: 150; background-color:#9fbbcf; padding:5px;">
+            <image xlink:href="{{ url_for('static', filename='geo-alt.svg') }}" style="height:40px; width:40px;"></image>
+        </svg>
+    </button>
+    <button id="map-data-btn">
+        <svg height="50" width="50" style="position: absolute; top: 350; left: 0; background-color:#9fbbcf; padding:5px;">
+            <image xlink:href="{{ url_for('static', filename='bar-chart-line.svg') }}" style="height:40px; width:40px;"></image>
+        </svg>
+    </button>
+    <button id="map-pol-btn">
+        <svg height="50" width="50" style="position: absolute; top: 50; right: 0; background-color:#9fbbcf; padding:5px;">
+            <image xlink:href="{{ url_for('static', filename='file-earmark-text.svg') }}" style="height:40px; width:40px;"></image>
+        </svg>
+    </button>
+    <div id="layers-div" style="position: absolute; top: 100; left: 0; width:150px; background-color:#d3dee9; padding:5px; display:block;"></div>
 </div>
 
 <!--Popup div-->

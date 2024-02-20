@@ -118,15 +118,14 @@ $("#set-cu-tog").on('click', function(event){
     }
 });
 
-$("#map-pol-size-btn").on('click', function(event){
-    map = document.getElementById("map");
-    btn = document.getElementById("map-pol-size-btn");
-    
-    if(map.style.maxHeight == '50%'){
-        map.style.maxHeight = '100%';
-        btn.innerHTML = 'Shrink Map View';
-    }else if(map.style.maxHeight == '100%'){
-        map.style.maxHeight = '50%';
-        btn.innerHTML = 'Expand Map View';
+$("#map-layers-btn").on('click', function(event){
+    ld = document.getElementById("layers-div");
+    sv = document.getElementById("map-layers-svg")
+    if(ld.style.display == 'none'){
+        ld.style.display = 'block';
+        sv.style.left = 150;
+    }else if(ld.style.display == 'block'){
+        ld.style.display = 'none';
+        sv.style.left = 0;
     }
 });
