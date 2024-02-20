@@ -72,23 +72,23 @@
         <div id="offc-no-features"></div>
     </div>
     <!--map starts-->
-    <div id="map" style="max-height: 100%; max-width: 100%; display:flex; position:absolute; margin:0px;"></div>
+    <div id="map"></div>
     <button id="map-layers-btn">
-        <svg id="map-layers-svg" height="50" width="50" style="position: absolute; top: 75; left: 150; background-color:#9fbbcf; padding:5px;">
+        <svg id="map-layers-svg" height="50" width="50" style="position: absolute; top: 75px; left: 0; ">
             <image xlink:href="{{ url_for('static', filename='geo-alt.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
     <button id="map-data-btn">
-        <svg height="50" width="50" style="position: absolute; top: 350; left: 0; background-color:#9fbbcf; padding:5px;">
+        <svg id="map-data-svg" height="50" width="50" style="position: absolute; top: 350px; left: 0;">
             <image xlink:href="{{ url_for('static', filename='bar-chart-line.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
     <button id="map-pol-btn">
-        <svg height="50" width="50" style="position: absolute; top: 50; right: 0; background-color:#9fbbcf; padding:5px;">
+        <svg id="map-pol-svg" height="50" width="50" style="position: absolute; top: 50px; right: 0;">
             <image xlink:href="{{ url_for('static', filename='file-earmark-text.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
-    <div id="layers-div" style="position: absolute; top: 100; left: 0; width:150px; background-color:#d3dee9; padding:5px; display:block;"></div>
+    <div id="layers-div" style="position: absolute; top: 60px; left: 0; width:150px; display:none;"></div>
 </div>
 
 <!--Popup div-->
