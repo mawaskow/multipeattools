@@ -28,19 +28,6 @@ const mapProjection=new Projection({
     global:false
 });
 
-// Bord Na Mona layers
-const bnmSource=new ImageWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:bnm_reproj", "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const bnmLayer= new ImageLayer({
-    source:bnmSource,
-    // @ts-ignore
-    name:'Bord_na_Mona',
-    display: 'Bord na Mona'
-});
-
 // Irish Counties
 const IESource=new ImageWMS({
     url:serverURL,
@@ -146,7 +133,7 @@ const corineLayer= new ImageLayer({
 const osmLayer=new TileLayer({
     source:new OSM(),
     // @ts-ignore
-    name:'Basemap',
+    name: null,
     display: 'Basemap'
 });
 
@@ -160,7 +147,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, corineLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, bnmLayer, alkFenLayer],
+    layers:[osmLayer, corineLayer, IELayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, alkFenLayer],
     view:view
 });
 

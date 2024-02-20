@@ -6,10 +6,19 @@ const layers=map.getLayers();
 const layersDivContent=$('#layers-div');
 layersDivContent.html('');
 
+const lyrClrLib = {
+    'Project_Sites':`proj-sites-box`,
+    'Raised_Bog':`raised-bog-box`,
+    'LL_Atlantic_Bog':`ll-atl-box`,
+    'HL_Montane_Bog':`hl-mont-box`,
+    'PL_Alk_Fens':`alk-fen-box`,
+    'Corine18':`corine-box`
+};
+
 layers.forEach(layer => {
     if(layer.get('name')){
         const element = `<div class="form-check drag">
-        <input class="form-check-input" type="checkbox" value="" id=${layer.get('name')}>
+        <input class="form-check-input ${lyrClrLib[layer.get('name')]}" type="checkbox" value="" id=${layer.get('name')}>
         <label class="form-check-label d-flex align-self-center" for=${layer.get('name')}>
         ${layer.get('display')}</label>
         </div>`;

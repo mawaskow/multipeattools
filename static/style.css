@@ -417,12 +417,12 @@ padding: 2px;
 background-color: #72CAC3;
 color: #000;
 }
-
+/*
 .drag > .form-check-input:checked{
     background-color: #72CAC3;
     border-color: transparent;
 }
-
+*/
 .drag > .form-check-label{
     margin-left: 2px;
 }
@@ -443,6 +443,39 @@ span.Economy{
 }
 
 /* MAP */
+
+/*land type color classes*/
+.corine-box:checked{
+    background-color: #a57013;
+    border-color: transparent;
+}
+
+.raised-bog-box:checked{
+    background-color: #e7970d;
+    border-color: transparent;
+}
+
+.ll-atl-box:checked{
+    background-color: #cdac64;
+    border-color: transparent;
+}
+
+.hl-mont-box:checked{
+    background-color: #877047;
+    border-color: transparent;
+}
+
+.proj-sites-box:checked{
+    background-color: #aacc64;
+    border-color: transparent;
+}
+
+.alk-fen-box:checked{
+    background-color: #ccdb72;
+    border-color: transparent;
+}
+
+/*classification pill colors*/
 
 .enr-class-pill{
     color: #000;
