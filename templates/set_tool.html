@@ -1362,19 +1362,27 @@
                     </div>
                 </div>
             </div>
+            <!--charts-->
+            <div class="empty-spacing" style="padding-top: 20px;"></div>
+            <div id="set-graphs-div" class="container set-graphs-div">
+                <canvas id="gwp_graph"></canvas>
+                <div class="empty-spacing" style="padding-top: 20px;"></div>
+                <canvas id="timeline_graph"></canvas>
+            </div>
+            <!--footer-->
+            <footer class="border-top" style="margin: 0px;">
+                <div class="d-flex justify-content-center" style="padding-bottom: 5px;">
+                This tool was developed as part of the Interreg CConnects project.
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="d-flex align-items-center" style="max-width: 800px;">
+                        <img src="{{url_for('static', filename='cconnects-logo.png')}}" width="105" height="45" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+                        <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="140" height="45" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
-</div>
-
-<div class="empty-spacing" style="padding-top: 10px;"></div>
-
-
-<!--charts-->
-<div class="empty-spacing" style="padding-top: 20px;"></div>
-<div id="set-graphs-div" class="container set-graphs-div">
-    <canvas id="gwp_graph"></canvas>
-    <div class="empty-spacing" style="padding-top: 20px;"></div>
-    <canvas id="timeline_graph"></canvas>
 </div>
 
 <!--set script-->
@@ -1388,18 +1396,4 @@
 
 <!-- window.onload = function(){...} -->
 
-{% endblock %}
-
-{% block footer %}
-<footer class="border-top">
-    <div class="d-flex justify-content-center" style="padding-bottom: 5px;">
-    This tool was developed as part of the Interreg CConnects project.
-    </div>
-    <div class="d-flex justify-content-center">
-        <div class="d-flex align-items-center" style="max-width: 800px;">
-            <img src="{{url_for('static', filename='cconnects-logo.png')}}" width="105" height="45" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
-            <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="140" height="45" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
-        </div>
-    </div>
-</footer>
 {% endblock %}
