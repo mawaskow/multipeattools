@@ -1,19 +1,55 @@
-# Financial feasibility and pricing model 
+# Peatland Policy Portal
 
 ## Directories:
-### Data
-Input templates
+### Inputs
+For populating the FFP and SET tool forms/pages before JS invoked
 
-Sample inputs
-
-## Files:
+Inlcudes both form inputs and results for each tool
+### Mvenv
+Virutal environment for gunicorn instance
+### Static
+Where scripts, styles and icons are stored
 ### Scripts
-Generating samples
+#### calc_ffp
+Handles calculation using FFP tool on FFP page
+#### calc_set
+Handles calculation using SET tool on SET page
+#### customFunctions
+Accesses map layers by name or display quality
+#### Identify
+Map popup on click
+#### Layers
+Map layers list-- toggles visibility based on selection
+#### Map
+Connects to geoserver, selects layers, and creates map
+#### Offcanv
+Popup on side after map click-- displays policy information
+#### Search
+Search capabilities/ searchbar, currently not in use
+#### toggle_display
+Closing and opening divs based on buttons or icons
 
-Reading inputs
+### Templates
+All html templates for each page
 
+base is the base html page.
 
-The tool itself
+### Miscellaneous
+run.py starts flask instance
 
-![Screenshot 2023-07-25 111900](https://github.com/mawaskow/finfeasprof/assets/61253606/54411a0a-c24e-4a04-b012-ef615a4da3e2)
-![Screenshot 2023-07-25 111950](https://github.com/mawaskow/finfeasprof/assets/61253606/26b63065-921b-431c-9bbc-9683ca868d44)
+wsgi.py is for web deployment
+
+modules.py is for some python modules for run.py
+
+## To run:
+Clone repository
+
+Install dependencies
+
+Open terminal and cd to directory
+
+`powershell: $env:FLASK_APP = "run"`
+
+`bash: export FLASK_APP=run`
+
+`flask run`
