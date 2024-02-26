@@ -47,11 +47,7 @@ def landingpage():
 def map_page():
     return render_template("map.html")
 
-@app.route('/tools')
-def toolbox():
-    return render_template('tools.html')
-
-@app.route('/tools/ffptool', methods=['GET', 'POST'])
+@app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
     #initializes values for populating each the user input and assumptions forms with default variables
     #and loads the dictionary values into a list for passing through Erica's function that calculates results
@@ -61,7 +57,7 @@ def ffp_tool():
         results_dict = json.load(json_file)
     return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
 
-@app.route('/tools/settool', methods=['GET', 'POST'])
+@app.route('/settool', methods=['GET', 'POST'])
 def set_tool():
     #initializes values for populating form
     #and loads the dictionary values into a list for passing through function that calculates results
