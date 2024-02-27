@@ -650,3 +650,17 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 .ol-viewport{
     padding:0px;
 }
+
+/* policy list*/
+
+.pol-lst-name{
+    color:mediumseagreen;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pol-lst-name:hover{
+    color:darkgreen;
+    font-weight: bold;
+    text-decoration: none;
+}
