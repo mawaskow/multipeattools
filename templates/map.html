@@ -41,9 +41,18 @@
                     <a class="nav-link on-page" href="{{ url_for('map_page') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">SITES & POLICIES</a>
                 </li>
                 <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('toolbox') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">USE THE TOOLS</a>
-                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" style="padding: 7px; margin-left: 15px; font-weight: bold;" aria-expanded="false">USE THE TOOLS</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{ url_for('ffp_tool') }}">FFP</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('set_tool') }}">SET</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Policy Analyser</a></li>
+                      <li><a class="dropdown-item" href="#">Policy Development</a></li>
+                      <li><a class="dropdown-item" href="#">Biodiversity Analyser</a></li>
+                      <li><a class="dropdown-item" href="#">Key Metric Analyser</a></li>
+                    </ul>
+                  </li>
                 <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
             </ul>
         </div>
@@ -115,7 +124,7 @@
                 </svg>
             </label>
         </div>
-        <div id="map-pols-div" style="margin: 5px; min-height: 75px;">
+        <div id="map-pols-div" style="margin: 5px; min-height: 75px; max-height:500px; overflow:auto;">
             <div id="coun-pol"></div>
             <div id="reg-pol"></div>
             <div id="nat-pol"></div>
