@@ -124,6 +124,7 @@
                 </svg>
             </label>
         </div>
+        <!--Where policies populate-->
         <div id="map-pols-div" style="margin: 5px; min-height: 75px; max-height:500px; overflow:auto;">
             <div id="coun-pol"></div>
             <div id="reg-pol"></div>
@@ -132,6 +133,8 @@
             <div id="glob-pol"></div>
             <div id="offc-no-features"></div>
         </div>
+        <!-- hidden input to store click policy for querying after map click-->
+        <input id="policy-request-store" style="display: none;" value="">
     </div>
     <!--policy class box-->
     <div id="map-pols-cls-div" style="position: absolute; top: 105px; right: 400px; width:150px; display:none;">
@@ -191,5 +194,5 @@
 <script type="module" src="{{url_for('static', filename='scripts/Identify.js')}}" ></script>
 <script type="module" src="{{url_for('static', filename='scripts/Layers.js')}}" ></script>
 <script type="module" src="{{url_for('static', filename='scripts/Search.js')}}" ></script>
-<script type="module" src="{{url_for('static', filename='scripts/Offcanv.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Offcanv.js')}}"></script>
 {% endblock %}

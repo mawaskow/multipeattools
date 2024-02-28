@@ -44,7 +44,7 @@ function classQuerying(policy){
     return false;
 }
 
-function displayPols(polList){
+function displayPols(polDct){
     ////////////////
     const counPolInfo=$('#coun-pol');
     counPolInfo.html('');
@@ -61,35 +61,44 @@ function displayPols(polList){
     const noFeatures=$('#offc-no-features');
     noFeatures.html('<p>No features</p>');
     ///////////////////////
-    for (let i=0; i < polList.length; i++){
+    //console.log(polDct);
+    Object.keys(polDct).forEach(i => {
         var element = 
-            `<a class="pol-lst-name" href=${polList[i]['link']} target="_blank" rel="noopener noreferrer">${polList[i]['name']}</a>
-            <p>Level: ${polList[i]['level']}</p>
+            `<a class="pol-lst-name" href=${polDct[i]['link']} target="_blank" rel="noopener noreferrer">${polDct[i]['name']}</a>
+            <p>Level: ${polDct[i]['level']}</p>
             <p style="display: inline">Classification:</p>
-            <p style="display: inline" class="badge rounded-pill ${pillDct[polList[i]['class']]}">${polList[i]['class']}</p>
+            <p style="display: inline" class="badge rounded-pill ${pillDct[polDct[i]['class']]}">${polDct[i]['class']}</p>
             <br><br>`;
-        if(polList[i]["level"]=="County" & document.getElementById("county-fltr").checked==true){
-            if(classQuerying(polList[i])){
+        if(polDct[i]["level"]=="County" & document.getElementById("county-fltr").checked==true){
+            if(classQuerying(polDct[i])){
                 counPolInfo.append(element);
             }
-        }else if(polList[i]["level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
-            if(classQuerying(polList[i])){
+        }else if(polDct[i]["level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
+            if(classQuerying(polDct[i])){
                 regPolInfo.append(element);
             }
-        }else if(polList[i]["level"]=="National" & document.getElementById("national-fltr").checked==true){
-            if(classQuerying(polList[i])){
+        }else if(polDct[i]["level"]=="National" & document.getElementById("national-fltr").checked==true){
+            if(classQuerying(polDct[i])){
                 natPolInfo.append(element);
             }
-        }else if(polList[i]["level"]=="European"){
-            if(classQuerying(polList[i])){
+        }else if(polDct[i]["level"]=="European"){
+            if(classQuerying(polDct[i])){
                 euPolInfo.append(element);
             }
-        }else if(polList[i]["level"]=="Global"){
-            if(classQuerying(polList[i])){
+        }else if(polDct[i]["level"]=="Global"){
+            if(classQuerying(polDct[i])){
                 globPolInfo.append(element);
             }
         }
         noFeatures.html('');
+    })
+}
+
+function updatePols(){
+    var polDct = $('#policy-request-store').val();
+    //console.log(polDct);
+    if(polDct != ""){
+        displayPols(JSON.parse(polDct));
     }
 }
 
@@ -106,7 +115,7 @@ map.on('singleclick', function (evt) {
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    
     if(ipolUrl){
-        var polList= [];
+        var polDct= {};
         // gets features
         $.ajax({
             url:ipolUrl,
@@ -116,17 +125,21 @@ map.on('singleclick', function (evt) {
                 for (let i=0; i < result.features.length; i++){
                     const ipol=result.features[i];
                     if(ipol){
-                        polList.push(
+                        polDct[i] = 
                             {'name':ipol.properties.name, 
                             'level':ipol.properties.level, 
                             'class':ipol.properties.classif, 
                             'link':ipol.properties.link}
-                        );
+                        ;
                     }
-                }
+                };
+                //console.log(polDct);
+                $('#policy-request-store').attr({
+                    value: JSON.stringify(polDct)
+                });
             }
         })
-        displayPols(polList)
+        displayPols(polDct);
     }
 });
 
@@ -146,3 +159,31 @@ for (let pol in pol_filt_dct) {
     polDivContent.append(element);
     $(`#${pol}`).prop('checked', true);
 };
+
+// Update policies on click for all checkboxes
+// levels
+var cntyFltr = document.getElementById("county-fltr");
+cntyFltr.addEventListener("click", updatePols);
+var regFltr = document.getElementById("regional-fltr");
+regFltr.addEventListener("click", updatePols);
+var natFltr = document.getElementById("national-fltr");
+natFltr.addEventListener("click", updatePols);
+var glbFltr = document.getElementById("global-fltr");
+glbFltr.addEventListener("click", updatePols);
+// classes
+var bioFltr = document.getElementById("bio-cls-bx");
+bioFltr.addEventListener("click", updatePols);
+var clmFltr = document.getElementById("clm-cls-bx");
+clmFltr.addEventListener("click", updatePols);
+var enrFltr = document.getElementById("enr-cls-bx");
+enrFltr.addEventListener("click", updatePols);
+var econFltr = document.getElementById("econ-cls-bx");
+econFltr.addEventListener("click", updatePols);
+var landFltr = document.getElementById("land-cls-bx");
+landFltr.addEventListener("click", updatePols);
+var commFltr = document.getElementById("comm-cls-bx");
+commFltr.addEventListener("click", updatePols);
+var resFltr = document.getElementById("res-cls-bx");
+resFltr.addEventListener("click", updatePols);
+var envFltr = document.getElementById("env-cls-bx");
+envFltr.addEventListener("click", updatePols);
