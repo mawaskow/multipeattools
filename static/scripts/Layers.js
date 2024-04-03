@@ -18,7 +18,7 @@ const lyrClrLib = {
 layers.forEach(layer => {
     if(layer.get('name')){
         const element = `<div class="form-check drag">
-        <input class="form-check-input ${lyrClrLib[layer.get('name')]}" type="checkbox" value="" id=${layer.get('name')}>
+        <input class="form-check-input layerbox ${lyrClrLib[layer.get('name')]}" type="checkbox" value="" id=${layer.get('name')}>
         <label class="form-check-label" for=${layer.get('name')}>
         ${layer.get('display')}</label>
         </div>`;
@@ -27,7 +27,7 @@ layers.forEach(layer => {
     }
 });
 
-$('.form-check-input').on('change', function(){
+$('.layerbox').on('change', function(){
     const checkbox=this;
     const layerName=checkbox.id;
     const layer=getLayerByName(layerName);

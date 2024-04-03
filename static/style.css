@@ -568,13 +568,13 @@ span.Economy{
     padding:5px;
 }
 
+/*policy level selection*/
+
 #lvl-filter-div > .form-check-input{
     border-radius: 0px;
     height: 30px;
     width: 30px;
 }
-
-/*policy level selection*/
 
 input[type="checkbox"]:checked + #cnty-fltr-svg {
     fill:#72CAC3;
@@ -604,15 +604,22 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 }
 
 .pol-cls-inp{
-    border-radius: 0px;
     height: 18px;
     width: 18px;
     border-color: transparent;
+    border-radius: 0em;
     margin-left: 5px;
 }
 
 .pol-cls-inp:checked{
     background-color:#72CAC3;
+    border-color: transparent;
+    border-radius: 0em;
+}
+
+.pol-cls-inp:empty{
+    border-color: transparent;
+    border-radius: 0em;
 }
 
 .enr-cls-clr{
@@ -642,4 +649,18 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 
 .ol-viewport{
     padding:0px;
+}
+
+/* policy list*/
+
+.pol-lst-name{
+    color:mediumseagreen;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pol-lst-name:hover{
+    color:darkgreen;
+    font-weight: bold;
+    text-decoration: none;
 }

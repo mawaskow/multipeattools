@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}FFP Tool{% endblock %}
+
+{% block navbar %}
+
+<nav class="navbar navbar-expand bg-body-tertiary">
+    <div class="container-fluid d-flex justify-content-between" style="padding:0px; padding-left: 8px; margin-left: 12px; margin-top: 15px; margin-bottom: 50px;">
+        <div class="d-flex align-middle">
+            <a class="navbar-brand d-inline-block" href="{{ url_for('landingpage') }}" style="padding:0px">
+                <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="50" height="40" class="align-middle" style="padding-right: 5px;">
+                <img src="{{url_for('static', filename='ASPECT_logo.png')}}" alt="Logo" width="75" height="40" class="align-middle" style="padding-right: 10px;">
+            </a>
+            <div class="d-inline-block align-middle">
+                <h3 class="d-inline-block" style="margin-right: 2px;">Peatland</h3> <h3 style="color: #9fbbcf; font-weight: bold;" class="d-inline-block">TOOLKIT</h3>
+                <p class="d-block" style="font-size: small; margin-top: -7px;">Advancing capabilities to measure and regenerate wetlands</p>
+            </div>
+        </div>
+        <div class="d-inline-flex align-middle justify-self-end" style="margin-right: 0px;">
+            <div class="d-inline-flex input-group" role="search">
+                <span class="input-group-text d-inline-block search-svg-block" style="height:30px; width:30px; padding:0px">
+                    <svg height="18" width="18" class="align-middle">
+                        <image style="height:18px; width:18px" xlink:href="{{ url_for('static', filename='search.svg') }}"></image>
+                    </svg>
+                </span>
+                <input class="form-control d-inline-block search-entry" style="height:30px;" type="search" placeholder="KEYWORD SEARCH" id="header-search" aria-label="Search">
+            </div>
+            <p style="padding-left: 10px;" class="d-inline-flex align-middle justify-content-end">Login</p>
+            <div style="border-right: 1px solid #9fbbcf; height: 25px; padding: 0px 5px; align-self: center;"></div>
+            <p class="d-inline-flex align-middle" style="padding-left: 10px;">EN</p>
+            <div class="d-inline align-bottom" style="margin-right: 12px;">
+                <svg id="language-tog" height="18" width="18" fill="#9fbbcf" style="display: block; padding-left:5px;" class="d-inline align-center">
+                    <image style="height:12px; width:12px;" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #9fbbcf; height: 40px; width: 100%;" class="position-absolute bottom-0">
+        <div style="padding-top: 0px;" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('map_page') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">SITES & POLICIES</a>
+                </li>
+                <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
+                <li class="nav-item">
+                    <a class="nav-link on-page" href="{{ url_for('toolbox') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">USE THE TOOLS</a>
+                </li>
+                <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiPeat Policy View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #dbe7e4; /* Nature-inspired background color */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .welcome-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-section h4 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .welcome-section p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .cards-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .card {
+            flex: 0 0 calc(33.333% - 20px);
+            background-color: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cover {
+            height: 250px;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .item-a {
+            background-color: #3498db;
+        }
+
+        .item-b {
+            background-color: #2ecc71;
+        }
+
+        .item-c {
+            background-color: #9b59b6;
+        }
+
+        .cover h1 {
+            font-size: 1.5em;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .card-info {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 0 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-info a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .card-info a:hover {
+            color: #3498db;
+        }
+
+        .flag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="welcome-section">
+        <h4>Welcome to the MultiPeat Policy view page</h4>
+        <p>This site hosts the MultiPeat project's toolkit.</p>
+        <p>To use the tools, navigate to their tabs on the sidebar.</p>
+    </div>
+<br> </br>
+    <div class="filters">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" role="group" aria-label="Filter options">
+                    <button type="button" class="btn btn-primary filter-btn" data-filter="international">International</button>
+                    <button type="button" class="btn btn-primary filter-btn" data-filter="national">EU</button>
+                    <button type="button" class="btn btn-primary filter-btn" data-filter="eu">National</button>
+                    <button type="button" class="btn btn-primary filter-btn" data-filter="regional">Regional</button>
+                    <button type="button" class="btn btn-primary filter-btn" data-filter="local">Local</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="cards-section">
+        <div class="card">
+            <div class="cover item-a">
+                <span class="flag"><img src="flag_image_url" alt="Country Flag"></span>
+                <h1><i class="fas fa-book"></i> Guidance for Planning Authorities on Drainage and Reclamation of Wetlands</h1>
+            </div>
+            <div class="card-info">
+                <a href="#"><i class="fas fa-info-circle"></i> Summary</a>
+                <a href="https://assets.gov.ie/111223/312364a1-ba80-4595-bfb6-6095e649c63e.pdf"><i class="fas fa-download"></i> Download</a>
+                <a href="#"><i class="fas fa-plus-circle"></i> Read more</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="cover item-b">
+                <span class="flag"><img src="flag_image_url" alt="Country Flag"></span>
+                <h1><i class="fas fa-book"></i> National Peatlands Strategy</h1>
+            </div>
+            <div class="card-info">
+                <a href="#"><i class="fas fa-info-circle"></i> Summary</a>
+                <a href="https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf"><i class="fas fa-download"></i> Download</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="cover item-c">
+                <span class="flag"><img src="flag_image_url" alt="Country Flag"></span>
+                <h1><i class="fas fa-book"></i> National Raised Bog Special Areas of Conservation Management Plan 2017-2022</h1>
+            </div>
+            <div class="card-info">
+                <a href="#"><i class="fas fa-info-circle"></i> Summary</a>
+                <a href="https://www.npws.ie/sites/default/files/files/FOR%20UPLOAD%20Plan(WEB_English)_05_02_18%20(1).pdf"><i class="fas fa-download"></i> Download</a>
+                <a href="#"><i class="fas fa-plus-circle"></i> Read more</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    function toggleExpand(element) {
+        var card = element.closest('.card');
+        card.classList.toggle('expanded');
+    }
+</script>
+
+</body>
+</html>
+{% endblock %}

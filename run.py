@@ -34,10 +34,9 @@ FFP_INIT_USR_INP_FILE = "./inputs/user_input_default.json"
 FFP_FIN_USR_INP_FILE = "./inputs/user_input_data.json"
 #SET FORM
 SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
-#SET_INIT_INPT_FILE = './inputs/user_input_empty_SET.json'
 GEST_CSV= ['./inputs/GEST_2_Static_Values.csv']
+# SET results
 SET_OUTPUT_FILE = './inputs/output_SET.json'
-SET_UPD_INPT_FILE = './inputs/user_upd_input_SET.json'
 
 '''
 Internal Functions
@@ -50,6 +49,17 @@ update_assum(FFP_FIN_ASSUM_FILE, assumdata)
 userdata = parse_usrinp(FFP_INIT_USR_INP_FILE)
 update_usrinp(FFP_FIN_USR_INP_FILE, userdata)
 
+policies = [
+    {"title": "a", "flag_image_url": "/Users/waqasshoukatali/multipeattools/multipeattools/images/ireland.png", "summary_link": "#", "download_link": "download_link_1", "read_more_link": "#"},
+    {"title": "b", "flag_image_url": "/Users/waqasshoukatali/multipeattools/multipeattools/images/ireland.png", "summary_link": "#", "download_link": "download_link_2", "read_more_link": "#"},
+    {"title": "c", "flag_image_url": "/Users/waqasshoukatali/multipeattools/multipeattools/images/ireland.png", "summary_link": "#", "download_link": "download_link_2", "read_more_link": "#"},
+    {"title": "d", "flag_image_url": "/Users/waqasshoukatali/multipeattools/multipeattools/images/ireland.png", "summary_link": "#", "download_link": "download_link_2", "read_more_link": "#"},
+    {"title": "e", "flag_image_url": "/Users/waqasshoukatali/multipeattools/multipeattools/images/ireland.png", "summary_link": "#", "download_link": "download_link_2", "read_more_link": "#"},
+    {"title": "f", "flag_image_url": "/Users/waqasshoukatali/multipeattools/multipeattools/images/ireland.png", "summary_link": "#", "download_link": "download_link_2", "read_more_link": "#"},
+    {"title": "g", "flag_image_url": "/Users/waqasshoukatali/multipeattools/multipeattools/images/ireland.png", "summary_link": "#", "download_link": "download_link_2", "read_more_link": "#"},
+
+    # Add more policies here...
+]
 '''
 ROUTES
 '''
@@ -61,11 +71,7 @@ def landingpage():
 def map_page():
     return render_template("map.html")
 
-@app.route('/tools')
-def toolbox():
-    return render_template('tools.html')
-
-@app.route('/tools/ffptool', methods=['GET', 'POST'])
+@app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
     #initializes values for populating each the user input and assumptions forms with default variables
     #and loads the dictionary values into a list for passing through Erica's function that calculates results
@@ -90,6 +96,26 @@ def set_tool():
     set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
     with open(SET_OUTPUT_FILE) as json_file:
         results_dct = json.load(json_file)
+        
+    #results_dct = set_run(input_dct, GEST_CSV, SET_OUTPUT_FILE)
+    #print(results_dct)
+    if request.method == 'POST':
+        # converts the form inputs into a dictionary and converts them into their appropriate values (from strings)
+        # loads the dictionary into a list for passing to Erica's function that calculates results
+        # parse form via uform = usrinp_form_to_dict(request.form)
+        new_inp = set_form_to_dict(request.form)
+        with open(SET_UPD_INPT_FILE, 'w') as outfile:
+            print(json.dumps(new_inp, indent = 5), file = outfile)
+
+        set_run(new_inp, GEST_CSV, SET_OUTPUT_FILE)
+        with open(SET_OUTPUT_FILE) as json_file:
+            upd_results_dct = json.load(json_file)
+        return render_template("set_tool.html", results= upd_results_dct, inpt = new_inp)
+        #return render_template("set_tool.html", results= results_dct, inpt = input_dct)
+    if request.method == 'GET':
+        # refreshes to original default values
+        # same as above where load json and dct and calc values
+        return render_template("set_tool.html", results= results_dct, inpt = input_dct)
     return render_template("set_tool.html", results= results_dct, inpt = input_dct)
 
 '''
