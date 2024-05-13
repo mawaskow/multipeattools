@@ -78,6 +78,15 @@ Admin
 def login():
     return render_template("login.html")
 
+@app.route('/keywords')
+def policy_keywords():
+    return render_template("keywords.html")
+
+@app.route('/policy')
+def policy():
+    return render_template("policy.html")
+
+
 '''
 Error Handling
 '''
@@ -94,5 +103,5 @@ def bad_request_error(error):
     return render_template('400.html'), 400
 
 if __name__ == "__main__":
-    app.run(debug=True, passthrough_errors=True, use_debugger=False, use_reloader=False)
-    #app.run(host='0.0.0.0', port=8000)
+    #app.run(debug=True, passthrough_errors=True, use_debugger=False, use_reloader=False)
+    app.run(host='0.0.0.0', port=8000)
