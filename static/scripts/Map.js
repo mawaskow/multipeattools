@@ -25,7 +25,8 @@ const PSLayer= new ImageLayer({
     source:PSSource,
     // @ts-ignore
     name:'Project_Sites',
-    display: 'Project Sites'
+    display: 'Project Sites',
+    region: 'International'
 });
 
 // Irish Peat Classes
@@ -38,7 +39,8 @@ const D1Layer= new ImageLayer({
     source:D1Source,
     // @ts-ignore
     name:'Raised_Bog',
-    display: 'Raised Bog'
+    display: 'Raised Bog',
+    region: 'Ireland'
 });
 
 const D2Source=new ImageWMS({
@@ -50,7 +52,8 @@ const D2Layer= new ImageLayer({
     source:D2Source,
     // @ts-ignore
     name:'LL_Atlantic_Bog',
-    display: 'LL Atlantic Bog'
+    display: 'LL Atlantic Bog',
+    region: 'Ireland'
 });
 
 const D3Source=new ImageWMS({
@@ -62,7 +65,8 @@ const D3Layer= new ImageLayer({
     source:D3Source,
     // @ts-ignore
     name:'HL_Montane_Bog',
-    display: 'HL Montane Bog'
+    display: 'HL Montane Bog',
+    region: 'Ireland'
 });
 
 // Policies
@@ -88,7 +92,8 @@ const alkFenLayer= new ImageLayer({
     source:alkFenSource,
     // @ts-ignore
     name:'PL_Alk_Fens',
-    display: 'Alkaline Fens'
+    display: 'Alkaline Fens',
+    region: 'Poland'
 });
 
 // CORINE-18 data for PL and IE for 411, 412, and 322
@@ -101,7 +106,8 @@ const corineLayer= new ImageLayer({
     source:corineSource,
     // @ts-ignore
     name:'Corine18',
-    display: 'CORINE'
+    display: 'CORINE',
+    region: 'International'
 });
 
 const osmLayer=new TileLayer({

@@ -88,7 +88,56 @@
     <!--layer box-->
     <div id="map-lyr-box" style="position: absolute; top: 60px; left: 0; width:175px; display:none;">
         <p style="font-weight: bold; color: #747474; margin-left: 5px;">SITE TYPES</p>
-        <div id="layers-div" style="padding-left: 10px;"></div>
+        <div id="layers-div" style="padding-left: 10px;">
+            <div id="int-lyr-div">
+                <div id="int-lyr-tog" class="row d-flex justify-content-start">
+                    <div class="col-1">
+                        <svg id="int-lyr-tog-up" height="20" width="20" style="display: block;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                        </svg>
+                        <svg id="int-lyr-tog-down" height="20" width="20" style="display: none;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                        </svg>
+                    </div>
+                    <div class="col" style="padding-left: 10px;">
+                        <p class="lyr-reg-txt">International</p>
+                    </div>
+                </div>
+                <div id="int-lyr-lyrs" style="padding-left: 10px; display: block"></div>
+            </div>
+            <div id="ie-lyr-div">
+                <div id="ie-lyr-tog" class="row d-flex justify-content-start">
+                    <div class="col-1">
+                        <svg id="ie-lyr-tog-up" height="20" width="20" style="display: none;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                        </svg>
+                        <svg id="ie-lyr-tog-down" height="20" width="20" style="display: block;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                        </svg>
+                    </div>
+                    <div class="col" style="padding-left: 10px;">
+                        <p class="lyr-reg-txt">Ireland</p>
+                    </div>
+                </div>
+                <div id="ie-lyr-lyrs" style="padding-left: 10px; display: none"></div>
+            </div>
+            <div id="pl-lyr-div">
+                <div id="pl-lyr-tog" class="row d-flex justify-content-start">
+                    <div class="col-1">
+                        <svg id="pl-lyr-tog-up" height="20" width="20" style="display: none;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                        </svg>
+                        <svg id="pl-lyr-tog-down" height="20" width="20" style="display: block;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                        </svg>
+                    </div>
+                    <div class="col" style="padding-left: 10px;">
+                        <p class="lyr-reg-txt">Poland</p>
+                    </div>
+                </div>
+                <div id="pl-lyr-lyrs" style="padding-left: 10px; display: none"></div>
+            </div>
+        </div>
     </div>
     <!--policy box-->
     <div id="map-pol-box" style="position: absolute; top: 0; right: 0; width:400px; min-height: 150px; display:none;">

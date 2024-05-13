@@ -549,6 +549,10 @@ span.Economy{
     padding:5px;
 }
 
+p.lyr-reg-txt{
+    font-size: 18px;
+}
+
 #layers-div{
     background-color:white; 
     padding:5px;

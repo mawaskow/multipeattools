@@ -3,9 +3,6 @@ import {getLayerByName} from "./customFunctions.js";
 const map=$('#map').data('map');
 const layers=map.getLayers();
 
-const layersDivContent=$('#layers-div');
-layersDivContent.html('');
-
 const lyrClrLib = {
     'Project_Sites':`proj-sites-box`,
     'Raised_Bog':`raised-bog-box`,
@@ -15,6 +12,12 @@ const lyrClrLib = {
     'Corine18':`corine-box`
 };
 
+const regLib = {
+    'International': "int-lyr-lyrs",
+    'Ireland': "ie-lyr-lyrs",
+    'Poland': "pl-lyr-lyrs"
+};
+
 layers.forEach(layer => {
     if(layer.get('name')){
         const element = `<div class="form-check drag">
@@ -22,7 +25,8 @@ layers.forEach(layer => {
         <label class="form-check-label" for=${layer.get('name')}>
         ${layer.get('display')}</label>
         </div>`;
-        layersDivContent.append(element);
+        const layerlyr=$(`#${regLib[layer.get('region')]}`);
+        layerlyr.append(element);
         $(`#${layer.get('name')}`).prop('checked', layer.getVisible());
     }
 });

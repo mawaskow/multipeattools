@@ -159,3 +159,53 @@ $("#map-pol-cls-btn").on('click', function(event){
         cs.style.right = `400px`;
     }
 });
+
+/////////////////////////////////////////////////////////////////////////
+
+$("#int-lyr-tog").on('click', function(event){
+    el = document.getElementById("int-lyr-lyrs");
+    td = document.getElementById("int-lyr-tog-down");
+    tu = document.getElementById("int-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#ie-lyr-tog").on('click', function(event){
+    el = document.getElementById("ie-lyr-lyrs");
+    td = document.getElementById("ie-lyr-tog-down");
+    tu = document.getElementById("ie-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#pl-lyr-tog").on('click', function(event){
+    el = document.getElementById("pl-lyr-lyrs");
+    td = document.getElementById("pl-lyr-tog-down");
+    tu = document.getElementById("pl-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
