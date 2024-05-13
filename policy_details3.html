@@ -1,0 +1,597 @@
+{% extends "base.html" %}
+
+{% block title %}FFP Tool{% endblock %}
+
+{% block navbar %}
+
+<nav class="navbar navbar-expand bg-body-tertiary">
+    <div class="container-fluid d-flex justify-content-between" style="padding:0px; padding-left: 8px; margin-left: 12px; margin-top: 15px; margin-bottom: 50px;">
+        <div class="d-flex align-middle">
+            <a class="navbar-brand d-inline-block" href="{{ url_for('landingpage') }}" style="padding:0px">
+                <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="50" height="40" class="align-middle" style="padding-right: 5px;">
+                <img src="{{url_for('static', filename='ASPECT_logo.png')}}" alt="Logo" width="75" height="40" class="align-middle" style="padding-right: 10px;">
+            </a>
+            <div class="d-inline-block align-middle">
+                <h3 class="d-inline-block" style="margin-right: 2px;">Peatland</h3> <h3 style="color: #9fbbcf; font-weight: bold;" class="d-inline-block">TOOLKIT</h3>
+                <p class="d-block" style="font-size: small; margin-top: -7px;">Advancing capabilities to measure and regenerate wetlands</p>
+            </div>
+        </div>
+        <div class="d-inline-flex align-middle justify-self-end" style="margin-right: 0px;">
+            <div class="d-inline-flex input-group" role="search">
+                <span class="input-group-text d-inline-block search-svg-block" style="height:30px; width:30px; padding:0px">
+                    <svg height="18" width="18" class="align-middle">
+                        <image style="height:18px; width:18px" xlink:href="{{ url_for('static', filename='search.svg') }}"></image>
+                    </svg>
+                </span>
+                <input class="form-control d-inline-block search-entry" style="height:30px;" type="search" placeholder="KEYWORD SEARCH" id="header-search" aria-label="Search">
+            </div>
+            <p style="padding-left: 10px;" class="d-inline-flex align-middle justify-content-end">Login</p>
+            <div style="border-right: 1px solid #9fbbcf; height: 25px; padding: 0px 5px; align-self: center;"></div>
+            <p class="d-inline-flex align-middle" style="padding-left: 10px;">EN</p>
+            <div class="d-inline align-bottom" style="margin-right: 12px;">
+                <svg id="language-tog" height="18" width="18" fill="#9fbbcf" style="display: block; padding-left:5px;" class="d-inline align-center">
+                    <image style="height:12px; width:12px;" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #9fbbcf; height: 40px; width: 100%;" class="position-absolute bottom-0">
+        <div style="padding-top: 0px;" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('map_page') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">SITES & POLICIES</a>
+                </li>
+                <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
+                <li class="nav-item">
+                    <a class="nav-link on-page" href="{{ url_for('toolbox') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">USE THE TOOLS</a>
+                </li>
+                <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding:0px; margin:0px;">
+    <div class="row justify-content-start">
+        <div class="col-8">
+            <h4>Welcome to the MultiPeat Policy view page</h4>
+            <div style="padding-top: 10px;"></div>
+            <p>This site hosts the MultiPeat project's toolkit.</p>
+            <p>To use the tools, navigate to their tabs on the sidebar.</p>
+        </div>
+    </div>
+</div>
+
+
+<style>
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --gap: -200px;
+        --circle-size: 200px;
+        --circle-size-small: 130px;
+        --color-1: #828f95;
+        --color-2: #9da6a5;
+        --color-3: #77ada7;
+        --color-4: #5aafb2;
+        --color-5: #39b3bb;
+        --color-6: #07bec2;
+      }
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+      .graphic-container {
+        width: 100%;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        margin: 100px 0;
+      }
+      .center-circles-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-gap: 20px;
+        height: 100%;
+        width: 100%;
+      }
+      
+      .single {
+        gap: 20px;
+      }
+      .double {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .double:nth-child(even) {
+        flex-direction: column-reverse;
+      }
+      .circle {
+        width: var(--circle-size);
+        height: var(--circle-size);
+        background: #fff;
+        border-radius: 50%;
+        
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      
+      .icon i {
+        font-size: 3rem;
+      }
+      .content-container {
+        position: absolute;
+        max-width: 200px;
+        min-width: 200px;
+        width: 100%;
+      }
+      .content p {
+        font-size: 12px;
+      }
+      .content-container h2 {
+        position: relative;
+        padding: 0 10px;
+      }
+      /* arrow heading border */
+      .one .content-container h2::before, 
+      .one .content-container h2::after,
+      .two .content-container h2::before, 
+      .two .content-container h2::after, 
+      .five .content-container h2::before, 
+      .five .content-container h2::after {
+        position: absolute;
+        content: '';
+        width: 2px;
+        height: 22px;
+        background: teal;
+        left: -6px;
+      }
+      .one .content-container h2::before, 
+      .two .content-container h2::before, 
+      .five .content-container h2::before {
+        top: -2px;
+        transform: rotate(30deg);
+      }
+      .one .content-container h2::after,
+      .two .content-container h2::after, 
+      .five .content-container h2::after {
+        bottom: -2px;
+        transform: rotate(-30deg);
+      }
+      .three .content-container h2::before, 
+      .three .content-container h2::after,
+      .four .content-container h2::before, 
+      .four .content-container h2::after, 
+      .six .content-container h2::before, 
+      .six .content-container h2::after {
+        position: absolute;
+        content: '';
+        width: 2px;
+        height: 22px;
+        background: teal;
+        right: -6px;
+      }
+      .three .content-container h2::before, 
+      .four .content-container h2::before, 
+      .six .content-container h2::before {
+        top: -2px;
+        transform: rotate(-30deg);
+      }
+      .three .content-container h2::after,
+      .four .content-container h2::after, 
+      .six .content-container h2::after {
+        bottom: -2px;
+        transform: rotate(30deg);
+      }
+      
+      /* different content elements */
+      .two, .four {
+        width: var(--circle-size-small);
+        height: var(--circle-size-small);
+      }
+      .two i, .four i {
+        color: #fff;
+        font-size: 2.5rem;
+      }
+      .one .content-container {
+        left: 0;
+        bottom: var(--gap);
+        text-align: left;
+      }
+      .two .content-container {
+        left: 80px;
+        bottom: var(--gap);
+        text-align: left;
+      }
+      .three .content-container {
+        right: 200px;
+        top: var(--gap);
+        text-align: right;
+      }
+      .four .content-container {
+        right: 20px;
+        top: var(--gap);
+        text-align: right;
+      }
+      .five .content-container {
+        left: 200px;
+        bottom: var(--gap);
+        text-align: left;
+      }
+      .six .content-container {
+        left: 0;
+        top: var(--gap);
+        text-align: right;
+      }
+      
+      /* lines */
+      /* bottom layer */
+      .one .line {
+        position: absolute;
+        width: 2px;
+        height: 170px;
+        background-color: var(--color-1);
+        top: -150px;
+        left: -30px;
+      }
+      .one .line::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 35px;
+        height: 2px;
+        background: var(--color-1);
+      }
+      .one .line::after, 
+      .two .line::after,
+      .five .line::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 20px;
+        height: 2px;
+      }
+      .one .line::after {
+        background: var(--color-1);  
+      }
+      .two .line::after {
+        background: var(--color-2);
+      }
+      .five .line::after {
+        background: var(--color-5);
+      }
+      .two .line {
+        position: absolute;
+        width: 2px;
+        height: 90px;
+        background-color: var(--color-2);
+        top: -70px;
+        left: -30px;
+      }
+      .five .line {
+        position: absolute;
+        width: 2px;
+        height: 110px;
+        background-color: var(--color-5);
+        top: -90px;
+        left: -30px;
+      }
+      /* top layer */
+      .three .line {
+        position: absolute;
+        width: 2px;
+        height: 222px;
+        background-color: var(--color-3);
+        bottom: -100px;
+        right: -30px;
+      }
+      .three .line::after, 
+      .four .line::after, 
+      .six .line::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 20px;
+        height: 2px;
+      }
+      .three .line::after {
+        background: var(--color-3);  
+      }
+      .four .line::after {
+        background: var(--color-4);  
+      }
+      .six .line::after {
+        background: var(--color-6);  
+      }
+      .four .line {
+        position: absolute;
+        width: 2px;
+        height: 222px;
+        background-color: var(--color-4);
+        bottom: -100px;
+        right: -30px;
+      }
+      .four .line::before {
+        content: '';
+        position: absolute;
+        right: 0px;
+        bottom: 0;
+        width: 20px;
+        height: 2px;
+        background: var(--color-4);
+      }
+      .six .line {
+        position: absolute;
+        width: 2px;
+        height: 282px;
+        background-color: var(--color-6);
+        bottom: -160px;
+        right: -30px;
+      }
+      .six .line::before {
+        content: '';
+        position: absolute;
+        right: 0px;
+        bottom: 0;
+        width: 35px;
+        height: 2px;
+        background: var(--color-6);
+      }
+      
+      /* dots */
+      .one .dot {
+        position: absolute;
+        top: 110px;
+        right: -30px;
+        width: 20px;
+        height: 20px;
+        background: var(--color-1);
+        border-radius: 50%;
+        box-shadow: -20px -110px 0 6px var(--color-1), -30px 80px 0 4px var(--color-1);
+      }
+      .four .dot {
+        position: absolute;
+        top: 130px;
+        left: 0px;
+        width: 20px;
+        height: 20px;
+        background: var(--color-4);
+        border-radius: 50%;
+        box-shadow: -22px -138px 0 10px var(--color-4), -70px 70px 0 0px var(--color-4);
+      }
+      .six .dot {
+        position: absolute;
+        top: -30px;
+        left: 10px;
+        width: 10px;
+        height: 10px;
+        background: var(--color-6);
+        border-radius: 50%;
+        box-shadow: -50px 50px 0 25px var(--color-6), 150px 250px 0 10px var(--color-6);
+      }
+      /* circle colors */
+      .one {
+        box-shadow: inset 0 0 0 20px var(--color-1), inset 0px 0px 12px 20px #989898;
+      }
+      .two {
+        background-color: var(--color-2);
+        transform: translateX(-20px);
+      }
+      .three {
+        box-shadow: inset 0 0 0 20px var(--color-3), inset 0px 0px 12px 20px #989898;
+        transform: translateX(10px);
+      }
+      .four {
+        background-color: var(--color-4);
+        transform: translateX(-20px);
+      }
+      .five {
+        box-shadow: inset 0 0 0 20px var(--color-5), inset 0px 0px 12px 20px #989898;
+        transform: translateX(10px);
+      }
+      .six {
+        box-shadow: inset 0 0 0 20px var(--color-6), inset 0px 0px 12px 20px #989898;
+      }
+      
+      
+      /* h2 border colors */
+      .one .content-container h2 {
+        border-top: 2px solid var(--color-1);
+        border-bottom: 2px solid var(--color-1);
+      }
+      .two .content-container h2 {
+        border-top: 2px solid var(--color-2);
+        border-bottom: 2px solid var(--color-2);
+      }
+      .three .content-container h2 {
+        border-top: 2px solid var(--color-3);
+        border-bottom: 2px solid var(--color-3);
+      }
+      .four .content-container h2 {
+        border-top: 2px solid var(--color-4);
+        border-bottom: 2px solid var(--color-4);
+      }
+      .five .content-container h2 {
+        border-top: 2px solid var(--color-5);
+        border-bottom: 2px solid var(--color-5);
+      }
+      .six .content-container h2 {
+        border-top: 2px solid var(--color-6);
+        border-bottom: 2px solid var(--color-6);
+      }
+      
+      .one .content-container h2::before, 
+      .one .content-container h2::after {
+        background: var(--color-1);
+        
+      }
+      .two .content-container h2::before, 
+      .two .content-container h2::after {
+        background: var(--color-2);
+        
+      } 
+      .five .content-container h2::before, 
+      .five .content-container h2::after {
+        background: var(--color-5);
+      }
+      
+      .three .content-container h2::before,
+      .three .content-container h2::after {
+        background: var(--color-3);
+        
+      }
+      .four .content-container h2::before, 
+      .four .content-container h2::after {
+        background: var(--color-4);
+      } 
+      .six .content-container h2::before, 
+      .six .content-container h2::after {
+       background: var(--color-6);
+      }
+      
+      /* media */
+      @media (max-width: 992px) {
+        .graphic-container {
+          margin: 50px 0;
+        }
+        .center-circles-container {
+          overflow: hidden;
+          overflow-x: scroll;
+          width: 1300px;
+        }
+        .double {
+          flex-direction: row;
+        }
+        .double:nth-child(even) {
+          flex-direction: row;
+        }
+        .two {
+          transform: translateX(0px);
+        }
+        .three {
+          transform: translateX(0px);
+        }
+        .four {
+          transform: translateX(0px);
+        }
+        .five {
+          transform: translateX(0px);
+        }
+      }
+</style>
+
+<div class="graphic-container">
+  
+    <div class="center-circles-container">
+      
+  <!--  single    -->
+      <div class="single">
+        <div class="circle one">
+          <div class="dot"></div>
+          <div class="icon">
+            <i class="far fa-building">1</i>
+          </div>
+          <div class="content-container">
+            <div class="line"></div>
+            <h2>1 Location</h2>
+            <div class="content">
+              <h3>option infographic</h3>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error similique unde eius magnam, aliquam ducimus!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  <!--   double   -->
+      <div class="double">
+        <div class="circle two">
+          <div class="icon">
+            <i class="far fa-building">2</i>
+          </div>
+          <div class="content-container">
+            <div class="line"></div>
+            <h2>2 Location</h2>
+            <div class="content">
+              <h3>option infographic</h3>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error similique unde eius magnam, aliquam ducimus!</p>
+            </div>
+          </div>
+          </div>
+        <div class="circle three">
+          <div class="icon">
+            <i class="far fa-building">3</i>
+          </div>
+          <div class="content-container">
+            <div class="line"></div>
+            <h2>3 Location</h2>
+            <div class="content">
+              <h3>option infographic</h3>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error similique unde eius magnam, aliquam ducimus!</p>
+            </div>
+          </div>
+          </div>
+      </div>
+  <!--   double   -->
+      <div class="double">
+        <div class="circle four">
+          <div class="dot"></div>
+          <div class="icon">
+            <i class="far fa-building">4</i>
+          </div>
+          <div class="content-container">
+            <div class="line"></div>
+            <h2>4 Location</h2>
+            <div class="content">
+              <h3>option infographic</h3>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error similique unde eius magnam, aliquam ducimus!</p>
+            </div>
+          </div>
+          </div>
+        <div class="circle five">
+          <div class="icon">
+            <i class="far fa-building">5</i>
+          </div>
+          <div class="content-container">
+            <div class="line"></div>
+            <h2>5 Location</h2>
+            <div class="content">
+              <h3>option infographic</h3>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error similique unde eius magnam, aliquam ducimus!</p>
+            </div>
+          </div>
+          </div>
+      </div>
+  <!--  single    -->
+      <div class="single">
+        <div class="circle six">
+          <div class="dot"></div>
+          <div class="icon">
+            <i class="far fa-building">6</i>
+          </div>
+          <div class="content-container">
+            <div class="line"></div>
+            <h2>6 Location</h2>
+            <div class="content">
+              <h3>option infographic</h3>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error similique unde eius magnam, aliquam ducimus!</p>
+            </div>
+          </div>
+          </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+{% endblock %}
