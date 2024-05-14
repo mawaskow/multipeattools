@@ -78,7 +78,7 @@
                 <div id="input-form-div" class="row gx-5 justify-content-center" style="padding-top: 15px;">
                     <div class="col-sm-6">
                         <form action="/ffptool" method="POST" id="input-form" enctype=multipart/form-data>
-                            {{ uform.csrf_token }}
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div class="row align-items-center justify-content-between">
                                 <div class="col-8">
                                     <label for="start_yr" class="form-label">Start year</label> 
