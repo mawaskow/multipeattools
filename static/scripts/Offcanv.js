@@ -69,7 +69,7 @@ function displayPols(polDct){
             <p style="display: inline">Classification:</p>
             <p style="display: inline" class="badge rounded-pill ${pillDct[polDct[i]['class']]}">${polDct[i]['class']}</p>
             <br><br>`;
-        if(polDct[i]["level"]=="County" & document.getElementById("county-fltr").checked==true){
+        if(polDct[i]["level"]=="County" & document.getElementById("locauth-fltr").checked==true){
             if(classQuerying(polDct[i])){
                 counPolInfo.append(element);
             }
@@ -81,11 +81,11 @@ function displayPols(polDct){
             if(classQuerying(polDct[i])){
                 natPolInfo.append(element);
             }
-        }else if(polDct[i]["level"]=="European"){
+        }else if(polDct[i]["level"]=="European" & document.getElementById("eu-fltr").checked==true){
             if(classQuerying(polDct[i])){
                 euPolInfo.append(element);
             }
-        }else if(polDct[i]["level"]=="Global"){
+        }else if(polDct[i]["level"]=="Global" & document.getElementById("global-fltr").checked==true){
             if(classQuerying(polDct[i])){
                 globPolInfo.append(element);
             }
@@ -162,12 +162,14 @@ for (let pol in pol_filt_dct) {
 
 // Update policies on click for all checkboxes
 // levels
-var cntyFltr = document.getElementById("county-fltr");
-cntyFltr.addEventListener("click", updatePols);
+var locauthFltr = document.getElementById("locauth-fltr");
+locauthFltr.addEventListener("click", updatePols);
 var regFltr = document.getElementById("regional-fltr");
 regFltr.addEventListener("click", updatePols);
 var natFltr = document.getElementById("national-fltr");
 natFltr.addEventListener("click", updatePols);
+var euFltr = document.getElementById("eu-fltr");
+euFltr.addEventListener("click", updatePols);
 var glbFltr = document.getElementById("global-fltr");
 glbFltr.addEventListener("click", updatePols);
 // classes

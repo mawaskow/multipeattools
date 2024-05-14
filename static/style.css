@@ -580,7 +580,7 @@ p.lyr-reg-txt{
     width: 30px;
 }
 
-input[type="checkbox"]:checked + #cnty-fltr-svg {
+input[type="checkbox"]:checked + #locauth-fltr-svg {
     fill:#72CAC3;
 }
 
@@ -589,6 +589,10 @@ input[type="checkbox"]:checked + #reg-fltr-svg {
 }
 
 input[type="checkbox"]:checked + #ntl-fltr-svg {
+    fill:#72CAC3;
+}
+
+input[type="checkbox"]:checked + #eu-fltr-svg {
     fill:#72CAC3;
 }
 
