@@ -44,7 +44,7 @@ function classQuerying(policy){
     return false;
 }
 
-function displayPols(polDct){
+function displayPols(polLst){
     ////////////////
     const counPolInfo=$('#coun-pol');
     counPolInfo.html('');
@@ -61,32 +61,32 @@ function displayPols(polDct){
     const noFeatures=$('#offc-no-features');
     noFeatures.html('<p>No features</p>');
     ///////////////////////
-    //console.log(polDct);
-    Object.keys(polDct).forEach(i => {
+    //console.log(polLst);
+    polLst.forEach(pol => {
         var element = 
-            `<a class="pol-lst-name" href=${polDct[i]['link']} target="_blank" rel="noopener noreferrer">${polDct[i]['name']}</a>
-            <p>Level: ${polDct[i]['level']}</p>
+            `<a class="pol-lst-name" href=${pol['link']} target="_blank" rel="noopener noreferrer">${pol['name']}</a>
+            <p>Level: ${pol['level']}</p>
             <p style="display: inline">Classification:</p>
-            <p style="display: inline" class="badge rounded-pill ${pillDct[polDct[i]['class']]}">${polDct[i]['class']}</p>
+            <p style="display: inline" class="badge rounded-pill ${pillDct[pol['class']]}">${pol['class']}</p>
             <br><br>`;
-        if(polDct[i]["level"]=="County" & document.getElementById("locauth-fltr").checked==true){
-            if(classQuerying(polDct[i])){
+        if(pol["level"]=="County" & document.getElementById("locauth-fltr").checked==true){
+            if(classQuerying(pol)){
                 counPolInfo.append(element);
             }
-        }else if(polDct[i]["level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
-            if(classQuerying(polDct[i])){
+        }else if(pol["level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
+            if(classQuerying(pol)){
                 regPolInfo.append(element);
             }
-        }else if(polDct[i]["level"]=="National" & document.getElementById("national-fltr").checked==true){
-            if(classQuerying(polDct[i])){
+        }else if(pol["level"]=="National" & document.getElementById("national-fltr").checked==true){
+            if(classQuerying(pol)){
                 natPolInfo.append(element);
             }
-        }else if(polDct[i]["level"]=="European" & document.getElementById("eu-fltr").checked==true){
-            if(classQuerying(polDct[i])){
+        }else if(pol["level"]=="European" & document.getElementById("eu-fltr").checked==true){
+            if(classQuerying(pol)){
                 euPolInfo.append(element);
             }
-        }else if(polDct[i]["level"]=="Global" & document.getElementById("global-fltr").checked==true){
-            if(classQuerying(polDct[i])){
+        }else if(pol["level"]=="Global" & document.getElementById("global-fltr").checked==true){
+            if(classQuerying(pol)){
                 globPolInfo.append(element);
             }
         }
@@ -95,27 +95,55 @@ function displayPols(polDct){
 }
 
 function updatePols(){
-    var polDct = $('#policy-request-store').val();
-    //console.log(polDct);
-    if(polDct != ""){
-        displayPols(JSON.parse(polDct));
+    var polLst = $('#policy-request-store').val();
+    //console.log(polLst);
+    if(polLst != ""){
+        displayPols(JSON.parse(polLst));
     }
 }
 
 // MAIN EVENT
 map.on('singleclick', function (evt) {
+    // first, get coordinate and map info
     const coordinate = evt.coordinate;
-  
     const view=map.getView();
     const resolution=view.getResolution();
     const projection=view.getProjection();
-  
+    // then get info on whether or not this is an EU member state
+    // do this first by calling on countries layer
+    const ctryLayer=getLayerByDisplay('Countries');
+    const ctrySource=ctryLayer.getSource();
+    const ctryUrl=ctrySource.getFeatureInfoUrl(coordinate, resolution, projection,
+        {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1'});
+    // then send ajax request for EU member state status
+    if(ctryUrl){
+        $.ajax({
+            url:ctryUrl,
+            method:'GET',
+            async:false,
+            success:function(result){
+                const info=result.features[0];
+                $('#eustat-request-store').attr({
+                    value: info.properties.eu_stat
+                });
+            }
+        })
+    }
+    // then get global and potentially EU policies??
+    // with php request maybe??
+    // read into policy list hidden feature
+    // ???????????????????????????????????????????
+    //
+    // then get national/sub-national policies
+    // do this first by calling the policies layer
     const ipolLayer=getLayerByDisplay('Policies');
     const ipolSource=ipolLayer.getSource();
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
-        {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});    
+        {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});
+    // then send ajax request and update the policylist
     if(ipolUrl){
-        var polDct= {};
+        var polLst= JSON.parse(document.getElementById('policy-request-store').value);
+        var eustat= document.getElementById('eustat-request-store').value;
         // gets features
         $.ajax({
             url:ipolUrl,
@@ -125,21 +153,24 @@ map.on('singleclick', function (evt) {
                 for (let i=0; i < result.features.length; i++){
                     const ipol=result.features[i];
                     if(ipol){
-                        polDct[i] = 
+                        polLst.push( 
                             {'name':ipol.properties.name, 
                             'level':ipol.properties.level, 
                             'class':ipol.properties.classif, 
                             'link':ipol.properties.link}
-                        ;
+                        );
                     }
                 };
-                //console.log(polDct);
+                if(eustat=='T'){
+                    console.log("Is EU member state.");
+                    // now we can add the EU policies somewhere
+                }
                 $('#policy-request-store').attr({
-                    value: JSON.stringify(polDct)
+                    value: JSON.stringify(polLst)
                 });
             }
         })
-        displayPols(polDct);
+        displayPols(polLst);
     }
 });
 

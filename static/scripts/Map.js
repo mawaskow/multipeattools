@@ -69,6 +69,19 @@ const D3Layer= new ImageLayer({
     region: 'Ireland'
 });
 
+// Countries
+const ctrySource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:countries", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const ctryLayer= new ImageLayer({
+    source:ctrySource,
+    // @ts-ignore
+    name:null,
+    display: 'Countries'
+});
+
 // Policies
 const ipolSource=new ImageWMS({
     url:serverURL,
@@ -127,7 +140,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, alkFenLayer],
+    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer, ctryLayer, ipolLayer, alkFenLayer],
     view:view
 });
 
