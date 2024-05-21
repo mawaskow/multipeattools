@@ -97,7 +97,7 @@ function displayPols(polLst){
 function updatePols(){
     var polLst = $('#policy-request-store').val();
     //console.log(polLst);
-    if(polLst != ""){
+    if(polLst != JSON.stringify([])){
         displayPols(JSON.parse(polLst));
     }
 }
@@ -105,8 +105,9 @@ function updatePols(){
 // MAIN EVENT
 map.on('singleclick', function (evt) {
     $('#policy-request-store').attr({
-        value: "[]"
+        value: JSON.stringify([])
     });
+    var polLst = [];
     // first, get coordinate and map info
     const coordinate = evt.coordinate;
     const view=map.getView();
@@ -136,21 +137,25 @@ map.on('singleclick', function (evt) {
     // with php request maybe??
     // read into policy list hidden feature
     // ???????????????????????????????????????????
-    console.log(document.getElementById("test-glob"));
-    console.log(document.getElementById("test-glob").innerHTML);
     var xhttp;
     xhttp =  new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+        // push global list to the #policy-request-store
         //document.getElementById("test-glob").innerHTML = this.responseText;
         console.log(this.responseText);
         }
     };
-    //xhttp.open("GET", "local_getpols.php?q="+'European', true);
     xhttp.open("GET", "/getpols/0", true);
-    //xhttp.open("GET", "local_getpols.php?q="+"'Global'", true);
     xhttp.send();
     //
+    var eustat= document.getElementById('eustat-request-store').value;
+    if(eustat=='T'){
+        console.log("Is EU member state.");
+        // now get the EU data via xhttp
+        // and push list to the #policy-request-store
+    }
+    
     // then get national/sub-national policies
     // do this first by calling the policies layer
     const ipolLayer=getLayerByDisplay('Policies');
@@ -159,8 +164,7 @@ map.on('singleclick', function (evt) {
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});
     // then send ajax request and update the policylist
     if(ipolUrl){
-        var polLst= JSON.parse(document.getElementById('policy-request-store').value);
-        var eustat= document.getElementById('eustat-request-store').value;
+        polLst= JSON.parse(document.getElementById('policy-request-store').value);
         // gets features
         $.ajax({
             url:ipolUrl,
@@ -178,10 +182,6 @@ map.on('singleclick', function (evt) {
                         );
                     }
                 };
-                if(eustat=='T'){
-                    console.log("Is EU member state.");
-                    // now we can add the EU policies somewhere
-                }
                 $('#policy-request-store').attr({
                     value: JSON.stringify(polLst)
                 });
