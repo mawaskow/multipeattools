@@ -133,6 +133,20 @@ map.on('singleclick', function (evt) {
     // with php request maybe??
     // read into policy list hidden feature
     // ???????????????????????????????????????????
+    console.log(document.getElementById("test-glob"));
+    console.log(document.getElementById("test-glob").innerHTML);
+    var xhttp;
+    xhttp =  new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        //document.getElementById("test-glob").innerHTML = this.responseText;
+        console.log(this.responseText);
+        }
+    };
+    //xhttp.open("GET", "local_getpols.php?q="+'European', true);
+    xhttp.open("GET", "/static/scripts/local_getpols.php?q="+"'Global'", true);
+    //xhttp.open("GET", "local_getpols.php?q="+"'Global'", true);
+    xhttp.send();
     //
     // then get national/sub-national policies
     // do this first by calling the policies layer
