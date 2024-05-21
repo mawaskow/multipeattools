@@ -104,6 +104,7 @@ function updatePols(){
 
 // MAIN EVENT
 map.on('singleclick', function (evt) {
+    // set html policy store and local list store to empty
     $('#policy-request-store').attr({
         value: JSON.stringify([])
     });
@@ -133,29 +134,46 @@ map.on('singleclick', function (evt) {
             }
         })
     }
-    // then get global and potentially EU policies??
-    // with php request maybe??
-    // read into policy list hidden feature
-    // ???????????????????????????????????????????
+    // get global policies
     var xhttp;
     xhttp =  new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
         // push global list to the #policy-request-store
-        //document.getElementById("test-glob").innerHTML = this.responseText;
-        console.log(this.responseText);
+        $('#policy-request-store').attr({
+            value: this.responseText
+        });
+        //console.log(this.responseText);
         }
     };
-    xhttp.open("GET", "/getpols/0", true);
+    xhttp.open("GET", "/getpols/1", true);
     xhttp.send();
+    // parse the string into json and add to the policy list
+    polLst = polLst.concat(JSON.parse(document.getElementById('policy-request-store').value));
     //
+    console.log(polLst);
     var eustat= document.getElementById('eustat-request-store').value;
     if(eustat=='T'){
-        console.log("Is EU member state.");
-        // now get the EU data via xhttp
-        // and push list to the #policy-request-store
+        //console.log("Is EU member state.");
+        xhttp =  new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            // push global list to the #policy-request-store
+            $('#policy-request-store').attr({
+                value: this.responseText
+            });
+            console.log(this.responseText);
+            }
+        };
+        xhttp.open("GET", "/getpols/0", true);
+        xhttp.send();
+        console.log("Hey this is the thing your elooking for");
+        console.log(document.getElementById('policy-request-store').value)
+        console.log(JSON.parse(document.getElementById('policy-request-store').value));
+        // parse the string into json and add to the policy list
+        polLst = polLst.concat(JSON.parse(document.getElementById('policy-request-store').value));
     }
-    
+    console.log(polLst);
     // then get national/sub-national policies
     // do this first by calling the policies layer
     const ipolLayer=getLayerByDisplay('Policies');
@@ -164,7 +182,7 @@ map.on('singleclick', function (evt) {
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});
     // then send ajax request and update the policylist
     if(ipolUrl){
-        polLst= JSON.parse(document.getElementById('policy-request-store').value);
+        //polLst= JSON.parse(document.getElementById('policy-request-store').value);
         // gets features
         $.ajax({
             url:ipolUrl,
@@ -182,6 +200,7 @@ map.on('singleclick', function (evt) {
                         );
                     }
                 };
+                console.log(polLst);
                 $('#policy-request-store').attr({
                     value: JSON.stringify(polLst)
                 });

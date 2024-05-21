@@ -5,8 +5,9 @@ from flask import Flask
 from flask import url_for, render_template, send_file, request, redirect
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
+from flask_sqlalchemy import SQLAlchemy
 #
-from modules import assum_json_to_dict, usrinp_json_to_dict
+from modules import get_db_cnxn, convert_to_dct, assum_json_to_dict, usrinp_json_to_dict
 
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -23,7 +24,6 @@ csrf = CSRFProtect(app)
 APP CONFIGURATION
 '''
 ALLOWED_EXTENSIONS = {'txt', 'json'}
-
 # populates SET and FFP pages with python from jsons
 # FFP inputs
 FFP_FIN_ASSUM_FILE = "./inputs/final_assumptions.json"
@@ -80,11 +80,17 @@ def policy():
     return render_template("policy.html")
 
 @app.route('/getpols/<int:lint>')
-def getpols(lint):
-    lvldct = {0:"European",1:"Global"}
+def getpols_eventual(lint):
+    lvldct = {0:'European',1:'Global'}
     level = lvldct[lint]
-    #filters = request.args.to_dict()
-    return f"I am {level}"
+    conn = get_db_cnxn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+    policies = cur.fetchall()
+    policies_fm = convert_to_dct(policies)
+    cur.close()
+    conn.close()
+    return policies_fm
 
 '''
 Admin
