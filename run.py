@@ -71,13 +71,6 @@ def set_tool():
         results_dct = json.load(json_file)
     return render_template("set_tool.html", results= results_dct, inpt = input_dct)
 
-'''
-Admin
-'''
-@app.route('/login')
-def login():
-    return render_template("login.html")
-
 @app.route('/keywords')
 def policy_keywords():
     return render_template("keywords.html")
@@ -86,6 +79,19 @@ def policy_keywords():
 def policy():
     return render_template("policy.html")
 
+@app.route('/getpols/<int:lint>')
+def getpols(lint):
+    lvldct = {0:"European",1:"Global"}
+    level = lvldct[lint]
+    #filters = request.args.to_dict()
+    return f"I am {level}"
+
+'''
+Admin
+'''
+@app.route('/login')
+def login():
+    return render_template("login.html")
 
 '''
 Error Handling

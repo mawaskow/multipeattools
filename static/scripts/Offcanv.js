@@ -104,6 +104,9 @@ function updatePols(){
 
 // MAIN EVENT
 map.on('singleclick', function (evt) {
+    $('#policy-request-store').attr({
+        value: "[]"
+    });
     // first, get coordinate and map info
     const coordinate = evt.coordinate;
     const view=map.getView();
@@ -144,7 +147,7 @@ map.on('singleclick', function (evt) {
         }
     };
     //xhttp.open("GET", "local_getpols.php?q="+'European', true);
-    xhttp.open("GET", "/static/scripts/local_getpols.php?q="+"'Global'", true);
+    xhttp.open("GET", "/getpols/0", true);
     //xhttp.open("GET", "local_getpols.php?q="+"'Global'", true);
     xhttp.send();
     //
