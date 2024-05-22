@@ -10,17 +10,6 @@ def get_db_cnxn():
             user=USERNM,
             password=SECURE_PWD)
 
-def convert_to_dct(policies_array):
-    policies_lst = []
-    for i in range(len(policies_array)):
-        politm = policies_array[i]
-        poldct = {'name': politm[0],
-                  'level':politm[1],
-                  'class':politm[2],
-                  'link':politm[3]}
-        policies_lst.append(poldct)
-    return policies_lst
-
 ####################
 ###   FFP TOOL   ###
 ####################

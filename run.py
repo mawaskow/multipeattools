@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 #
-from modules import get_db_cnxn, convert_to_dct, assum_json_to_dict, usrinp_json_to_dict
+from modules import get_db_cnxn, assum_json_to_dict, usrinp_json_to_dict
 
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -87,10 +87,9 @@ def getpols_eventual(lint):
     cur = conn.cursor()
     cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
     policies = cur.fetchall()
-    policies_fm = convert_to_dct(policies)
     cur.close()
     conn.close()
-    return policies_fm
+    return policies
 
 '''
 Admin

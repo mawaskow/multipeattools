@@ -24,21 +24,21 @@ function classQuerying(policy){
     var comm = document.getElementById("comm-cls-bx");
     var res = document.getElementById("res-cls-bx");
     var env = document.getElementById("env-cls-bx"); 
-    if(policy["class"]=="Biodiversity" & biod.checked==true){
+    if(policy[2]=="Biodiversity" & biod.checked==true){
         return true;
-    }else if(policy["class"]=="Climate Action" & clmac.checked==true){
+    }else if(policy[2]=="Climate Action" & clmac.checked==true){
         return true;
-    }else if(policy["class"]=="Energy" & enrg.checked==true){
+    }else if(policy[2]=="Energy" & enrg.checked==true){
         return true;
-    }else if(policy["class"]=="Economy" & econ.checked==true){
+    }else if(policy[2]=="Economy" & econ.checked==true){
         return true;
-    }else if(policy["class"]=="Land Use" & land.checked==true){
+    }else if(policy[2]=="Land Use" & land.checked==true){
         return true;
-    }else if(policy["class"]=="Community and Culture" & comm.checked==true){
+    }else if(policy[2]=="Community and Culture" & comm.checked==true){
         return true;
-    }else if(policy["class"]=="Research and Applied Sciences" & res.checked==true){
+    }else if(policy[2]=="Research and Applied Sciences" & res.checked==true){
         return true;
-    }else if(policy["class"]=="Environmental Quality" & env.checked==true){
+    }else if(policy[2]=="Environmental Quality" & env.checked==true){
         return true;
     }
     return false;
@@ -64,31 +64,33 @@ function displayPols(polLst){
     //console.log(polLst);
     polLst.forEach(pol => {
         var element = 
-            `<a class="pol-lst-name" href=${pol['link']} target="_blank" rel="noopener noreferrer">${pol['name']}</a>
-            <p>Level: ${pol['level']}</p>
+            `<a class="pol-lst-name" href=${pol[3]} target="_blank" rel="noopener noreferrer">${pol[0]}</a>
+            <p>Level: ${pol[1]}</p>
             <p style="display: inline">Classification:</p>
-            <p style="display: inline" class="badge rounded-pill ${pillDct[pol['class']]}">${pol['class']}</p>
+            <p style="display: inline" class="badge rounded-pill ${pillDct[pol[2]]}">${pol[2]}</p>
             <br><br>`;
-        if(pol["level"]=="County" & document.getElementById("locauth-fltr").checked==true){
+        if(pol[1]=="County" & document.getElementById("locauth-fltr").checked==true){
             if(classQuerying(pol)){
                 counPolInfo.append(element);
             }
-        }else if(pol["level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
+        }else if(pol[1]=="Regional" & document.getElementById("regional-fltr").checked==true){
             if(classQuerying(pol)){
                 regPolInfo.append(element);
             }
-        }else if(pol["level"]=="National" & document.getElementById("national-fltr").checked==true){
+        }else if(pol[1]=="National" & document.getElementById("national-fltr").checked==true){
             if(classQuerying(pol)){
                 natPolInfo.append(element);
             }
-        }else if(pol["level"]=="European" & document.getElementById("eu-fltr").checked==true){
+        }else if(pol[1]=="European" & document.getElementById("eu-fltr").checked==true){
             if(classQuerying(pol)){
                 euPolInfo.append(element);
             }
-        }else if(pol["level"]=="Global" & document.getElementById("global-fltr").checked==true){
+        }else if(pol[1]=="Global" & document.getElementById("global-fltr").checked==true){
             if(classQuerying(pol)){
                 globPolInfo.append(element);
             }
+        }else{
+            console.log(pol);
         }
         noFeatures.html('');
     })
@@ -100,6 +102,8 @@ function updatePols(){
     if(polLst != JSON.stringify([])){
         displayPols(JSON.parse(polLst));
     }
+    //console.log(JSON.parse(polLst));
+    
 }
 
 // MAIN EVENT
@@ -128,8 +132,12 @@ map.on('singleclick', function (evt) {
             async:false,
             success:function(result){
                 const info=result.features[0];
+                var val= 'F';
+                if(info){
+                    val = info.properties.eu_stat;
+                }
                 $('#eustat-request-store').attr({
-                    value: info.properties.eu_stat
+                    value: val
                 });
             }
         })
@@ -139,50 +147,37 @@ map.on('singleclick', function (evt) {
     xhttp =  new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-        // push global list to the #policy-request-store
-        $('#policy-request-store').attr({
-            value: this.responseText
+        JSON.parse(this.responseText).forEach(pol =>{
+            polLst.push(pol);
         });
-        //console.log(this.responseText);
         }
     };
     xhttp.open("GET", "/getpols/1", true);
     xhttp.send();
-    // parse the string into json and add to the policy list
-    polLst = polLst.concat(JSON.parse(document.getElementById('policy-request-store').value));
     //
-    console.log(polLst);
     var eustat= document.getElementById('eustat-request-store').value;
     if(eustat=='T'){
         //console.log("Is EU member state.");
         xhttp =  new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-            // push global list to the #policy-request-store
-            $('#policy-request-store').attr({
-                value: this.responseText
+            JSON.parse(this.responseText).forEach(pol =>{
+                polLst.push(pol);
             });
-            console.log(this.responseText);
             }
         };
         xhttp.open("GET", "/getpols/0", true);
         xhttp.send();
-        console.log("Hey this is the thing your elooking for");
-        console.log(document.getElementById('policy-request-store').value)
-        console.log(JSON.parse(document.getElementById('policy-request-store').value));
-        // parse the string into json and add to the policy list
-        polLst = polLst.concat(JSON.parse(document.getElementById('policy-request-store').value));
     }
-    console.log(polLst);
     // then get national/sub-national policies
     // do this first by calling the policies layer
+    //console.log(polLst);
     const ipolLayer=getLayerByDisplay('Policies');
     const ipolSource=ipolLayer.getSource();
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1000'});
     // then send ajax request and update the policylist
     if(ipolUrl){
-        //polLst= JSON.parse(document.getElementById('policy-request-store').value);
         // gets features
         $.ajax({
             url:ipolUrl,
@@ -193,21 +188,22 @@ map.on('singleclick', function (evt) {
                     const ipol=result.features[i];
                     if(ipol){
                         polLst.push( 
-                            {'name':ipol.properties.name, 
-                            'level':ipol.properties.level, 
-                            'class':ipol.properties.classif, 
-                            'link':ipol.properties.link}
+                        [ipol.properties.name, 
+                        ipol.properties.level, 
+                        ipol.properties.classif, 
+                        ipol.properties.link]
                         );
                     }
                 };
-                console.log(polLst);
-                $('#policy-request-store').attr({
-                    value: JSON.stringify(polLst)
-                });
+                //console.log("polLst after pushing natl pols:",polLst);
             }
         })
-        displayPols(polLst);
+        
     }
+    //document.getElementById('policy-request-store').value = JSON.stringify(polLst);
+    //console.log(JSON.parse(document.getElementById('policy-request-store').value));
+    displayPols(polLst);
+    //console.log(polLst);
 });
 
 const pol_filt_dct = 
