@@ -61,7 +61,7 @@ function displayPols(polLst){
     const noFeatures=$('#offc-no-features');
     noFeatures.html('<p>No features</p>');
     ///////////////////////
-    //console.log(polLst);
+    //console.log(polLst.length, polLst);
     polLst.forEach(pol => {
         var element = 
             `<a class="pol-lst-name" href=${pol[3]} target="_blank" rel="noopener noreferrer">${pol[0]}</a>
@@ -89,8 +89,6 @@ function displayPols(polLst){
             if(classQuerying(pol)){
                 globPolInfo.append(element);
             }
-        }else{
-            console.log(pol);
         }
         noFeatures.html('');
     })
@@ -106,43 +104,9 @@ function updatePols(){
     
 }
 
-// MAIN EVENT
-map.on('singleclick', function (evt) {
-    // set html policy store and local list store to empty
-    $('#policy-request-store').attr({
-        value: JSON.stringify([])
-    });
-    var polLst = [];
-    // first, get coordinate and map info
-    const coordinate = evt.coordinate;
-    const view=map.getView();
-    const resolution=view.getResolution();
-    const projection=view.getProjection();
-    // then get info on whether or not this is an EU member state
-    // do this first by calling on countries layer
-    const ctryLayer=getLayerByDisplay('Countries');
-    const ctrySource=ctryLayer.getSource();
-    const ctryUrl=ctrySource.getFeatureInfoUrl(coordinate, resolution, projection,
-        {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1'});
-    // then send ajax request for EU member state status
-    if(ctryUrl){
-        $.ajax({
-            url:ctryUrl,
-            method:'GET',
-            async:false,
-            success:function(result){
-                const info=result.features[0];
-                var val= 'F';
-                if(info){
-                    val = info.properties.eu_stat;
-                }
-                $('#eustat-request-store').attr({
-                    value: val
-                });
-            }
-        })
-    }
+function getEUGlobPols(eustat){
     // get global policies
+    var polLst = [];
     var xhttp;
     xhttp =  new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -155,7 +119,7 @@ map.on('singleclick', function (evt) {
     xhttp.open("GET", "/getpols/1", true);
     xhttp.send();
     //
-    var eustat= document.getElementById('eustat-request-store').value;
+    //var eustat= document.getElementById('eustat-request-store').value;
     if(eustat=='T'){
         //console.log("Is EU member state.");
         xhttp =  new XMLHttpRequest();
@@ -169,9 +133,52 @@ map.on('singleclick', function (evt) {
         xhttp.open("GET", "/getpols/0", true);
         xhttp.send();
     }
-    // then get national/sub-national policies
-    // do this first by calling the policies layer
-    //console.log(polLst);
+    //return polLst;
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(polLst);
+          }, 1000);
+        }
+    );
+}
+
+// MAIN EVENT
+async function getPols(evt){
+    // set html policy store and local list store to empty
+    $('#policy-request-store').attr({
+        value: JSON.stringify([])
+    });
+    //var polLst = [];
+    // first, get coordinate and map info
+    const coordinate = evt.coordinate;
+    const view=map.getView();
+    const resolution=view.getResolution();
+    const projection=view.getProjection();
+    //
+    const ctryLayer=getLayerByDisplay('Countries');
+    const ctrySource=ctryLayer.getSource();
+    const ctryUrl=ctrySource.getFeatureInfoUrl(coordinate, resolution, projection,
+        {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1'});
+    // then send ajax request for EU member state status
+    var val= 'F';
+    if(ctryUrl){
+        $.ajax({
+            url:ctryUrl,
+            method:'GET',
+            async:false,
+            success:function(result){
+                const info=result.features[0];
+                if(info){
+                    val = info.properties.eu_stat;
+                }
+                $('#eustat-request-store').attr({
+                    value: val
+                });
+            }
+        })
+    }
+    var polLst = await getEUGlobPols(val);
+    // get natl and subnatl pols
     const ipolLayer=getLayerByDisplay('Policies');
     const ipolSource=ipolLayer.getSource();
     const ipolUrl=ipolSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -200,11 +207,14 @@ map.on('singleclick', function (evt) {
         })
         
     }
-    //document.getElementById('policy-request-store').value = JSON.stringify(polLst);
+    //console.log(polLst.length, polLst);
+    document.getElementById('policy-request-store').value = JSON.stringify(polLst);
     //console.log(JSON.parse(document.getElementById('policy-request-store').value));
     displayPols(polLst);
     //console.log(polLst);
-});
+};
+
+map.addEventListener("singleclick", getPols);
 
 const pol_filt_dct = 
 {"biodiv":"Biodiversity", "clmact":"Climate Action", "econ":"Economy", 
