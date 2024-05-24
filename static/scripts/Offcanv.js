@@ -137,7 +137,7 @@ function getEUGlobPols(eustat){
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(polLst);
-          }, 1000);
+          }, 100);
         }
     );
 }
