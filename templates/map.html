@@ -66,22 +66,22 @@
     <div id="map"></div>
     <!--map page buttons-->
     <button id="map-layers-btn">
-        <svg id="map-layers-svg" height="50" width="50" style="position: absolute; top: 75px; left: 0; ">
+        <svg id="map-layers-svg" height="50" width="50" style="position: absolute; top: 75px; left: 0;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Map Layers">
             <image xlink:href="{{ url_for('static', filename='geo-alt.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
     <button id="map-data-btn">
-        <svg id="map-data-svg" height="50" width="50" style="position: absolute; top: 350px; left: 0;">
+        <svg id="map-data-svg" height="50" width="50" style="position: absolute; top: 350px; left: 0;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Data Vis. (not in use yet)">
             <image xlink:href="{{ url_for('static', filename='bar-chart-line.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
     <button id="map-pol-btn">
-        <svg id="map-pol-svg" height="50" width="50" style="position: absolute; top: 50px; right: 0;">
+        <svg id="map-pol-svg" height="50" width="50" style="position: absolute; top: 50px; right: 0;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Policy List">
             <image xlink:href="{{ url_for('static', filename='file-earmark-text.svg') }}" style="height:40px; width:40px;"></image>
         </svg>
     </button>
     <button id="map-pol-cls-btn">
-        <svg id="map-pol-cls-svg" width="50" height="50" fill="white" style="position: absolute; top: 105px; right: 400px; display:none;">
+        <svg id="map-pol-cls-svg" width="50" height="50" fill="white" style="position: absolute; top: 105px; right: 400px; display:none;"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Policy Categories">
             <image xlink:href="{{ url_for('static', filename='list-task.svg') }}" style="height:40px; width:40px;"></image>        
         </svg>
     </button>
@@ -150,32 +150,32 @@
             <p style="color: #747474; margin-left: 5px;">Levels:</p>
             <label style="margin-left: 5px;">
                 <input type="checkbox" id="locauth-fltr" style="display: none;" value="" checked/>
-                <svg id="locauth-fltr-svg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                <svg id="locauth-fltr-svg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Local Policies">
                     <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
                 </svg>
             </label>
             <label style="margin-left: 5px;">
                 <input type="checkbox" id="regional-fltr" style="display: none;" value="" checked/>
-                <svg id="reg-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-r-square-fill" viewBox="0 0 16 16">
+                <svg id="reg-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-r-square-fill" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Regional Policies">
                     <path d="M6.835 5.092v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z"/>
                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5z"/>
                 </svg>
             </label>
             <label style="margin-left: 5px;">
                 <input type="checkbox" id="national-fltr" style="display: none;" value="" checked/>
-                <svg id="ntl-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
+                <svg id="ntl-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="National Policies">
                     <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
                 </svg>
             </label>
             <label style="margin-left: 5px;">
                 <input type="checkbox" id="eu-fltr" style="display: none;" value="" checked/>
-                <svg id="eu-fltr-svg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                <svg id="eu-fltr-svg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="EU Policies">
                     <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
                 </svg>
             </label>
             <label style="margin-left: 5px;">
                 <input type="checkbox" id="global-fltr" style="display: none;" value="" checked/>
-                <svg id="glb-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-globe-europe-africa" viewBox="0 0 16 16">
+                <svg id="glb-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-globe-europe-africa" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Global Policies">
                     <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M3.668 2.501l-.288.646a.847.847 0 0 0 1.479.815l.245-.368a.81.81 0 0 1 1.034-.275.81.81 0 0 0 .724 0l.261-.13a1 1 0 0 1 .775-.05l.984.34q.118.04.243.054c.784.093.855.377.694.801-.155.41-.616.617-1.035.487l-.01-.003C8.274 4.663 7.748 4.5 6 4.5 4.8 4.5 3.5 5.62 3.5 7c0 1.96.826 2.166 1.696 2.382.46.115.935.233 1.304.618.449.467.393 1.181.339 1.877C6.755 12.96 6.674 14 8.5 14c1.75 0 3-3.5 3-4.5 0-.262.208-.468.444-.7.396-.392.87-.86.556-1.8-.097-.291-.396-.568-.641-.756-.174-.133-.207-.396-.052-.551a.33.33 0 0 1 .42-.042l1.085.724c.11.072.255.058.348-.035.15-.15.415-.083.489.117.16.43.445 1.05.849 1.357L15 8A7 7 0 1 1 3.668 2.501"/>
                 </svg>
             </label>
@@ -253,4 +253,8 @@
 <script type="module" src="{{url_for('static', filename='scripts/Layers.js')}}" ></script>
 <script type="module" src="{{url_for('static', filename='scripts/Search.js')}}" ></script>
 <script type="module" src="{{url_for('static', filename='scripts/Offcanv.js')}}"></script>
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
 {% endblock %}
