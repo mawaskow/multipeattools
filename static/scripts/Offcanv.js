@@ -69,7 +69,7 @@ function displayPols(polLst){
             <p style="display: inline">Classification:</p>
             <p style="display: inline" class="badge rounded-pill ${pillDct[pol[2]]}">${pol[2]}</p>
             <br><br>`;
-        if(pol[1]=="County" & document.getElementById("locauth-fltr").checked==true){
+        if(pol[1]=="Local" & document.getElementById("locauth-fltr").checked==true){
             if(classQuerying(pol)){
                 counPolInfo.append(element);
             }
