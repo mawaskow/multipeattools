@@ -1,0 +1,1202 @@
+ * Serving Flask app 'run'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://140.203.155.91:5000
+Press CTRL+C to quit
+[2024-06-24 15:04:25,546] ERROR in app: Exception on /map [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+127.0.0.1 - - [24/Jun/2024 15:04:25] "GET /map HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2024-06-24 15:04:25,656] ERROR in app: Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+127.0.0.1 - - [24/Jun/2024 15:04:25] "GET /favicon.ico HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+127.0.0.1 - - [24/Jun/2024 15:04:30] "GET / HTTP/1.0" 302 -
+[2024-06-24 15:04:30,685] ERROR in app: Exception on /map [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+127.0.0.1 - - [24/Jun/2024 15:04:30] "GET /map HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2024-06-24 15:04:30,727] ERROR in app: Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+127.0.0.1 - - [24/Jun/2024 15:04:30] "GET /favicon.ico HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2024-06-24 15:04:39,762] ERROR in app: Exception on /map [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+127.0.0.1 - - [24/Jun/2024 15:04:39] "GET /map HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2024-06-24 15:04:39,875] ERROR in app: Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+127.0.0.1 - - [24/Jun/2024 15:04:39] "GET /favicon.ico HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2024-06-24 15:04:46,697] ERROR in app: Exception on /map [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+127.0.0.1 - - [24/Jun/2024 15:04:46] "GET /map HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 169, in map_page
+    return render_template("map.html")
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/map.html", line 265, in template
+    {% block title %}Map{% endblock %}
+jinja2.exceptions.TemplateAssertionError: block 'title' defined twice
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2024-06-24 15:04:46,786] ERROR in app: Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+127.0.0.1 - - [24/Jun/2024 15:04:46] "GET /favicon.ico HTTP/1.0" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/flask/ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/ales/multipeattools/run.py", line 221, in not_found_error
+    return render_template('404.html'), 404
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/404.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 363, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python3.10/dist-packages/werkzeug/serving.py", line 324, in execute
+    application_iter = app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1399, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/ales/multipeattools/run.py", line 225, in internal_error
+    return render_template('500.html'), 500
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/ales/multipeattools/templates/500.html", line 136, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+ * Serving Flask app 'run'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://140.203.155.91:5000
+Press CTRL+C to quit
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:16:14] "GET /static/favicon.ico HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:10] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:11] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:14] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:25] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:26] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:17:28] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET / HTTP/1.0" 302 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:19:02] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:45] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:46] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:26:49] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:11] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:12] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:19] "GET /static/favicon.ico HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:44] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:45] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:27:47] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:29:19] "GET /keywords HTTP/1.0" 200 -
+ * Serving Flask app 'run'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://140.203.155.91:5000
+Press CTRL+C to quit
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:52] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:53] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:39:57] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:00] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:00] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:01] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:03] "GET /static/favicon.ico HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:07] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:07] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /login HTTP/1.0" 302 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /dashboard HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:10] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /settool HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/cconnects-logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/INSIGHT-LOGO.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/scripts/calc_set.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:17] "GET /static/INFO-icon.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /login HTTP/1.0" 302 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /dashboard HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:24] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:29] "GET /policy HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:29] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:29] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:29] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:29] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:29] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:29] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:40:58] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:40:58] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:41:00] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:41:00] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:41:05] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:41:05] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:42:27] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:42:27] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:30] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:33] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:33] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:36] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:36] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:52] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:52] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:56] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:56] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:57] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:50:57] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:34] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:34] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:36] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:36] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:38] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:38] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:39] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:39] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:40] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:43] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:43] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:46] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:46] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:47] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:47] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:49] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:51] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:51] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:53] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:53] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:55] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:51:55] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:12] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:17] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:18] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:21] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:40] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:53:40] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:25] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:25] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:28] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:28] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:28] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:28] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:29] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:29] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:31] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:31] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:33] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:33] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:34] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:34] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:35] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:35] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:36] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:36] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:39] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:39] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:41] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:41] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:42] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:42] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:46] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:46] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:47] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:47] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:49] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:49] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:51] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:51] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:53] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:53] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:54] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:54] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:56] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:56] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:58] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:54:58] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:02] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:02] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:03] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:03] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:05] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:05] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:06] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:06] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:08] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [24/Jun/2024 15:55:08] "GET /getpols/1 HTTP/1.0" 200 -
