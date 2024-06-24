@@ -206,7 +206,7 @@ def getpols_eventual(lint):
     level = lvldct[lint]
     conn = get_db_cnxn()
     cur = conn.cursor()
-    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+    cur.execute(f"SELECT name, level, classif, link FROM upd_geopol WHERE level='{level}'")
     policies = cur.fetchall()
     cur.close()
     conn.close()
