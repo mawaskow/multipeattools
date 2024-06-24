@@ -118,6 +118,8 @@ $("#set-cu-tog").on('click', function(event){
     }
 });
 
+/////////////////
+
 $("#map-layers-btn").on('click', function(event){
     ld = document.getElementById("map-lyr-box");
     sv = document.getElementById("map-layers-svg");
@@ -150,7 +152,7 @@ $("#map-pol-btn").on('click', function(event){
 
 $("#map-pol-cls-btn").on('click', function(event){
     cd = document.getElementById("map-pols-cls-div");
-    cs = document.getElementById("map-pol-cls-svg")
+    cs = document.getElementById("map-pol-cls-svg");
     if(cd.style.display == 'none'){
         cd.style.display = 'block';
         cs.style.right = `550px`;

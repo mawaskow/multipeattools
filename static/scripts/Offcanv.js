@@ -214,6 +214,24 @@ async function getPols(evt){
     //console.log(polLst);
 };
 
+function displayChange(evt){
+    var lb = document.getElementById("map-lyr-box");
+    var lsv = document.getElementById("map-layers-svg");
+    lb.style.display = 'block';
+    lsv.style.left = `175px`;
+    var pb = document.getElementById("map-pol-box");
+    var psv = document.getElementById("map-pol-svg");
+    var pcs = document.getElementById("map-pol-cls-svg");
+    pb.style.display = 'block';
+    psv.style.right = `400px`;
+    pcs.style.display = 'block';
+    var cb = document.getElementById("map-pols-cls-div");
+    var csv = document.getElementById("map-pol-cls-svg");
+    cb.style.display = 'block';
+    csv.style.right = `550px`;
+};
+
+map.addEventListener("singleclick", displayChange);
 map.addEventListener("singleclick", getPols);
 
 const pol_filt_dct = 

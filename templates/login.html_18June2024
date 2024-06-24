@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Login{% endblock %}
+
 {% block navbar %}
 <nav class="navbar navbar-expand bg-body-tertiary">
     <div class="container-fluid d-flex justify-content-between" style="padding:0px; padding-left: 8px; margin-left: 12px; margin-top: 15px; margin-bottom: 50px;">
@@ -45,13 +47,13 @@
                       <li><a class="dropdown-item" href="{{ url_for('ffp_tool') }}">FFP</a></li>
                       <li><a class="dropdown-item" href="{{ url_for('set_tool') }}">SET</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="{{ url_for('policy') }}">Policy Visualization</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('policy')}}">Policy Visualization</a></li>
 		              <li><a class="dropdown-item" href="{{ url_for('policy_keywords') }}">Policy Keywords</a></li>
                       <li><a class="dropdown-item disabled" href="#">Policy Analyser</a></li>
                       <li><a class="dropdown-item disabled" href="#">Biodiversity Analyser</a></li>
                       <li><a class="dropdown-item disabled" href="#">Key Metric Analyser</a></li>
                     </ul>
-                </li>
+                  </li>
                 <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
             </ul>
         </div>
@@ -60,8 +62,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="textchunk">
-    <h3>Not Found</h3>
-    <p><a href="{{ url_for('landingpage') }}">Back to home</a></p>
+<div class="textchunk container" style="justify-self: start;">
+    <h5>Login</h5>
+    <div class="col-4">
+        <form method="POST" action="/login">
+            <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+                <input class="form-control" type="text" name="username" placeholder="Your Username">
+            </div>
+            <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+                <input class="form-control" type="password" name="password" placeholder="Your Password">
+            </div>
+            <button class="btn btn-success" style="margin-top: 5px;">Login</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

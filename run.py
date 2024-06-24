@@ -6,6 +6,16 @@ from flask import url_for, render_template, send_file, request, redirect
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, send_from_directory
+from flask_cors import CORS
+from werkzeug.utils import secure_filename
+from flask_wtf.csrf import CSRFProtect
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, flash, redirect, url_for, render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, validators
+import psycopg2
+from flask import request, jsonify
 #
 from modules import get_db_cnxn, assum_json_to_dict, usrinp_json_to_dict
 
@@ -35,6 +45,117 @@ SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
 GEST_CSV= ['./inputs/GEST_2_Static_Values.csv']
 # SET results
 SET_OUTPUT_FILE = './inputs/output_SET.json'
+
+'''
+Admin Login Settings
+'''
+DB_NAME = 'geoapp'
+DB_USER = 'postgres'
+DB_PASSWORD = 'P0stgr3sql'
+DB_HOST = '140.203.155.91'
+DB_PORT = '5432'
+
+def connect_db():
+    return psycopg2.connect(
+        dbname=DB_NAME,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        host=DB_HOST,
+        port=DB_PORT
+    )
+conn_params = {
+    'dbname': 'geoapp',
+    'user': 'postgres',
+    'password': 'P0stgr3sql',
+    'host': '140.203.155.91',
+    'port': '5432'
+}
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', [validators.Length(min=4, max=25)])
+    password = PasswordField('Password', [
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Repeat Password')
+    submit = SubmitField('Sign Up')
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', [validators.InputRequired()])
+    password = PasswordField('Password', [validators.InputRequired()])
+    submit = SubmitField('Sign In')
+
+@app.route('/register', methods=['GET', 'POST'])
+def signup():
+    form = LoginForm()
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        try:
+            # Establish a connection to the database
+            with psycopg2.connect(**conn_params) as conn:
+                with conn.cursor() as cur:
+                    # Execute the insert statement with parameterized query
+                    cur.execute(
+                        "INSERT INTO users (email, password, name) VALUES (%s, %s, %s)",
+                        (email, password, name)
+                    )
+                    # Commit the transaction
+                    conn.commit()
+
+            flash('User signed up successfully!')
+            return redirect(url_for('login'))
+        except psycopg2.Error as e:
+            # Handle any database errors
+            return f'Error: {e}'
+    else:
+        # Render the sign-up form template
+    
+     return render_template('register.html',form=form)
+
+
+# Index page
+@app.route('/login', methods=['GET', 'POST'])
+
+def login():
+    form = LoginForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        try:
+            username = form.username.data
+            password = form.password.data
+            db = connect_db()
+            cur = db.cursor()
+            cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (username, password))
+            user = cur.fetchone()
+            cur.close()
+            db.close()
+            if user:
+                session['username'] = username
+                #flash('User Logged In successfully!', 'success')
+                return redirect(url_for('dashboard'))  # Redirect to dashboard route
+            else:
+                flash('Invalid username or password. Please try again.', 'danger')
+        except Exception as e:
+            flash('An error occurred. Please try again.', 'danger')
+            print(f"Error: {e}")  # Log the error to the console or a log file
+            return render_template('login.html', form=form)
+    
+    # Check if user is already logged in
+    if 'username' in session:
+        return redirect(url_for('dashboard'))  # Redirect to dashboard route if already logged in
+    
+    return render_template('login.html', form=form)
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+    # Clear the session data
+    session.pop('username', None)
+    return jsonify({'message': 'Logout successful'}), 200
+@app.route('/dashboard')
+def dashboard():
+    if 'username' in session:
+        return render_template('dashboard.html', username=session['username'])
+    return redirect(url_for('login'))
 
 '''
 ROUTES
@@ -91,12 +212,6 @@ def getpols_eventual(lint):
     conn.close()
     return policies
 
-'''
-Admin
-'''
-@app.route('/login')
-def login():
-    return render_template("login.html")
 
 '''
 Error Handling
