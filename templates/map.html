@@ -1,3 +1,265 @@
+<<<<<<< HEAD
+{% extends "base.html" %}
+
+{% block title %}Map{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand bg-body-tertiary">
+    <div class="container-fluid d-flex justify-content-between" style="padding:0px; padding-left: 8px; margin-left: 12px; margin-top: 15px; margin-bottom: 50px;">
+        <div class="d-flex align-middle">
+            <a class="navbar-brand d-inline-block" href="{{ url_for('landingpage') }}" style="padding:0px">
+                <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="Logo" width="50" height="40" class="align-middle" style="padding-right: 5px;">
+                <img src="{{url_for('static', filename='ASPECT_logo.png')}}" alt="Logo" width="75" height="40" class="align-middle" style="padding-right: 10px;">
+            </a>
+            <div class="d-inline-block align-middle">
+                <h3 class="d-inline-block" style="margin-right: 2px;">Peatland</h3> <h3 style="color: #9fbbcf; font-weight: bold;" class="d-inline-block">TOOLKIT</h3>
+                <p class="d-block" style="font-size: small; margin-top: -7px;">Advancing capabilities to measure and regenerate wetlands</p>
+            </div>
+        </div>
+        <div class="d-inline-flex align-middle justify-self-end" style="margin-right: 0px;">
+            <div class="d-inline-flex input-group" role="search">
+                <span class="input-group-text d-inline-block search-svg-block" style="height:30px; width:30px; padding:0px">
+                    <svg height="18" width="18" class="align-middle">
+                        <image style="height:18px; width:18px" xlink:href="{{ url_for('static', filename='search.svg') }}"></image>
+                    </svg>
+                </span>
+                <input class="form-control d-inline-block search-entry" style="height:30px;" type="search" placeholder="KEYWORD SEARCH" id="header-search" aria-label="Search">
+            </div>
+	    <a href="{{ url_for('login') }}"> Login </a>
+            <div style="border-right: 1px solid #9fbbcf; height: 25px; padding: 0px 5px; align-self: center;"></div>
+            <p class="d-inline-flex align-middle" style="padding-left: 10px;">EN</p>
+            <div class="d-inline align-bottom" style="margin-right: 12px;">
+                <svg id="language-tog" height="18" width="18" fill="#9fbbcf" style="display: block; padding-left:5px;" class="d-inline align-center">
+                    <image style="height:12px; width:12px;" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #9fbbcf; height: 40px; width: 100%;" class="position-absolute bottom-0">
+        <div style="padding-top: 0px;" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link on-page" href="{{ url_for('map_page') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">SITES & POLICIES</a>
+                </li>
+                <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" style="padding: 7px; margin-left: 15px; font-weight: bold;" aria-expanded="false">USE THE TOOLS</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{ url_for('ffp_tool') }}">FFP</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('set_tool') }}">SET</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{{ url_for('policy') }}">Policy Visualization</a></li>
+		              <li><a class="dropdown-item" href="{{ url_for('policy_keywords') }}">Policy Keywords</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Policy Analyser</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Biodiversity Analyser</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Key Metric Analyser</a></li>
+                    </ul>
+                  </li>
+                <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding:0px; margin:0px;height:100vh; position:relative">
+    <div id="map"></div>
+    <!--map page buttons-->
+    <button id="map-layers-btn">
+        <svg id="map-layers-svg" height="50" width="50" style="position: absolute; top: 75px; left: 0;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Map Layers">
+            <image xlink:href="{{ url_for('static', filename='geo-alt.svg') }}" style="height:40px; width:40px;"></image>
+        </svg>
+    </button>
+    <button id="map-data-btn">
+        <svg id="map-data-svg" height="50" width="50" style="position: absolute; top: 350px; left: 0;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Data Vis. (not in use yet)">
+            <image xlink:href="{{ url_for('static', filename='bar-chart-line.svg') }}" style="height:40px; width:40px;"></image>
+        </svg>
+    </button>
+    <button id="map-pol-btn">
+        <svg id="map-pol-svg" height="50" width="50" style="position: absolute; top: 50px; right: 0;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Policy List">
+            <image xlink:href="{{ url_for('static', filename='file-earmark-text.svg') }}" style="height:40px; width:40px;"></image>
+        </svg>
+    </button>
+    <button id="map-pol-cls-btn">
+        <svg id="map-pol-cls-svg" width="50" height="50" fill="white" style="position: absolute; top: 105px; right: 400px; display:none;"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Policy Categories">
+            <image xlink:href="{{ url_for('static', filename='list-task.svg') }}" style="height:40px; width:40px;"></image>        
+        </svg>
+    </button>
+    <!--layer box-->
+    <div id="map-lyr-box" style="position: absolute; top: 60px; left: 0; width:175px; display:none;">
+        <p style="font-weight: bold; color: #747474; margin-left: 5px;">SITE TYPES</p>
+        <div id="layers-div" style="padding-left: 10px;">
+            <div id="int-lyr-div">
+                <div id="int-lyr-tog" class="row d-flex justify-content-start">
+                    <div class="col-1">
+                        <svg id="int-lyr-tog-up" height="20" width="20" style="display: block;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                        </svg>
+                        <svg id="int-lyr-tog-down" height="20" width="20" style="display: none;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                        </svg>
+                    </div>
+                    <div class="col" style="padding-left: 10px;">
+                        <p class="lyr-reg-txt">International</p>
+                    </div>
+                </div>
+                <div id="int-lyr-lyrs" style="padding-left: 10px; display: block"></div>
+            </div>
+            <div id="ie-lyr-div">
+                <div id="ie-lyr-tog" class="row d-flex justify-content-start">
+                    <div class="col-1">
+                        <svg id="ie-lyr-tog-up" height="20" width="20" style="display: none;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                        </svg>
+                        <svg id="ie-lyr-tog-down" height="20" width="20" style="display: block;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                        </svg>
+                    </div>
+                    <div class="col" style="padding-left: 10px;">
+                        <p class="lyr-reg-txt">Ireland</p>
+                    </div>
+                </div>
+                <div id="ie-lyr-lyrs" style="padding-left: 10px; display: none"></div>
+            </div>
+            <div id="pl-lyr-div">
+                <div id="pl-lyr-tog" class="row d-flex justify-content-start">
+                    <div class="col-1">
+                        <svg id="pl-lyr-tog-up" height="20" width="20" style="display: none;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-up.svg') }}"></image>
+                        </svg>
+                        <svg id="pl-lyr-tog-down" height="20" width="20" style="display: block;">
+                            <image style="height:20px; width:20px" xlink:href="{{ url_for('static', filename='chevron-down.svg') }}"></image>
+                        </svg>
+                    </div>
+                    <div class="col" style="padding-left: 10px;">
+                        <p class="lyr-reg-txt">Poland</p>
+                    </div>
+                </div>
+                <div id="pl-lyr-lyrs" style="padding-left: 10px; display: none"></div>
+            </div>
+        </div>
+    </div>
+    <!--policy box-->
+    <div id="map-pol-box" style="position: absolute; top: 0; right: 0; width:400px; min-height: 150px; display:none;">
+        <div id="map-pol-default" class="row">
+            <p style="font-weight: bold; color: #747474; margin-left: 5px;">Policy Information</p>
+            <p style="color: #747474; margin-left: 5px;">Click on the map to view relevant policies.</p>
+        </div>
+        <!--policy box level selection buttons-->
+        <div id="lvl-filter-div" class="d-inline-flex">
+            <p style="color: #747474; margin-left: 5px;">Levels:</p>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="locauth-fltr" style="display: none;" value="" checked/>
+                <svg id="locauth-fltr-svg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Local Policies">
+                    <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+                </svg>
+            </label>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="regional-fltr" style="display: none;" value="" checked/>
+                <svg id="reg-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-r-square-fill" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Regional Policies">
+                    <path d="M6.835 5.092v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z"/>
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5z"/>
+                </svg>
+            </label>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="national-fltr" style="display: none;" value="" checked/>
+                <svg id="ntl-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="National Policies">
+                    <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
+                </svg>
+            </label>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="eu-fltr" style="display: none;" value="" checked/>
+                <svg id="eu-fltr-svg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="EU Policies">
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                </svg>
+            </label>
+            <label style="margin-left: 5px;">
+                <input type="checkbox" id="global-fltr" style="display: none;" value="" checked/>
+                <svg id="glb-fltr-svg" height="25" width="25" fill="currentColor" class="bi bi-globe-europe-africa" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Global Policies">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M3.668 2.501l-.288.646a.847.847 0 0 0 1.479.815l.245-.368a.81.81 0 0 1 1.034-.275.81.81 0 0 0 .724 0l.261-.13a1 1 0 0 1 .775-.05l.984.34q.118.04.243.054c.784.093.855.377.694.801-.155.41-.616.617-1.035.487l-.01-.003C8.274 4.663 7.748 4.5 6 4.5 4.8 4.5 3.5 5.62 3.5 7c0 1.96.826 2.166 1.696 2.382.46.115.935.233 1.304.618.449.467.393 1.181.339 1.877C6.755 12.96 6.674 14 8.5 14c1.75 0 3-3.5 3-4.5 0-.262.208-.468.444-.7.396-.392.87-.86.556-1.8-.097-.291-.396-.568-.641-.756-.174-.133-.207-.396-.052-.551a.33.33 0 0 1 .42-.042l1.085.724c.11.072.255.058.348-.035.15-.15.415-.083.489.117.16.43.445 1.05.849 1.357L15 8A7 7 0 1 1 3.668 2.501"/>
+                </svg>
+            </label>
+        </div>
+        <!--Where policies populate-->
+        <div id="map-pols-div" style="margin: 5px; min-height: 75px; max-height:500px; overflow:auto;">
+            <div id="coun-pol"></div>
+            <div id="reg-pol"></div>
+            <div id="nat-pol"></div>
+            <div id="eu-pol"></div>
+            <div id="glob-pol"></div>
+            <div id="offc-no-features"></div>
+        </div>
+        <!-- hidden input to store click policy for querying after map click-->
+        <input id="policy-request-store" style="display: none;" value="{{ [] }}">
+        <!-- hidden input to store EU status for querying after map click-->
+        <input id="eustat-request-store" style="display: none;" value="">
+    </div>
+    <!--policy class box-->
+    <div id="map-pols-cls-div" style="position: absolute; top: 105px; right: 400px; width:150px; display:none;">
+        <div class="bio-cls-clr">
+            <input id="bio-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="bio-cls-bx">Biodiversity</label>
+        </div>
+        <div class="clm-cls-clr">
+            <input id="clm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="clm-cls-bx">Climate Action</label>
+        </div>
+        <div class="enr-cls-clr">
+            <input id="enr-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="enr-cls-bx">Energy</label>
+        </div>
+        <div class="econ-cls-clr">
+            <input id="econ-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="econ-cls-bx">Economy</label>
+        </div>
+        <div class="land-cls-clr">
+            <input id="land-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="land-cls-bx">Land Use</label>
+        </div>
+        <div class="comm-cls-clr">
+            <input id="comm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="comm-cls-bx">Culture</label>
+        </div>
+        <div class="res-cls-clr">
+            <input id="res-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="res-cls-bx">Research</label>
+        </div>
+        <div class="env-cls-clr">
+            <input id="env-cls-bx" type="checkbox" class="form-check-input pol-cls-inp" checked>
+            <label for="env-cls-bx">Env. Quality</label>
+        </div>
+    </div>
+</div>
+
+
+<!--Popup div-->
+<div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content">
+        <div id="bog-info"></div>
+        <div id="PS-info"></div>
+        <div id="D1-info"></div>
+        <div id="D2-info"></div>
+        <div id="D3-info"></div>
+        <div id="PlAlkFen-info"></div>
+        <div id="corine-info"></div>
+        <div id="no-features"></div>
+    </div>
+</div>
+
+<script type="module" src="{{url_for('static', filename='scripts/Map.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/customFunctions.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Identify.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Layers.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Search.js')}}" ></script>
+<script type="module" src="{{url_for('static', filename='scripts/Offcanv.js')}}"></script>
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+{% endblock %}
+=======
 {% extends "base.html" %}
 
 {% block title %}Map{% endblock %}
@@ -258,3 +520,4 @@
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
 {% endblock %}
+>>>>>>> 8a1dcce4bdca7b6ecce3e305cb257db1ee169829
