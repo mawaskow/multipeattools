@@ -5,13 +5,13 @@ const map=$('#map').data('map');
 
 const pillDct = 
     {'Economy': `econ-class-pill`,
-    'Land Use': `land-class-pill`,
-    'Environmental Quality':`env-class-pill`,
+    'Land-Use / Agriculture': `land-class-pill`,
+    'Environmental quality: water, soil, air':`env-class-pill`,
     'Community and Culture':`comm-class-pill`,
-    'Climate Action':`clm-class-pill`,
+    'Climate':`clm-class-pill`,
     'Energy':`enr-class-pill`,
     'Biodiversity':`bio-class-pill`,
-    'Research and Applied Sciences':`res-class-pill`
+    'Research and applied sciences':`res-class-pill`
     };
 
 // FXNS
@@ -26,19 +26,19 @@ function classQuerying(policy){
     var env = document.getElementById("env-cls-bx"); 
     if(policy[2]=="Biodiversity" & biod.checked==true){
         return true;
-    }else if(policy[2]=="Climate Action" & clmac.checked==true){
+    }else if(policy[2]=="Climate" & clmac.checked==true){
         return true;
     }else if(policy[2]=="Energy" & enrg.checked==true){
         return true;
     }else if(policy[2]=="Economy" & econ.checked==true){
         return true;
-    }else if(policy[2]=="Land Use" & land.checked==true){
+    }else if(policy[2]=="Land-Use / Agriculture" & land.checked==true){
         return true;
     }else if(policy[2]=="Community and Culture" & comm.checked==true){
         return true;
-    }else if(policy[2]=="Research and Applied Sciences" & res.checked==true){
+    }else if(policy[2]=="Research and applied sciences" & res.checked==true){
         return true;
-    }else if(policy[2]=="Environmental Quality" & env.checked==true){
+    }else if(policy[2]=="Environmental quality: water, soil, air" & env.checked==true){
         return true;
     }
     return false;
