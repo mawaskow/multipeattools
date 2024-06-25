@@ -6,12 +6,12 @@ const map=$('#map').data('map');
 const pillDct = 
     {'Economy': `econ-class-pill`,
     'Land-Use / Agriculture': `land-class-pill`,
-    'Environmental quality: water, soil, air':`env-class-pill`,
+    'Environmental Quality':`env-class-pill`,
     'Community and Culture':`comm-class-pill`,
-    'Climate':`clm-class-pill`,
+    'Climate Action':`clm-class-pill`,
     'Energy':`enr-class-pill`,
     'Biodiversity':`bio-class-pill`,
-    'Research and applied sciences':`res-class-pill`
+    'Research and Applied Sciences':`res-class-pill`
     };
 
 // FXNS
