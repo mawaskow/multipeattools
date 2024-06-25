@@ -6,12 +6,23 @@ const map=$('#map').data('map');
 const pillDct = 
     {'Economy': `econ-class-pill`,
     'Land-Use / Agriculture': `land-class-pill`,
-    'Environmental Quality':`env-class-pill`,
+    'Environmental quality: water, soil, air':`env-class-pill`,
     'Community and Culture':`comm-class-pill`,
-    'Climate Action':`clm-class-pill`,
+    'Climate':`clm-class-pill`,
     'Energy':`enr-class-pill`,
     'Biodiversity':`bio-class-pill`,
-    'Research and Applied Sciences':`res-class-pill`
+    'Research and applied sciences':`res-class-pill`
+    };
+
+const pillNames = 
+    {'Economy': `Economy`,
+    'Land-Use / Agriculture': `Land-Use / Agriculture`,
+    'Environmental quality: water, soil, air':`Environmental Quality`,
+    'Community and Culture':`Community and Culture`,
+    'Climate':`Climate`,
+    'Energy':`Energy`,
+    'Biodiversity':`Biodiversity`,
+    'Research and applied sciences':`Research`
     };
 
 // FXNS
@@ -67,7 +78,7 @@ function displayPols(polLst){
             `<a class="pol-lst-name" href=${pol[3]} target="_blank" rel="noopener noreferrer">${pol[0]}</a>
             <p>Level: ${pol[1]}</p>
             <p style="display: inline">Classification:</p>
-            <p style="display: inline" class="badge rounded-pill ${pillDct[pol[2]]}">${pol[2]}</p>
+            <p style="display: inline" class="badge rounded-pill ${pillDct[pol[2]]}">${pillNames[pol[2]]}</p>
             <br><br>`;
         if(pol[1]=="Local" & document.getElementById("locauth-fltr").checked==true){
             if(classQuerying(pol)){
