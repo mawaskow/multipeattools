@@ -211,3 +211,19 @@ $("#pl-lyr-tog").on('click', function(event){
         tu.style.display = 'none';
     }
 });
+
+$("#nl-lyr-tog").on('click', function(event){
+    el = document.getElementById("nl-lyr-lyrs");
+    td = document.getElementById("nl-lyr-tog-down");
+    tu = document.getElementById("nl-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});

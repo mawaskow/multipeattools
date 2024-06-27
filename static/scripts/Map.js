@@ -109,6 +109,20 @@ const alkFenLayer= new ImageLayer({
     region: 'Poland'
 });
 
+// Dutch Peat Soils
+const nlSoilSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:nl_peatsoils", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const nlSoilLayer= new ImageLayer({
+    source:nlSoilSource,
+    // @ts-ignore
+    name:'NL_Peat_Soils',
+    display: 'Peat Soils',
+    region: 'Netherlands'
+});
+
 // CORINE-18 data for PL and IE for 411, 412, and 322
 const corineSource=new ImageWMS({
     url:serverURL,
@@ -140,7 +154,8 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer, ctryLayer, ipolLayer, alkFenLayer],
+    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer,
+        nlSoilLayer, alkFenLayer, ctryLayer, ipolLayer],
     view:view
 });
 

@@ -72,6 +72,9 @@ map.on('singleclick', function (evt) {
   // corine-18
   const corineInfo=$('#corine-info');
   corineInfo.html('');
+  // nl-soiltypes
+  const nlsInfo=$('#nls-info');
+  corineInfo.html('');
   // default
   const noFeatures=$('#no-features');
   noFeatures.html('<p>No features</p>');
@@ -204,6 +207,29 @@ map.on('singleclick', function (evt) {
                     const corineName=corine.properties.site_type;
 
                     corineInfo.html(`<p>CORINE-18 Class: ${corineName}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+
+    
+  const nlsLayer=getLayerByName('NL_Peat_Soils');
+  const nlsSource=nlsLayer.getSource();
+  const nlsUrl=nlsSource.getFeatureInfoUrl(coordinate, resolution, projection,
+    {'INFO_FORMAT':'application/json'});
+
+    if(nlsUrl){
+        $.ajax({
+            url:nlsUrl,
+            method:'GET',
+            success:function(result){
+                const nls=result.features[0];
+                if(nls){
+                    const soilType=nls.properties.en_soil;
+
+                    nlsInfo.html(`<p>Soil Type: ${soilType}</p>`);
                     noFeatures.html('');
                     }
 
