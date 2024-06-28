@@ -449,6 +449,11 @@ span.Economy{
     border-color: transparent;
 }
 
+.de-soil-box:checked{
+    background-color: #a63a04;
+    border-color: transparent;
+}
+
 /*classification pill colors*/
 
 .enr-class-pill{

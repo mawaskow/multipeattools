@@ -227,3 +227,19 @@ $("#nl-lyr-tog").on('click', function(event){
         tu.style.display = 'none';
     }
 });
+
+$("#de-lyr-tog").on('click', function(event){
+    el = document.getElementById("de-lyr-lyrs");
+    td = document.getElementById("de-lyr-tog-down");
+    tu = document.getElementById("de-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});

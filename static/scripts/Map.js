@@ -123,6 +123,20 @@ const nlSoilLayer= new ImageLayer({
     region: 'Netherlands'
 });
 
+// German Peatlands
+const detSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:thuenen", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const detLayer= new ImageLayer({
+    source:detSource,
+    // @ts-ignore
+    name:'DE_Peatlands',
+    display: 'Peatlands',
+    region: 'Germany'
+});
+
 // CORINE-18 data for PL and IE for 411, 412, and 322
 const corineSource=new ImageWMS({
     url:serverURL,
@@ -155,7 +169,7 @@ const view=new View({
 const map=new Map({
     target:"map",
     layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer,
-        nlSoilLayer, alkFenLayer, ctryLayer, ipolLayer],
+        nlSoilLayer, detLayer, alkFenLayer, ctryLayer, ipolLayer],
     view:view
 });
 

@@ -74,7 +74,10 @@ map.on('singleclick', function (evt) {
   corineInfo.html('');
   // nl-soiltypes
   const nlsInfo=$('#nls-info');
-  corineInfo.html('');
+  nlsInfo.html('');
+  // de-peatlands
+  const detInfo=$('#det-info');
+  detInfo.html('');
   // default
   const noFeatures=$('#no-features');
   noFeatures.html('<p>No features</p>');
@@ -214,7 +217,6 @@ map.on('singleclick', function (evt) {
         })
     }
 
-    
   const nlsLayer=getLayerByName('NL_Peat_Soils');
   const nlsSource=nlsLayer.getSource();
   const nlsUrl=nlsSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -237,6 +239,29 @@ map.on('singleclick', function (evt) {
         })
     }
 
+  const detLayer=getLayerByName('DE_Peatlands');
+  const detSource=detLayer.getSource();
+  const detUrl=detSource.getFeatureInfoUrl(coordinate, resolution, projection,
+    {'INFO_FORMAT':'application/json'});
+
+    if(detUrl){
+        $.ajax({
+            url:detUrl,
+            method:'GET',
+            success:function(result){
+                const det=result.features[0];
+                if(det){
+                    const subst=det.properties.genesis;
+                    const thick=det.properties.thickness;
+
+                    detInfo.html(`<p>Substrate: ${subst}</p>
+                        <p>Thickness: ${thick}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
 
   overlay.setPosition(coordinate);
 });

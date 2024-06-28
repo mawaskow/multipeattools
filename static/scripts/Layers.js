@@ -10,14 +10,16 @@ const lyrClrLib = {
     'HL_Montane_Bog':`hl-mont-box`,
     'PL_Alk_Fens':`alk-fen-box`,
     'Corine18':`corine-box`,
-    'NL_Peat_Soils':`nl-soil-box`
+    'NL_Peat_Soils':`nl-soil-box`,
+    'DE_Peatlands': `de-soil-box`
 };
 
 const regLib = {
     'International': "int-lyr-lyrs",
     'Ireland': "ie-lyr-lyrs",
     'Poland': "pl-lyr-lyrs",
-    'Netherlands':"nl-lyr-lyrs"
+    'Netherlands':"nl-lyr-lyrs",
+    'Germany':"de-lyr-lyrs"
 };
 
 layers.forEach(layer => {
