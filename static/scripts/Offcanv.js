@@ -206,7 +206,7 @@ async function getPols(evt){
                     const ipol=result.features[i];
                     if(ipol){
                         polLst.push( 
-                        [ipol.properties.name, 
+                        [ipol.properties.engname, 
                         ipol.properties.level, 
                         ipol.properties.classif, 
                         ipol.properties.link]
