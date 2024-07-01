@@ -143,7 +143,7 @@ def login():
     
     # Check if user is already logged in
     if 'username' in session:
-        return redirect(url_for('dashboard'))  # Redirect to dashboard route if already logged in
+        return redirect(url_for('map_page'))  # Redirect to dashboard route if already logged in
     
     return render_template('login.html', form=form)
 @app.route('/logout', methods=['POST', 'GET'])
@@ -154,7 +154,7 @@ def logout():
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
-        return render_template('dashboard.html', username=session['username'])
+     return render_template('map.html', username=session['username'])
     return redirect(url_for('login'))
 
 '''
@@ -166,39 +166,181 @@ def landingpage():
 
 @app.route('/map', methods=['GET', 'POST'])
 def map_page():
-    return render_template("map.html")
+    username = session.get('username')
+    if username is None:
+        return render_template('map.html')
+    return render_template('map.html', username=session['username'])
 
 @app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
-    #initializes values for populating each the user input and assumptions forms with default variables
-    #and loads the dictionary values into a list for passing through Erica's function that calculates results
-    aform = assum_json_to_dict(FFP_FIN_ASSUM_FILE)
-    uform = usrinp_json_to_dict(FFP_FIN_USR_INP_FILE)
-    with open(FFP_RESULTS) as json_file:
-        results_dict = json.load(json_file)
-    return render_template("ffp_tool.html", aform=aform, uform=uform, results_dict = results_dict)
+    username = session.get('username')
+    if username is None:
+        with open(FFP_RESULTS) as json_file:
+            results_dict = json.load(json_file)
+        aform = assum_json_to_dict(FFP_FIN_ASSUM_FILE)
+        uform = usrinp_json_to_dict(FFP_FIN_USR_INP_FILE)
+        return render_template('ffp_tool.html',aform=aform, uform=uform, results_dict=results_dict)
+    else:
+        with open(FFP_RESULTS) as json_file:
+            results_dict = json.load(json_file)
+        # initializes values for populating each the user input and assumptions forms with default variables
+        # and loads the dictionary values into a list for passing through Erica's function that calculates results
+        aform = assum_json_to_dict(FFP_FIN_ASSUM_FILE)
+        uform = usrinp_json_to_dict(FFP_FIN_USR_INP_FILE)
+        with open(FFP_RESULTS) as json_file:
+            results_dict = json.load(json_file)
+    
+    return render_template('ffp_tool.html', username=session['username'], aform=aform, uform=uform, results_dict=results_dict)
 
 @app.route('/settool', methods=['GET', 'POST'])
 def set_tool():
-    #initializes values for populating form
-    #and loads the dictionary values into a list for passing through function that calculates results
-    # load json into dict --  populates form via variable passed to html
-    # load dict into list of arguments for function
-    # calculate output
-    #
+    username = session.get('username')
+    if username is None:
+        with open(SET_INIT_INPT_FILE) as json_file:
+            input_dct = json.load(json_file)
+        with open(SET_OUTPUT_FILE) as json_file:
+            results_dct = json.load(json_file)
+        return render_template('set_tool.html',results=results_dct,inpt=input_dct)
+    
+    # If username is present in session, load input and output files, and render template
     with open(SET_INIT_INPT_FILE) as json_file:
         input_dct = json.load(json_file)
     with open(SET_OUTPUT_FILE) as json_file:
         results_dct = json.load(json_file)
-    return render_template("set_tool.html", results= results_dct, inpt = input_dct)
+    
+    return render_template("set_tool.html", username=session['username'], results=results_dct, inpt=input_dct)
 
 @app.route('/keywords')
 def policy_keywords():
-    return render_template("keywords.html")
-
+    username = session.get('username')
+    if username is None:
+        return render_template('keywords.html')
+    
+    return render_template('keywords.html', username=session['username'])
+    
 @app.route('/policy')
 def policy():
-    return render_template("policy.html")
+    username = session.get('username')
+    if username is None:
+        return redirect(url_for('eu_global'))
+    return redirect(url_for('eu_global'))
+
+@app.route('/policy/<country>')
+def policyCountry(country):
+    username = session.get('username')
+    conn = connect_db()
+    if conn is None:
+        return None  # Return None or handle error as needed
+
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
+        data = cur.fetchall()
+        #return data
+    except psycopg2.Error as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        cur.close()
+        conn.close()
+        if 'username' not in session:
+         return render_template('policymain.html', data=data)
+        
+    #return render_template(f'{country}_policy.html',data=data)
+    return render_template('policymain.html',data=data,username=session['username'])
+
+@app.route('/eu_policy')
+def eu_policy():
+    username = session.get('username')
+    conn = connect_db()
+    if conn is None:
+        return None  # Return None or handle error as needed
+
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='European'")
+        data = cur.fetchall()
+        #return data
+    except psycopg2.Error as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        cur.close()
+        conn.close()
+        if 'username' not in session:
+         return render_template('policymain.html', data=data, heading='European Union')
+    #return render_template(f'{country}_policy.html',data=data)
+    return render_template('policymain.html',data=data,heading='European Union',username=session['username'])
+
+@app.route('/eu_global')
+def eu_global():
+    username = session.get('username')
+    conn = connect_db()
+    if conn is None:
+        return None  # Return None or handle error as needed
+
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='Global'")
+        data = cur.fetchall()
+        #return data
+    except psycopg2.Error as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        cur.close()
+        conn.close()
+    if 'username' not in session:
+        return render_template('policymain.html', data=data, heading='Global')
+    #return render_template(f'{country}_policy.html',data=data)
+    return render_template('policymain.html',data=data,heading='Global',username=session['username'])
+
+@app.route('/eu_local')
+def eu_local():
+    username = session.get('username')
+    conn = connect_db()
+    if conn is None:
+        return None  # Return None or handle error as needed
+
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='Local'")
+        data = cur.fetchall()
+        #return data
+    except psycopg2.Error as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        cur.close()
+        conn.close()
+        if 'username' not in session:
+         return render_template('policymain.html', data=data, heading='Local')
+    #return render_template(f'{country}_policy.html',data=data)
+    return render_template('policymain.html',data=data,heading='Local',username=session['username'])
+
+@app.route('/eu_national')
+def eu_national():
+    username = session.get('username')
+    conn = connect_db()
+    if conn is None:
+        return None  # Return None or handle error as needed
+
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='National'")
+        data = cur.fetchall()
+        #return data
+    except psycopg2.Error as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        cur.close()
+        conn.close()
+        if 'username' not in session:
+         return render_template('policymain.html', data=data, heading='National')
+    #return render_template(f'{country}_policy.html',data=data)
+    return render_template('policymain.html',data=data, heading='National',username=session['username'])
+
 
 @app.route('/getpols/<int:lint>')
 def getpols_eventual(lint):
@@ -206,7 +348,7 @@ def getpols_eventual(lint):
     level = lvldct[lint]
     conn = get_db_cnxn()
     cur = conn.cursor()
-    cur.execute(f"SELECT name, level, classif, link FROM upd_geopol WHERE level='{level}'")
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
     policies = cur.fetchall()
     cur.close()
     conn.close()
