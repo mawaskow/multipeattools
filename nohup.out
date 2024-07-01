@@ -8931,3 +8931,1018 @@ LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
                                                ^
 
 127.0.0.1 - - [01/Jul/2024 09:35:24] "GET /getpols/1 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 09:36:13] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:13] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:13] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:13] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:13] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:13] "GET /static/scripts/logout_template.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:14] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:14] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:14] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:14] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:18] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:36:27] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:49:15] "GET /robots.txt HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 09:49:16] "HEAD /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:56:44] "GET /static/style.css HTTP/1.0" 304 -
+[2024-07-01 09:56:53,172] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 09:56:53] "GET /getpols/1 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 09:56:53] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:56:54] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:56:54] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:56:54] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:56:54] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 09:56:54] "GET /static/search.svg HTTP/1.0" 200 -
+[2024-07-01 09:57:04,068] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 09:57:04] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 09:57:04] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 09:57:04] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 09:57:04] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 09:57:04] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 09:57:04] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 09:57:04] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+[2024-07-01 10:17:04,768] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:17:04] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:17:04] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:17:04] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:17:05] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:17:05] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:17:05] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:17:05] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:17:06] "GET /static/favicon.ico HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:24] "GET / HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:22:24] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:24] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:24] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:24] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:24] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:24] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:25] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:31] "GET /policy HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:32] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /policy/Ireland HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:36] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /policy/Italia HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:40] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /policy/United%20Kingdom HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:43] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /policy/Bulgaria HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:45] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /eu_policy HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:47] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:48] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:48] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:22:50] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:36] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:36] "GET /static/favicon.ico HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:42] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:42] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:23:42] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:42] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:42] "GET /static/local-gr.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:42] "GET /static/regional-gr.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:42] "GET /static/Artboard.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/eu-gr.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/global-gr.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/scripts/country_script.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:43] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /logout HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET / HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:44] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /policy HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:47] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /eu_policy HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:51] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:23:52] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /eu_policy HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:06] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:08] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:09] "GET /eu_policy HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:09] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:09] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:09] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:09] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:10] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /eu_national HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:14] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /eu_local HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:16] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /eu_national HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:18] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /eu_national HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:21] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:42] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:42] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:43] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /policy HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:48] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /keywords HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:56] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:24:59] "GET /policy HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:24:59] "GET /eu_global HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/eu-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/country_styles.css HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/local-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/regional-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/global-gr.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/Artboard.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/scripts/country_script.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:00] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/scripts/logout_template.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:05] "HEAD /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:06] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:07] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:10] "GET /static/favicon.ico HTTP/1.0" 200 -
+[2024-07-01 10:25:21,167] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:21] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:25:21] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:21] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:21] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:21] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:21] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:25:21] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+[2024-07-01 10:25:24,492] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:24] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:25:24,519] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:24] "GET /getpols/0 HTTP/1.0" 500 -
+[2024-07-01 10:25:25,402] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:25] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:25:25,409] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:25] "GET /getpols/0 HTTP/1.0" 500 -
+[2024-07-01 10:25:29,052] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:29] "GET /getpols/0 HTTP/1.0" 500 -
+[2024-07-01 10:25:29,470] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:29] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:25:36] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/style.css HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/scripts/logout_template.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/scripts/Map.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/scripts/Layers.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/scripts/Search.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/scripts/Offcanv.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/scripts/Identify.js HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:37] "GET /static/scripts/customFunctions.js HTTP/1.0" 200 -
+[2024-07-01 10:25:39,685] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:39] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:25:39,686] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:39] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:25:42] "GET /static/scripts/toggle_display.js HTTP/1.0" 200 -
+[2024-07-01 10:25:44,367] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:44] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:25:44,368] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:44] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:25:48] "GET /static/multipeat_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:48] "GET /static/ASPECT_logo.png HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:54] "GET /static/chevron-down.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:54] "GET /static/geo-alt.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:54] "GET /static/bar-chart-line.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:54] "GET /static/file-earmark-text.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:54] "GET /static/list-task.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:54] "GET /static/search.svg HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:25:54] "GET /static/chevron-up.svg HTTP/1.0" 200 -
+[2024-07-01 10:25:56,058] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:56] "GET /getpols/0 HTTP/1.0" 500 -
+[2024-07-01 10:25:56,065] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:25:56] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:26:02,596] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:26:02] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:26:02,971] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:26:02] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:26:13,311] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:26:13] "GET /getpols/1 HTTP/1.0" 500 -
+[2024-07-01 10:26:13,383] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:26:13] "GET /getpols/0 HTTP/1.0" 500 -
+[2024-07-01 10:26:14,355] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:26:14] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:26:14] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:14] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:14] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:14] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:14] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:14] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:22] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET / HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:29] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:30] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+[2024-07-01 10:26:36,707] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:26:36] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:26:36] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:36] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:36] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:36] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:36] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:26:36] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+[2024-07-01 10:27:01,777] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:27:01] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:27:01] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:01] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:01] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:01] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:02] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:02] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+[2024-07-01 10:27:04,098] ERROR in app: Exception on /getpols/1 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:27:04] "GET /getpols/1 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:27:04] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:04] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:04] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:04] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:04] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:27:04] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+[2024-07-01 10:29:28,295] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:29:28] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:29:28] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:28] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:28] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:28] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:28] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:28] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:29] "GET /static/favicon.ico HTTP/1.0" 304 -
+[2024-07-01 10:29:59,066] ERROR in app: Exception on /getpols/0 [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ales/multipeattools/run.py", line 351, in getpols_eventual
+    cur.execute(f"SELECT name, level, classif, link FROM geo_pol WHERE level='{level}'")
+psycopg2.errors.UndefinedTable: relation "geo_pol" does not exist
+LINE 1: SELECT name, level, classif, link FROM geo_pol WHERE level='...
+                                               ^
+
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /getpols/0 HTTP/1.0" 500 -
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:29:59] "GET /static/favicon.ico HTTP/1.0" 304 -
+ * Serving Flask app 'run'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://140.203.155.91:5000
+Press CTRL+C to quit
+127.0.0.1 - - [01/Jul/2024 10:31:25] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:31:25] "GET /favicon.ico HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:31:37] "GET /getpols/1 HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:31:41] "GET /getpols/0 HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:31:41] "GET /favicon.ico HTTP/1.0" 404 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET / HTTP/1.0" 302 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /map HTTP/1.0" 200 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/style.css HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/scripts/Map.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/scripts/customFunctions.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/scripts/Identify.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/scripts/Search.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/scripts/Layers.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/scripts/Offcanv.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:31:59] "GET /static/scripts/logout_template.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/scripts/toggle_display.js HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/ASPECT_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/multipeat_logo.png HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/search.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/chevron-down.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/bar-chart-line.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/geo-alt.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/list-task.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/chevron-up.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:00] "GET /static/file-earmark-text.svg HTTP/1.0" 304 -
+127.0.0.1 - - [01/Jul/2024 10:32:03] "GET /static/favicon.ico HTTP/1.0" 304 -
