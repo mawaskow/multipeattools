@@ -118,6 +118,8 @@ $("#set-cu-tog").on('click', function(event){
     }
 });
 
+/////////////////
+
 $("#map-layers-btn").on('click', function(event){
     ld = document.getElementById("map-lyr-box");
     sv = document.getElementById("map-layers-svg");
@@ -150,12 +152,94 @@ $("#map-pol-btn").on('click', function(event){
 
 $("#map-pol-cls-btn").on('click', function(event){
     cd = document.getElementById("map-pols-cls-div");
-    cs = document.getElementById("map-pol-cls-svg")
+    cs = document.getElementById("map-pol-cls-svg");
     if(cd.style.display == 'none'){
         cd.style.display = 'block';
         cs.style.right = `550px`;
     }else if(cd.style.display == 'block'){
         cd.style.display = 'none';
         cs.style.right = `400px`;
+    }
+});
+
+/////////////////////////////////////////////////////////////////////////
+
+$("#int-lyr-tog").on('click', function(event){
+    el = document.getElementById("int-lyr-lyrs");
+    td = document.getElementById("int-lyr-tog-down");
+    tu = document.getElementById("int-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#ie-lyr-tog").on('click', function(event){
+    el = document.getElementById("ie-lyr-lyrs");
+    td = document.getElementById("ie-lyr-tog-down");
+    tu = document.getElementById("ie-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#pl-lyr-tog").on('click', function(event){
+    el = document.getElementById("pl-lyr-lyrs");
+    td = document.getElementById("pl-lyr-tog-down");
+    tu = document.getElementById("pl-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#nl-lyr-tog").on('click', function(event){
+    el = document.getElementById("nl-lyr-lyrs");
+    td = document.getElementById("nl-lyr-tog-down");
+    tu = document.getElementById("nl-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#de-lyr-tog").on('click', function(event){
+    el = document.getElementById("de-lyr-lyrs");
+    td = document.getElementById("de-lyr-tog-down");
+    tu = document.getElementById("de-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
     }
 });

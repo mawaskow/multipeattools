@@ -24,7 +24,13 @@
                 </span>
                 <input class="form-control d-inline-block search-entry" style="height:30px;" type="search" placeholder="KEYWORD SEARCH" id="header-search" aria-label="Search">
             </div>
-            <p style="padding-left: 10px;" class="d-inline-flex align-middle justify-content-end">Login</p>
+            {% if session.get('username') %}
+            <p style="padding-left: 20px;" class="d-inline-flex align-middle justify-content-end">  Welcome, {{ username }} </p>
+            <a href="#" onclick="logout()">Logout</a>
+            {% else %}
+            <a href="{{ url_for('login') }}"> Login </a>
+            {% endif %}
+            
             <div style="border-right: 1px solid #9fbbcf; height: 25px; padding: 0px 5px; align-self: center;"></div>
             <p class="d-inline-flex align-middle" style="padding-left: 10px;">EN</p>
             <div class="d-inline align-bottom" style="margin-right: 12px;">
@@ -47,10 +53,11 @@
                       <li><a class="dropdown-item" href="{{ url_for('ffp_tool') }}">FFP</a></li>
                       <li><a class="dropdown-item" href="{{ url_for('set_tool') }}">SET</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Policy Analyser</a></li>
-                      <li><a class="dropdown-item" href="#">Policy Development</a></li>
-                      <li><a class="dropdown-item" href="#">Biodiversity Analyser</a></li>
-                      <li><a class="dropdown-item" href="#">Key Metric Analyser</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('policy') }}">Policy Visualization</a></li>
+		              <li><a class="dropdown-item" href="{{ url_for('policy_keywords') }}">Policy Keywords</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Policy Analyser</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Biodiversity Analyser</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Key Metric Analyser</a></li>
                     </ul>
                 </li>
                 <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
@@ -58,6 +65,7 @@
         </div>
     </div>
 </nav>
+<script src="{{ url_for('static', filename='scripts/logout_template.js') }}"></script>
 {% endblock %}
 
 {% block content %}

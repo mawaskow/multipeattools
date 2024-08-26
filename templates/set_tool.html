@@ -22,7 +22,13 @@
                 </span>
                 <input class="form-control d-inline-block search-entry" style="height:30px;" type="search" placeholder="KEYWORD SEARCH" id="header-search" aria-label="Search">
             </div>
-            <p style="padding-left: 10px;" class="d-inline-flex align-middle justify-content-end">Login</p>
+            {% if session.get('username') %}
+            <p style="padding-left: 20px;" class="d-inline-flex align-middle justify-content-end">  Welcome, {{ username }} </p>
+            <a href="#" onclick="logout()">Logout</a>
+            {% else %}
+            <a href="{{ url_for('login') }}"> Login </a>
+            {% endif %}
+            
             <div style="border-right: 1px solid #9fbbcf; height: 25px; padding: 0px 5px; align-self: center;"></div>
             <p class="d-inline-flex align-middle" style="padding-left: 10px;">EN</p>
             <div class="d-inline align-bottom" style="margin-right: 12px;">
@@ -45,10 +51,11 @@
                       <li><a class="dropdown-item" href="{{ url_for('ffp_tool') }}">FFP</a></li>
                       <li><a class="dropdown-item" href="{{ url_for('set_tool') }}">SET</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Policy Analyser</a></li>
-                      <li><a class="dropdown-item" href="#">Policy Development</a></li>
-                      <li><a class="dropdown-item" href="#">Biodiversity Analyser</a></li>
-                      <li><a class="dropdown-item" href="#">Key Metric Analyser</a></li>
+		              <li><a class="dropdown-item" href="{{ url_for('policy') }}">Policy Visualization</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('policy_keywords') }}">Policy Keywords</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Policy Analyser</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Biodiversity Analyser</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Key Metric Analyser</a></li>
                     </ul>
                   </li>
                 <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
@@ -56,6 +63,7 @@
         </div>
     </div>
 </nav>
+<script src="{{ url_for('static', filename='scripts/logout_template.js') }}"></script>
 {% endblock %}
 
 {% block title %}SET Tool{% endblock %}
@@ -325,7 +333,7 @@
                                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                             </a>
                                         </svg>
-                                        <label for="bs_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
+                                        <label for="bs_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertiliser applied (k N/h)</label> 
                                     </div>
                                     <div class="col-4">
                                         <input type="number" class="validate form-control" id="bs_amount_org_fert" name="bs_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['base']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
@@ -334,7 +342,7 @@
                                 <hr class="inf">
                                 <div class="row align-items-center">
                                     <div class="col-7">
-                                        <label for="bs_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                                        <label for="bs_type_synth_fert" class="form-label">Synthetic fertiliser</label> 
                                     </div>
                                     <div class="col-5">
                                         <select class="validate form-select" id="bs_type_synth_fert" name="bs_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()">
@@ -507,7 +515,7 @@
                                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                                             </a>
                                         </svg>
-                                        <label for="rw_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertilizer applied (k N/h)</label> 
+                                        <label for="rw_amount_org_fert" class="form-label" style="margin-left: 4px;">Organic fertiliser applied (k N/h)</label> 
                                     </div>
                                     <div class="col-4">
                                         <input type="number" class="validate form-control" id="rw_amount_org_fert" name="rw_amount_org_fert" min="0" max="9999" step="0.01" value="{{inpt['rewet']['amount_org_fert']}}" onchange="set_calculation()" onkeyup="set_calculation()">
@@ -516,7 +524,7 @@
                                 <hr class="inf">
                                 <div class="row align-items-center">
                                     <div class="col-7">
-                                        <label for="rw_type_synth_fert" class="form-label">Synthetic fertilizer</label> 
+                                        <label for="rw_type_synth_fert" class="form-label">Synthetic fertiliser</label> 
                                     </div>
                                     <div class="col-5">
                                         <select class="validate form-select" id="rw_type_synth_fert" name="rw_type_synth_fert" onchange="set_calculation()" onkeyup="set_calculation()">

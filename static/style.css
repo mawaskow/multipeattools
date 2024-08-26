@@ -444,6 +444,16 @@ span.Economy{
     border-color: transparent;
 }
 
+.nl-soil-box:checked{
+    background-color: #e1903f;
+    border-color: transparent;
+}
+
+.de-soil-box:checked{
+    background-color: #a63a04;
+    border-color: transparent;
+}
+
 /*classification pill colors*/
 
 .enr-class-pill{
@@ -549,6 +559,10 @@ span.Economy{
     padding:5px;
 }
 
+p.lyr-reg-txt{
+    font-size: 18px;
+}
+
 #layers-div{
     background-color:white; 
     padding:5px;
@@ -576,7 +590,7 @@ span.Economy{
     width: 30px;
 }
 
-input[type="checkbox"]:checked + #cnty-fltr-svg {
+input[type="checkbox"]:checked + #locauth-fltr-svg {
     fill:#72CAC3;
 }
 
@@ -585,6 +599,10 @@ input[type="checkbox"]:checked + #reg-fltr-svg {
 }
 
 input[type="checkbox"]:checked + #ntl-fltr-svg {
+    fill:#72CAC3;
+}
+
+input[type="checkbox"]:checked + #eu-fltr-svg {
     fill:#72CAC3;
 }
 

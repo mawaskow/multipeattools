@@ -25,7 +25,8 @@ const PSLayer= new ImageLayer({
     source:PSSource,
     // @ts-ignore
     name:'Project_Sites',
-    display: 'Project Sites'
+    display: 'Project Sites',
+    region: 'International'
 });
 
 // Irish Peat Classes
@@ -38,7 +39,8 @@ const D1Layer= new ImageLayer({
     source:D1Source,
     // @ts-ignore
     name:'Raised_Bog',
-    display: 'Raised Bog'
+    display: 'Raised Bog',
+    region: 'Ireland'
 });
 
 const D2Source=new ImageWMS({
@@ -50,7 +52,8 @@ const D2Layer= new ImageLayer({
     source:D2Source,
     // @ts-ignore
     name:'LL_Atlantic_Bog',
-    display: 'LL Atlantic Bog'
+    display: 'LL Atlantic Bog',
+    region: 'Ireland'
 });
 
 const D3Source=new ImageWMS({
@@ -62,7 +65,21 @@ const D3Layer= new ImageLayer({
     source:D3Source,
     // @ts-ignore
     name:'HL_Montane_Bog',
-    display: 'HL Montane Bog'
+    display: 'HL Montane Bog',
+    region: 'Ireland'
+});
+
+// Countries
+const ctrySource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:countries", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const ctryLayer= new ImageLayer({
+    source:ctrySource,
+    // @ts-ignore
+    name:null,
+    display: 'Countries'
 });
 
 // Policies
@@ -88,7 +105,36 @@ const alkFenLayer= new ImageLayer({
     source:alkFenSource,
     // @ts-ignore
     name:'PL_Alk_Fens',
-    display: 'Alkaline Fens'
+    display: 'Alkaline Fens',
+    region: 'Poland'
+});
+
+// Dutch Peat Soils
+const nlSoilSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:nl_peatsoils", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const nlSoilLayer= new ImageLayer({
+    source:nlSoilSource,
+    // @ts-ignore
+    name:'NL_Peat_Soils',
+    display: 'Peat Soils',
+    region: 'Netherlands'
+});
+
+// German Peatlands
+const detSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:thuenen", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const detLayer= new ImageLayer({
+    source:detSource,
+    // @ts-ignore
+    name:'DE_Peatlands',
+    display: 'Peatlands',
+    region: 'Germany'
 });
 
 // CORINE-18 data for PL and IE for 411, 412, and 322
@@ -101,7 +147,8 @@ const corineLayer= new ImageLayer({
     source:corineSource,
     // @ts-ignore
     name:'Corine18',
-    display: 'CORINE'
+    display: 'CORINE',
+    region: 'International'
 });
 
 const osmLayer=new TileLayer({
@@ -121,7 +168,8 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer, ipolLayer, alkFenLayer],
+    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer,
+        nlSoilLayer, detLayer, alkFenLayer, ctryLayer, ipolLayer],
     view:view
 });
 
