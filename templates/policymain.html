@@ -283,7 +283,7 @@
             background-color: #f5f5f5;
         }
 
-        .download-btn, .read-more-btn {
+	.read-more-btn {
             padding: 10px 15px;
             border: none;
             border-radius: 3px;
@@ -292,6 +292,29 @@
             color: white;
             font-size: 14px;
             transition: background-color 0.3s;
+            text-align: center;
+            display: inline-block; /* Ensures the buttons are inline elements */
+            min-width: 100px; /* Optional: Ensures a minimum width for buttons */
+            box-sizing: border-box; /* Ensures padding is included in the width and height */
+            height: 40px; /* Ensures buttons have the same height */
+            line-height: 20px; 
+        }
+        .download-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #5d93ac;
+            color: white;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            text-align: center;
+            display: inline-block; /* Ensures the buttons are inline elements */
+            min-width: 100px; /* Optional: Ensures a minimum width for buttons */
+            box-sizing: border-box; /* Ensures padding is included in the width and height */
+            height: 40px; /* Ensures buttons have the same height */
+            line-height: 20px; 
+
         }
 
         .show-less-btn {
@@ -308,10 +331,6 @@
         .badge-custom {
             background-color: #007BFF;
             color: #000;
-        }
-
-        .download-btn:hover, .read-more-btn:hover, .show-less-btn:hover {
-            background-color: #0056b3;
         }
 
         .full-policy-detail {
@@ -468,7 +487,7 @@
                     <div class="full-policy-detail"><p>{{ policy[2] }}</p></div>
                     <button class="read-more-btn">Read More</button>
                     <button class="show-less-btn">Show Less</button>
-                    <a href="{{ policy[5] }}" class="download-btn">Download</a>
+                    <a href="{{ policy[5] }}" class="download-btn" style=>Link</a>
                 </div>
             </div>
             {% endfor %}
