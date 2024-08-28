@@ -72,7 +72,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='country_styles.css') }}">
+    
 </head>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,7 +97,7 @@
             background-color: white;
             color: #fff;
         }
-
+       
         .logo img {
             height: 50px;
         }
@@ -119,6 +119,7 @@
         nav {
             background-color: #d3dee9;
             padding: 10px 20px;
+            list-style-type: none;
         }
 
         nav ul {
@@ -134,10 +135,12 @@
         nav ul li {
             margin-right: 10px;
             position: relative;
+            list-style-type: none;
         }
 
         nav ul li a {
             text-decoration: none;
+            list-style-type: none;
             padding: 10px 20px;
             border-radius: 5px;
             color: #000;
@@ -148,6 +151,8 @@
 
         nav ul li a i {
             margin-right: 5px; /* Space between icon and text */
+            list-style-type: none;
+            
         }
 
         nav ul li a img {
@@ -158,93 +163,112 @@
         nav ul li a.biodiversity {
             background-color: #c1d992;
             color: #000000;
+            list-style-type: none;
         }
 
         nav ul li a.climate-action {
             background-color: #e59391;
             color: #000000;
+            list-style-type: none;
         }
 
         nav ul li a.energy {
             background-color: #f9f19e;
             color: #000000;
+            list-style-type: none;
         }
 
         nav ul li a.community-culture {
             background-color: #f3c370;
             color: #000000;
+            list-style-type: none;
         }
 
         nav ul li a.environment-quality {
             background-color: #82cac9;
             color: #000000;
+            list-style-type: none;
         }
 
         nav ul li a.land-use-agriculture {
-            background-color: #c1d992;
+            background-color: brown;
             color: #000000;
+            list-style-type: none;
         }
 
         nav ul li a.economy {
             background-color: #c9b0ce;
             color: #000000;
+            list-style-type: none;
         }
 
         nav ul li a.AppliedScience {
             background-color: #9fbbcf;
             color: #000000;
+            list-style-type: none;
         }
 
         .biodiversity {
             background-color: #c1d992;
             color: #000000;
+            list-style-type: none;
         }
 
         .climate-action {
             background-color: #e59391;
             color: #000000;
+            list-style-type: none;
         }
 
         .energy {
             background-color: #f9f19e;
             color: #000000;
+            list-style-type: none;
         }
 
         .community-culture {
             background-color: #f3c370;
             color: #000000;
+            list-style-type: none;
         }
 
         .environment-quality {
             background-color: #82cac9;
             color: #000000;
+            list-style-type: none;
         }
 
         .land-use-agriculture {
             background-color: #c1d992;
             color: #000000;
+            list-style-type: none;
         }
 
         .economy {
             background-color: #c9b0ce;
             color: #000000;
+            list-style-type: none;
         }
 
         .AppliedScience {
             background-color: #9fbbcf;
             color: #000000;
+            list-style-type: none;
         }
 
         /* Main content area */
         main {
             padding: 20px;
             background-color: #FFFFFF;
+            list-style-type: none;
+            list-style-type: none;
         }
 
         .policy-mapping {
             background-color: #f5f5f5;
             padding: 20px;
             border-radius: 5px;
+            list-style-type: none;
         }
 
         .policy-item {
@@ -256,30 +280,34 @@
             margin-bottom: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            list-style-type: none;
         }
 
         .policy-info {
             flex-grow: 1;
             margin-left: 10px;
             background-color: #f5f5f5;
+            
         }
 
         .policy-title {
-            
             margin: 0;
-            font-size: 12px;
             background-color: #f5f5f5;
+            color:mediumseagreen;
+            font-weight: bold;
+            text-decoration: none;
+            
         }
 
         .policy-year {
             margin: 5px 0;
-            font-size: 12px;
+            font-weight: bold;
             background-color: #f5f5f5;
         }
 
         .policy-detail {
             margin: 0;
-            font-size: 12px;
+            font-weight: bold;
             background-color: #f5f5f5;
         }
 
@@ -316,7 +344,10 @@
             line-height: 20px; 
 
         }
-
+        .countries-list ul li:focus,
+        .countries-list ul li:active {
+        outline: none; /* Prevents any focus or active outline from appearing */
+          }
         .show-less-btn {
             padding: 10px 15px;
             border: none;
@@ -374,20 +405,25 @@
             pointer-events: none; /* Allow click through */
             transition: opacity 0.3s; /* Smooth opacity transition */
             font-size: 12px; /* Font size of tooltip text */
+            list-style-type: none;
         }
 
-        nav ul li a:hover::after {
+        /* nav ul li a:hover::after {
             opacity: 1; /* Show tooltip on hover */
-        }
+            list-style-type: none;
+            
+        } */ /* Comments to avoid black /*
 
         /* Dropdown menu styles */
         .countries-list-container {
             position: relative; /* Container for the dropdown */
-            background-color: #edf7ed; /* Dropdown background color */
+           /* background-color: #edf7ed; /* Dropdown background color */ */
+           list-style-type: none;
         }
 
         .countries-list {
             position: absolute;
+            list-style-type: none;
             top: calc(100% + 10px);
             left: 50%;
             transform: translateX(-50%);
@@ -404,18 +440,25 @@
         }
 
         .countries-list.show {
+            list-style-type: none;
+            outline: none;
             display: block; /* Show dropdown when .show class is added */
         }
 
         .countries-list ul {
             list-style-type: none;
+            cursor: pointer;
             padding: 0;
             margin: 0;
             background-color: #edf7ed; /* Match the dropdown background */
         }
 
         .countries-list ul li {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
             padding: 10px;
+            list-style-type: none;
             cursor: pointer;
             transition: background-color 0.3s;
             background-color: #edf7ed; /* Match the dropdown background */
@@ -423,12 +466,13 @@
         }
 
         .countries-list ul li:hover {
-            background-color: #f1f1f1; /* Lighter background color on hover */
+            list-style-type: none;
         }
 
         .countries-list ul li a {
             text-decoration: none;
-            color: black; /* Link color */
+            list-style-type: none;
+          
             display: block;
         }
     </style>
@@ -442,10 +486,10 @@
             <li><a href="{{ url_for('eu_local') }}" class="home" data-tooltip="Local Policies"><img src="{{ url_for('static', filename='local-gr.png') }}" alt="Home Icon"></a></li>
             <li><a href="{{ url_for('eu_national') }}" class="layout" data-tooltip="National Policies "><img src="{{ url_for('static', filename='regional-gr.png') }}" alt="Layout Icon"></a></li>
             <li class="countries-list-container">
-                <a href="#" class="flag" id="countries-tooltip" data-tooltip="Countries Policies"><img src="{{ url_for('static', filename='Artboard.png') }}" alt="Flag Icon"></a>
+                <a href="#" class="flag" id="countries-tooltip" data-tooltip="All Policies"><img src="{{ url_for('static', filename='Artboard.png') }}" alt="Flag Icon"></a>
                 <div id="countries-list" class="countries-list">
-                    <ul style="background-color:##FFFFFF;">
-                        <li><a href="#" data-country="Ireland" style="color: black;">Ireland</a></li>
+                    <ul>
+                        <li><a href="#" data-country="Ireland">Ireland</a></li>
                         <li><a href="#" data-country="Eesti" style="color: black;">Estonia</a></li>
                         <li><a href="#" data-country="Nederland" style="color: black;">Netherlands</a></li>
                         <li><a href="#" data-country="Bulgaria" style="color: black;">Bulgaria</a></li>
@@ -466,7 +510,7 @@
                 <li><a href="#" class="climate-action"><i class="fas fa-temperature-high"></i> Climate Action</a></li>
                 <li><a href="#" class="energy"><i class="fas fa-bolt"></i> Energy</a></li>
                 <li><a href="#" class="community-culture"><i class="fas fa-landmark"></i> Community / Culture</a></li>
-                <li><a href="#" class="environment-quality"><i class="fas fa-water"></i> Environment Quality</a></li>
+                <li><a href="#" class="environment-quality"><i class="fas fa-water"></i> Environmental Quality</a></li>
                 <li><a href="#" class="land-use-agriculture"><i class="fas fa-tractor"></i> Land Use / Agriculture</a></li>
                 <li><a href="#" class="economy"><i class="fas fa-chart-line"></i> Economy</a></li>
                 <li><a href="#" class="AppliedScience"><i class="fas fa-flask"></i> Research and Applied Sciences</a></li>
@@ -474,9 +518,9 @@
         </nav>
         <section class="policy-mapping">
             {% if heading %}
-            <h3 style="text-align: center;margin: 0 auto;">{{ heading }} Policy Mapping</h3>
+            <h3 style="text-align: center;margin: 0 auto;">{{ heading }} Policy Visualization</h3>
             {% else %}
-            <h3 style="text-align: center;margin: 0 auto;">{{ data[0][4] }} Policy Mapping</h3>
+            <h3 style="text-align: center;margin: 0 auto;">{{ data[0][4] }} Policy Visualization</h3>
             {% endif %}
             {% for policy in data %}
             <div class="policy-item">
