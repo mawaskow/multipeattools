@@ -669,7 +669,7 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
     padding:0px;
 }
 
-/* policy list*/
+/* policy visualization collection development list*/
 
 .pol-lst-name{
     color:mediumseagreen;
@@ -682,3 +682,4 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
     font-weight: bold;
     text-decoration: none;
 }
+

@@ -1,534 +1,70 @@
 {% extends "base.html" %}
 
-{% block title %}FFP Tool{% endblock %}
+{% block title %}Policy Keywords{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>MultiPeat Policy View</title>
-            <div class="welcome-section">
-                <h4>Policy Keywords</h4>
-            </div>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    background-color: #f8f9fa; /* Nature-inspired background color */
-                }
-        
-                .container {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 20px;
-                }
-        
-                .welcome-section {
-                    background-color: #fff;
-                    padding: 20px;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                }x
-        
-                .welcome-section h4 {
-                    margin-top: 0;
-                    color: #333;
-                }
-        
-                .welcome-section p {
-                    margin-bottom: 10px;
-                    color: #666;
-                }
-        
-                .cards-section {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-between;
-                    margin-top: 20px;
-                }
-        
-                .card {
-                    flex: 0 0 calc(33.333% - 20px);
-                    background-color: #fff;
-                    border-radius: 20px;
-                    overflow: hidden;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                    margin-bottom: 20px;
-                    transition: transform 0.3s ease;
-                    border: 1px solid rgba(0, 0, 0, 0.1);
-                    position: relative;
-                }
-        
-                .card:hover {
-                    transform: translateY(-5px);
-                }
-        
-                .cover {
-                    height: 250px;
-                    border-radius: 20px 20px 0 0;
-                    overflow: hidden;
-                    position: relative;
-                }
-        
-                .item-a {
-                    background-color: #3498db;
-                }
-        
-                .item-b {
-                    background-color: #2ecc71;
-                }
-        
-                .item-c {
-                    background-color: #9b59b6;
-                }
-        
-                .cover h1 {
-                    font-size: 1.5em;
-                    color: #fff;
-                    margin: 0;
-                    padding: 20px;
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    background-color: rgba(0, 0, 0, 0.6);
-                    border-radius: 0 0 20px 20px;
-                }
-        
-                .card-info {
-                    background-color: #fff;
-                    padding: 10px 20px;
-                    border-radius: 0 0 20px 20px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-        
-                .card-info a {
-                    color: #333;
-                    text-decoration: none;
-                    transition: color 0.3s ease;
-                }
-        
-                .card-info a:hover {
-                    color: #3498db;
-                }
-        
-                .flag {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                }
-        
-                .filters {
-                    margin-bottom: 20px;
-                }
-        
-                .filter-btn {
-                    background-color: #3498db;
-                    color: #fff;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 20px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                }
-        
-                .filter-btn:hover {
-                    background-color: #2980b9;
-                }
-                
 
-                    .guidelines-header {
-                    background-color: #3FB28A; /* main green color */
-                    color: #FFFFFF; /* white text color */
-                    padding: 20px; /* adjust padding as needed */
-                    }
+<div class="container-sm">
+    <h3 class="text-center" style="padding: 10px;">Peatland Policy Keywords</h3>
+    <p>
+        On this page you can view the keywords used to identify relevant policies in each language.
+        We are continually adding keywords and languages, and seek expert input to identify all keyword variants across different languages.
+        In the future, we plan to offer insight into our policy collection in relation to these keywords.
+    </p>
 
-
-                    .land-use-header {
-                    background-color: #c8b8a0; /* Land Use background color */
-                    color: #8a8171; /* Land Use text color */
-                    padding: 15px; /* adjust padding as needed */
-                    }
-
-
-                    .biodiversity-header {
-                    background-color: #c1d992; /* Biodiversity background color */
-                    color: #a5ba7e; /* Biodiversity text color */
-                    padding: 15px; /* adjust padding as needed */
-}
-                    .energy-header {
-                     background-color: #f9f19e; /* Energy background color */
-                     color: #d3ce88; /* Energy text color */
-                     padding: 15px; /* adjust padding as needed */
-                        }
-
-                        /* Climate Action */
-                        .climate-action-header {
-                            background-color: #e59391; /* Climate Action background color */
-                            color: #c37f7d; /* Climate Action text color */
-                            padding: 15px; /* adjust padding as needed */
-                        }
-
-                    /* Community & Culture */
-                    .community-culture-header {
-                        background-color: #f3c370; /* Community & Culture background color */
-                        color: #cea861; /* Community & Culture text color */
-                        padding: 15px; /* adjust padding as needed */
-                    }
-
-                    /* Economy */
-                    .economy-header {
-                        background-color: #c9b0ce; /* Economy background color */
-                        color: #a995ae; /* Economy text color */
-                        padding: 15px; /* adjust padding as needed */
-                    }
-
-                    /* Environmental Quality */
-                    .environmental-quality-header {
-                        background-color: #82cac9; /* Environmental Quality background color */
-                        color: #70adac; /* Environmental Quality text color */
-                        padding: 15px; /* adjust padding as needed */
-                    }
-
-                    /* Research & Applied Sciences */
-                    .research-applied-sciences-header {
-                        background-color: #9fbbcf; /* Research & Applied Sciences background color */
-                        color: #879fb0; /* Research & Applied Sciences text color */
-                        padding: 15px; /* adjust padding as needed */
-                    }
-                body {
-                     font-family: Arial, sans-serif;
-                     line-height: 1.6;
-                      margin: 0;
-                     padding: 0;
-                  }
-                    .container {
-                    max-width: 800px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    display: flex;
-                    justify-content: space-around;
-                    background-color: #f8f9fa;
-    }
-            </style>
-        </head>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Language List</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f8f9fa;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin-bottom: 10px;
-    }
-    .language {
-        width: 200px; /* Adjust as needed */
-        cursor: pointer;
-        border: 1px solid #ced4da;
-        border-radius: 10px;
-        padding: 10px;
-        margin-bottom: 20px;
-        transition: all 0.3s ease;
-        background-color: #fff;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
-    .france {
-        background-color: #0055A4; 
-    }
-
-    .spain {
-        background-color: #FFC400; /* Red */
-    }
-    .language:hover {
-        background-color: #f8f9fa;
-    }
-
-    .language h2 {
-        margin: 0;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ced4da;
-    }
-
-    .language ul {
-        list-style-type: none;
-        padding: 0;
-        display: none;
-    }
-
-    .language.active ul {
-        display: block;
-    }
-
-    .language.active {
-        background-color: #f8f9fa;
-    }
-
-    .language.active:hover {
-        background-color: #f8f9fa;
-    }
-
-    .language ul li {
-        padding: 5px 0;
-        border-bottom: 1px solid #ced4da;
-    }
-
-    .language ul li:last-child {
-        border-bottom: none;
-    }
-</style>
-</head>
-<body>
-
-<div class="container">
-    <div class="language" onclick="toggleLanguage(this)">
-        <h2>French:</h2>
-        <ul>
-            <li>sol</li>
-            <li>carbone</li>
-            <li>émission</li>
-            <li>restauration</li>
-            <li>agriculture</li>
-            <li>conservation</li>
-            <li>habitat</li>
-            <li>terre</li>
-            <li>paysage</li>
-            <li>nature</li>
-            <li>biodiversité</li>
-            <li>tourbe</li>
-            <li>tourbière</li>
-            <li>écosystème</li>
-            <li>service</li>
-            <li>tourbe</li>
-            <li>zone humide</li>
-        </ul>
+    <div class="row justify-content-center">
+        <div class="col-4" style="padding-top: 10px; padding-bottom: 10px;">
+            <select class="validate form-select" id="kwd-langs" name="kwd-langs" onchange="get_kwds()">
+                <option selected value="">Select language</option>
+            </select>
+        </div>
     </div>
-    <div class="language" onclick="toggleLanguage(this)">
-        <h2>Spanish:</h2>
-        <ul>
-            <li>suelo</li>
-            <li>carbono</li>
-            <li>emisión</li>
-            <li>restauración</li>
-            <li>agricultura</li>
-            <li>conservación</li>
-            <li>hábitat</li>
-            <li>tierra</li>
-            <li>paisaje</li>
-            <li>naturaleza</li>
-            <li>biodiversidad</li>
-            <li>turba</li>
-            <li>humedal</li>
-            <li>ecosistema</li>
-            <li>servicio</li>
-            <li>turba</li>
-            <li>humedal</li>
-        </ul>
+
+    <div class="row justify-content-center" style="min-height: 450px;">
+        <div class="col-4" style="padding-top: 10px; padding-bottom: 10px;">
+            <ul id="kwd-pop" class="list-group"></ul>
+        </div>
     </div>
-    <div class="language" onclick="toggleLanguage(this)">
-        <h2>Irish:</h2>
-        <ul>
-            <li>Bog</li>
-            <li>Blanket bog</li>
-            <li>Fen</li>
-            <li>Mire</li>
-            <li>Peat</li>
-            <li>Peatland</li>
-            <li>Peat soils</li>
-            <li>Carbon</li>
-            <li>Rewet</li>
-            <li>Sequestration</li>
-            <li>Restoration</li>
-            <li>Drain</li>
-            <li>Ecosystem services</li>
-            <li>Biodiversity</li>
-        </ul>
-    </div>
-    <div class="language" onclick="toggleLanguage(this)">
-            <h2>Finnish:</h2>
-            <ul>
-                <li>maa</li>
-                <li>hiili</li>
-                <li>päästö</li>
-                <li>palautus</li>
-                <li>maatalous</li>
-                <li>säilyttäminen</li>
-                <li>elinympäristö</li>
-                <li>maa</li>
-                <li>maisema</li>
-                <li>luonto</li>
-                <li>biodiversiteetti</li>
-                <li>turve</li>
-                <li>suot</li>
-                <li>ekosysteemi</li>
-                <li>palvelu</li>
-                <li>turve</li>
-                <li>kosteikko</li>
-            </ul>
-    </div>
-       
-    <div class="language" onclick="toggleLanguage(this)">
-            <h2>Portuguese:</h2>
-            <ul>
-                <li>solo</li>
-                <li>carbono</li>
-                <li>emissão</li>
-                <li>restauração</li>
-                <li>agricultura</li>
-                <li>conservação</li>
-                <li>habitat</li>
-                <li>terra</li>
-                <li>paisagem</li>
-                <li>natureza</li>
-                <li>biodiversidade</li>
-                <li>turfa</li>
-                <li>pântano</li>
-                <li>ecossistema</li>
-                <li>serviço</li>
-                <li>turfa</li>
-                <li>zona úmida</li>
-            </ul>
-    </div>
-    <div class="language" onclick="toggleLanguage(this)">
-            <h2>Polish:</h2>
-            <ul>
-                <li>gleba</li>
-                <li>węgiel</li>
-                <li>emisja</li>
-                <li>restytucja</li>
-                <li>rolnictwo</li>
-                <li>ochrona</li>
-                <li>siedlisko</li>
-                <li>ziemia</li>
-                <li>krajobraz</li>
-                <li>natura</li>
-                <li>różnorodność biologiczna</li>
-                <li>torf</li>
-                <li>torfowisko</li>
-                <li>ekosystem</li>
-                <li>usługa</li>
-                <li>torf</li>
-                <li>mokradło</li>
-            </ul>
-    </div>
-    <div class="language" onclick="toggleLanguage(this)">
-            <h2>Swedish:</h2>
-            <ul>
-                <li>mark</li>
-                <li>kol</li>
-                <li>utsläpp</li>
-                <li>restaurering</li>
-                <li>jordbruk</li>
-                <li>bevarande</li>
-                <li>habitat</li>
-                <li>mark</li>
-                <li>landskap</li>
-                <li>natur</li>
-                <li>biologisk mångfald</li>
-                <li>torv</li>
-                <li>myr</li>
-                <li>ekosystem</li>
-                <li>tjänst</li>
-                <li>torv</li>
-                <li>våtmark</li>
-            </ul>
-    </div>
-    <div class="language" onclick="toggleLanguage(this)">
-            <h2>Italian:</h2>
-            <ul>
-                <li>suolo</li>
-                <li>carbonio</li>
-                <li>emissione</li>
-                <li>restauro</li>
-                <li>agricoltura</li>
-                <li>conservazione</li>
-                <li>habitat</li>
-                <li>terra</li>
-                <li>paesaggio</li>
-                <li>natura</li>
-                <li>biodiversità</li>
-                <li>torba</li>
-                <li>palude</li>
-                <li>ecosistema</li>
-                <li>servizio</li>
-                <li>torba</li>
-                <li>zona umida</li>
-            </ul>
-    </div>
-    <div class="language" onclick="toggleLanguage(this)">
-            <h2>Spanish:</h2>
-            <ul>
-                <li>suelo</li>
-                <li>carbono</li>
-                <li>emisión</li>
-                <li>restauración</li>
-                <li>agricultura</li>
-                <li>conservación</li>
-                <li>hábitat</li>
-                <li>tierra</li>
-                <li>paisaje</li>
-                <li>naturaleza</li>
-                <li>biodiversidad</li>
-                <li>turba</li>
-                <li>humedal</li>
-                <li>ecosistema</li>
-                <li>servicio</li>
-                <li>turba</li>
-                <li>humedal</li>
-            </ul>
-    </div>
-    <div class="language" onclick="toggleLanguage(this)">
-            <h2>German:</h2>
-            <ul>
-                <li>Boden</li>
-                <li>Kohlenstoff</li>
-                <li>Emission</li>
-                <li>Restauration</li>
-                <li>Landwirtschaft</li>
-                <li>Erhaltung</li>
-                <li>Lebensraum</li>
-                <li>Land</li>
-                <li>Landschaft</li>
-                <li>Natur</li>
-                <li>Biodiversität</li>
-                <li>Torf</li>
-                <li>Moor</li>
-                <li>Ökosystem</li>
-                <li>Service</li>
-                <li>Torf</li>
-                <li>Feuchtgebiet</li>
-            </ul>
-    </div>
-    
-</div>    
-<!-- Repeat the structure for other languages -->
+</div>
 
 <script>
-    function toggleLanguage(element) {
-        element.classList.toggle("active");
-    }
+    // populates language selection with what is in json/on page
+    var xhttp;
+    xhttp =  new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        var obj = JSON.parse(this.responseText)
+        Object.keys(obj).forEach(ky =>{
+            const element = `<option value="${ky}">${ky}</option>`;
+            const lang_sel = $(`#kwd-langs`);
+            lang_sel.append(element);
+        });
+        }
+    };
+    xhttp.open("GET", "/getkwds", true);
+    xhttp.send();
 </script>
 
-</body>
-</html>
+<script>
+    // populates language selection with what is in json/on page
+    function get_kwds(){
+        // get what language is selected
+        var e = document.getElementById("kwd-langs").value;
+        // clears previously added keywords
+        var lang_sel = $(`#kwd-pop`);
+        lang_sel.empty();
+        var xhttp;
+        xhttp =  new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            obj[e].forEach(ky =>{
+                const element = `<li class="list-group-item">${ky}</li>`;
+                lang_sel.append(element);
+            });
+            }
+        };
+        xhttp.open("GET", "/getkwds", true);
+        xhttp.send();}
+</script>
 {% endblock %}

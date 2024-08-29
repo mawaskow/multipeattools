@@ -45,6 +45,8 @@ SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
 GEST_CSV= ['./inputs/GEST_2_Static_Values.csv']
 # SET results
 SET_OUTPUT_FILE = './inputs/output_SET.json'
+#
+KWD_FILE = './static/keywords.json'
 
 '''
 Admin Login Settings
@@ -222,8 +224,8 @@ def policy_keywords():
 def policy():
     username = session.get('username')
     if username is None:
-        return redirect(url_for('eu_global'))
-    return redirect(url_for('eu_global'))
+        return redirect(url_for('global_policy'))
+    return redirect(url_for('global_policy'))
 
 @app.route('/policy/<country>')
 def policyCountry(country):
@@ -231,7 +233,6 @@ def policyCountry(country):
     conn = connect_db()
     if conn is None:
         return None  # Return None or handle error as needed
-
     cur = conn.cursor()
     try:
         cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
@@ -245,8 +246,6 @@ def policyCountry(country):
         conn.close()
         if 'username' not in session:
          return render_template('policymain.html', data=data)
-        
-    #return render_template(f'{country}_policy.html',data=data)
     return render_template('policymain.html',data=data,username=session['username'])
 
 @app.route('/eu_policy')
@@ -269,11 +268,10 @@ def eu_policy():
         conn.close()
         if 'username' not in session:
          return render_template('policymain.html', data=data, heading='European Union')
-    #return render_template(f'{country}_policy.html',data=data)
     return render_template('policymain.html',data=data,heading='European Union',username=session['username'])
 
-@app.route('/eu_global')
-def eu_global():
+@app.route('/global_policy')
+def global_policy():
     username = session.get('username')
     conn = connect_db()
     if conn is None:
@@ -292,11 +290,10 @@ def eu_global():
         conn.close()
     if 'username' not in session:
         return render_template('policymain.html', data=data, heading='Global')
-    #return render_template(f'{country}_policy.html',data=data)
     return render_template('policymain.html',data=data,heading='Global',username=session['username'])
 
-@app.route('/eu_local')
-def eu_local():
+@app.route('/local_policy')
+def local_policy():
     username = session.get('username')
     conn = connect_db()
     if conn is None:
@@ -315,11 +312,10 @@ def eu_local():
         conn.close()
         if 'username' not in session:
          return render_template('policymain.html', data=data, heading='Local')
-    #return render_template(f'{country}_policy.html',data=data)
     return render_template('policymain.html',data=data,heading='Local',username=session['username'])
 
-@app.route('/eu_national')
-def eu_national():
+@app.route('/national_policy')
+def national_policy():
     username = session.get('username')
     conn = connect_db()
     if conn is None:
@@ -338,7 +334,6 @@ def eu_national():
         conn.close()
         if 'username' not in session:
          return render_template('policymain.html', data=data, heading='National')
-    #return render_template(f'{country}_policy.html',data=data)
     return render_template('policymain.html',data=data, heading='National',username=session['username'])
 
 
@@ -354,6 +349,11 @@ def getpols_eventual(lint):
     conn.close()
     return policies
 
+@app.route('/getkwds')
+def getkwds():
+    with open(KWD_FILE, encoding="utf-8") as json_file:
+        kwds = json.load(json_file)
+    return kwds
 
 '''
 Error Handling
