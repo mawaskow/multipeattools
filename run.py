@@ -336,6 +336,27 @@ def national_policy():
          return render_template('policymain.html', data=data, heading='National')
     return render_template('policymain.html',data=data, heading='National',username=session['username'])
 
+@app.route('/regional_policy')
+def regional_policy():
+    username = session.get('username')
+    conn = connect_db()
+    if conn is None:
+        return None  # Return None or handle error as needed
+
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='Regional'")
+        data = cur.fetchall()
+        #return data
+    except psycopg2.Error as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        cur.close()
+        conn.close()
+        if 'username' not in session:
+         return render_template('policymain.html', data=data, heading='National')
+    return render_template('policymain.html',data=data, heading='National',username=session['username'])
 
 @app.route('/getpols/<int:lint>')
 def getpols_eventual(lint):

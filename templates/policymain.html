@@ -4,62 +4,80 @@
 
 {% block content %}
 
-<nav>
-    <ul>
-        <li><a href="{{ url_for('local_policy') }}" class="home" data-tooltip="Local Policies"><img src="{{ url_for('static', filename='local-gr.png') }}" alt="Home Icon"></a></li>
-        <li><a href="{{ url_for('national_policy') }}" class="layout" data-tooltip="National Policies "><img src="{{ url_for('static', filename='regional-gr.png') }}" alt="Layout Icon"></a></li>
-        <li class="countries-list-container">
-            <a href="#" class="flag" id="countries-tooltip" data-tooltip="All Policies"><img src="{{ url_for('static', filename='Artboard.png') }}" alt="Flag Icon"></a>
-            <div id="countries-list" class="countries-list">
-                <ul>
-                    <li><a href="#" data-country="Ireland">Ireland</a></li>
-                    <li><a href="#" data-country="Eesti" style="color: black;">Estonia</a></li>
-                    <li><a href="#" data-country="Nederland" style="color: black;">Netherlands</a></li>
-                    <li><a href="#" data-country="Bulgaria" style="color: black;">Bulgaria</a></li>
-                    <li><a href="#" data-country="Italia" style="color: black;">Italy</a></li>
-                    <li><a href="#" data-country="United Kingdom" style="color: black;">United Kingdom</a></li>
-                </ul>
-            </div>
-        </li>
-        <li><a href="{{ url_for('eu_policy') }}" class="eu" data-tooltip="European Union Policies"><img src="{{ url_for('static', filename='eu-gr.png') }}" alt="EU Icon"></a></li>
-        <li><a href="{{ url_for('global_policy') }}" class="world" data-tooltip="Global Policies"><img src="{{ url_for('static', filename='global-gr.png') }}" alt="World Icon"></a></li>
-    </ul>
-</nav>
+<div class="container">
+    <h3 class="text-center" style="padding:10px">Policy Collection</h3>
+    <p style="padding-bottom:10px">
+        On this page you can explore our collection of peatland-related policies. 
+        At the moment, you can filter the policies by governance level and category.
+        We will be adding further polices and querying methods as we grow our portal.
+    </p>
 
-<main>
-    <nav>
+    <div class="row">
         <ul>
-            <li><a href="#" class="biodiversity"><i class="fas fa-leaf"></i> Biodiversity</a></li>
-            <li><a href="#" class="climate-action"><i class="fas fa-temperature-high"></i> Climate Action</a></li>
-            <li><a href="#" class="energy"><i class="fas fa-bolt"></i> Energy</a></li>
-            <li><a href="#" class="community-culture"><i class="fas fa-landmark"></i> Community / Culture</a></li>
-            <li><a href="#" class="environment-quality"><i class="fas fa-water"></i> Environmental Quality</a></li>
-            <li><a href="#" class="land-use-agriculture"><i class="fas fa-tractor"></i> Land Use / Agriculture</a></li>
-            <li><a href="#" class="economy"><i class="fas fa-chart-line"></i> Economy</a></li>
-            <li><a href="#" class="AppliedScience"><i class="fas fa-flask"></i> Research and Applied Sciences</a></li>
+            <p>By level:</p>
+            <a href="{{ url_for('global_policy') }}"><span class="badge rounded-pill text-bg-warning">Global</span></a>
+            <a href="{{ url_for('eu_policy') }}"><span class="badge rounded-pill text-bg-warning">EU</span></a>
+            <a href="{{ url_for('national_policy') }}"><span class="badge rounded-pill text-bg-warning">National</span></a>
+            <a href="{{ url_for('regional_policy') }}"><span class="badge rounded-pill text-bg-warning">Regional</span></a>
+            <a href="{{ url_for('local_policy') }}"><span class="badge rounded-pill text-bg-warning">Local</span></a>
         </ul>
-    </nav>
-    <section class="policy-mapping">
+    </div>
+
+    <div class="row">
+        <ul>
+            <p>By country:</p>
+            <select class="form-select">
+                <option selected>Select country</option>
+                <option><a href="#" data-country="Ireland" style="color: black;">Ireland</a></option>
+                <option><a href="#" data-country="Eesti" style="color: black;">Estonia</a></option>
+                <option><a href="#" data-country="Nederland" style="color: black;">Netherlands</a></option>
+                <option><a href="#" data-country="Bulgaria" style="color: black;">Bulgaria</a></option>
+                <option><a href="#" data-country="Italia" style="color: black;">Italy</a></option>
+                <option><a href="#" data-country="United Kingdom" style="color: black;">United Kingdom</a></option>
+            </select>
+        </ul>
+    </div>
+
+    <div class="row">
+        <ul>
+            <p>By category:</p>
+            <span class="badge rounded-pill bio-class-pill">Biodiversity</span>
+            <span class="badge rounded-pill clm-class-pill">Climate Action</span>
+            <span class="badge rounded-pill enr-class-pill">Energy</span>
+            <span class="badge rounded-pill comm-class-pill">Community / Culture</span>
+            <span class="badge rounded-pill env-class-pill">Environmental Quality</span>
+            <span class="badge rounded-pill land-class-pill">Land Use / Agriculture</span>
+            <span class="badge rounded-pill econ-class-pill">Economy</span>
+            <span class="badge rounded-pill res-class-pill">Research and Applied Sciences</span>
+        </ul>
+    </div>
+    <div class="accordion" id="pol-coll-div">
         {% if heading %}
-        <h3 style="text-align: center;margin: 0 auto;">{{ heading }} Policy Visualization</h3>
+        <h3 style="text-align: center;margin: 0 auto; padding: 10px;">{{ heading }} Policies</h3>
         {% else %}
-        <h3 style="text-align: center;margin: 0 auto;">{{ data[0][4] }} Policy Visualization</h3>
+        <h3 style="text-align: center;margin: 0 auto; padding: 10px;">{{ data[0][4] }} Policies</h3>
         {% endif %}
         {% for policy in data %}
-        <div class="policy-item">
-            <div class="policy-info">
-                <h3 class="policy-title">{{ policy[0] }} </h3> <!-- Name -->
-                <p class="policy-year">Year: {{ policy[1] }}</p>  <!-- Level -->
-                <p class="policy-detail">{{ policy[3] }}</p>
-                <div class="full-policy-detail"><p>{{ policy[2] }}</p></div>
-                <button class="read-more-btn">Read More</button>
-                <button class="show-less-btn">Show Less</button>
-                <a href="{{ policy[5] }}" class="download-btn" style=>Link</a>
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="container">
+                        <h3 class="policy-title">{{ policy[0] }} </h3> <!-- Name -->
+                        <p class="policy-year">Year: {{ policy[1] }}</p>  <!-- Level -->
+                        <p class="policy-detail">{{ policy[3] }}</p>
+                        <a href="{{ policy[5] }}" class="download-btn" style=>Link</a>
+                    </div>
+                </button>
             </div>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#pol-coll-div">
+                <div class="accordion-body">
+                    <div class="full-policy-detail"><p>{{ policy[2] }}</p></div>
+                </div>
+              </div>
         </div>
         {% endfor %}
-    </section>
-</main>
+    </div>
+</div>
 
-<script src="{{ url_for('static', filename='scripts/country_script.js') }}"></script>    
+<!--<script src="{{ url_for('static', filename='scripts/country_script.js') }}"></script>--> 
 {% endblock %}
