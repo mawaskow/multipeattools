@@ -235,7 +235,7 @@ def policy_bylevel(level):
         return None  # Return None or handle error as needed
     cur = conn.cursor()
     try:
-        cur.execute(f"SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='{level}'")
+        cur.execute(f"SELECT engname,dates,engabst,classif,country, link FROM upd_geopol WHERE level='{level}'")
         data = cur.fetchall()
         #return data
     except psycopg2.Error as e:
@@ -256,7 +256,7 @@ def policyCountry(country):
         return None  # Return None or handle error as needed
     cur = conn.cursor()
     try:
-        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
+        cur.execute("SELECT engname,dates,engabst,classif,country, link FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
         data = cur.fetchall()
         #return data
     except psycopg2.Error as e:
@@ -275,7 +275,7 @@ def getpols_eventual(lint):
     level = lvldct[lint]
     conn = get_db_cnxn()
     cur = conn.cursor()
-    cur.execute(f"SELECT name, level, classif, link FROM upd_geopol WHERE level='{level}'")
+    cur.execute(f"SELECT engname, level, classif, link FROM upd_geopol WHERE level='{level}'")
     policies = cur.fetchall()
     cur.close()
     conn.close()

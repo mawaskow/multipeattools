@@ -3,26 +3,29 @@
 {% block title %}Policy Keywords{% endblock %}
 
 {% block content %}
-
-<div class="container-sm">
-    <h3 class="text-center" style="padding: 10px;">Peatland Policy Keywords</h3>
-    <p>
-        On this page you can view the keywords used to identify relevant policies in each language.
-        We are continually adding keywords and languages, and seek expert input to identify all keyword variants across different languages.
-        In the future, we plan to offer insight into our policy collection in relation to these keywords.
-    </p>
-
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-4" style="padding-top: 10px; padding-bottom: 10px;">
-            <select class="validate form-select" id="kwd-langs" name="kwd-langs" onchange="get_kwds()">
-                <option selected value="">Select language</option>
-            </select>
-        </div>
-    </div>
+        <div class="col-8">
+            <h4 class="text-center" style="padding: 10px;">PEATLAND POLICY KEYWORDS</h4>
+            <p class="text-descr">
+                On this page you can view the keywords used to identify relevant policies in each language.
+                We are continually adding keywords and languages, and seek expert input to identify all keyword variants across different languages.
+                In the future, we plan to offer insight into our policy collection in relation to these keywords.
+            </p>
 
-    <div class="row justify-content-center" style="min-height: 450px;">
-        <div class="col-4" style="padding-top: 10px; padding-bottom: 10px;">
-            <ul id="kwd-pop" class="list-group"></ul>
+            <div class="row justify-content-center">
+                <div class="col-md-4" style="padding-top: 10px; padding-bottom: 10px;">
+                    <select class="validate form-select" id="kwd-langs" name="kwd-langs" onchange="get_kwds()">
+                        <option selected value="">Select language</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row justify-content-center" style="min-height: 575px;">
+                <div class="col-md-4" style="padding-top: 10px; padding-bottom: 10px;">
+                    <ul id="kwd-pop" class="list-group"></ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -271,9 +271,17 @@ footer{
 }
 
 .set-base-div{
-    background-color: #cbdfe9;   
-    padding: 20px 20px 20px 20px;
+    background-color: #cbdfe9;
     max-width: 600px;
+}
+
+.set-accor-div{
+    background-color: #cbdfe9;
+    border:0px;
+}
+
+.set-accor-btn{
+    background-color: #cbdfe9;
 }
 
 .upper-base{
