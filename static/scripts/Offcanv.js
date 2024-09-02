@@ -115,42 +115,37 @@ function updatePols(){
     
 }
 
-function getEUGlobPols(eustat){
+async function getEUGlobPols(eustat){
     // get global policies
     var polLst = [];
-    var xhttp;
-    xhttp =  new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        JSON.parse(this.responseText).forEach(pol =>{
+    try {
+        const response = await fetch("/getpols/1");
+        if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        json.forEach(pol =>{
             polLst.push(pol);
-        });
-        }
-    };
-    xhttp.open("GET", "/getpols/1", true);
-    xhttp.send();
-    //
-    //var eustat= document.getElementById('eustat-request-store').value;
-    if(eustat=='T'){
-        //console.log("Is EU member state.");
-        xhttp =  new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-            JSON.parse(this.responseText).forEach(pol =>{
-                polLst.push(pol);
-            });
-            }
-        };
-        xhttp.open("GET", "/getpols/0", true);
-        xhttp.send();
+        })
+    } catch (error) {
+        console.error(error.message);
     }
-    //return polLst;
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(polLst);
-          }, 100);
+    
+    if(eustat=='T'){
+        try {
+            const response = await fetch("/getpols/0");
+            if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            json.forEach(pol =>{
+                polLst.push(pol);
+            })
+        } catch (error) {
+            console.error(error.message);
         }
-    );
+    }
+    return polLst;
 }
 
 // MAIN EVENT
