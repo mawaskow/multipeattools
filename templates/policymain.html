@@ -15,11 +15,11 @@
     <div class="row">
         <ul>
             <p>By level:</p>
-            <a href="/policy/level=Global"><span class="badge rounded-pill text-bg-warning">Global</span></a>
-            <a href="/policy/level=European"><span class="badge rounded-pill text-bg-warning">EU</span></a>
-            <a href="/policy/level=National"><span class="badge rounded-pill text-bg-warning">National</span></a>
-            <a href="/policy/level=Regional"><span class="badge rounded-pill text-bg-warning">Regional</span></a>
-            <a href="/policy/level=Local"><span class="badge rounded-pill text-bg-warning">Local</span></a>
+            <a onclick='policyCollectionGetShow("/policy/level=Global", "Global")'><span class="badge rounded-pill text-bg-warning">Global</span></a>
+            <a onclick='policyCollectionGetShow("/policy/level=European", "European")'><span class="badge rounded-pill text-bg-warning">EU</span></a>
+            <a onclick='policyCollectionGetShow("/policy/level=National", "National")'><span class="badge rounded-pill text-bg-warning">National</span></a>
+            <a onclick='policyCollectionGetShow("/policy/level=Regional", "Regional")'><span class="badge rounded-pill text-bg-warning">Regional</span></a>
+            <a onclick='policyCollectionGetShow("/policy/level=Local", "Local")'><span class="badge rounded-pill text-bg-warning">Local</span></a>
         </ul>
     </div>
 
@@ -31,12 +31,12 @@
                     Select country
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/policy/country=Ireland">Ireland</a></li>
-                  <li><a class="dropdown-item" href="/policy/country=Eesti">Estonia</a></li>
-                  <li><a class="dropdown-item" href="/policy/country=Nederland">Netherlands</a></li>
-                  <li><a class="dropdown-item" href="/policy/country=Bulgaria">Bulgaria</a></li>
-                  <li><a class="dropdown-item" href="/policy/country=Italia">Italy</a></li>
-                  <li><a class="dropdown-item" href="/policy/country=United%20Kingdom">United Kingdom</a></li>
+                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Ireland", "Irish")'>Ireland</a></li>
+                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Eesti", "Estonian")'>Estonia</a></li>
+                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Nederland", "Dutch")'>Netherlands</a></li>
+                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Bulgaria", "Bulgarian")'>Bulgaria</a></li>
+                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Italia", "Italian")'>Italy</a></li>
+                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=United%20Kingdom", "British")'>United Kingdom</a></li>
                 </ul>
             </div>
         </div>
@@ -56,47 +56,51 @@
         </ul>
     </div>
     <div class="accordion" id="pol-coll-div">
-        {% if heading %}
-        <h4 style="text-align: center;margin: 0 auto; padding: 10px;">{{ heading }} Policies</h4>
-        {% else %}
-        <h4 style="text-align: center;margin: 0 auto; padding: 10px;">{{ data[0][4] }} Policies</h4>
-        {% endif %}
-        <script>
-            var data = `{{ data }}`
-            data = data.substring(2,data.length-2);
-            data = data.replace("&#39;","");
-            data = data.replace("&#34;","");
-            data = data.split("), (");
-            console.log(data);
-            const polPop = $('#pol-coll-div');
-            for (let i = 0; i < data.length; i++) {
-                console.log(data[i]);
-                var policy = data[i];
-                //;
-                policy = policy.split();
-                console.log(policy);
-                var element = `<div class="accordion-item">
-                                    <div class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
-                                            <div class="container">
-                                                <h4 class="policy-title">${ policy[0] } </h4> <!-- Name -->
-                                                <p class="policy-year">Year: ${ policy[1] }</p>  <!-- Level -->
-                                                <p class="policy-detail">${ policy[3] }</p>
-                                                <a href="${ policy[5] }" class="download-btn" style=>Link</a>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div id="collapse${i}" class="accordion-collapse collapse" data-bs-parent="#pol-coll-div">
-                                        <div class="accordion-body">
-                                            <div class="full-policy-detail"><p>${ policy[2] }</p></div>
-                                        </div>
-                                    </div>
-                                </div>`
-            polPop.append(element);
-            };
-        </script>
     </div>
 </div>
 
-<!--<script src="{{ url_for('static', filename='scripts/country_script.js') }}"></script>--> 
+<script>
+    async function policyCollectionGetShow(dataAddress, heading){
+        var polLst = [];
+
+        try {
+            const response = await fetch(dataAddress);
+            if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            json.forEach(pol =>{
+                polLst.push(pol);
+            })
+        } catch (error) {
+            console.error(error.message);
+        }
+
+        const polPop = $('#pol-coll-div');
+        polPop.html('');
+        var element = `<h4 id="pol-res-he" class="text-center" style="padding:10px">${heading} Policies</h4>`;
+        polPop.append(element);
+        for (let i = 0; i < polLst.length; i++) {
+            var policy = polLst[i];
+            var element = `<div class="accordion-item">
+                                <div class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+                                        <div class="container">
+                                            <h4 class="policy-title">${ policy[0] } </h4> <!-- Name -->
+                                            <p class="policy-year">Year: ${ policy[1] }</p>  <!-- Level -->
+                                            <p class="policy-detail">${ policy[3] }</p>
+                                            <a href="${ policy[5] }" class="download-btn" style=>Link</a>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div id="collapse${i}" class="accordion-collapse collapse" data-bs-parent="#pol-coll-div">
+                                    <div class="accordion-body">
+                                        <div class="full-policy-detail"><p>${ policy[2] }</p></div>
+                                    </div>
+                                </div>
+                            </div>`
+        polPop.append(element);
+        };
+    }
+</script>
 {% endblock %}
