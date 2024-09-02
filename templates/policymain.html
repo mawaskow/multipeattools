@@ -4,62 +4,95 @@
 
 {% block content %}
 
-<div class="container">
-    <h4 class="text-center" style="padding:10px">POLICY COLLECTION</h4>
-    <p class="text-descr" style="padding-bottom:10px">
-        On this page you can explore our collection of peatland-related policies. 
-        At the moment, you can filter the policies by governance level and category.
-        We will be adding further polices and querying methods as we grow our portal.
-    </p>
+<div class="container" style="min-height: 600px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h4 class="text-center" style="padding:10px">POLICY COLLECTION</h4>
+            <p class="text-descr" style="padding-bottom:10px">
+                On this page you can explore our collection of peatland-related policies. 
+                At the moment, you can filter the policies by country, governance level, and category.
+                We will be adding further polices and querying methods as we grow our portal.
+            </p>
 
-    <div class="row">
-        <ul>
-            <p>By level:</p>
-            <a onclick='policyCollectionGetShow("/policy/level=Global", "Global")'><span class="badge rounded-pill text-bg-warning">Global</span></a>
-            <a onclick='policyCollectionGetShow("/policy/level=European", "European")'><span class="badge rounded-pill text-bg-warning">EU</span></a>
-            <a onclick='policyCollectionGetShow("/policy/level=National", "National")'><span class="badge rounded-pill text-bg-warning">National</span></a>
-            <a onclick='policyCollectionGetShow("/policy/level=Regional", "Regional")'><span class="badge rounded-pill text-bg-warning">Regional</span></a>
-            <a onclick='policyCollectionGetShow("/policy/level=Local", "Local")'><span class="badge rounded-pill text-bg-warning">Local</span></a>
-        </ul>
-    </div>
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Countries
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Ireland", "Irish")'>Ireland</a></li>
+                        <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Eesti", "Estonian")'>Estonia</a></li>
+                        <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Nederland", "Dutch")'>Netherlands</a></li>
+                        <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Bulgaria", "Bulgarian")'>Bulgaria</a></li>
+                        <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Italia", "Italian")'>Italy</a></li>
+                        <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=United%20Kingdom", "British")'>United Kingdom</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Governance Level
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=Global", "Global")'>Global</a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=European", "European")'>EU</a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=National", "National")'>National</a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=Regional", "Regional")'>Regional</a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=Local", "Local")'>Local</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Policy Category
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=bio", "Biodiversity")'><span class="badge rounded-pill bio-class-pill">Biodiversity</span></a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=clm", "Climate Action")'><span class="badge rounded-pill clm-class-pill">Climate Action</span></a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=enr", "Energy")'><span class="badge rounded-pill enr-class-pill">Energy</span></a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=comm", "Community and Culture")'><span class="badge rounded-pill comm-class-pill">Community / Culture</span></a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=env", "Environmental Quality")'><span class="badge rounded-pill env-class-pill">Environmental Quality</span></a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=land", "Land Use and Agriculture")'><span class="badge rounded-pill land-class-pill">Land Use / Agriculture</span></a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=econ", "Economy")'><span class="badge rounded-pill econ-class-pill">Economy</span></a></li>
+                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/categ=res", "Research and Applied Science")'><span class="badge rounded-pill res-class-pill">Research and Applied Sciences</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-3">
-            <p>By country:</p>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Select country
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Ireland", "Irish")'>Ireland</a></li>
-                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Eesti", "Estonian")'>Estonia</a></li>
-                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Nederland", "Dutch")'>Netherlands</a></li>
-                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Bulgaria", "Bulgarian")'>Bulgaria</a></li>
-                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Italia", "Italian")'>Italy</a></li>
-                  <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=United%20Kingdom", "British")'>United Kingdom</a></li>
-                </ul>
+            <div class="accordion pol-coll-div" id="pol-coll-div" style="margin-bottom: 10px;">
+                <p class="text-center" style="padding: 20px;">Please select a filter to begin exploring policies.</p>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <ul>
-            <p>By category:</p>
-            <span class="badge rounded-pill bio-class-pill">Biodiversity</span>
-            <span class="badge rounded-pill clm-class-pill">Climate Action</span>
-            <span class="badge rounded-pill enr-class-pill">Energy</span>
-            <span class="badge rounded-pill comm-class-pill">Community / Culture</span>
-            <span class="badge rounded-pill env-class-pill">Environmental Quality</span>
-            <span class="badge rounded-pill land-class-pill">Land Use / Agriculture</span>
-            <span class="badge rounded-pill econ-class-pill">Economy</span>
-            <span class="badge rounded-pill res-class-pill">Research and Applied Sciences</span>
-        </ul>
-    </div>
-    <div class="accordion" id="pol-coll-div">
     </div>
 </div>
 
 <script>
+    const pillDct = 
+        {'Economy': `econ-class-pill`,
+        'Land-Use / Agriculture': `land-class-pill`,
+        'Environmental quality: water, soil, air':`env-class-pill`,
+        'Community and Culture':`comm-class-pill`,
+        'Climate':`clm-class-pill`,
+        'Energy':`enr-class-pill`,
+        'Biodiversity':`bio-class-pill`,
+        'Research and applied sciences':`res-class-pill`
+        };
+
+    const pillNames = 
+        {'Economy': `Economy`,
+        'Land-Use / Agriculture': `Land-Use / Agriculture`,
+        'Environmental quality: water, soil, air':`Environmental Quality`,
+        'Community and Culture':`Community and Culture`,
+        'Climate':`Climate`,
+        'Energy':`Energy`,
+        'Biodiversity':`Biodiversity`,
+        'Research and applied sciences':`Research`
+        };
+
     async function policyCollectionGetShow(dataAddress, heading){
         var polLst = [];
 
@@ -78,24 +111,25 @@
 
         const polPop = $('#pol-coll-div');
         polPop.html('');
-        var element = `<h4 id="pol-res-he" class="text-center" style="padding:10px">${heading} Policies</h4>`;
+        var element = `<h4 id="pol-res-he" class="text-center" style="padding-bottom:20px">${heading} Policies</h4>`;
         polPop.append(element);
         for (let i = 0; i < polLst.length; i++) {
             var policy = polLst[i];
-            var element = `<div class="accordion-item">
-                                <div class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+            var element = `<div class="accordion-item polcol-acc-itm" style="margin-bottom:5px;">
+                                <div class="accordion-header polcol-acc-hdr">
+                                    <button class="accordion-button collapsed polcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
                                         <div class="container">
-                                            <h4 class="policy-title">${ policy[0] } </h4> <!-- Name -->
-                                            <p class="policy-year">Year: ${ policy[1] }</p>  <!-- Level -->
-                                            <p class="policy-detail">${ policy[3] }</p>
-                                            <a href="${ policy[5] }" class="download-btn" style=>Link</a>
+                                            <p class="d-inline" style="font-weight:bold;">${ policy[0] } </p>
+                                            <p>${ policy[1] } | ${ policy[4] }</p>
                                         </div>
                                     </button>
                                 </div>
-                                <div id="collapse${i}" class="accordion-collapse collapse" data-bs-parent="#pol-coll-div">
-                                    <div class="accordion-body">
-                                        <div class="full-policy-detail"><p>${ policy[2] }</p></div>
+                                <div id="collapse${i}" class="accordion-collapse collapse polcol-acc-coll" data-bs-parent="#pol-coll-div">
+                                    <div class="accordion-body polcol-acc-bdy">
+                                        <a href="${ policy[5] }" class="polcol-lnk d-inline" style=>LINK</a>
+                                        <p class="d-inline"> | <em>${ policy[6] }</em></p>
+                                        <p>${ policy[2] }</p>
+                                        <p class="badge rounded-pill ${pillDct[policy[3]]}">${pillNames[policy[3]]}</p>
                                     </div>
                                 </div>
                             </div>`

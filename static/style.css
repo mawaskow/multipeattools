@@ -111,12 +111,13 @@ button.btn-success:hover{
     color: #396d85;
 }
 
-.btn.btn-success:active {
+.btn.btn-success:active,.btn.btn-success:focus,.btn.btn-success:focus-visible, .btn.btn-success:focus-within {
   color: #396d85;
   background-color: #91c0d6;
   border-color: transparent;
   outline: none;
 }
+
 /*
 .btn.btn-success:focus {
   color: #1c4558;
@@ -282,6 +283,11 @@ footer{
 
 .set-accor-btn{
     background-color: #cbdfe9;
+}
+
+.set-accor-btn:not(.collapsed){
+    background-color: #cbdfe9;
+    border: none;
 }
 
 .upper-base{
@@ -679,15 +685,30 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 
 /* policy visualization collection development list*/
 
-.pol-lst-name{
-    color:mediumseagreen;
+.polcol-acc-btn{
+    background-color: #e6f3f1;
+}
+
+.polcol-acc-bdy{
+    background-color: #e6f3f1;
+}
+
+.polcol-acc-btn:not(.collapsed){
+    background-color: #e6f3f1;
+}
+
+.polcol-acc-btn:focus{
+    outline:none}
+
+.polcol-lnk{
     font-weight: bold;
+    color: #3191a2;
     text-decoration: none;
 }
 
-.pol-lst-name:hover{
-    color:darkgreen;
-    font-weight: bold;
-    text-decoration: none;
+.pol-coll-div{
+    background-color: #b1c8cf;
+    border-radius: 20px;
+    padding: 20px;
+    margin:20px;
 }
-
