@@ -118,6 +118,13 @@ button.btn-success:hover{
   outline: none;
 }
 
+.btn-success.dropdown-toggle:active{
+    color: #396d85;
+    background-color: #91c0d6;
+    border-color: transparent;
+    outline: none;
+}
+
 /*
 .btn.btn-success:focus {
   color: #1c4558;
@@ -468,7 +475,7 @@ span.Economy{
     border-color: transparent;
 }
 
-/*classification pill colors*/
+/*classification pills*/
 
 .enr-class-pill{
     color: #000;
@@ -654,33 +661,74 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
     border-radius: 0em;
 }
 
+/*Policy category colors normal and muted*/
+
 .enr-cls-clr{
-    background-color: #faf8d4;
+    background-color: #f9f19e;
 }
 .clm-cls-clr{
-    background-color: #f3ceca;
+    background-color: #e59391;
 }
 .comm-cls-clr{
-    background-color: #fae2be;
+    background-color: #f3c370;
 }
 .econ-cls-clr{
-    background-color: #e4d9e8;
+    background-color: #c9b0ce;
 }
 .env-cls-clr{
-    background-color: #cbe7e6;
+    background-color: #82cac9;
 }
 .bio-cls-clr{
-    background-color: #e3eece;
+    background-color: #c1d992;
 }
 .land-cls-clr{
-    background-color: #e4dcd1;
+    background-color: #c8b8a0;
 }
 .res-cls-clr{
+    background-color: #9fbbcf;
+}
+
+.enr-cls-clr-m{
+    background-color: #faf8d4;
+}
+.clm-cls-clr-m{
+    background-color: #f3ceca;
+}
+.comm-cls-clr-m{
+    background-color: #fae2be;
+}
+.econ-cls-clr-m{
+    background-color: #e4d9e8;
+}
+.env-cls-clr-m{
+    background-color: #cbe7e6;
+}
+.bio-cls-clr-m{
+    background-color: #e3eece;
+}
+.land-cls-clr-m{
+    background-color: #e4dcd1;
+}
+.res-cls-clr-m{
     background-color: #d3dee9;
 }
 
 .ol-viewport{
     padding:0px;
+}
+
+/*map page policy results list*/
+
+.pol-lst-name{
+    color:mediumseagreen;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pol-lst-name:hover{
+    color:darkgreen;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 /* policy visualization collection development list*/

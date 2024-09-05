@@ -4,24 +4,24 @@ import {getLayerByDisplay} from './customFunctions.js'
 const map=$('#map').data('map');
 
 const pillDct = 
-    {'Economy': `econ-class-pill`,
-    'Land-Use / Agriculture': `land-class-pill`,
-    'Environmental quality: water, soil, air':`env-class-pill`,
-    'Community and Culture':`comm-class-pill`,
+    {'Biodiversity':`bio-class-pill`,
     'Climate':`clm-class-pill`,
+    'Community and Culture':`comm-class-pill`,
+    'Economy': `econ-class-pill`,
     'Energy':`enr-class-pill`,
-    'Biodiversity':`bio-class-pill`,
+    'Environmental quality: water, soil, air':`env-class-pill`,
+    'Land-Use / Agriculture': `land-class-pill`,
     'Research and applied sciences':`res-class-pill`
     };
 
 const pillNames = 
-    {'Economy': `Economy`,
-    'Land-Use / Agriculture': `Land-Use / Agriculture`,
-    'Environmental quality: water, soil, air':`Environmental Quality`,
-    'Community and Culture':`Community and Culture`,
+    {'Biodiversity':`Biodiversity`,
     'Climate':`Climate`,
+    'Community and Culture':`Community and Culture`,
+    'Economy': `Economy`,
     'Energy':`Energy`,
-    'Biodiversity':`Biodiversity`,
+    'Environmental quality: water, soil, air':`Environmental Quality`,
+    'Land-Use / Agriculture': `Land-Use / Agriculture`,
     'Research and applied sciences':`Research`
     };
 
@@ -39,17 +39,17 @@ function classQuerying(policy){
         return true;
     }else if(policy[2]=="Climate" & clmac.checked==true){
         return true;
-    }else if(policy[2]=="Energy" & enrg.checked==true){
+    }else if(policy[2]=="Community and Culture" & comm.checked==true){
         return true;
     }else if(policy[2]=="Economy" & econ.checked==true){
         return true;
-    }else if(policy[2]=="Land-Use / Agriculture" & land.checked==true){
-        return true;
-    }else if(policy[2]=="Community and Culture" & comm.checked==true){
-        return true;
-    }else if(policy[2]=="Research and applied sciences" & res.checked==true){
+    }else if(policy[2]=="Energy" & enrg.checked==true){
         return true;
     }else if(policy[2]=="Environmental quality: water, soil, air" & env.checked==true){
+        return true;
+    }else if(policy[2]=="Land-Use / Agriculture" & land.checked==true){
+        return true;
+    }else if(policy[2]=="Research and applied sciences" & res.checked==true){
         return true;
     }
     return false;
@@ -241,8 +241,8 @@ map.addEventListener("singleclick", displayChange);
 map.addEventListener("singleclick", getPols);
 
 const pol_filt_dct = 
-{"biodiv":"Biodiversity", "clmact":"Climate Action", "econ":"Economy", 
-"lu":"Land Use", "cultr":"Culture", "enrg":"Energy", "resr":"Research", "envqual": "Env. Quality"};
+{"biodiv":"Biodiversity", "clmact":"Climate Action", "cultr":"Culture", "econ":"Economy", "enrg":"Energy", "envqual": "Env. Quality", 
+"lu":"Land Use", "resr":"Research"};
 // make dictionary instead for having spaces in display names?
 const polDivContent=$('#pol-filter-div');
 polDivContent.html('');
@@ -274,15 +274,15 @@ var bioFltr = document.getElementById("bio-cls-bx");
 bioFltr.addEventListener("click", updatePols);
 var clmFltr = document.getElementById("clm-cls-bx");
 clmFltr.addEventListener("click", updatePols);
-var enrFltr = document.getElementById("enr-cls-bx");
-enrFltr.addEventListener("click", updatePols);
-var econFltr = document.getElementById("econ-cls-bx");
-econFltr.addEventListener("click", updatePols);
-var landFltr = document.getElementById("land-cls-bx");
-landFltr.addEventListener("click", updatePols);
 var commFltr = document.getElementById("comm-cls-bx");
 commFltr.addEventListener("click", updatePols);
-var resFltr = document.getElementById("res-cls-bx");
-resFltr.addEventListener("click", updatePols);
+var econFltr = document.getElementById("econ-cls-bx");
+econFltr.addEventListener("click", updatePols);
+var enrFltr = document.getElementById("enr-cls-bx");
+enrFltr.addEventListener("click", updatePols);
 var envFltr = document.getElementById("env-cls-bx");
 envFltr.addEventListener("click", updatePols);
+var landFltr = document.getElementById("land-cls-bx");
+landFltr.addEventListener("click", updatePols);
+var resFltr = document.getElementById("res-cls-bx");
+resFltr.addEventListener("click", updatePols);
