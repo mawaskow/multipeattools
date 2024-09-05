@@ -232,7 +232,7 @@ def policy_bylevel(level):
         return None  # Return None or handle error as needed
     cur = conn.cursor()
     try:
-        cur.execute(f"SELECT engname,dates,engabst,classif,country,link,publisher FROM upd_geopol WHERE level='{level}'")
+        cur.execute(f"SELECT engname,dates,engabst,classif,country,link,publisher,level FROM upd_geopol WHERE level='{level}'")
         data = cur.fetchall()
     except psycopg2.Error as e:
         print(f"Error fetching data: {e}")
@@ -257,7 +257,7 @@ def policy_bycateg(categ):
         return None  # Return None or handle error as needed
     cur = conn.cursor()
     try:
-        cur.execute(f"SELECT engname,dates,engabst,classif,country,link,publisher FROM upd_geopol WHERE classif='{categdct[categ]}'")
+        cur.execute(f"SELECT engname,dates,engabst,classif,country,link,publisher,level FROM upd_geopol WHERE classif='{categdct[categ]}'")
         data = cur.fetchall()
     except psycopg2.Error as e:
         print(f"Error fetching data: {e}")
@@ -274,7 +274,7 @@ def policyCountry(country):
         return None  # Return None or handle error as needed
     cur = conn.cursor()
     try:
-        cur.execute("SELECT engname,dates,engabst,classif,country,link,publisher FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
+        cur.execute("SELECT engname,dates,engabst,classif,country,link,publisher,level FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
         data = cur.fetchall()
     except psycopg2.Error as e:
         print(f"Error fetching data: {e}")
