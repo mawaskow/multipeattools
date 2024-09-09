@@ -111,12 +111,20 @@ button.btn-success:hover{
     color: #396d85;
 }
 
-.btn.btn-success:active {
+.btn.btn-success:active,.btn.btn-success:focus,.btn.btn-success:focus-visible, .btn.btn-success:focus-within {
   color: #396d85;
   background-color: #91c0d6;
   border-color: transparent;
   outline: none;
 }
+
+.btn-success.dropdown-toggle:active{
+    color: #396d85;
+    background-color: #91c0d6;
+    border-color: transparent;
+    outline: none;
+}
+
 /*
 .btn.btn-success:focus {
   color: #1c4558;
@@ -271,9 +279,22 @@ footer{
 }
 
 .set-base-div{
-    background-color: #cbdfe9;   
-    padding: 20px 20px 20px 20px;
+    background-color: #cbdfe9;
     max-width: 600px;
+}
+
+.set-accor-div{
+    background-color: #cbdfe9;
+    border:0px;
+}
+
+.set-accor-btn{
+    background-color: #cbdfe9;
+}
+
+.set-accor-btn:not(.collapsed){
+    background-color: #cbdfe9;
+    border: none;
 }
 
 .upper-base{
@@ -454,7 +475,7 @@ span.Economy{
     border-color: transparent;
 }
 
-/*classification pill colors*/
+/*classification pills*/
 
 .enr-class-pill{
     color: #000;
@@ -640,28 +661,55 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
     border-radius: 0em;
 }
 
+/*Policy category colors normal and muted*/
+
 .enr-cls-clr{
-    background-color: #faf8d4;
+    background-color: #f9f19e;
 }
 .clm-cls-clr{
-    background-color: #f3ceca;
+    background-color: #e59391;
 }
 .comm-cls-clr{
-    background-color: #fae2be;
+    background-color: #f3c370;
 }
 .econ-cls-clr{
-    background-color: #e4d9e8;
+    background-color: #c9b0ce;
 }
 .env-cls-clr{
-    background-color: #cbe7e6;
+    background-color: #82cac9;
 }
 .bio-cls-clr{
-    background-color: #e3eece;
+    background-color: #c1d992;
 }
 .land-cls-clr{
-    background-color: #e4dcd1;
+    background-color: #c8b8a0;
 }
 .res-cls-clr{
+    background-color: #9fbbcf;
+}
+
+.enr-cls-clr-m{
+    background-color: #faf8d4;
+}
+.clm-cls-clr-m{
+    background-color: #f3ceca;
+}
+.comm-cls-clr-m{
+    background-color: #fae2be;
+}
+.econ-cls-clr-m{
+    background-color: #e4d9e8;
+}
+.env-cls-clr-m{
+    background-color: #cbe7e6;
+}
+.bio-cls-clr-m{
+    background-color: #e3eece;
+}
+.land-cls-clr-m{
+    background-color: #e4dcd1;
+}
+.res-cls-clr-m{
     background-color: #d3dee9;
 }
 
@@ -669,7 +717,7 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
     padding:0px;
 }
 
-/* policy list*/
+/*map page policy results list*/
 
 .pol-lst-name{
     color:mediumseagreen;
@@ -681,4 +729,34 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
     color:darkgreen;
     font-weight: bold;
     text-decoration: none;
+}
+
+/* policy visualization collection development list*/
+
+.polcol-acc-btn{
+    background-color: #e6f3f1;
+}
+
+.polcol-acc-bdy{
+    background-color: #e6f3f1;
+}
+
+.polcol-acc-btn:not(.collapsed){
+    background-color: #e6f3f1;
+}
+
+.polcol-acc-btn:focus{
+    outline:none}
+
+.polcol-lnk{
+    font-weight: bold;
+    color: #3191a2;
+    text-decoration: none;
+}
+
+.pol-coll-div{
+    background-color: #b1c8cf;
+    border-radius: 20px;
+    padding: 20px;
+    margin:20px;
 }

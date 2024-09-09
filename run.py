@@ -45,6 +45,8 @@ SET_INIT_INPT_FILE = './inputs/user_input_SET.json'
 GEST_CSV= ['./inputs/GEST_2_Static_Values.csv']
 # SET results
 SET_OUTPUT_FILE = './inputs/output_SET.json'
+#
+KWD_FILE = './static/keywords.json'
 
 '''
 Admin Login Settings
@@ -210,137 +212,77 @@ def set_tool():
     
     return render_template("set_tool.html", username=session['username'], results=results_dct, inpt=input_dct)
 
-@app.route('/keywords')
+@app.route('/keywords', methods=['GET', 'POST'])
 def policy_keywords():
     username = session.get('username')
     if username is None:
         return render_template('keywords.html')
-    
     return render_template('keywords.html', username=session['username'])
     
-@app.route('/policy')
+@app.route('/policy', methods=['GET', 'POST'])
 def policy():
-    username = session.get('username')
-    if username is None:
-        return redirect(url_for('eu_global'))
-    return redirect(url_for('eu_global'))
-
-@app.route('/policy/<country>')
-def policyCountry(country):
-    username = session.get('username')
-    conn = connect_db()
-    if conn is None:
-        return None  # Return None or handle error as needed
-
-    cur = conn.cursor()
-    try:
-        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
-        data = cur.fetchall()
-        #return data
-    except psycopg2.Error as e:
-        print(f"Error fetching data: {e}")
-        return None
-    finally:
-        cur.close()
-        conn.close()
-        if 'username' not in session:
-         return render_template('policymain.html', data=data)
-        
-    #return render_template(f'{country}_policy.html',data=data)
-    return render_template('policymain.html',data=data,username=session['username'])
-
-@app.route('/eu_policy')
-def eu_policy():
-    username = session.get('username')
-    conn = connect_db()
-    if conn is None:
-        return None  # Return None or handle error as needed
-
-    cur = conn.cursor()
-    try:
-        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='European'")
-        data = cur.fetchall()
-        #return data
-    except psycopg2.Error as e:
-        print(f"Error fetching data: {e}")
-        return None
-    finally:
-        cur.close()
-        conn.close()
-        if 'username' not in session:
-         return render_template('policymain.html', data=data, heading='European Union')
-    #return render_template(f'{country}_policy.html',data=data)
-    return render_template('policymain.html',data=data,heading='European Union',username=session['username'])
-
-@app.route('/eu_global')
-def eu_global():
-    username = session.get('username')
-    conn = connect_db()
-    if conn is None:
-        return None  # Return None or handle error as needed
-
-    cur = conn.cursor()
-    try:
-        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='Global'")
-        data = cur.fetchall()
-        #return data
-    except psycopg2.Error as e:
-        print(f"Error fetching data: {e}")
-        return None
-    finally:
-        cur.close()
-        conn.close()
     if 'username' not in session:
-        return render_template('policymain.html', data=data, heading='Global')
-    #return render_template(f'{country}_policy.html',data=data)
-    return render_template('policymain.html',data=data,heading='Global',username=session['username'])
+         return render_template('policymain.html')
+    return render_template('policymain.html', username=session['username'])
 
-@app.route('/eu_local')
-def eu_local():
-    username = session.get('username')
+@app.route('/policy/level=<level>')
+def policy_bylevel(level):
     conn = connect_db()
     if conn is None:
         return None  # Return None or handle error as needed
-
     cur = conn.cursor()
     try:
-        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='Local'")
+        cur.execute(f"SELECT engname,dates,engabst,classif,country,link,publisher,level FROM upd_geopol WHERE level='{level}'")
         data = cur.fetchall()
-        #return data
     except psycopg2.Error as e:
         print(f"Error fetching data: {e}")
         return None
     finally:
         cur.close()
         conn.close()
-        if 'username' not in session:
-         return render_template('policymain.html', data=data, heading='Local')
-    #return render_template(f'{country}_policy.html',data=data)
-    return render_template('policymain.html',data=data,heading='Local',username=session['username'])
-
-@app.route('/eu_national')
-def eu_national():
-    username = session.get('username')
+        return data
+    
+@app.route('/policy/categ=<categ>')
+def policy_bycateg(categ):
+    categdct = {"bio":"Biodiversity",
+                "clm":"Climate",
+                "enr":"Energy",
+                "econ":"Economy",
+                "land":"Land-Use / Agriculture",
+                "comm":"Community and Culture",
+                "res":"Research and applied sciences",
+                "env":"Environmental quality: water, soil, air"}
     conn = connect_db()
     if conn is None:
         return None  # Return None or handle error as needed
-
     cur = conn.cursor()
     try:
-        cur.execute("SELECT name,dates,abstract,classif,country, link FROM upd_geopol WHERE level='National'")
+        cur.execute(f"SELECT engname,dates,engabst,classif,country,link,publisher,level FROM upd_geopol WHERE classif='{categdct[categ]}'")
         data = cur.fetchall()
-        #return data
     except psycopg2.Error as e:
         print(f"Error fetching data: {e}")
         return None
     finally:
         cur.close()
         conn.close()
-        if 'username' not in session:
-         return render_template('policymain.html', data=data, heading='National')
-    #return render_template(f'{country}_policy.html',data=data)
-    return render_template('policymain.html',data=data, heading='National',username=session['username'])
+        return data
 
+@app.route('/policy/country=<country>')
+def policyCountry(country):
+    conn = connect_db()
+    if conn is None:
+        return None  # Return None or handle error as needed
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT engname,dates,engabst,classif,country,link,publisher,level FROM upd_geopol WHERE country LIKE %s", ('%' + country + '%',))
+        data = cur.fetchall()
+    except psycopg2.Error as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        cur.close()
+        conn.close()
+        return data
 
 @app.route('/getpols/<int:lint>')
 def getpols_eventual(lint):
@@ -348,12 +290,17 @@ def getpols_eventual(lint):
     level = lvldct[lint]
     conn = get_db_cnxn()
     cur = conn.cursor()
-    cur.execute(f"SELECT name, level, classif, link FROM upd_geopol WHERE level='{level}'")
+    cur.execute(f"SELECT engname, level, classif, link FROM upd_geopol WHERE level='{level}'")
     policies = cur.fetchall()
     cur.close()
     conn.close()
     return policies
 
+@app.route('/getkwds')
+def getkwds():
+    with open(KWD_FILE, encoding="utf-8") as json_file:
+        kwds = json.load(json_file)
+    return kwds
 
 '''
 Error Handling

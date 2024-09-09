@@ -1,0 +1,155 @@
+{
+    "English":
+    [
+        "Bog",
+        "Blanket bog",
+        "Fen",
+        "Mire",
+        "Peat",
+        "Peatland",
+        "Peat soils",
+        "Carbon",
+        "Rewet",
+        "Sequestration",
+        "Restoration",
+        "Drain",
+        "Ecosystem services",
+        "Biodiversity"
+    ],
+    "Polish":
+    [
+        "Bagno",
+        "Torfowisko kocowe",
+        "Bagnisko",
+        "Błoto",
+        "Torf",
+        "Torfowiska",
+        "Gleby torfowe",
+        "Węgiel",
+        "Nawilżaj",
+        "Sekwestr",
+        "Przywrócenie",
+        "Odpływ",
+        "Usługi ekosystemowe",
+        "Bioróżnorodność"
+    ],
+    "French":
+    [
+        "Tourbière",
+        "Marière de couverture",
+        "Marais",
+        "Boue",
+        "Tourbe",
+        "Tourbière",
+        "Sols tourbeux",
+        "Carbone",
+        "Réhumidifier",
+        "Séquestration",
+        "Restauration",
+        "Vidange",
+        "Services écosystémiques",
+        "Biodiversité"
+    ],
+    "Italian":
+    [
+        "Palude",
+        "Palude coperta",
+        "Palacca",
+        "Fango",
+        "Torba",
+        "Torbaia",
+        "terreni torbosi",
+        "Carbonio",
+        "Ribagnato",
+        "Sequestro",
+        "Restauro",
+        "Drenare",
+        "Servizi ecosistemici",
+        "Biodiversità"
+    ],
+    "German":
+    [
+        "Moor",
+        "Deckenmoor",
+        "Fen",
+        "Schlamm",
+        "Torf",
+        "Moorfland",
+        "Torfböden",
+        "Kohlenstoff",
+        "Nachnässen",
+        "Sequestrierung",
+        "Wiederherstellung",
+        "Abfluss",
+        "Ökosystemdienstleistungen",
+        "Biodiversität"
+    ],
+    "Dutch":
+    [
+        "Moeras",
+        "Dekenmoeras",
+        "Moeras",
+        "Slijk",
+        "Turf",
+        "Venland",
+        "Vengronden",
+        "Koolstof",
+        "Herbevochtigen",
+        "Sekwestratie",
+        "Restauratie",
+        "Droogleggen",
+        "Ecosysteemdiensten",
+        "Biodiversiteit"
+    ],
+    "Bulgarian":
+    [
+        "блато",
+        "Покрито блато",
+        "Фен",
+        "Мире",
+        "Торф",
+        "Торфище",
+        "Торфени почви",
+        "Въглерод",
+        "Повторно намокряне",
+        "секвестиране",
+        "Реставрация",
+        "Дрениране",
+        "Екосистемни услуги",
+        "Биоразнообразие"
+    ],
+    "Finnish":
+    [
+        "Suo",
+        "Peittosuo",
+        "Letto",
+        "Mire",
+        "Turve",
+        "Turvealue",
+        "Turvemaat",
+        "Hiili",
+        "kastella uudelleen",
+        "Sekvestraatio",
+        "Restaurointi",
+        "Valua",
+        "Ekosysteemipalvelut",
+        "Biologinen monimuotoisuus"
+    ],
+    "Swedish":
+    [
+        "Mosse",
+        "Täck myr",
+        "Kärr",
+        "Myr",
+        "Torv",
+        "Torvmark",
+        "Torvjordar",
+        "Kol",
+        "Återväta",
+        "Kvarstad",
+        "Restaurering",
+        "Dränera",
+        "Ekosystemtjänster",
+        "Biologisk mångfald"
+    ]
+}
