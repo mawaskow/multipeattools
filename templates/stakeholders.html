@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Stakeholders{% endblock %}
+
+{% block content %}
+
+<div class="container" style="min-height: 800px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h4 class="text-center" style="padding:10px">GOVERNANCE STAKEHOLDERS</h4>
+            <p class="text-descr" style="padding-bottom:10px">
+                On this page you can explore our collection of political stakeholders in peatland-affecting policies. 
+                At the moment, you can filter the stakeholders by country and governance level.
+                We will be adding further stakeholders and querying methods as we grow our portal.
+            </p>
+
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Countries
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Ireland")'>Ireland</a></li>
+                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Poland")'>Poland</a></li>
+                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Netherlands")'>Netherlands</a></li>
+                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Germany")'>Germany</a></li>
+                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Belgium")'>Belgium</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Governance Level
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "Global")'>Global</a></li>
+                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "European")'>EU</a></li>
+                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "National")'>National</a></li>
+                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "Regional")'>Regional</a></li>
+                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "Local")'>Local</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion pol-coll-div" id="pol-coll-div" style="margin-bottom: 10px;">
+                <p class="text-center" style="padding: 20px;">Please select a filter to begin exploring governance stakeholders.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<script>
+    async function stakeholdersGetShow(dkey, term){
+        //import fetch from 'node-fetch';
+        const url = 'http://140.203.154.253:8016/aspect/stakeholders/';
+
+        const headers = { 'Content-Type': 'application/json' };
+        const payload = {};
+        const data = {"jsonrpc" : "2.0", "params":{}};
+        fetch(url, {
+            method: 'POST',
+            mode:"cors",
+            headers: headers,
+            body: JSON.stringify(payload),
+            data:data
+        })
+        .then(response => response.json())
+        .then(data => console.log('Success:', JSON.stringify(data, null, 2)))
+        .catch(error => console.error('Error:', error));
+
+        /*
+        var stkLst = [];
+        const url = 'http://140.203.154.253:8016/aspect/stakeholders/';
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    //'Access-Control-Allow-Origin' : '*'
+                },
+                data: {
+                    "jsonrpc" : "2.0",
+                    "params":{}
+                }
+            });
+            console.log(response.json());
+            console.log('Success:', JSON.stringify(data, null, 2))
+
+            if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            json.forEach(pol =>{
+                stkLst.push(pol);
+            })
+        } catch (error) {
+            console.error(error.message);
+        }
+        const stkPop = $('#pol-coll-div');
+        stkPop.html('');
+        var element = `<h4 id="pol-res-he" class="text-center" style="padding-bottom:20px">${term} Policies</h4>`;
+        stkPop.append(element);
+        for (let i = 0; i < stkLst.length; i++) {
+            var stkhldr = stkLst[i];
+            if(stkhldr[dkey]==term){
+                var element = `<div class="accordion-item polcol-acc-itm" style="margin-bottom:5px;">
+                                                <div class="accordion-header polcol-acc-hdr">
+                                                    <button class="accordion-button collapsed polcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+                                                        <div class="container">
+                                                            <p class="d-inline" style="font-weight:bold;">${ stkhldr[0] } </p>
+                                                            <p>${ stkhldr[1] } | ${ stkhldr[4] }</p>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                <div id="collapse${i}" class="accordion-collapse collapse polcol-acc-coll">
+                                                    <div class="accordion-body polcol-acc-bdy">
+                                                        <a href="${ stkhldr[5] }" class="polcol-lnk d-inline" style=>LINK</a>
+                                                        <p class="d-inline"> | <em>${ stkhldr[6] }</em> | ${ stkhldr[7] }</p>
+                                                        <p>${ stkhldr[2] }</p>
+                                                        <p class="badge rounded-pill ${pillDct[stkhldr[3]]}">${pillNames[stkhldr[3]]}</p>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                stkPop.append(element);
+            }
+        };
+        */
+    }
+</script>
+-->
+<script src="{{url_for('static', filename='scripts/stakeholders.js')}}" async></script>
+{% endblock %}

@@ -225,6 +225,14 @@ def policy():
          return render_template('policymain.html')
     return render_template('policymain.html', username=session['username'])
 
+@app.route('/stakeholders', methods=['GET', 'POST'])
+def stakeholders():
+    if 'username' not in session:
+         return render_template('stakeholders.html')
+    return render_template('stakeholders.html', username=session['username'])
+
+# DATA ENDPOINTS
+
 @app.route('/policy/level=<level>')
 def policy_bylevel(level):
     conn = connect_db()
