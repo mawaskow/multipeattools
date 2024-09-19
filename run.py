@@ -18,6 +18,7 @@ import psycopg2
 from flask import request, jsonify
 #
 from modules import get_db_cnxn, assum_json_to_dict, usrinp_json_to_dict
+import requests
 
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -309,6 +310,38 @@ def getkwds():
     with open(KWD_FILE, encoding="utf-8") as json_file:
         kwds = json.load(json_file)
     return kwds
+
+@app.route('/stakeholderdata')
+def getstk():
+    url = 'http://140.203.154.253:8016/aspect/stakeholders'
+
+    # Set up the headers
+    headers = {
+        'Content-Type': 'application/json'
+        #'Cookie': 'session_id='+str(cookie_value)
+    }
+
+    # Prepare the JSON payload
+    payload = {
+        "jsonrpc": "2.0",
+        "params": {}
+    }
+
+    # Send the GET request
+    response = requests.get(url, headers=headers, json=payload)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        try:
+            # Parse the JSON response
+            data = response.json()
+            #print(json.dumps(data, indent=2))
+        except ValueError:
+            print("Invalid JSON response")
+    else:
+        print(f"Request failed with status code {response.status_code}")
+        print(response.text)
+    return data
 
 '''
 Error Handling

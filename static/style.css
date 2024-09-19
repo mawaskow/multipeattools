@@ -733,28 +733,28 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 
 /* policy visualization collection development list*/
 
-.polcol-acc-btn{
+.polcol-acc-btn, .stkcol-acc-btn{
     background-color: #e6f3f1;
 }
 
-.polcol-acc-bdy{
+.polcol-acc-bdy, .stkcol-acc-bdy{
     background-color: #e6f3f1;
 }
 
-.polcol-acc-btn:not(.collapsed){
+.polcol-acc-btn:not(.collapsed), .stkcol-acc-btn:not(.collapsed){
     background-color: #e6f3f1;
 }
 
-.polcol-acc-btn:focus{
+.polcol-acc-btn:focus, .stkcol-acc-btn:focus{
     outline:none}
 
-.polcol-lnk{
+.polcol-lnk, .stkcol-lnk{
     font-weight: bold;
     color: #3191a2;
     text-decoration: none;
 }
 
-.pol-coll-div{
+.pol-coll-div, .stk-coll-div{
     background-color: #b1c8cf;
     border-radius: 20px;
     padding: 20px;
