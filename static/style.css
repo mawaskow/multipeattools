@@ -125,6 +125,13 @@ button.btn-success:hover{
     outline: none;
 }
 
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+    color: #396d85;
+    background-color: #91c0d6;
+    border-color: transparent;
+    outline: none;
+}
+
 /*
 .btn.btn-success:focus {
   color: #1c4558;
@@ -759,4 +766,16 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
     border-radius: 20px;
     padding: 20px;
     margin:20px;
+}
+
+/*Stakeholders page*/
+.stk-chk{
+    height: 18px;
+    width: 18px;
+    margin-left: 5px;
+}
+
+.stk-chk:checked{
+    background-color:#91c0d6;
+    border-color: transparent;
 }

@@ -18,14 +18,29 @@
                 <div class="col-3">
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Countries
+                            Country
                         </button>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Ireland")'>Ireland</a></li>
-                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Poland")'>Poland</a></li>
-                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Netherlands")'>Netherlands</a></li>
-                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Germany")'>Germany</a></li>
-                        <li><a class="dropdown-item" onclick='stakeholdersGetShow("country", "Belgium")'>Belgium</a></li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Belgium" id="stk-chk-nat-bg" checked>
+                                <label class="form-check-label">Belgium</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Germany" id="stk-chk-nat-de">
+                                <label class="form-check-label">Germany</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Ireland" id="stk-chk-nat-ie">
+                                <label class="form-check-label">Ireland</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Netherlands" id="stk-chk-nat-nl">
+                                <label class="form-check-label">Netherlands</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Poland" id="stk-chk-nat-pl">
+                                <label class="form-check-label">Poland</label>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -35,25 +50,66 @@
                             Governance Level
                         </button>
                         <ul class="dropdown-menu">
-                            <!--<li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "Global")'>Global</a></li>
-                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "European")'>EU</a></li>-->
-                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "National")'>National</a></li>
-                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "Regional")'>Regional</a></li>
-                            <li><a class="dropdown-item" onclick='stakeholdersGetShow("level", "Local")'>Local</a></li>
+                            <!--
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Global" id="stk-chk-lvl-gb">
+                                <label class="form-check-label" for="flexCheckDefault">Global</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="European" id="stk-chk-lvl-eu">
+                                <label class="form-check-label" for="flexCheckDefault">European</label>
+                            </li>
+                            -->
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="National" id="stk-chk-lvl-nt" checked>
+                                <label class="form-check-label" for="flexCheckDefault">National</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Regional" id="stk-chk-lvl-rg">
+                                <label class="form-check-label" for="flexCheckDefault">Regional</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Local" id="stk-chk-lvl-lc">
+                                <label class="form-check-label" for="flexCheckDefault">Local</label>
+                            </li>
                         </ul>
                     </div>
                 </div>
+                <div class="col-3">
+                    <button class="btn btn-success" type="button" onclick="stakeholdersGetShow()">
+                        Search
+                    </button>
+                </div>
             </div>
-
             <div class="accordion stk-coll-div" id="stk-coll-div" style="margin-bottom: 10px;">
-                <p class="text-center" style="padding: 20px;">Please select a filter to begin exploring governance stakeholders.</p>
+                <p class="text-center" style="padding: 10px;">Please select a filter to begin exploring governance stakeholders.</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    async function stakeholdersGetShow(dkey, term){
+    async function stakeholdersGetShow(){
+        // first, get request information
+        var fltr_dct = {
+            'country':[],
+            'level':[]
+        };
+        const ctrylst = ["bg","de","ie","nl","pl"];
+        const lvllst = ["gb","eu","nt","rg","lc"];
+        ctrylst.forEach(ctry => {
+            idname = "#stk-chk-nat-"+ctry;
+            if($(idname).prop("checked")){
+                fltr_dct['country'].push($(idname).prop("value"))
+            }
+        });
+        lvllst.forEach(lvl => {
+            idname = "#stk-chk-lvl-"+lvl;
+            if($(idname).prop("checked")){
+                fltr_dct['level'].push($(idname).prop("value"))
+            }
+        });
+        // get data
         const url = '/stakeholderdata';
         var stkLst = [];
         try {
@@ -70,14 +126,15 @@
         } catch (error) {
             console.error(error.message);
         }
-        
+        // render data
         const stkPop = $('#stk-coll-div');
         stkPop.html('');
-        var element = `<h4 id="stk-res-he" class="text-center" style="padding-bottom:20px">${term} Stakeholders</h4>`;
-        stkPop.append(element);
+        stkPop.append(`<h4 id="stk-res-he" class="text-center" style="padding-bottom:20px">Stakeholders</h4>`);
+        var anyresults = false;
         for (let i = 0; i < stkLst.length; i++) {
             var stkhldr = stkLst[i];
-            if(stkhldr[dkey]==term){
+            if(fltr_dct['country'].includes(stkhldr['country']) && fltr_dct['level'].includes(stkhldr['level'])){
+                anyresults = true;
                 var element = `<div class="accordion-item stkcol-acc-itm" style="margin-bottom:5px;">
                                                 <div class="accordion-header stkcol-acc-hdr">
                                                     <button class="accordion-button collapsed stkcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
@@ -97,6 +154,9 @@
                 stkPop.append(element);
             }
         };
+        if(!anyresults){
+            stkPop.append(`<p class="text-center" style="color:black;">No stakeholders found. Please try other filter combinations.</p>`);
+        }
     }
 </script>
 
