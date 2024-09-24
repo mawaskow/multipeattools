@@ -212,6 +212,16 @@ button.btn-success:hover{
     border-radius: 0;
 }
 
+.logreg-fc{
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    margin-top: 5px;
+}
+
+.form-group{
+    margin-top: 10px;
+}
+
 .input-group-text{
     border: transparent;
     border-radius: 0;
