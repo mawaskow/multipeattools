@@ -55,7 +55,7 @@ Admin Login Settings
 DB_NAME = 'geoapp'
 DB_USER = 'postgres'
 DB_PASSWORD = 'P0stgr3sql'
-DB_HOST = '140.203.155.91'
+DB_HOST = '140.203.154.253'
 DB_PORT = '5432'
 
 def connect_db():
@@ -70,7 +70,7 @@ conn_params = {
     'dbname': 'geoapp',
     'user': 'postgres',
     'password': 'P0stgr3sql',
-    'host': '140.203.155.91',
+    'host':'140.203.154.253',
     'port': '5432'
 }
 
