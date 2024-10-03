@@ -137,7 +137,7 @@ const detLayer= new ImageLayer({
     region: 'Germany'
 });
 
-// CORINE-18 data for PL and IE for 411, 412, and 322
+// CORINE-18 
 const corineSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:corine18", "VERSION":"1.1.1", "FORMAT":"image/png"}

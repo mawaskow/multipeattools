@@ -17,7 +17,7 @@ from wtforms import StringField, PasswordField, SubmitField, validators
 import psycopg2
 from flask import request, jsonify
 #
-from modules import get_db_cnxn, assum_json_to_dict, usrinp_json_to_dict
+from modules import assum_json_to_dict, usrinp_json_to_dict
 import requests
 
 # powershell: $env:FLASK_APP = "run"
@@ -55,7 +55,7 @@ Admin Login Settings
 DB_NAME = 'geoapp'
 DB_USER = 'postgres'
 DB_PASSWORD = 'P0stgr3sql'
-DB_HOST = '140.203.154.253'
+DB_HOST = '140.203.155.91'
 DB_PORT = '5432'
 
 def connect_db():
@@ -70,7 +70,7 @@ conn_params = {
     'dbname': 'geoapp',
     'user': 'postgres',
     'password': 'P0stgr3sql',
-    'host':'140.203.154.253',
+    'host': '140.203.155.91',
     'port': '5432'
 }
 
@@ -297,7 +297,8 @@ def policyCountry(country):
 def getpols_eventual(lint):
     lvldct = {0:'European',1:'Global'}
     level = lvldct[lint]
-    conn = get_db_cnxn()
+    #conn = get_db_cnxn()
+    conn = connect_db()
     cur = conn.cursor()
     cur.execute(f"SELECT engname, level, classif, link FROM upd_geopol WHERE level='{level}'")
     policies = cur.fetchall()
