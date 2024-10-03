@@ -473,12 +473,12 @@ span.Economy{
 }
 
 .proj-sites-box:checked{
-    background-color: #aacc64;
+    background-color: #09b6ad;
     border-color: transparent;
 }
 
 .alk-fen-box:checked{
-    background-color: #ccdb72;
+    background-color: #c69966;
     border-color: transparent;
 }
 
@@ -489,6 +489,16 @@ span.Economy{
 
 .de-soil-box:checked{
     background-color: #a63a04;
+    border-color: transparent;
+}
+
+.bef-soil-box:checked{
+    background-color: #e38046;
+    border-color: transparent;
+}
+
+.bew-soil-box:checked{
+    background-color: #b66843;
     border-color: transparent;
 }
 
