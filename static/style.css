@@ -9,6 +9,13 @@ h4, h5, p{
     color:  #1a1a1a;
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     font-size: 16px;
+    margin: 2px 2px 2px 2px;
+}
+
+.tt-form-label, .tt-form-check-label{
+    color:  #1a1a1a;
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 16px;
     margin: 2px 2px 2px 25px;
 }
 
@@ -125,7 +132,7 @@ button.btn-success:hover{
     outline: none;
 }
 
-.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+.btn-success:checked+.btn-success, .btn-success.active, .btn-success.show, .btn-success:first-child:active, :not(.btn-success)+.btn-success:active{
     color: #396d85;
     background-color: #91c0d6;
     border-color: transparent;
@@ -798,4 +805,32 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 .stk-chk:checked{
     background-color:#91c0d6;
     border-color: transparent;
+}
+
+/*pol sub form*/
+.btn-ddw{
+    background: #ffffff;
+    border-color: transparent;
+    border-radius: 0px;
+    border-width: 0px;
+    outline: none;
+}
+
+.btn-ddw:hover{
+    background: #eeeeee;
+}
+
+.btn.btn-ddw:active,.btn.btn-ddw:focus,.btn.btn-ddw:focus-visible, .btn.btn-ddw:focus-within {
+  color: black;
+  background-color: white;
+}
+
+.btn-ddw.dropdown-toggle:active{
+    color: black;
+    background-color: white;
+}
+
+.btn-ddw:checked+.btn-ddw, .btn-ddw.active, .btn-ddw.show, .btn-ddw:first-child:active, :not(.btn-ddw)+.btn-ddw:active{
+    color: black;
+    background-color: white;
 }

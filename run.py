@@ -231,6 +231,12 @@ def stakeholders():
     if 'username' not in session:
          return render_template('stakeholders.html')
     return render_template('stakeholders.html', username=session['username'])
+    
+@app.route('/policy-submit', methods=['GET', 'POST'])
+def sub_policy():
+    if 'username' not in session:
+         return render_template('polsubmit.html')
+    return render_template('polsubmit.html', username=session['username'])
 
 # DATA ENDPOINTS
 

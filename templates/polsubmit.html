@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Policy Submission Form{% endblock %}
+
+{% block content %}
+<div class="container" style="min-height: 760px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h4 class="text-center" style="padding:10px">POLICY SUBMISSION FORM</h4>
+            <p class="text-descr text-center" style="padding-bottom:10px">
+                If we are missing a relevant policy, please enter its information here and we will add it to our portal.
+            </p>
+            <div class="pol-coll-div text-center" style="margin-bottom: 10px;">
+                <form class="row g-3">
+                    <div class="col-md-12">
+                        <h5>POLICY DETAILS</h5>
+                    </div>
+                    <!-- titles native and english -->
+                    <div class="col-md-6">
+                        <label for="inputPolNatName" class="form-label">Policy Title (Native Language)</label>
+                        <input type="text" class="form-control" id="inputPolNatName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPolEngName" class="form-label">Policy Title (English)</label>
+                        <input type="text" class="form-control" id="inputPolEngName">
+                    </div>
+                    <!--start date and end date-->
+                    <div class="col-md-3">
+                        <label for="inputPolStartDate" class="form-label">Start Year</label>
+                        <input type="number" class="validate form-control" min="1900" max="2500" id="inputPolStartDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="inputPolEndDate" class="form-label">End Year</label>
+                        <input type="number" class="validate form-control" min="1900" max="2500" id="inputPolEndDate">
+                    </div>
+                    <!--categories-->
+                    <div class="col-md-6 dropdown align-content-end">
+                        <label for="inputPoldropbtn" class="form-label">Policy Domain</label>
+                        <a class="btn btn-ddw dropdown-toggle" id="inputPoldropbtn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Choose at least one category
+                        </a>
+                        <ul class="dropdown-menu" style="padding:0px">
+                            <div class="bio-cls-clr">
+                                <input id="bio-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="bio-cls-bx">Biodiversity</label>
+                            </div>
+                            <div class="clm-cls-clr">
+                                <input id="clm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="clm-cls-bx">Climate Action</label>
+                            </div>
+                            <div class="comm-cls-clr">
+                                <input id="comm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="comm-cls-bx">Culture</label>
+                            </div>
+                            <div class="econ-cls-clr">
+                                <input id="econ-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="econ-cls-bx">Economy</label>
+                            </div>
+                            <div class="enr-cls-clr">
+                                <input id="enr-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="enr-cls-bx">Energy</label>
+                            </div>
+                            <div class="env-cls-clr">
+                                <input id="env-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="env-cls-bx">Env. Quality</label>
+                            </div>
+                            <div class="land-cls-clr">
+                                <input id="land-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="land-cls-bx">Land Use</label>
+                            </div>
+                            <div class="res-cls-clr">
+                                <input id="res-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label for="res-cls-bx">Research</label>
+                            </div>
+                        </ul>
+                    </div>
+                    <!-- section: region -->
+                    <!--level-->
+                    <div class="col-md-6 align-self-center">
+                        <label for="inputPolLvl" class="form-label">Governance Level</label>
+                        <select class="form-select" id="inputPolLvl" onclick='changeForm()'>
+                            <option selected>Governance Level</option>
+                            <option value="global">Global</option>
+                            <option value="eu">EU</option>
+                            <option value="national">National</option>
+                            <option value="regional">Regional</option>
+                            <option value="local">Local</option>
+                        </select>
+                    </div>
+                    <!-- language-->
+                    <div class="col-md-6">
+                        <label for="inputPolLang" class="form-label">Language</label>
+                        <input type="text" class="form-control" id="inputPolLang"/>
+                    </div>
+                    <!-- Publisher-->
+                    <div class="col-md-6">
+                        <label for="inputPolPub" class="form-label">Publisher</label>
+                        <input type="text" class="form-control" id="inputPolPub"/>
+                    </div>
+                    <!-- link to policy page -->
+                    <div class="col-md-6">
+                        <label for="inputPolPageLnk" class="form-label">Link to Page</label>
+                        <input type="text" class="form-control" id="inputPolPageLnk"/>
+                    </div>
+                        <!-- link to policy pdf -->
+                    <div class="col-md-6">
+                        <label for="inputPolPdfLnk" class="form-label">Link to PDF</label>
+                        <input type="text" class="form-control" id="inputPolPdfLnk"/>
+                    </div>
+                    <div class="col-md-12">
+                        <h5>LOCATION</h5>
+                    </div>
+                    <!--specific names-->
+                    <div class="col-md-6">
+                        <label for="inputPolCtry" class="form-label">Country</label>
+                        <input type="text" class="form-control" id="inputPolCtry"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPolReg" class="form-label">Region [NUTS]</label>
+                        <input type="text" class="form-control" id="inputPolReg"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPolLoc" class="form-label">Local Authority</label>
+                        <input type="text" class="form-control" id="inputPolLoc"/>
+                    </div>
+                    <!-- section: details-->
+                    <!-- exceprt english -->
+                    <div class="col-md-12">
+                        <h5>CONTENT</h5>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="inputPolExcNat" class="form-label">Excerpt (Native Language)</label>
+                        <textarea class="form-control" id="inputPolExcNat"></textarea>
+                    </div>
+                    <!-- excerpt native lang-->
+                    <div class="col-md-12">
+                        <label for="inputPolExcEng" class="form-label">Excerpt (English)</label>
+                        <textarea class="form-control" id="inputPolExcEng"></textarea>
+                    </div>
+                    <!-- abstract eng-->
+                    <div class="col-md-12">
+                        <label for="inputPolAbsNat" class="form-label">Abstract (Native Language)</label>
+                        <textarea class="form-control" id="inputPolAbsNat"></textarea>
+                    </div>
+                    <!-- abstract native lang-->
+                    <div class="col-md-12">
+                        <label for="inputPolAbsEng" class="form-label">Abstract (English)</label>
+                        <textarea class="form-control" id="inputPolAbsEng"></textarea>
+                    </div>
+                    <!-- abstract native lang-->
+                    <div class="col-md-12">
+                        <label for="inputPolAddtl" class="form-label">Anything we should note?</label>
+                        <textarea class="form-control" id="inputPolAddtl"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>   
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<script>
+    function changeForm(){
+        document.getElementById('gwp_graph')
+    }
+</script>
