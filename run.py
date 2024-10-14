@@ -117,28 +117,80 @@ def signup():
     
      return render_template('register.html',form=form)
 
-
+def authenticate_external_api(username, password):
+    
+    print("authenticate_external_api called with Username:", username) 
+    url = 'http://140.203.154.253:8016/web/session/authenticate'
+    headers = {'Content-Type': 'application/json'}
+    data = {
+    'jsonrpc': '2.0',
+    'params': {
+        "db": "aspect",
+        "login": username,
+        "password": password
+    }
+}
+    headers = {
+        'Content-Type': 'application/json',
+        'Cookie': 'session_id=108ca25e671d3265eab2a008c0d97de905642029'
+    }
+    
+    try:
+        print("Sending API request...")
+        response = requests.post(url, headers=headers, json=data, stream=True)
+        data = response.content 
+        
+            
+        
+        # Decode the response from bytes to a string
+        response = json.loads(data.decode("utf-8"))
+        
+        # Print the entire response for debugging
+        print("API Response:", json.dumps(response, indent=4))  # Pretty-print the response
+        
+        # Check for a successful response
+        if 'result' in response:
+            print("Authentication successful.")
+            return True, response['result']
+        else:
+            print("Authentication failed:", response.get('error', 'Unknown error occurred'))
+            return False, response.get('error', 'Unknown error occurred')
+    
+    except Exception as e:
+        # Print the exception details
+        print(f"Error during API request: {e}")
+        return False, str(e)
 # Index page
 @app.route('/login', methods=['GET', 'POST'])
-
 def login():
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         try:
             username = form.username.data
             password = form.password.data
-            db = connect_db()
-            cur = db.cursor()
-            cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (username, password))
-            user = cur.fetchone()
-            cur.close()
-            db.close()
-            if user:
-                session['username'] = username
-                #flash('User Logged In successfully!', 'success')
-                return redirect(url_for('dashboard'))  # Redirect to dashboard route
+            print("Form data - Username:", username)
+            print("Form data - Password:", password)
+            print("Calling authenticate_external_api()...")
+            # Authenticate using the external API
+            success, result = authenticate_external_api(username, password)
+            print("API call returned. Success:", success)
+            print("API result:", result)
+        
+            if success:
+                print("Authentication successful, storing session data...")
+                # Store relevant session information
+                session['username'] = result['username']
+                session['user_id'] = result['uid']
+                session['name'] = result['name']
+                session['company_id'] = result['company_id']
+                
+                # Redirect to dashboard or home after successful login
+                return redirect(url_for('dashboard'))
+        
             else:
+                # Handle API login failure
                 flash('Invalid username or password. Please try again.', 'danger')
+                
         except Exception as e:
             flash('An error occurred. Please try again.', 'danger')
             print(f"Error: {e}")  # Log the error to the console or a log file
@@ -149,6 +201,7 @@ def login():
         return redirect(url_for('map_page'))  # Redirect to dashboard route if already logged in
     
     return render_template('login.html', form=form)
+
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     # Clear the session data
