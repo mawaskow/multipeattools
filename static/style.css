@@ -9,6 +9,13 @@ h4, h5, p{
     color:  #1a1a1a;
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     font-size: 16px;
+    margin: 2px 2px 2px 2px;
+}
+
+.tt-form-label, .tt-form-check-label{
+    color:  #1a1a1a;
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 16px;
     margin: 2px 2px 2px 25px;
 }
 
@@ -125,6 +132,13 @@ button.btn-success:hover{
     outline: none;
 }
 
+.btn-success:checked+.btn-success, .btn-success.active, .btn-success.show, .btn-success:first-child:active, :not(.btn-success)+.btn-success:active{
+    color: #396d85;
+    background-color: #91c0d6;
+    border-color: transparent;
+    outline: none;
+}
+
 /*
 .btn.btn-success:focus {
   color: #1c4558;
@@ -203,6 +217,16 @@ button.btn-success:hover{
 .form-control{
     border: transparent;
     border-radius: 0;
+}
+
+.logreg-fc{
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    margin-top: 5px;
+}
+
+.form-group{
+    margin-top: 10px;
 }
 
 .input-group-text{
@@ -456,12 +480,12 @@ span.Economy{
 }
 
 .proj-sites-box:checked{
-    background-color: #aacc64;
+    background-color: #09b6ad;
     border-color: transparent;
 }
 
 .alk-fen-box:checked{
-    background-color: #ccdb72;
+    background-color: #c69966;
     border-color: transparent;
 }
 
@@ -472,6 +496,16 @@ span.Economy{
 
 .de-soil-box:checked{
     background-color: #a63a04;
+    border-color: transparent;
+}
+
+.bef-soil-box:checked{
+    background-color: #e38046;
+    border-color: transparent;
+}
+
+.bew-soil-box:checked{
+    background-color: #b66843;
     border-color: transparent;
 }
 
@@ -733,30 +767,70 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 
 /* policy visualization collection development list*/
 
-.polcol-acc-btn{
+.polcol-acc-btn, .stkcol-acc-btn{
     background-color: #e6f3f1;
 }
 
-.polcol-acc-bdy{
+.polcol-acc-bdy, .stkcol-acc-bdy{
     background-color: #e6f3f1;
 }
 
-.polcol-acc-btn:not(.collapsed){
+.polcol-acc-btn:not(.collapsed), .stkcol-acc-btn:not(.collapsed){
     background-color: #e6f3f1;
 }
 
-.polcol-acc-btn:focus{
+.polcol-acc-btn:focus, .stkcol-acc-btn:focus{
     outline:none}
 
-.polcol-lnk{
+.polcol-lnk, .stkcol-lnk{
     font-weight: bold;
     color: #3191a2;
     text-decoration: none;
 }
 
-.pol-coll-div{
+.pol-coll-div, .stk-coll-div{
     background-color: #b1c8cf;
     border-radius: 20px;
     padding: 20px;
     margin:20px;
+}
+
+/*Stakeholders page*/
+.stk-chk{
+    height: 18px;
+    width: 18px;
+    margin-left: 5px;
+}
+
+.stk-chk:checked{
+    background-color:#91c0d6;
+    border-color: transparent;
+}
+
+/*pol sub form*/
+.btn-ddw{
+    background: #ffffff;
+    border-color: transparent;
+    border-radius: 0px;
+    border-width: 0px;
+    outline: none;
+}
+
+.btn-ddw:hover{
+    background: #eeeeee;
+}
+
+.btn.btn-ddw:active,.btn.btn-ddw:focus,.btn.btn-ddw:focus-visible, .btn.btn-ddw:focus-within {
+  color: black;
+  background-color: white;
+}
+
+.btn-ddw.dropdown-toggle:active{
+    color: black;
+    background-color: white;
+}
+
+.btn-ddw:checked+.btn-ddw, .btn-ddw.active, .btn-ddw.show, .btn-ddw:first-child:active, :not(.btn-ddw)+.btn-ddw:active{
+    color: black;
+    background-color: white;
 }

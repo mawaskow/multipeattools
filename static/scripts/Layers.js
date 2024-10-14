@@ -11,11 +11,14 @@ const lyrClrLib = {
     'PL_Alk_Fens':`alk-fen-box`,
     'Corine18':`corine-box`,
     'NL_Peat_Soils':`nl-soil-box`,
-    'DE_Peatlands': `de-soil-box`
+    'DE_Peatlands': `de-soil-box`,
+    'BE_Fland_Peatlands': `bef-soil-box`,
+    'BE_Wallo_Peatlands': `bew-soil-box`
 };
 
 const regLib = {
     'International': "int-lyr-lyrs",
+    'Belgium':"be-lyr-lyrs",
     'Ireland': "ie-lyr-lyrs",
     'Poland': "pl-lyr-lyrs",
     'Netherlands':"nl-lyr-lyrs",

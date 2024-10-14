@@ -61,7 +61,7 @@ $("#map-layers-btn").on('click', function(event){
     sv = document.getElementById("map-layers-svg");
     if(ld.style.display == 'none'){
         ld.style.display = 'block';
-        sv.style.left = `175px`;
+        sv.style.left = `200px`;
     }else if(ld.style.display == 'block'){
         ld.style.display = 'none';
         sv.style.left = 0;
@@ -168,6 +168,22 @@ $("#de-lyr-tog").on('click', function(event){
     el = document.getElementById("de-lyr-lyrs");
     td = document.getElementById("de-lyr-tog-down");
     tu = document.getElementById("de-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#be-lyr-tog").on('click', function(event){
+    el = document.getElementById("be-lyr-lyrs");
+    td = document.getElementById("be-lyr-tog-down");
+    tu = document.getElementById("be-lyr-tog-up");
     
     if(el.style.display == 'none'){
         el.style.display = 'block';

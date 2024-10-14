@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Stakeholders{% endblock %}
+
+{% block content %}
+
+<div class="container" style="min-height: 800px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h4 class="text-center" style="padding:10px">GOVERNANCE STAKEHOLDERS</h4>
+            <p class="text-descr" style="padding-bottom:10px">
+                On this page you can explore our collection of political stakeholders for peatland-affecting policies. 
+                At the moment, you can filter the stakeholders by country and governance level.
+                We will be adding further stakeholders and querying methods as we grow our portal.
+            </p>
+
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Country
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Belgium" id="stk-chk-nat-bg" checked>
+                                <label class="form-check-label">Belgium</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Germany" id="stk-chk-nat-de" checked>
+                                <label class="form-check-label">Germany</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Ireland" id="stk-chk-nat-ie" checked>
+                                <label class="form-check-label">Ireland</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Netherlands" id="stk-chk-nat-nl" checked>
+                                <label class="form-check-label">Netherlands</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Poland" id="stk-chk-nat-pl" checked>
+                                <label class="form-check-label">Poland</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Governance Level
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!--
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Global" id="stk-chk-lvl-gb">
+                                <label class="form-check-label" for="flexCheckDefault">Global</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="European" id="stk-chk-lvl-eu">
+                                <label class="form-check-label" for="flexCheckDefault">European</label>
+                            </li>
+                            -->
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="National" id="stk-chk-lvl-nt" checked>
+                                <label class="form-check-label" for="flexCheckDefault">National</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Regional" id="stk-chk-lvl-rg" checked>
+                                <label class="form-check-label" for="flexCheckDefault">Regional</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Local" id="stk-chk-lvl-lc" checked>
+                                <label class="form-check-label" for="flexCheckDefault">Local</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-success" type="button" onclick="stakeholdersGetShow()">
+                        Search
+                    </button>
+                </div>
+            </div>
+            <div class="accordion stk-coll-div" id="stk-coll-div" style="margin-bottom: 10px;">
+                <p class="text-center" style="padding: 10px;">Please select a filter to begin exploring governance stakeholders.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function stakeholdersGetShow(){
+        // first, get request information
+        var fltr_dct = {
+            'country':[],
+            'level':[]
+        };
+        const ctrylst = ["bg","de","ie","nl","pl"];
+        const lvllst = ["gb","eu","nt","rg","lc"];
+        ctrylst.forEach(ctry => {
+            idname = "#stk-chk-nat-"+ctry;
+            if($(idname).prop("checked")){
+                fltr_dct['country'].push($(idname).prop("value"))
+            }
+        });
+        lvllst.forEach(lvl => {
+            idname = "#stk-chk-lvl-"+lvl;
+            if($(idname).prop("checked")){
+                fltr_dct['level'].push($(idname).prop("value"))
+            }
+        });
+        // get data
+        const url = '/stakeholderdata';
+        var stkLst = [];
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            stkcol= json["result"]["response"];
+            //console.log(stkcol);
+            stkcol.forEach(stk =>{
+                stkLst.push(stk);
+            })
+        } catch (error) {
+            console.error(error.message);
+        }
+        // render data
+        const stkPop = $('#stk-coll-div');
+        stkPop.html('');
+        stkPop.append(`<h4 id="stk-res-he" class="text-center" style="padding-bottom:20px">Stakeholders</h4>`);
+        var anyresults = false;
+        for (let i = 0; i < stkLst.length; i++) {
+            var stkhldr = stkLst[i];
+            if(fltr_dct['country'].includes(stkhldr['country']) && fltr_dct['level'].includes(stkhldr['level'])){
+                anyresults = true;
+                var element = `<div class="accordion-item stkcol-acc-itm" style="margin-bottom:5px;">
+                                                <div class="accordion-header stkcol-acc-hdr">
+                                                    <button class="accordion-button collapsed stkcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+                                                        <div class="container">
+                                                            <p class="d-inline" style="font-weight:bold;">${ stkhldr['name'] } </p>
+                                                            <p>${ stkhldr['country'] } | ${ stkhldr['level'] }</p>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                <div id="collapse${i}" class="accordion-collapse collapse stkcol-acc-coll">
+                                                    <div class="accordion-body stkcol-acc-bdy">
+                                                        <a href="${ stkhldr['stakeholder_link'] }" class="stkcol-lnk d-inline" style=>LINK</a>
+                                                        <p>${ stkhldr['description'] }</p>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                stkPop.append(element);
+            }
+        };
+        if(!anyresults){
+            stkPop.append(`<p class="text-center" style="color:black;">No stakeholders found. Please try other filter combinations.</p>`);
+        }
+    }
+</script>
+
+{% endblock %}

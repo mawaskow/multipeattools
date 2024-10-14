@@ -17,7 +17,8 @@ from wtforms import StringField, PasswordField, SubmitField, validators
 import psycopg2
 from flask import request, jsonify
 #
-from modules import get_db_cnxn, assum_json_to_dict, usrinp_json_to_dict
+from modules import assum_json_to_dict, usrinp_json_to_dict
+import requests
 
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -225,6 +226,20 @@ def policy():
          return render_template('policymain.html')
     return render_template('policymain.html', username=session['username'])
 
+@app.route('/stakeholders', methods=['GET', 'POST'])
+def stakeholders():
+    if 'username' not in session:
+         return render_template('stakeholders.html')
+    return render_template('stakeholders.html', username=session['username'])
+    
+@app.route('/policy-submit', methods=['GET', 'POST'])
+def sub_policy():
+    if 'username' not in session:
+         return render_template('polsubmit.html')
+    return render_template('polsubmit.html', username=session['username'])
+
+# DATA ENDPOINTS
+
 @app.route('/policy/level=<level>')
 def policy_bylevel(level):
     conn = connect_db()
@@ -288,7 +303,8 @@ def policyCountry(country):
 def getpols_eventual(lint):
     lvldct = {0:'European',1:'Global'}
     level = lvldct[lint]
-    conn = get_db_cnxn()
+    #conn = get_db_cnxn()
+    conn = connect_db()
     cur = conn.cursor()
     cur.execute(f"SELECT engname, level, classif, link FROM upd_geopol WHERE level='{level}'")
     policies = cur.fetchall()
@@ -301,6 +317,38 @@ def getkwds():
     with open(KWD_FILE, encoding="utf-8") as json_file:
         kwds = json.load(json_file)
     return kwds
+
+@app.route('/stakeholderdata')
+def getstk():
+    url = 'http://140.203.154.253:8016/aspect/stakeholders'
+
+    # Set up the headers
+    headers = {
+        'Content-Type': 'application/json'
+        #'Cookie': 'session_id='+str(cookie_value)
+    }
+
+    # Prepare the JSON payload
+    payload = {
+        "jsonrpc": "2.0",
+        "params": {}
+    }
+
+    # Send the GET request
+    response = requests.get(url, headers=headers, json=payload)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        try:
+            # Parse the JSON response
+            data = response.json()
+            #print(json.dumps(data, indent=2))
+        except ValueError:
+            print("Invalid JSON response")
+    else:
+        print(f"Request failed with status code {response.status_code}")
+        print(response.text)
+    return data
 
 '''
 Error Handling

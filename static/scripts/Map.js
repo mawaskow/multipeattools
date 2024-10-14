@@ -6,7 +6,8 @@ import ImageLayer from 'https://cdn.skypack.dev/ol/layer/Image.js';
 import ImageWMS from 'https://cdn.skypack.dev/ol/source/ImageWMS.js';
 import Projection from 'https://cdn.skypack.dev/ol/proj/Projection.js';
 
-const serverURL="https://multipeat.insight-centre.org/geoserver/wms";
+//const serverURL="https://multipeat.insight-centre.org/geoserver/wms";
+const serverURL="http://test-multipeat.insight-centre.org/geoserver/wms";
 
 const mapProjection=new Projection({
     code:'EPSG:3857',
@@ -105,7 +106,7 @@ const alkFenLayer= new ImageLayer({
     source:alkFenSource,
     // @ts-ignore
     name:'PL_Alk_Fens',
-    display: 'Alkaline Fens',
+    display: 'Alkaline Fen Map',
     region: 'Poland'
 });
 
@@ -119,7 +120,7 @@ const nlSoilLayer= new ImageLayer({
     source:nlSoilSource,
     // @ts-ignore
     name:'NL_Peat_Soils',
-    display: 'Peat Soils',
+    display: 'Dutch Soil Map',
     region: 'Netherlands'
 });
 
@@ -133,11 +134,38 @@ const detLayer= new ImageLayer({
     source:detSource,
     // @ts-ignore
     name:'DE_Peatlands',
-    display: 'Peatlands',
+    display: 'Thuenen Soil Map',
     region: 'Germany'
 });
 
-// CORINE-18 data for PL and IE for 411, 412, and 322
+// Belgian Peatlands
+const befSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:be_fland_peatsurf", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const befLayer= new ImageLayer({
+    source:befSource,
+    // @ts-ignore
+    name:'BE_Fland_Peatlands',
+    display: 'Flanders Surface Peat',
+    region: 'Belgium'
+});
+
+const bewSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:be_wallon_peat", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const bewLayer= new ImageLayer({
+    source:bewSource,
+    // @ts-ignore
+    name:'BE_Wallo_Peatlands',
+    display: 'Wallonia Eco Soils',
+    region: 'Belgium'
+});
+
+// CORINE-18 
 const corineSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:corine18", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -168,8 +196,8 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, PSLayer,
-        nlSoilLayer, detLayer, alkFenLayer, ctryLayer, ipolLayer],
+    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, nlSoilLayer, 
+        detLayer, alkFenLayer, befLayer, bewLayer, PSLayer, ctryLayer, ipolLayer],
     view:view
 });
 
