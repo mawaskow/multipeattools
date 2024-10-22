@@ -26,6 +26,11 @@
                     </div>
                     <!--start date and end date-->
                     <div class="col-md-3">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="When did the policy come into effect? Alternately, when was it published?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolStartDate" class="form-label">Start Year</label>
                         <input type="number" class="validate form-control" min="1900" max="2500" id="inputPolStartDate">
                     </div>
@@ -36,7 +41,7 @@
                     <!--categories-->
                     <div class="col-md-6 dropdown align-content-end">
                         <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="meowmwowmwoeowmeow">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Which of these 8 policy categories is the policy most concerned with?">
                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
@@ -84,6 +89,11 @@
                     <!-- section: region -->
                     <!--level-->
                     <div class="col-md-6 align-self-center">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Who does this policy affect? The whole world? The region of a country?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolLvl" class="form-label">Governance Level</label>
                         <select class="form-select" id="inputPolLvl">
                             <option selected>Governance Level</option>
@@ -96,26 +106,51 @@
                     </div>
                     <!-- language-->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="What is the native language of this policy?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolLang" class="form-label">Language</label>
                         <input type="text" class="form-control" id="inputPolLang"/>
                     </div>
                     <!-- Publisher-->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Who published this policy? e.g. Department of Finance">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolPub" class="form-label">Publisher</label>
                         <input type="text" class="form-control" id="inputPolPub"/>
                     </div>
                     <!-- Stakeholders -->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Additional entities involved in the policy.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolSta" class="form-label">Stakeholders</label>
                         <input type="text" class="form-control" id="inputPolSta"/>
                     </div>
                     <!-- link to policy page -->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Link to the policy's information page. This may contain a summary or metadata concerning the policy.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolPageLnk" class="form-label">Link to Page</label>
                         <input type="text" class="form-control" id="inputPolPageLnk"/>
                     </div>
                         <!-- link to policy pdf -->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Link to the policy's PDF (or word document, or embedded document)">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolPdfLnk" class="form-label">Link to PDF</label>
                         <input type="text" class="form-control" id="inputPolPdfLnk"/>
                     </div>
@@ -127,10 +162,20 @@
                         <input type="text" class="form-control" id="inputPolCtry"/>
                     </div>
                     <div class="col-md-6" id="inputPolRegDiv" style="display:none">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Regional policy's <a href='https://ec.europa.eu/eurostat/web/nuts/overview'>NUTS</a> region name.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolReg" class="form-label">Region [NUTS]</label>
                         <input type="text" class="form-control" id="inputPolReg"/>
                     </div>
                     <div class="col-md-6" id="inputPolLocDiv" style="display:none">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Local policy's locality name. This will be more specific than NUTS-3, e.g. for a county or town.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolLoc" class="form-label">Local Authority</label>
                         <input type="text" class="form-control" id="inputPolLoc"/>
                     </div>
@@ -138,6 +183,11 @@
                         <h5>CONTENT</h5>
                     </div>
                     <div class="col-md-12">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Excerpt from the policy's text that shows its relevance to the portal i.e. key sentence impacting peatlands/restoration work.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolExcNat" class="form-label">Excerpt (Native Language)</label>
                         <textarea class="form-control" id="inputPolExcNat"></textarea>
                     </div>
@@ -148,6 +198,11 @@
                     </div>
                     <!-- abstract eng-->
                     <div class="col-md-12">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="What the whole policy itself is about.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolAbsNat" class="form-label">Abstract (Native Language)</label>
                         <textarea class="form-control" id="inputPolAbsNat"></textarea>
                     </div>

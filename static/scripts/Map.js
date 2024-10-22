@@ -188,7 +188,8 @@ const osmLayer=new TileLayer({
 
 const view=new View({
     //extent:[-1189593, 6692152.5, -665102.8125, 7450535], // ireland
-    extent:[-2005155, 3723095, 3711745, 8600839], // europe
+    //extent:[-2005155, 3723095, 3711745, 8600839], // europe
+    extent:[-2850000, 3700000, 4000000, 11600000], // europe and EEA countries
     center:[-816308.25,7051300.85],
     zoom:7.5,
     projection: mapProjection
