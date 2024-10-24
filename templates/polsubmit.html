@@ -26,6 +26,11 @@
                     </div>
                     <!--start date and end date-->
                     <div class="col-md-3">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="When did the policy come into effect? Alternately, when was it published?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolStartDate" class="form-label">Start Year</label>
                         <input type="number" class="validate form-control" min="1900" max="2500" id="inputPolStartDate">
                     </div>
@@ -35,50 +40,62 @@
                     </div>
                     <!--categories-->
                     <div class="col-md-6 dropdown align-content-end">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Which of these 8 policy categories is the policy most concerned with?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPoldropbtn" class="form-label">Policy Domain</label>
-                        <a class="btn btn-ddw dropdown-toggle" id="inputPoldropbtn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Choose at least one category
-                        </a>
-                        <ul class="dropdown-menu" style="padding:0px">
-                            <div class="bio-cls-clr">
-                                <input id="bio-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="bio-cls-bx">Biodiversity</label>
-                            </div>
-                            <div class="clm-cls-clr">
-                                <input id="clm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="clm-cls-bx">Climate Action</label>
-                            </div>
-                            <div class="comm-cls-clr">
-                                <input id="comm-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="comm-cls-bx">Culture</label>
-                            </div>
-                            <div class="econ-cls-clr">
-                                <input id="econ-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="econ-cls-bx">Economy</label>
-                            </div>
-                            <div class="enr-cls-clr">
-                                <input id="enr-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="enr-cls-bx">Energy</label>
-                            </div>
-                            <div class="env-cls-clr">
-                                <input id="env-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="env-cls-bx">Env. Quality</label>
-                            </div>
-                            <div class="land-cls-clr">
-                                <input id="land-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="land-cls-bx">Land Use</label>
-                            </div>
-                            <div class="res-cls-clr">
-                                <input id="res-cls-bx" type="checkbox" class="form-check-input pol-cls-inp">
-                                <label for="res-cls-bx">Research</label>
-                            </div>
-                        </ul>
+                        <div style="min-width:100%">
+                            <a class="btn btn-ddw dropdown-toggle" id="inputPoldropbtn" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="font-size: 14px;">
+                                Choose at least one category
+                            </a>
+                            <ul class="dropdown-menu" style="padding:0px;">
+                                <div class="bio-cls-clr">
+                                    <input id="bio-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="bio-cls-bx-ps">Biodiversity</label>
+                                </div>
+                                <div class="clm-cls-clr">
+                                    <input id="clm-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="clm-cls-bx-ps">Climate Action</label>
+                                </div>
+                                <div class="comm-cls-clr">
+                                    <input id="comm-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="comm-cls-bx-ps">Culture</label>
+                                </div>
+                                <div class="econ-cls-clr">
+                                    <input id="econ-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="econ-cls-bx-ps">Economy</label>
+                                </div>
+                                <div class="enr-cls-clr">
+                                    <input id="enr-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="enr-cls-bx-ps">Energy</label>
+                                </div>
+                                <div class="env-cls-clr">
+                                    <input id="env-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="env-cls-bx-ps" style="margin-right: 5px;">Environmental Quality</label>
+                                </div>
+                                <div class="land-cls-clr">
+                                    <input id="land-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="land-cls-bx-ps">Land Use</label>
+                                </div>
+                                <div class="res-cls-clr">
+                                    <input id="res-cls-bx-ps" type="checkbox" class="form-check-input pol-cls-inp">
+                                    <label class="form-label" for="res-cls-bx-ps">Research</label>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                     <!-- section: region -->
                     <!--level-->
                     <div class="col-md-6 align-self-center">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Who does this policy affect? The whole world? The region of a country?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolLvl" class="form-label">Governance Level</label>
-                        <select class="form-select" id="inputPolLvl" onclick='changeForm()'>
+                        <select class="form-select" id="inputPolLvl">
                             <option selected>Governance Level</option>
                             <option value="global">Global</option>
                             <option value="eu">EU</option>
@@ -89,46 +106,88 @@
                     </div>
                     <!-- language-->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="What is the native language of this policy?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolLang" class="form-label">Language</label>
                         <input type="text" class="form-control" id="inputPolLang"/>
                     </div>
                     <!-- Publisher-->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Who published this policy? e.g. Department of Finance">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolPub" class="form-label">Publisher</label>
                         <input type="text" class="form-control" id="inputPolPub"/>
                     </div>
+                    <!-- Stakeholders -->
+                    <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Additional entities involved in the policy.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
+                        <label for="inputPolSta" class="form-label">Stakeholders</label>
+                        <input type="text" class="form-control" id="inputPolSta"/>
+                    </div>
                     <!-- link to policy page -->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Link to the policy's information page. This may contain a summary or metadata concerning the policy.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolPageLnk" class="form-label">Link to Page</label>
                         <input type="text" class="form-control" id="inputPolPageLnk"/>
                     </div>
                         <!-- link to policy pdf -->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Link to the policy's PDF (or word document, or embedded document)">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolPdfLnk" class="form-label">Link to PDF</label>
                         <input type="text" class="form-control" id="inputPolPdfLnk"/>
                     </div>
                     <div class="col-md-12">
-                        <h5>LOCATION</h5>
+                        <h5 id="inputPolLocHead" style="display:none">LOCATION</h5>
                     </div>
-                    <!--specific names-->
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="inputPolCtryDiv" style="display:none">
                         <label for="inputPolCtry" class="form-label">Country</label>
                         <input type="text" class="form-control" id="inputPolCtry"/>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="inputPolRegDiv" style="display:none">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Regional policy's <a href='https://ec.europa.eu/eurostat/web/nuts/overview'>NUTS</a> region name.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolReg" class="form-label">Region [NUTS]</label>
                         <input type="text" class="form-control" id="inputPolReg"/>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="inputPolLocDiv" style="display:none">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Local policy's locality name. This will be more specific than NUTS-3, e.g. for a county or town.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolLoc" class="form-label">Local Authority</label>
                         <input type="text" class="form-control" id="inputPolLoc"/>
                     </div>
-                    <!-- section: details-->
-                    <!-- exceprt english -->
                     <div class="col-md-12">
                         <h5>CONTENT</h5>
                     </div>
                     <div class="col-md-12">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Excerpt from the policy's text that shows its relevance to the portal i.e. key sentence impacting peatlands/restoration work.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolExcNat" class="form-label">Excerpt (Native Language)</label>
                         <textarea class="form-control" id="inputPolExcNat"></textarea>
                     </div>
@@ -139,6 +198,11 @@
                     </div>
                     <!-- abstract eng-->
                     <div class="col-md-12">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="What the whole policy itself is about.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolAbsNat" class="form-label">Abstract (Native Language)</label>
                         <textarea class="form-control" id="inputPolAbsNat"></textarea>
                     </div>
@@ -149,19 +213,92 @@
                     </div>
                     <!-- abstract native lang-->
                     <div class="col-md-12">
-                        <label for="inputPolAddtl" class="form-label">Anything we should note?</label>
+                        <label for="inputPolAddtl" class="form-label">Anything else we should note?</label>
                         <textarea class="form-control" id="inputPolAddtl"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <div class="row justify-content-center" style="margin-top: 15px;">
+                        <div class="col-md-3">
+                            <button id="inputPolSub" type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>   
         </div>
     </div>
 </div>
-{% endblock %}
 
 <script>
-    function changeForm(){
-        document.getElementById('gwp_graph')
-    }
+    $('#inputPolSub').on('click', function(event){
+        var title_nat = document.getElementById('inputPolNatName').value;
+        var title_eng = document.getElementById('inputPolEngName').value;
+        var yr_start = document.getElementById('inputPolStartDate').value;
+        var yr_end = document.getElementById('inputPolEndDate').value;
+        // start categories
+        var bio_cls = document.getElementById('bio-cls-bx-ps').checked;
+        var clm_cls = document.getElementById('clm-cls-bx-ps').checked;
+        var comm_cls = document.getElementById('comm-cls-bx-ps').checked;
+        var econ_cls = document.getElementById('econ-cls-bx-ps').checked;
+        var enr_cls = document.getElementById('enr-cls-bx-ps').checked;
+        var env_cls = document.getElementById('env-cls-bx-ps').checked;
+        var land_cls = document.getElementById('land-cls-bx-ps').checked;
+        var res_cls = document.getElementById('res-cls-bx-ps').checked;
+        // end categories
+        var lvl = document.getElementById('inputPolLvl').value;
+        var lang = document.getElementById('inputPolLang').value;
+        var pub = document.getElementById('inputPolPub').value;
+        var sta = document.getElementById('inputPolSta').value;
+        var page = document.getElementById('inputPolPageLnk').value;
+        var pdf = document.getElementById('inputPolPdfLnk').value;
+        //
+        var cntry = document.getElementById('inputPolCtry').value;
+        var region = document.getElementById('inputPolReg').value;
+        var local = document.getElementById('inputPolLoc').value;
+        //
+        var exc_nat = document.getElementById('inputPolExcNat').value;
+        var exc_eng = document.getElementById('inputPolExcEng').value;
+        var abs_nat = document.getElementById('inputPolAbsNat').value;
+        var abs_eng = document.getElementById('inputPolAbsEng').value;
+        //
+        var notes = document.getElementById('inputPolAddtl').value;
+        //
+        var categories = []
+        var bool_classes = [bio_cls, clm_cls, comm_cls, econ_cls, enr_cls, env_cls, land_cls, res_cls]
+        var name_classes = ["Biodiversity", "Climate", "Community", "Economy", "Energy", "Environment", "Land Use", "Research"]
+        for(let i = 0; i < 8; i++){
+            if(bool_classes[i]){
+                categories.push(name_classes[i])
+            }
+        }
+        var policy = JSON.stringify({
+            title_nat: title_nat,
+            title_eng: title_eng,
+            year_start: yr_start,
+            year_end: yr_end,
+            categories: categories,
+            level: lvl,
+            language: lang,
+            publisher: pub,
+            stakeholders: sta,
+            page_link: page,
+            pdf_link: pdf,
+            country: cntry,
+            region: region,
+            local_auth: local,
+            exc_nat: exc_nat,
+            exc_eng: exc_eng,
+            abs_nat: abs_nat,
+            abs_eng: abs_eng,
+            notes: notes
+        })
+        console.log(policy);
+    })
+
 </script>
+
+<!--popover script-->
+<script>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
+
+{% endblock %}

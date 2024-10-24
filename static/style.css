@@ -817,7 +817,7 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 }
 
 .btn-ddw:hover{
-    background: #eeeeee;
+    background: white;
 }
 
 .btn.btn-ddw:active,.btn.btn-ddw:focus,.btn.btn-ddw:focus-visible, .btn.btn-ddw:focus-within {

@@ -195,3 +195,39 @@ $("#be-lyr-tog").on('click', function(event){
         tu.style.display = 'none';
     }
 });
+
+$("#inputPolLvl").on('change', function(event){
+    var lvl_sel = document.getElementById('inputPolLvl');
+    //
+    var h5 = document.getElementById('inputPolLocHead');
+    var cd = document.getElementById('inputPolCtryDiv');
+    var rd = document.getElementById('inputPolRegDiv');
+    var ld = document.getElementById('inputPolLocDiv');
+    //
+    if(lvl_sel.value=="national"){
+        h5.style.display ='block';
+        cd.style.display ='block';
+        rd.style.display ='none';
+        ld.style.display ='none';
+    }else if(lvl_sel.value=="regional"){
+        h5.style.display ='block';
+        cd.style.display ='block';
+        rd.style.display ='block';
+        ld.style.display ='none';
+    }else if(lvl_sel.value=="local"){
+        h5.style.display ='block';
+        cd.style.display ='block';
+        rd.style.display ='block';
+        ld.style.display ='block';
+    }else if(lvl_sel.value=="eu"){
+        h5.style.display ='none';
+        cd.style.display ='none';
+        rd.style.display ='none';
+        ld.style.display ='none';
+    }else if(lvl_sel.value=="global"){
+        h5.style.display ='none';
+        cd.style.display ='none';
+        rd.style.display ='none';
+        ld.style.display ='none';
+    }
+});
