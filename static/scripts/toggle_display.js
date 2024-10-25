@@ -204,27 +204,27 @@ $("#inputPolLvl").on('change', function(event){
     var rd = document.getElementById('inputPolRegDiv');
     var ld = document.getElementById('inputPolLocDiv');
     //
-    if(lvl_sel.value=="national"){
+    if(lvl_sel.value=="National"){
         h5.style.display ='block';
         cd.style.display ='block';
         rd.style.display ='none';
         ld.style.display ='none';
-    }else if(lvl_sel.value=="regional"){
+    }else if(lvl_sel.value=="Regional"){
         h5.style.display ='block';
         cd.style.display ='block';
         rd.style.display ='block';
         ld.style.display ='none';
-    }else if(lvl_sel.value=="local"){
+    }else if(lvl_sel.value=="Local"){
         h5.style.display ='block';
         cd.style.display ='block';
         rd.style.display ='block';
         ld.style.display ='block';
-    }else if(lvl_sel.value=="eu"){
+    }else if(lvl_sel.value=="EU"){
         h5.style.display ='none';
         cd.style.display ='none';
         rd.style.display ='none';
         ld.style.display ='none';
-    }else if(lvl_sel.value=="global"){
+    }else if(lvl_sel.value=="Global"){
         h5.style.display ='none';
         cd.style.display ='none';
         rd.style.display ='none';
