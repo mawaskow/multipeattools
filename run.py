@@ -2,20 +2,15 @@ import os
 import json
 from sys import exit
 from flask import Flask
-from flask import url_for, render_template, send_file, request, redirect
+from flask import url_for, render_template, send_file, request, redirect, session, send_from_directory, flash, jsonify
 from werkzeug.utils import secure_filename
+from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-from flask_wtf.csrf import CSRFProtect
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask import Flask, flash, redirect, url_for, render_template
-from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, validators
 import psycopg2
-from flask import request, jsonify
 #
 from modules import assum_json_to_dict, usrinp_json_to_dict
 import requests
@@ -73,6 +68,32 @@ conn_params = {
     'host': '140.203.155.91',
     'port': '5432'
 }
+
+def create_dataendpoint(url):
+    headers = {
+        'Content-Type': 'application/json'
+        #'Cookie': 'session_id='+str(cookie_value)
+    }
+    # Prepare the JSON payload
+    payload = {
+        "jsonrpc": "2.0",
+        "params": {}
+    }
+    # Send the GET request
+    #response = requests.get(url, headers=headers, json=payload)
+    response = requests.post(url, headers=headers, json=payload, stream=True)
+    # Check if the request was successful
+    if response.status_code == 200:
+        try:
+            # Parse the JSON response
+            data = response.json()
+            #print(json.dumps(data, indent=2))
+        except ValueError:
+            print("Invalid JSON response")
+    else:
+        print(f"Request failed with status code {response.status_code}")
+        print(response.text)
+    return data
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=4, max=25)])
@@ -234,6 +255,77 @@ def stakeholders():
     
 @app.route('/policy-submit', methods=['GET', 'POST'])
 def sub_policy():
+    categdct = {
+        'bio-cls': 1,
+        'clm-cls': 2,
+        'enr-cls': 3,
+        'econ-cls': 4,
+        'land-cls': 5,
+        'comm-cls': 6,
+        'res-cls': 7,
+        'env-cls': 8
+    }
+    if request.method == 'POST':
+        #url = 'http://localhost:8616/aspect/create_policy/'
+        url = 'http://140.203.154.253:8016/aspect/create_policy/'
+
+        # Set up the headers
+        headers = {
+            'Content-Type': 'application/json',
+            #='Cookie': 'session_id='+str(cookie_value)
+        }
+        '''
+        category_list = []
+        for key in list(categdct):
+            if request.form[key]:
+                category_list.append(categdct[key])
+        #[categdct[key] for key in list(categdct) if request.form[key]][0]
+        print(category_list)
+        '''
+        payload = {
+            "jsonrpc": "2.0",
+            "params": {
+                "name": request.form['nattitle'], 
+                "name_language": request.form['pollang'],  
+                "type": "Policy",  
+                "category": 1,
+                "policy_level": request.form['govlvl'],  
+                "country_group": 1,  
+                "country": request.form['ctry'],  
+                "localauthority1": request.form['loc'],  
+                "nuts_level_1": request.form['reg'],  
+                "year_from": request.form['startyr'],  
+                "year_to": request.form['endyr'],  
+                "publisher_char": request.form['polpub'],  
+                "publisher_link": request.form['pglnk'],  
+                "data_link": request.form['pdflnk'],  
+                "excerpt": request.form['excnat'],  
+                "excerpt_english": request.form['exceng'],  
+                "abstract": request.form['absnat'],  
+                "abstract_english": request.form['abseng'],  
+                "state": "Draft"
+            }
+        }
+        # Send the GET request
+        response = requests.post(url, headers=headers, json=payload, stream=True)
+        # Check if the request was successful
+        if response.status_code == 200:
+            try:
+                # Parse the JSON response
+                data = response.json()
+                print(json.dumps(data, indent=2))
+            except ValueError:
+                print("Invalid JSON response")
+        else:
+            print(f"Request failed with status code {response.status_code}")
+            print(response.text)
+        
+        print(payload)
+        if 'username' not in session:
+            return render_template('polsubmit.html')
+        return render_template('polsubmit.html', username=session['username'])
+        
+    # non-post request
     if 'username' not in session:
          return render_template('polsubmit.html')
     return render_template('polsubmit.html', username=session['username'])
@@ -321,34 +413,27 @@ def getkwds():
 @app.route('/stakeholderdata')
 def getstk():
     url = 'http://140.203.154.253:8016/aspect/stakeholders'
+    return create_dataendpoint(url)
 
-    # Set up the headers
-    headers = {
-        'Content-Type': 'application/json'
-        #'Cookie': 'session_id='+str(cookie_value)
-    }
+@app.route('/categorydata')
+def getcateg():
+    url = 'http://140.203.154.253:8016/aspect/category/'
+    return create_dataendpoint(url)
 
-    # Prepare the JSON payload
-    payload = {
-        "jsonrpc": "2.0",
-        "params": {}
-    }
+@app.route('/countrydata')
+def getctry():
+    url = 'http://140.203.154.253:8016/aspect/countries/'
+    return create_dataendpoint(url)
 
-    # Send the GET request
-    response = requests.get(url, headers=headers, json=payload)
+@app.route('/localdata/<int:code>')
+def getlocal(code):
+    url = f'http://140.203.154.253:8016/aspect/state/{code}/'
+    return create_dataendpoint(url)
 
-    # Check if the request was successful
-    if response.status_code == 200:
-        try:
-            # Parse the JSON response
-            data = response.json()
-            #print(json.dumps(data, indent=2))
-        except ValueError:
-            print("Invalid JSON response")
-    else:
-        print(f"Request failed with status code {response.status_code}")
-        print(response.text)
-    return data
+@app.route('/nutsdata/<int:code>')
+def getnuts(code):
+    url = f'http://140.203.154.253:8016/aspect/nuts/{code}/'
+    return create_dataendpoint(url)
 
 '''
 Error Handling
