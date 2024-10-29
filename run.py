@@ -116,28 +116,31 @@ def signup():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        try:
-            # Establish a connection to the database
-            with psycopg2.connect(**conn_params) as conn:
-                with conn.cursor() as cur:
-                    # Execute the insert statement with parameterized query
-                    cur.execute(
-                        "INSERT INTO users (email, password, name) VALUES (%s, %s, %s)",
-                        (email, password, name)
-                    )
-                    # Commit the transaction
-                    conn.commit()
-
-            flash('User signed up successfully!')
-            return redirect(url_for('login'))
-        except psycopg2.Error as e:
-            # Handle any database errors
-            return f'Error: {e}'
+        url = 'http://140.203.154.253:8016/aspect/signup/'
+        headers = {'Content-Type': 'application/json'}
+        data = {
+        'jsonrpc': '2.0',
+        'params': {
+        "db": "aspect",
+        "login": email,
+        "password": password,
+        "name": name}
+    }
+        response = requests.post(url, headers=headers, json=data, stream=True)
+        data = response.json()
+        print(json.dumps(data, indent=2))
+        result = data.get("result", {})
+        status = result.get("status")
+        message_text = result.get("message")
+        if status == 200 and message_text == "success":
+                 flash('User signed up successfully!')
+                 return redirect(url_for('login'))
+        else:
+                 flash('User signed up Failed!')
+                 return render_template('register.html',form=form)
     else:
-        # Render the sign-up form template
-    
-     return render_template('register.html',form=form)
-
+                 return render_template('register.html',form=form)
+# Check if the request was successful
 def authenticate_external_api(username, password):
     
     print("authenticate_external_api called with Username:", username) 
@@ -308,6 +311,7 @@ def stakeholders():
     
 @app.route('/policy-submit', methods=['GET', 'POST'])
 def sub_policy():
+    #
     categdct = {
         'bio-cls': 1,
         'clm-cls': 2,
@@ -319,6 +323,7 @@ def sub_policy():
         'env-cls': 8
     }
     if request.method == 'POST':
+        policy_level = request.form['govlvl']
         #url = 'http://localhost:8616/aspect/create_policy/'
         url = 'http://140.203.154.253:8016/aspect/create_policy/'
 
@@ -345,8 +350,8 @@ def sub_policy():
                 "policy_level": request.form['govlvl'],  
                 "country_group": 1,  
                 "country": request.form['ctry'],  
-                "localauthority1": request.form['loc'],  
-                "nuts_level_1": request.form['reg'],  
+                "localauthority1": request.form['loc'], 
+                "nuts_level_1": '' if policy_level in ['Global', 'European'] else request.form['reg'],  # Conditional assignment
                 "year_from": request.form['startyr'],  
                 "year_to": request.form['endyr'],  
                 "publisher_char": request.form['polpub'],  
@@ -360,6 +365,7 @@ def sub_policy():
             }
         }
         # Send the GET request
+        print(payload)
         response = requests.post(url, headers=headers, json=payload, stream=True)
         # Check if the request was successful
         if response.status_code == 200:
@@ -367,11 +373,19 @@ def sub_policy():
                 # Parse the JSON response
                 data = response.json()
                 print(json.dumps(data, indent=2))
+                print ('policy submitted successfully')
+                result = data.get("result", {})
+                status = result.get("status")
+                message_text = result.get("message")
+                if status == 200 and message_text == "success":
+                 message = "Policy has been submitted successfully!"
+                else:
+                 message = "Policy submission failed. Please try again."
+                return render_template('polsubmit.html',message=message)
             except ValueError:
-                print("Invalid JSON response")
+                return render_template('polsubmit.html',message="Policy submission failed. Please try again")
         else:
-            print(f"Request failed with status code {response.status_code}")
-            print(response.text)
+            return render_template('polsubmit.html',message="Policy submission failed. Please try again")
         
         print(payload)
         if 'username' not in session:
