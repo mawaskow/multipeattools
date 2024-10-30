@@ -464,18 +464,8 @@ span.Economy{
     border-color: transparent;
 }
 
-.raised-bog-box:checked{
+.ie-dipm-box:checked{
     background-color: #e7970d;
-    border-color: transparent;
-}
-
-.ll-atl-box:checked{
-    background-color: #cdac64;
-    border-color: transparent;
-}
-
-.hl-mont-box:checked{
-    background-color: #877047;
     border-color: transparent;
 }
 
