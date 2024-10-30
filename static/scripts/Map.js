@@ -31,42 +31,16 @@ const PSLayer= new ImageLayer({
 });
 
 // Irish Peat Classes
-const D1Source=new ImageWMS({
+const ieSource=new ImageWMS({
     url:serverURL,
-    params:{"LAYERS":"multipeat:dipm1", "VERSION":"1.1.1", "FORMAT":"image/png"}
+    params:{"LAYERS":"multipeat:dipm", "VERSION":"1.1.1", "FORMAT":"image/png"}
 });
 
-const D1Layer= new ImageLayer({
-    source:D1Source,
+const ieLayer= new ImageLayer({
+    source:ieSource,
     // @ts-ignore
-    name:'Raised_Bog',
-    display: 'Raised Bog',
-    region: 'Ireland'
-});
-
-const D2Source=new ImageWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:dipm2", "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const D2Layer= new ImageLayer({
-    source:D2Source,
-    // @ts-ignore
-    name:'LL_Atlantic_Bog',
-    display: 'LL Atlantic Bog',
-    region: 'Ireland'
-});
-
-const D3Source=new ImageWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:dipm3", "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const D3Layer= new ImageLayer({
-    source:D3Source,
-    // @ts-ignore
-    name:'HL_Montane_Bog',
-    display: 'HL Montane Bog',
+    name:'IE_dipm',
+    display: 'Irish Peat Map',
     region: 'Ireland'
 });
 
@@ -197,7 +171,7 @@ const view=new View({
 
 const map=new Map({
     target:"map",
-    layers:[osmLayer, corineLayer, D1Layer, D2Layer, D3Layer, nlSoilLayer, 
+    layers:[osmLayer, corineLayer, ieLayer, nlSoilLayer, 
         detLayer, alkFenLayer, befLayer, bewLayer, PSLayer, ctryLayer, ipolLayer],
     view:view
 });

@@ -5,9 +5,7 @@ const layers=map.getLayers();
 
 const lyrClrLib = {
     'Project_Sites':`proj-sites-box`,
-    'Raised_Bog':`raised-bog-box`,
-    'LL_Atlantic_Bog':`ll-atl-box`,
-    'HL_Montane_Bog':`hl-mont-box`,
+    'IE_dipm':`ie-dipm-box`,
     'PL_Alk_Fens':`alk-fen-box`,
     'Corine18':`corine-box`,
     'NL_Peat_Soils':`nl-soil-box`,
