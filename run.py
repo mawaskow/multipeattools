@@ -412,7 +412,7 @@ def getkwds():
 
 @app.route('/stakeholderdata')
 def getstk():
-    url = 'http://140.203.154.253:8016/aspect/stakeholders'
+    url = 'http://140.203.154.253:8016/aspect/stakeholders/0'
     return create_dataendpoint(url)
 
 @app.route('/categorydata')
@@ -434,6 +434,27 @@ def getlocal(code):
 def getnuts(code):
     url = f'http://140.203.154.253:8016/aspect/nuts/{code}/'
     return create_dataendpoint(url)
+
+@app.route('/languagedata')
+def getlangs():
+    url = 'http://140.203.154.253:8016/aspect/languages/'
+    return create_dataendpoint(url)
+
+@app.route('/keyworddatanew')
+def getkwdsnew():
+    url = 'http://140.203.154.253:8016/aspect/keywords/'
+    return create_dataendpoint(url)
+
+@app.route('/stakeholderdatanew/<int:code>')
+def getstknew(code):
+    url = f'http://140.203.154.253:8016/aspect/stakeholders/{code}/'
+    return create_dataendpoint(url)
+
+@app.route('/publisherdata/<int:code>')
+def getpubs(code):
+    url = f'http://140.203.154.253:8016/aspect/publishers/{code}/'
+    return create_dataendpoint(url)
+
 
 '''
 Error Handling
