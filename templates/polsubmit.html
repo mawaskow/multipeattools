@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Policy Submission Form{% endblock %}
+{% block title %}Policy Suggestion Form{% endblock %}
 
 {% block content %}
 <div class="container" style="min-height: 760px;">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <h4 class="text-center" style="padding:10px">POLICY SUBMISSION FORM</h4>
-             <h5 class="text-center" style="padding:10px">{{ message }}</h5> 
-            <p class="text-descr text-center" style="padding-bottom:10px">
-                If we are missing a relevant policy, please enter its information here and we will add it to our portal.
+            <h4 class="text-center" style="padding:5px; padding-top:20px">POLICY SUGGESTION FORM</h4>
+            <h5 class="text-center" style="padding:5px">{{ message }}</h5> 
+            <p class="text-descr text-center" style="padding-bottom:10px; padding-top: 5px;">
+                If a peatland-affecting policy is missing from our collection, please write the name of the policy and any additional information you can provide below. We will review your suggestion for addition to our portal.
             </p>
+            <p style="color: red;" class="d-inline">* denotes required field.</p>
             <div class="pol-coll-div text-center" style="margin-bottom: 10px;">
                 <form method="post" class="row g-3">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -19,7 +20,13 @@
                     </div>
                     <!-- titles native and english -->
                     <div class="col-md-6">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="What is the title of the policy in its original/ native language?">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            </a>
+                        </svg>
                         <label for="inputPolNatName" class="form-label">Policy Title (Native Language)</label>
+                        <p style="color: red;" class="d-inline">*</p>
                         <input type="text" class="form-control" id="inputPolNatName" name="nattitle" required>
                     </div>
                     <div class="col-md-6">
@@ -98,7 +105,6 @@
                         </svg>
                         <label for="inputPolLvl" class="form-label">Governance Level</label>
                         <select class="form-select" id="inputPolLvl" name="govlvl">
-                           
                             <option value="Global">Global</option>
                             <option value="European">EU</option>
                             <option value="National">National</option>
@@ -114,7 +120,9 @@
                             </a>
                         </svg>
                         <label for="inputPolLang" class="form-label">Language</label>
-                        <input type="text" class="form-control" id="inputPolLang" name="pollang"/>
+                        <select class="form-select" id="inputPolLang" name="pollang">
+                            <option value="" selected>Language</option>
+                        </select>
                     </div>
                     <!-- Publisher-->
                     <div class="col-md-6">
@@ -124,7 +132,9 @@
                             </a>
                         </svg>
                         <label for="inputPolPub" class="form-label">Publisher</label>
-                        <input type="text" class="form-control" id="inputPolPub" name="polpub"/>
+                        <select class="form-select" id="inputPolPub" name="polpub">
+                            <option value="" selected>Publisher</option>
+                        </select>
                     </div>
                     <!-- Stakeholders -->
                     <div class="col-md-6">
@@ -134,7 +144,9 @@
                             </a>
                         </svg>
                         <label for="inputPolSta" class="form-label">Stakeholders</label>
-                        <input type="text" class="form-control" id="inputPolSta" name="polsta"/>
+                        <select class="form-select" id="inputPolSta" name="polsta">
+                            <option value="" selected>Stakeholders</option>
+                        </select>
                     </div>
                     <!-- link to policy page -->
                     <div class="col-md-6">
@@ -253,6 +265,65 @@
     xhttp.open("GET", "/countrydata", true);
     xhttp.send();
 
+    /// populate language selection
+    var xhttp;
+    xhttp =  new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText)['result']['response'];
+            //console.log(obj);
+            obj.forEach(entry =>{
+                const element = `<option value="${entry['id']}">${entry['name']}</option>`;
+                const ctry_sel = $(`#inputPolLang`);
+                ctry_sel.append(element);
+            });
+        }
+    };
+    xhttp.open("GET", "/languagedata", true);
+    xhttp.send();
+    
+    /// populate general stakeholder selection
+    const stk_sel = $(`#inputPolSta`);
+    stk_sel.empty();
+    stk_sel.append(`<option value="" selected>Stakeholders</option>`);
+    var xhttp;
+    xhttp =  new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //var obj = JSON.parse(this.responseText);
+            //console.log(obj);
+            var obj = JSON.parse(this.responseText)['result']['response'];
+            //console.log(obj);
+            obj.forEach(entry =>{
+                const element = `<option value="${entry['id']}">${entry['name']}</option>`;
+                stk_sel.append(element);
+            });
+        }
+    };
+    xhttp.open("GET", `/stakeholderdatanew/0`, true);
+    xhttp.send();
+
+    /// populate general publisher selection
+    const pub_sel = $(`#inputPolPub`);
+    pub_sel.empty();
+    pub_sel.append(`<option value="" selected>Publisher</option>`);
+    var xhttp;
+    xhttp =  new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //var obj = JSON.parse(this.responseText);
+            //console.log(obj);
+            var obj = JSON.parse(this.responseText)['result']['response'];
+            //console.log(obj);
+            obj.forEach(entry =>{
+                const element = `<option value="${entry['id']}">${entry['name']}</option>`;
+                pub_sel.append(element);
+            });
+        }
+    };
+    xhttp.open("GET", `/publisherdata/0`, true);
+    xhttp.send();
+
     $('#inputPolCtry').on('change', function(event){
         var code = document.getElementById('inputPolCtry').value;
         /// populate region selection
@@ -295,6 +366,49 @@
         };
         xhttp.open("GET", `/localdata/${code}`, true);
         xhttp.send();
+        
+        /// populate country stakeholder selection
+        const stk_sel = $(`#inputPolSta`);
+        stk_sel.empty();
+        stk_sel.append(`<option value="" selected>Stakeholders</option>`);
+        var xhttp;
+        xhttp =  new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                //var obj = JSON.parse(this.responseText);
+                //console.log(obj);
+                var obj = JSON.parse(this.responseText)['result']['response'];
+                //console.log(obj);
+                obj.forEach(entry =>{
+                    const element = `<option value="${entry['country_id']}">${entry['name']}</option>`;
+                    stk_sel.append(element);
+                });
+            }
+        };
+        xhttp.open("GET", `/stakeholderdatanew/${code}`, true);
+        console.log(`${code}`)
+        xhttp.send();
+        /// populate country publisher selection
+        const pub_sel = $(`#inputPolPub`);
+        pub_sel.empty();
+        pub_sel.append(`<option value="" selected>Publisher</option>`);
+        var xhttp;
+        xhttp =  new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                //var obj = JSON.parse(this.responseText);
+                //console.log(obj);
+                var obj = JSON.parse(this.responseText)['result']['response'];
+                //console.log(obj);
+                obj.forEach(entry =>{
+                    const element = `<option value="${entry['country_id']}">${entry['name']}</option>`;
+                    pub_sel.append(element);
+                });
+            }
+        };
+        xhttp.open("GET", `/publisherdata/${code}`, true);
+        xhttp.send();
+        
     })
 </script>
 

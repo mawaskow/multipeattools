@@ -14,7 +14,7 @@ import psycopg2
 #
 from modules import assum_json_to_dict, usrinp_json_to_dict
 import requests
-
+#added remarks for run.py
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
 # flask run
@@ -309,7 +309,7 @@ def stakeholders():
          return render_template('stakeholders.html')
     return render_template('stakeholders.html', username=session['username'])
     
-@app.route('/policy-submit', methods=['GET', 'POST'])
+@app.route('/policy-suggestion', methods=['GET', 'POST'])
 def sub_policy():
     #
     categdct = {
@@ -373,24 +373,19 @@ def sub_policy():
                 # Parse the JSON response
                 data = response.json()
                 print(json.dumps(data, indent=2))
-                print ('policy submitted successfully')
+                print ('policy suggestion sent successfully')
                 result = data.get("result", {})
                 status = result.get("status")
                 message_text = result.get("message")
                 if status == 200 and message_text == "success":
-                 message = "Policy has been submitted successfully!"
+                 message = "We have received your policy suggestion!"
                 else:
-                 message = "Policy submission failed. Please try again."
+                 message = "Policy suggestion failed. Please try again."
                 return render_template('polsubmit.html',message=message)
             except ValueError:
-                return render_template('polsubmit.html',message="Policy submission failed. Please try again")
+                return render_template('polsubmit.html',message="Policy suggestion failed. Please try again")
         else:
-            return render_template('polsubmit.html',message="Policy submission failed. Please try again")
-        
-        print(payload)
-        if 'username' not in session:
-            return render_template('polsubmit.html')
-        return render_template('polsubmit.html', username=session['username'])
+            return render_template('polsubmit.html',message="Policy suggestion failed. Please try again")
         
     # non-post request
     if 'username' not in session:
@@ -521,7 +516,6 @@ def getstknew(code):
 def getpubs(code):
     url = f'http://140.203.154.253:8016/aspect/publishers/{code}/'
     return create_dataendpoint(url)
-
 
 '''
 Error Handling
