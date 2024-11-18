@@ -343,8 +343,9 @@ def sub_policy():
         payload = {
             "jsonrpc": "2.0",
             "params": {
-                "name": request.form['nattitle'], 
-                "name_language": request.form['pollang'],  
+                "name": request.form['engtitle'],
+                "name_language": request.form['nattitle'],
+                "language": request.form['pollang'],
                 "type": "Policy",  
                 "category": 1,
                 "policy_level": request.form['govlvl'],  
@@ -353,9 +354,12 @@ def sub_policy():
                 "localauthority1": request.form['loc'], 
                 "nuts_level_1": '' if policy_level in ['Global', 'European'] else request.form['reg'],  # Conditional assignment
                 "year_from": request.form['startyr'],  
-                "year_to": request.form['endyr'],  
-                "publisher_char": request.form['polpub'],  
-                "publisher_link": request.form['pglnk'],  
+                "year_to": request.form['endyr'],
+                "publisher": request.form['polpub'],
+                "publisher_char": request.form['polpub_t'],
+                "stakholder_ids": request.form['polsta'],
+                "stakeholder_char": request.form['polsta_t'],
+                "publisher_link": request.form['pglnk'], 
                 "data_link": request.form['pdflnk'],  
                 "excerpt": request.form['excnat'],  
                 "excerpt_english": request.form['exceng'],  
