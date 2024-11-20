@@ -33,6 +33,11 @@ p.text-descr, label.text-descr{
     font-size: 16px;
 }
 
+.text-center{
+    justify-content: center;
+    padding: 5px;
+}
+
 /* navbar */ 
 a.navbar-brand{
     font-size: 25px;

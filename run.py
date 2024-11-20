@@ -244,6 +244,13 @@ ROUTES
 def landingpage():
     return redirect(url_for('map_page'))
 
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    username = session.get('username')
+    if username is None:
+        return render_template('about.html')
+    return render_template('about.html', username=session['username'])
+
 @app.route('/map', methods=['GET', 'POST'])
 def map_page():
     username = session.get('username')
@@ -323,23 +330,43 @@ def sub_policy():
         'env-cls': 8
     }
     if request.method == 'POST':
-        policy_level = request.form['govlvl']
         #url = 'http://localhost:8616/aspect/create_policy/'
         url = 'http://140.203.154.253:8016/aspect/create_policy/'
-
         # Set up the headers
         headers = {
             'Content-Type': 'application/json',
             #='Cookie': 'session_id='+str(cookie_value)
         }
-        '''
+        # get policy level for conditional
+        policy_level = request.form['govlvl']
         category_list = []
+        pub_list = []
+        stk_list = []
+        # get category list
         for key in list(categdct):
-            if request.form[key]:
-                category_list.append(categdct[key])
-        #[categdct[key] for key in list(categdct) if request.form[key]][0]
-        print(category_list)
-        '''
+            # try/ except so non-selected categories don't trigger bad request 
+            try: 
+                if request.form[key]:
+                    category_list.append(categdct[key])
+            except:
+                pass
+        # get publisher list and handle "other"
+        # [int(entry) for entry in request.form.getlist('polpub')] if request.form['polpub'] else [] # triggers error when "other"
+        # try/except for 
+        try:
+            for entry in request.form.getlist('polpub'):
+                if entry != "other":
+                    pub_list.append(int(entry))
+        except:
+            pass
+        # get stakeholder list and handle "other"
+        try:
+            for entry in request.form.getlist('polsta'):
+                if entry != "other":
+                    stk_list.append(int(entry))
+        except:
+            pass
+        
         payload = {
             "jsonrpc": "2.0",
             "params": {
@@ -347,7 +374,7 @@ def sub_policy():
                 "name_language": request.form['nattitle'],
                 "language": request.form['pollang'],
                 "type": "Policy",  
-                "category": 1,
+                "category": category_list,
                 "policy_level": request.form['govlvl'],  
                 "country_group": 1,  
                 "country": request.form['ctry'],  
@@ -355,9 +382,9 @@ def sub_policy():
                 "nuts_level_1": '' if policy_level in ['Global', 'European'] else request.form['reg'],  # Conditional assignment
                 "year_from": request.form['startyr'],  
                 "year_to": request.form['endyr'],
-                "publisher": request.form['polpub'],
+                "publisher": pub_list,
                 "publisher_char": request.form['polpub_t'],
-                "stakholder_ids": request.form['polsta'],
+                "stakholder_ids": stk_list,
                 "stakeholder_char": request.form['polsta_t'],
                 "publisher_link": request.form['pglnk'], 
                 "data_link": request.form['pdflnk'],  
@@ -365,6 +392,7 @@ def sub_policy():
                 "excerpt_english": request.form['exceng'],  
                 "abstract": request.form['absnat'],  
                 "abstract_english": request.form['abseng'],  
+                "keywords":[],
                 "state": "Draft"
             }
         }
