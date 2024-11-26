@@ -342,6 +342,7 @@ def sub_policy():
         category_list = []
         pub_list = []
         stk_list = []
+        kwd_list=[]
         # get category list
         for key in list(categdct):
             # try/ except so non-selected categories don't trigger bad request 
@@ -366,11 +367,21 @@ def sub_policy():
                     stk_list.append(int(entry))
         except:
             pass
-        
+        # if english name is empty, set to native language name
+        engname = request.form['engtitle']
+        if engname == "":
+            engname = request.form['nattitle']
+        # get keyword list [may need to handle 'other' in future]
+        try:
+            for entry in request.form.getlist('polkwd'):
+                kwd_list.append(int(entry))
+        except:
+            pass
+        #
         payload = {
             "jsonrpc": "2.0",
             "params": {
-                "name": request.form['engtitle'],
+                "name": engname,
                 "name_language": request.form['nattitle'],
                 "language": request.form['pollang'],
                 "type": "Policy",  
@@ -392,7 +403,7 @@ def sub_policy():
                 "excerpt_english": request.form['exceng'],  
                 "abstract": request.form['absnat'],  
                 "abstract_english": request.form['abseng'],  
-                "keywords":[],
+                "keywords":kwd_list,
                 "state": "Draft"
             }
         }
@@ -498,17 +509,6 @@ def getpols_eventual(lint):
     conn.close()
     return policies
 
-@app.route('/getkwds')
-def getkwds():
-    with open(KWD_FILE, encoding="utf-8") as json_file:
-        kwds = json.load(json_file)
-    return kwds
-
-@app.route('/stakeholderdata')
-def getstk():
-    url = 'http://140.203.154.253:8016/aspect/stakeholders/0'
-    return create_dataendpoint(url)
-
 @app.route('/categorydata')
 def getcateg():
     url = 'http://140.203.154.253:8016/aspect/category/'
@@ -534,12 +534,12 @@ def getlangs():
     url = 'http://140.203.154.253:8016/aspect/languages/'
     return create_dataendpoint(url)
 
-@app.route('/keyworddatanew')
+@app.route('/keyworddata')
 def getkwdsnew():
     url = 'http://140.203.154.253:8016/aspect/keywords/'
     return create_dataendpoint(url)
 
-@app.route('/stakeholderdatanew/<int:code>')
+@app.route('/stakeholderdata/<int:code>')
 def getstknew(code):
     url = f'http://140.203.154.253:8016/aspect/stakeholders/{code}/'
     return create_dataendpoint(url)
