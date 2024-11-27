@@ -14,7 +14,7 @@ import psycopg2
 #
 from modules import assum_json_to_dict, usrinp_json_to_dict
 import requests
-
+#added remarks for run.py
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
 # flask run
@@ -116,50 +116,105 @@ def signup():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        try:
-            # Establish a connection to the database
-            with psycopg2.connect(**conn_params) as conn:
-                with conn.cursor() as cur:
-                    # Execute the insert statement with parameterized query
-                    cur.execute(
-                        "INSERT INTO users (email, password, name) VALUES (%s, %s, %s)",
-                        (email, password, name)
-                    )
-                    # Commit the transaction
-                    conn.commit()
-
-            flash('User signed up successfully!')
-            return redirect(url_for('login'))
-        except psycopg2.Error as e:
-            # Handle any database errors
-            return f'Error: {e}'
+        url = 'http://140.203.154.253:8016/aspect/signup/'
+        headers = {'Content-Type': 'application/json'}
+        data = {
+        'jsonrpc': '2.0',
+        'params': {
+        "db": "aspect",
+        "login": email,
+        "password": password,
+        "name": name}
+    }
+        response = requests.post(url, headers=headers, json=data, stream=True)
+        data = response.json()
+        print(json.dumps(data, indent=2))
+        result = data.get("result", {})
+        status = result.get("status")
+        message_text = result.get("message")
+        if status == 200 and message_text == "success":
+                 flash('User signed up successfully!')
+                 return redirect(url_for('login'))
+        else:
+                 flash('User signed up Failed!')
+                 return render_template('register.html',form=form)
     else:
-        # Render the sign-up form template
+                 return render_template('register.html',form=form)
+# Check if the request was successful
+def authenticate_external_api(username, password):
     
-     return render_template('register.html',form=form)
-
-
+    print("authenticate_external_api called with Username:", username) 
+    url = 'http://140.203.154.253:8016/web/session/authenticate'
+    headers = {'Content-Type': 'application/json'}
+    data = {
+    'jsonrpc': '2.0',
+    'params': {
+        "db": "aspect",
+        "login": username,
+        "password": password
+    }
+}
+    headers = {
+        'Content-Type': 'application/json',
+        'Cookie': 'session_id=108ca25e671d3265eab2a008c0d97de905642029'
+    }
+    
+    try:
+        print("Sending API request...")
+        response = requests.post(url, headers=headers, json=data, stream=True)
+        data = response.content 
+        
+            
+        
+        # Decode the response from bytes to a string
+        response = json.loads(data.decode("utf-8"))
+        
+        # Print the entire response for debugging
+        print("API Response:", json.dumps(response, indent=4))  # Pretty-print the response
+        
+        # Check for a successful response
+        if 'result' in response:
+            print("Authentication successful.")
+            return True, response['result']
+        else:
+            print("Authentication failed:", response.get('error', 'Unknown error occurred'))
+            return False, response.get('error', 'Unknown error occurred')
+    
+    except Exception as e:
+        # Print the exception details
+        print(f"Error during API request: {e}")
+        return False, str(e)
 # Index page
 @app.route('/login', methods=['GET', 'POST'])
-
 def login():
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         try:
             username = form.username.data
             password = form.password.data
-            db = connect_db()
-            cur = db.cursor()
-            cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (username, password))
-            user = cur.fetchone()
-            cur.close()
-            db.close()
-            if user:
-                session['username'] = username
-                #flash('User Logged In successfully!', 'success')
-                return redirect(url_for('dashboard'))  # Redirect to dashboard route
+            print("Form data - Username:", username)
+            print("Form data - Password:", password)
+            print("Calling authenticate_external_api()...")
+            # Authenticate using the external API
+            success, result = authenticate_external_api(username, password)
+            print("API call returned. Success:", success)
+            print("API result:", result)
+        
+            if success:
+                print("Authentication successful, storing session data...")
+                # Store relevant session information
+                session['username'] = result['username']
+                session['user_id'] = result['uid']
+                session['name'] = result['name']
+                session['company_id'] = result['company_id']
+                
+                # Redirect to dashboard or home after successful login
+                return redirect(url_for('dashboard'))
+        
             else:
+                # Handle API login failure
                 flash('Invalid username or password. Please try again.', 'danger')
+                
         except Exception as e:
             flash('An error occurred. Please try again.', 'danger')
             print(f"Error: {e}")  # Log the error to the console or a log file
@@ -170,6 +225,7 @@ def login():
         return redirect(url_for('map_page'))  # Redirect to dashboard route if already logged in
     
     return render_template('login.html', form=form)
+
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     # Clear the session data
@@ -187,6 +243,13 @@ ROUTES
 @app.route('/')
 def landingpage():
     return redirect(url_for('map_page'))
+
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    username = session.get('username')
+    if username is None:
+        return render_template('about.html')
+    return render_template('about.html', username=session['username'])
 
 @app.route('/map', methods=['GET', 'POST'])
 def map_page():
@@ -253,8 +316,9 @@ def stakeholders():
          return render_template('stakeholders.html')
     return render_template('stakeholders.html', username=session['username'])
     
-@app.route('/policy-submit', methods=['GET', 'POST'])
+@app.route('/policy-suggestion', methods=['GET', 'POST'])
 def sub_policy():
+    #
     categdct = {
         'bio-cls': 1,
         'clm-cls': 2,
@@ -268,45 +332,84 @@ def sub_policy():
     if request.method == 'POST':
         #url = 'http://localhost:8616/aspect/create_policy/'
         url = 'http://140.203.154.253:8016/aspect/create_policy/'
-
         # Set up the headers
         headers = {
             'Content-Type': 'application/json',
             #='Cookie': 'session_id='+str(cookie_value)
         }
-        '''
+        # get policy level for conditional
+        policy_level = request.form['govlvl']
         category_list = []
+        pub_list = []
+        stk_list = []
+        kwd_list=[]
+        # get category list
         for key in list(categdct):
-            if request.form[key]:
-                category_list.append(categdct[key])
-        #[categdct[key] for key in list(categdct) if request.form[key]][0]
-        print(category_list)
-        '''
+            # try/ except so non-selected categories don't trigger bad request 
+            try: 
+                if request.form[key]:
+                    category_list.append(categdct[key])
+            except:
+                pass
+        # get publisher list and handle "other"
+        # [int(entry) for entry in request.form.getlist('polpub')] if request.form['polpub'] else [] # triggers error when "other"
+        # try/except for 
+        try:
+            for entry in request.form.getlist('polpub'):
+                if entry != "other":
+                    pub_list.append(int(entry))
+        except:
+            pass
+        # get stakeholder list and handle "other"
+        try:
+            for entry in request.form.getlist('polsta'):
+                if entry != "other":
+                    stk_list.append(int(entry))
+        except:
+            pass
+        # if english name is empty, set to native language name
+        engname = request.form['engtitle']
+        if engname == "":
+            engname = request.form['nattitle']
+        # get keyword list [may need to handle 'other' in future]
+        try:
+            for entry in request.form.getlist('polkwd'):
+                kwd_list.append(int(entry))
+        except:
+            pass
+        #
         payload = {
             "jsonrpc": "2.0",
             "params": {
-                "name": request.form['nattitle'], 
-                "name_language": request.form['pollang'],  
+                "name": engname,
+                "name_language": request.form['nattitle'],
+                "language": request.form['pollang'],
                 "type": "Policy",  
-                "category": 1,
+                "category": category_list,
                 "policy_level": request.form['govlvl'],  
                 "country_group": 1,  
                 "country": request.form['ctry'],  
-                "localauthority1": request.form['loc'],  
-                "nuts_level_1": request.form['reg'],  
+                "localauthority1": request.form['loc'], 
+                "nuts_level_1": '' if policy_level in ['Global', 'European'] else request.form['reg'],  # Conditional assignment
                 "year_from": request.form['startyr'],  
-                "year_to": request.form['endyr'],  
-                "publisher_char": request.form['polpub'],  
-                "publisher_link": request.form['pglnk'],  
+                "year_to": request.form['endyr'],
+                "publisher": pub_list,
+                "publisher_char": request.form['polpub_t'],
+                "stakholder_ids": stk_list,
+                "stakeholder_char": request.form['polsta_t'],
+                "publisher_link": request.form['pglnk'], 
                 "data_link": request.form['pdflnk'],  
                 "excerpt": request.form['excnat'],  
                 "excerpt_english": request.form['exceng'],  
                 "abstract": request.form['absnat'],  
                 "abstract_english": request.form['abseng'],  
+                "keywords":kwd_list,
+                "additional_info":request.form['addtl'],
                 "state": "Draft"
             }
         }
         # Send the GET request
+        print(payload)
         response = requests.post(url, headers=headers, json=payload, stream=True)
         # Check if the request was successful
         if response.status_code == 200:
@@ -314,16 +417,19 @@ def sub_policy():
                 # Parse the JSON response
                 data = response.json()
                 print(json.dumps(data, indent=2))
+                print ('policy suggestion sent successfully')
+                result = data.get("result", {})
+                status = result.get("status")
+                message_text = result.get("message")
+                if status == 200 and message_text == "success":
+                 message = "We have received your policy suggestion!"
+                else:
+                 message = "Policy suggestion failed. Please try again."
+                return render_template('polsubmit.html',message=message)
             except ValueError:
-                print("Invalid JSON response")
+                return render_template('polsubmit.html',message="Policy suggestion failed. Please try again")
         else:
-            print(f"Request failed with status code {response.status_code}")
-            print(response.text)
-        
-        print(payload)
-        if 'username' not in session:
-            return render_template('polsubmit.html')
-        return render_template('polsubmit.html', username=session['username'])
+            return render_template('polsubmit.html',message="Policy suggestion failed. Please try again")
         
     # non-post request
     if 'username' not in session:
@@ -404,17 +510,6 @@ def getpols_eventual(lint):
     conn.close()
     return policies
 
-@app.route('/getkwds')
-def getkwds():
-    with open(KWD_FILE, encoding="utf-8") as json_file:
-        kwds = json.load(json_file)
-    return kwds
-
-@app.route('/stakeholderdata')
-def getstk():
-    url = 'http://140.203.154.253:8016/aspect/stakeholders/0'
-    return create_dataendpoint(url)
-
 @app.route('/categorydata')
 def getcateg():
     url = 'http://140.203.154.253:8016/aspect/category/'
@@ -440,12 +535,12 @@ def getlangs():
     url = 'http://140.203.154.253:8016/aspect/languages/'
     return create_dataendpoint(url)
 
-@app.route('/keyworddatanew')
+@app.route('/keyworddata')
 def getkwdsnew():
     url = 'http://140.203.154.253:8016/aspect/keywords/'
     return create_dataendpoint(url)
 
-@app.route('/stakeholderdatanew/<int:code>')
+@app.route('/stakeholderdata/<int:code>')
 def getstknew(code):
     url = f'http://140.203.154.253:8016/aspect/stakeholders/{code}/'
     return create_dataendpoint(url)
@@ -454,7 +549,6 @@ def getstknew(code):
 def getpubs(code):
     url = f'http://140.203.154.253:8016/aspect/publishers/{code}/'
     return create_dataendpoint(url)
-
 
 '''
 Error Handling
