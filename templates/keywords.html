@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-8">
-            <h4 class="text-center" style="padding: 10px;">PEATLAND POLICY KEYWORDS</h4>
+            <h4 class="text-center" style="padding: 10px; padding-top: 20px;">PEATLAND POLICY KEYWORDS</h4>
             <p class="text-descr">
                 On this page you can view the keywords used to identify relevant policies in each language.
                 We are continually adding keywords and languages, and seek expert input to identify all keyword variants across different languages.
@@ -32,19 +32,24 @@
 
 <script>
     // populates language selection with what is in json/on page
+    var langs = [];
     var xhttp;
     xhttp =  new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-        var obj = JSON.parse(this.responseText)
-        Object.keys(obj).forEach(ky =>{
-            const element = `<option value="${ky}">${ky}</option>`;
-            const lang_sel = $(`#kwd-langs`);
-            lang_sel.append(element);
-        });
+            var obj = JSON.parse(this.responseText)['result']['response'];
+            obj.forEach(entry =>{
+                langs.push(entry['language']);
+            });
+            var langs_uniq = [...new Set(langs)];
+            langs_uniq.forEach(lang =>{
+                const element = `<option value="${lang}">${lang}</option>`;
+                const lang_sel = $(`#kwd-langs`);
+                lang_sel.append(element);
+            });
         }
     };
-    xhttp.open("GET", "/getkwds", true);
+    xhttp.open("GET", "/keyworddata", true);
     xhttp.send();
 </script>
 
@@ -52,22 +57,29 @@
     // populates language selection with what is in json/on page
     function get_kwds(){
         // get what language is selected
-        var e = document.getElementById("kwd-langs").value;
+        var lang = document.getElementById("kwd-langs").value;
         // clears previously added keywords
         var lang_sel = $(`#kwd-pop`);
         lang_sel.empty();
         var xhttp;
+        var kwds = [];
         xhttp =  new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText);
-            obj[e].forEach(ky =>{
-                const element = `<li class="list-group-item">${ky}</li>`;
-                lang_sel.append(element);
-            });
+                var obj = JSON.parse(this.responseText)['result']['response'];
+                obj.forEach(entry =>{
+                    if(entry['language']==lang){
+                        kwds.push(entry['name']);
+                    }
+                    ;
+                });
+                kwds.forEach(kwd =>{
+                    const element = `<li class="list-group-item">${kwd}</li>`;
+                    lang_sel.append(element);
+                });
             }
         };
-        xhttp.open("GET", "/getkwds", true);
+        xhttp.open("GET", "/keyworddata", true);
         xhttp.send();}
 </script>
 {% endblock %}

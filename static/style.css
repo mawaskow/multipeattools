@@ -33,6 +33,22 @@ p.text-descr, label.text-descr{
     font-size: 16px;
 }
 
+.text-center{
+    justify-content: center;
+    padding: 5px;
+}
+
+a.texta{
+    text-decoration: none;
+    color: #396d85;
+}
+
+a.textab{
+    font-weight: bold;
+    text-decoration: none;
+    color: #396d85;
+}
+
 /* navbar */ 
 a.navbar-brand{
     font-size: 25px;
@@ -90,6 +106,11 @@ hr{
 
 hr.inf{
     margin: 7px 0px 7px 25px;
+}
+
+hr.pol{
+    padding: 0px 20px 0px 20px;
+    margin: 20px 0px 20px 0px;
 }
 
 body{

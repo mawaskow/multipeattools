@@ -200,32 +200,38 @@ $("#inputPolLvl").on('change', function(event){
     var lvl_sel = document.getElementById('inputPolLvl');
     //
     var h5 = document.getElementById('inputPolLocHead');
+    var hr = document.getElementById('polsub-loc-hr');
     var cd = document.getElementById('inputPolCtryDiv');
     var rd = document.getElementById('inputPolRegDiv');
     var ld = document.getElementById('inputPolLocDiv');
     //
     if(lvl_sel.value=="National"){
         h5.style.display ='block';
+        hr.style.display ='block';
         cd.style.display ='block';
         rd.style.display ='none';
         ld.style.display ='none';
     }else if(lvl_sel.value=="Regional"){
         h5.style.display ='block';
+        hr.style.display ='block';
         cd.style.display ='block';
         rd.style.display ='block';
         ld.style.display ='none';
     }else if(lvl_sel.value=="Local"){
         h5.style.display ='block';
+        hr.style.display ='block';
         cd.style.display ='block';
         rd.style.display ='block';
         ld.style.display ='block';
-    }else if(lvl_sel.value=="EU"){
+    }else if(lvl_sel.value=="European"){
         h5.style.display ='none';
+        hr.style.display ='none';
         cd.style.display ='none';
         rd.style.display ='none';
         ld.style.display ='none';
     }else if(lvl_sel.value=="Global"){
         h5.style.display ='none';
+        hr.style.display ='none';
         cd.style.display ='none';
         rd.style.display ='none';
         ld.style.display ='none';
