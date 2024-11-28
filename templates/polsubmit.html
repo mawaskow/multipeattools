@@ -515,7 +515,7 @@
                 var obj = JSON.parse(this.responseText)['result']['response'];
                 //console.log(obj);
                 obj.forEach(entry =>{
-                    const element = `<option value="${entry['country_id']}">${entry['name']}</option>`;
+                    const element = `<option value="${entry['id']}">${entry['name']}</option>`;
                     stk_sel.append(element);
                 });
             }
@@ -535,7 +535,7 @@
                 var obj = JSON.parse(this.responseText)['result']['response'];
                 //console.log(obj);
                 obj.forEach(entry =>{
-                    const element = `<option value="${entry['country_id']}">${entry['name']}</option>`;
+                    const element = `<option value="${entry['id']}">${entry['name']}</option>`;
                     pub_sel.append(element);
                 });
             }

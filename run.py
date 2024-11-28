@@ -371,6 +371,10 @@ def sub_policy():
         engname = request.form['engtitle']
         if engname == "":
             engname = request.form['nattitle']
+        # if language, convert to int
+        lang = request.form['pollang']
+        if lang != "":
+            lang = int(request.form['pollang'])
         # get keyword list [may need to handle 'other' in future]
         try:
             for entry in request.form.getlist('polkwd'):
@@ -383,7 +387,7 @@ def sub_policy():
             "params": {
                 "name": engname,
                 "name_language": request.form['nattitle'],
-                "language": request.form['pollang'],
+                "language": lang,
                 "type": "Policy",  
                 "category": category_list,
                 "policy_level": request.form['govlvl'],  
