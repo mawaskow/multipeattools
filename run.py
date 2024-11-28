@@ -404,6 +404,7 @@ def sub_policy():
                 "abstract": request.form['absnat'],  
                 "abstract_english": request.form['abseng'],  
                 "keywords":kwd_list,
+                "additional_info":request.form['addtl'],
                 "state": "Draft"
             }
         }

@@ -123,44 +123,61 @@
                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
-                        <label for="inputPoldropbtn" class="form-label">Policy Domain</label>
-                        
-                            <a class="btn w-100 btn-ddw dropdown-toggle" id="inputPoldropbtn" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="font-size: 14px;">
-                                Select categories
+                        <label class="form-label">Policy Domain</label>
+                        <a class="btn w-100 btn-ddw dropdown-toggle" id="inputPoldropbtn" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="font-size: 14px;">
+                            Select categories
+                        </a>
+                        <ul class="w-75 dropdown-menu" style="padding:0px;">
+                            <div class="bio-cls-clr">
+                                <input id="bio-cls-bx-ps" name="bio-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="bio-cls-bx-ps">Biodiversity</label>
+                            </div>
+                            <div class="clm-cls-clr">
+                                <input id="clm-cls-bx-ps" name="clm-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="clm-cls-bx-ps">Climate Action</label>
+                            </div>
+                            <div class="comm-cls-clr">
+                                <input id="comm-cls-bx-ps" name="comm-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="comm-cls-bx-ps">Culture</label>
+                            </div>
+                            <div class="econ-cls-clr">
+                                <input id="econ-cls-bx-ps" name="econ-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="econ-cls-bx-ps">Economy</label>
+                            </div>
+                            <div class="enr-cls-clr">
+                                <input id="enr-cls-bx-ps" name="enr-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="enr-cls-bx-ps">Energy</label>
+                            </div>
+                            <div class="env-cls-clr">
+                                <input id="env-cls-bx-ps" name="env-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="env-cls-bx-ps" style="margin-right: 5px;">Environmental Quality</label>
+                            </div>
+                            <div class="land-cls-clr">
+                                <input id="land-cls-bx-ps" name="land-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="land-cls-bx-ps">Land Use</label>
+                            </div>
+                            <div class="res-cls-clr">
+                                <input id="res-cls-bx-ps" name="res-cls" type="checkbox" class="form-check-input pol-cls-inp">
+                                <label class="form-label" for="res-cls-bx-ps">Research</label>
+                            </div>
+                        </ul>
+                    </div>
+                    <!-- Publisher-->
+                    <div class="col-md-6 dropdown">
+                        <svg height="20" width="16">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Who published this policy? e.g. Department of Finance. If you have not yet specified the level/country of your policy, please do: more options may be populated below. If the publisher is still not listed here, please select Other.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
-                            <ul class="w-75 dropdown-menu" style="padding:0px;">
-                                <div class="bio-cls-clr">
-                                    <input id="bio-cls-bx-ps" name="bio-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="bio-cls-bx-ps">Biodiversity</label>
-                                </div>
-                                <div class="clm-cls-clr">
-                                    <input id="clm-cls-bx-ps" name="clm-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="clm-cls-bx-ps">Climate Action</label>
-                                </div>
-                                <div class="comm-cls-clr">
-                                    <input id="comm-cls-bx-ps" name="comm-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="comm-cls-bx-ps">Culture</label>
-                                </div>
-                                <div class="econ-cls-clr">
-                                    <input id="econ-cls-bx-ps" name="econ-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="econ-cls-bx-ps">Economy</label>
-                                </div>
-                                <div class="enr-cls-clr">
-                                    <input id="enr-cls-bx-ps" name="enr-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="enr-cls-bx-ps">Energy</label>
-                                </div>
-                                <div class="env-cls-clr">
-                                    <input id="env-cls-bx-ps" name="env-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="env-cls-bx-ps" style="margin-right: 5px;">Environmental Quality</label>
-                                </div>
-                                <div class="land-cls-clr">
-                                    <input id="land-cls-bx-ps" name="land-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="land-cls-bx-ps">Land Use</label>
-                                </div>
-                                <div class="res-cls-clr">
-                                    <input id="res-cls-bx-ps" name="res-cls" type="checkbox" class="form-check-input pol-cls-inp">
-                                    <label class="form-label" for="res-cls-bx-ps">Research</label>
-                                </div>
+                        </svg>
+                        <label for="inputPolPub" class="form-label">Publisher</label>
+                        <div>
+                            <a class="btn btn-ddw w-100 dropdown-toggle" id="inputPolPubDrop" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="font-size: 14px;">
+                                Select publishers
+                            </a>
+                            <ul class="dropdown-menu" style="padding:0px;">
+                                <select multiple class="form-select" id="inputPolPub" name="polpub" style="height:150px;">
+                                    <option value="other" >Other</option>
+                                </select>
                             </ul>
                         
                     </div>
@@ -196,7 +213,7 @@
                     <!-- Stakeholders -->
                     <div class="col-md-6 dropdown">
                         <svg height="20" width="16">
-                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Additional entities involved in the policy. If the stakeholder is not listed here, please select Other.">
+                            <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-html="true" data-bs-content="Additional entities involved in the policy. If you have not yet specified the level/country of your policy, please do: more options may be populated below. If the stakeholder is still not listed here, please select Other.">
                                 <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
@@ -349,9 +366,9 @@
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText)['result']['response'];
             //console.log(obj);
+            const ctry_sel = $(`#inputPolLang`);
             obj.forEach(entry =>{
-                const element = `<option value="${entry['id']}">${entry['name']}</option>`;
-                const ctry_sel = $(`#inputPolLang`);
+                const element = `<option value="${entry['id']}" label="${entry['name']}">${entry['name']}</option>`;
                 ctry_sel.append(element);
             });
         }
@@ -372,8 +389,10 @@
             var obj = JSON.parse(this.responseText)['result']['response'];
             //console.log(obj);
             obj.forEach(entry =>{
-                const element = `<option value="${entry['id']}">${entry['name']}</option>`;
-                stk_sel.append(element);
+                if(entry['level']=="European" || entry['level']=="Global"){
+                    const element = `<option value="${entry['id']}">${entry['name']}</option>`;
+                    stk_sel.append(element);
+                }
             });
         }
     };
@@ -393,8 +412,11 @@
             var obj = JSON.parse(this.responseText)['result']['response'];
             //console.log(obj);
             obj.forEach(entry =>{
-                const element = `<option value="${entry['id']}">${entry['name']}</option>`;
-                pub_sel.append(element);
+                // shows only international publishers on first description
+                if(entry['country']=="European" || entry['country']=="United Nation"){
+                    const element = `<option value="${entry['id']}">${entry['name']}</option>`;
+                    pub_sel.append(element);
+                }
             });
         }
     };
@@ -431,6 +453,28 @@
         }
     })
 
+    // populate keywords section
+    const kwd_sel = $(`#inputPolKwd`);
+    kwd_sel.empty();
+    var spec_kwds = [];
+    var xhttp;
+    xhttp =  new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //var obj = JSON.parse(this.responseText);
+            //console.log(obj);
+            var obj = JSON.parse(this.responseText)['result']['response'];
+            //console.log(obj);
+            obj.forEach(entry =>{
+                if(entry['language']=='English (US)'){
+                    const element = `<option value="${entry['id']}">${entry['name']}</option>`;
+                    kwd_sel.append(element);
+                }
+            });
+        }
+    };
+    xhttp.open("GET", `/keyworddata`, true);
+    xhttp.send();
     // change region, local authority, stakeholder, and publisher options
     // on country selection
     $('#inputPolCtry').on('change', function(event){
@@ -515,6 +559,36 @@
             }
         };
         xhttp.open("GET", `/publisherdata/${code}`, true);
+        xhttp.send();
+    })
+
+    // change keywords option on language selection
+    $('#inputPolLang').on('change', function(event){
+        var kwd_sel = $(`#inputPolKwd`);
+        //var lang = $(`#inputPolLang:selected`);
+        var lang = document.getElementById('inputPolLang').selectedOptions[0].textContent;
+        var langs = [];
+        var xhttp;
+        xhttp =  new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText)['result']['response'];
+                obj.forEach(entry =>{
+                    langs.push(entry['language']);
+                });
+                var langs_uniq = [...new Set(langs)];
+                if(langs_uniq.includes(lang)){
+                    kwd_sel.empty();
+                    obj.forEach(entry =>{
+                        if(entry['language']==lang){
+                            const element = `<option value="${entry['id']}">${entry['name']}</option>`;
+                            kwd_sel.append(element);
+                        }
+                    });
+                };
+            }
+        };
+        xhttp.open("GET", "/keyworddata", true);
         xhttp.send();
     })
 
