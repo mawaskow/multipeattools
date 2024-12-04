@@ -520,6 +520,16 @@ span.Economy{
     border-color: transparent;
 }
 
+.ee-soil-box:checked{
+    background-color: #8f6543;
+    border-color: transparent;
+}
+
+.fi-soil-box:checked{
+    background-color: #c56b21;
+    border-color: transparent;
+}
+
 /*classification pills*/
 
 .enr-class-pill{

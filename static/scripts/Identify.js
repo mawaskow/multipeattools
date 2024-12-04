@@ -78,6 +78,12 @@ map.on('singleclick', function (evt) {
   // be-wallonia
   const bewInfo=$('#bew-info');
   bewInfo.html('');
+  // be-wallonia
+  const eeInfo=$('#ee-info');
+  eeInfo.html('');
+  // be-wallonia
+  const fiInfo=$('#fi-info');
+  fiInfo.html('');
   // default
   const noFeatures=$('#no-features');
   noFeatures.html('<p>No features</p>');
@@ -255,6 +261,50 @@ map.on('singleclick', function (evt) {
                     const styp=bew.properties.soil_type;
                     bewInfo.html(`
                         <p>Soil Type: Peat</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+     
+  const eeLayer=getLayerByName('EE_Peatlands');
+  const eeSource=eeLayer.getSource();
+  const eeUrl=eeSource.getFeatureInfoUrl(coordinate, resolution, projection,
+    {'INFO_FORMAT':'application/json'});
+
+    if(eeUrl){
+        $.ajax({
+            url:eeUrl,
+            method:'GET',
+            success:function(result){
+                const ee=result.features[0];
+                if(ee){
+                    const styp=ee.properties.site_type;
+                    eeInfo.html(`
+                        <p>Site Type: ${styp}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+
+  const fiLayer=getLayerByName('FI_Peatlands');
+  const fiSource=fiLayer.getSource();
+  const fiUrl=fiSource.getFeatureInfoUrl(coordinate, resolution, projection,
+    {'INFO_FORMAT':'application/json'});
+
+    if(fiUrl){
+        $.ajax({
+            url:fiUrl,
+            method:'GET',
+            success:function(result){
+                const fi=result.features[0];
+                if(fi){
+                    const styp=fi.properties.site_type;
+                    fiInfo.html(`
+                        <p>Site Type: ${styp}</p>`);
                     noFeatures.html('');
                     }
 

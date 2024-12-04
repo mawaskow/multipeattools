@@ -11,7 +11,9 @@ const lyrClrLib = {
     'NL_Peat_Soils':`nl-soil-box`,
     'DE_Peatlands': `de-soil-box`,
     'BE_Fland_Peatlands': `bef-soil-box`,
-    'BE_Wallo_Peatlands': `bew-soil-box`
+    'BE_Wallo_Peatlands': `bew-soil-box`,
+    'EE_Peatlands': `ee-soil-box`,
+    'FI_Peatlands': `fi-soil-box`
 };
 
 const regLib = {
@@ -20,7 +22,9 @@ const regLib = {
     'Ireland': "ie-lyr-lyrs",
     'Poland': "pl-lyr-lyrs",
     'Netherlands':"nl-lyr-lyrs",
-    'Germany':"de-lyr-lyrs"
+    'Germany':"de-lyr-lyrs",
+    'Estonia':"ee-lyr-lyrs",
+    'Finland':"fi-lyr-lyrs"
 };
 
 layers.forEach(layer => {

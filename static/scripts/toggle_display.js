@@ -196,6 +196,38 @@ $("#be-lyr-tog").on('click', function(event){
     }
 });
 
+$("#ee-lyr-tog").on('click', function(event){
+    el = document.getElementById("ee-lyr-lyrs");
+    td = document.getElementById("ee-lyr-tog-down");
+    tu = document.getElementById("ee-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
+$("#fi-lyr-tog").on('click', function(event){
+    el = document.getElementById("fi-lyr-lyrs");
+    td = document.getElementById("fi-lyr-tog-down");
+    tu = document.getElementById("fi-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
 $("#inputPolLvl").on('change', function(event){
     var lvl_sel = document.getElementById('inputPolLvl');
     //
