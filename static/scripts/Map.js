@@ -94,7 +94,7 @@ const pltLayer= new ImageLayer({
     source:pltSource,
     // @ts-ignore
     name:'PL_Torf',
-    display: 'Torfowiska',
+    display: 'Peatland Map',
     region: 'Poland'
 });
 
