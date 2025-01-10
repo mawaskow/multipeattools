@@ -57,12 +57,15 @@ map.on('singleclick', function (evt) {
   // project sites
   const PSInfo=$('#PS-info');
   PSInfo.html('');
-  // Raised Bog
+  // irish
   const ieInfo=$('#ie-info');
   ieInfo.html('');
-  // alkaline fens
+  // polish alk fens
   const PlAlkFenInfo=$('#PlAlkFen-info');
   PlAlkFenInfo.html('');
+  // alkaline fens
+  const pltInfo=$('#plt-info');
+  pltInfo.html('');
   // corine-18
   const corineInfo=$('#corine-info');
   corineInfo.html('');
@@ -150,6 +153,30 @@ map.on('singleclick', function (evt) {
                     const PlAlkFenName=PlAlkFen.properties.nazwa_ob;
 
                     PlAlkFenInfo.html(`<p>Nazwa (Name): ${PlAlkFenName}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+
+const pltLayer=getLayerByName('PL_Torf');
+const pltSource=pltLayer.getSource();
+const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
+    {'INFO_FORMAT':'application/json'});
+
+    if(pltUrl){
+        $.ajax({
+            url:pltUrl,
+            method:'GET',
+            success:function(result){
+                const plt=result.features[0];
+                if(plt){
+                    const pltTyp=plt.properties.TYP_NAZWA
+                    const pltRos=plt.properties.ROS_NAZWA;
+
+                    pltInfo.html(`<p>Typ: ${pltTyp}</p>
+                        <p>Ros: ${pltRos}</p>`);
                     noFeatures.html('');
                     }
 

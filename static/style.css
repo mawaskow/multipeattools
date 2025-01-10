@@ -500,6 +500,11 @@ span.Economy{
     border-color: transparent;
 }
 
+.pl-torf-box:checked{
+    background-color: #8d5018;
+    border-color: transparent;
+}
+
 .nl-soil-box:checked{
     background-color: #e1903f;
     border-color: transparent;

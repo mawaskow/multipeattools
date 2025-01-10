@@ -7,6 +7,7 @@ const lyrClrLib = {
     'Project_Sites':`proj-sites-box`,
     'IE_dipm':`ie-dipm-box`,
     'PL_Alk_Fens':`alk-fen-box`,
+    'PL_Torf':`pl-torf-box`,
     'Corine18':`corine-box`,
     'NL_Peat_Soils':`nl-soil-box`,
     'DE_Peatlands': `de-soil-box`,

@@ -6,8 +6,8 @@ import ImageLayer from 'https://cdn.skypack.dev/ol/layer/Image.js';
 import ImageWMS from 'https://cdn.skypack.dev/ol/source/ImageWMS.js';
 import Projection from 'https://cdn.skypack.dev/ol/proj/Projection.js';
 
-const serverURL="https://multipeat.insight-centre.org/geoserver/wms";
-//const serverURL="https://test-multipeat.insight-centre.org/geoserver/wms";
+//const serverURL="https://multipeat.insight-centre.org/geoserver/wms";
+const serverURL="https://test-multipeat.insight-centre.org/geoserver/wms";
 
 const mapProjection=new Projection({
     code:'EPSG:3857',
@@ -81,6 +81,20 @@ const alkFenLayer= new ImageLayer({
     // @ts-ignore
     name:'PL_Alk_Fens',
     display: 'Alkaline Fen Map',
+    region: 'Poland'
+});
+
+// Polish Torfoviska
+const pltSource=new ImageWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:pl_peat", "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const pltLayer= new ImageLayer({
+    source:pltSource,
+    // @ts-ignore
+    name:'PL_Torf',
+    display: 'Torfowiska',
     region: 'Poland'
 });
 
@@ -199,7 +213,7 @@ const view=new View({
 const map=new Map({
     target:"map",
     layers:[osmLayer, corineLayer, ieLayer, nlSoilLayer, 
-        detLayer, alkFenLayer, befLayer, bewLayer, eeLayer, fiLayer,
+        detLayer, pltLayer, alkFenLayer, befLayer, bewLayer, eeLayer, fiLayer,
         PSLayer, ctryLayer, ipolLayer],
     view:view
 });
