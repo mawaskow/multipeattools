@@ -84,7 +84,7 @@ const alkFenLayer= new ImageLayer({
     region: 'Poland'
 });
 
-// Polish Torfoviska
+// Polish Torfowiska
 const pltSource=new ImageWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:pl_peat", "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -204,9 +204,9 @@ const osmLayer=new TileLayer({
 const view=new View({
     //extent:[-1189593, 6692152.5, -665102.8125, 7450535], // ireland
     //extent:[-2005155, 3723095, 3711745, 8600839], // europe
-    extent:[-2850000, 3700000, 4000000, 11600000], // europe and EEA countries
-    center:[-816308.25,7051300.85],
-    zoom:7.5,
+    extent:[-2050000, 3500000, 8000000, 15000000], // europe and EEA countries
+    center:[2000000,7500000],
+    zoom:5,
     projection: mapProjection
 });
 
