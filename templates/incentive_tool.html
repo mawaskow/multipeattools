@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Incentive Tool{% endblock %}
+
+{% block content %}
+
+<div class="container" style="min-height: 800px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h4 class="text-center" style="padding:10px; padding-top: 20px;">POLICY INCENTIVE TOOL</h4>
+            <p class="text-descr" style="padding-bottom:10px">
+                Provide link to policy PDF or file to be analyzed.
+                This tool will extract the text from this policy and separate it into sentences. 
+                Then our pre-trained model will check the sentences for policy incentives and finally will classify the incentive sentences by category.
+                You then may provide feedback on the results and save your final report.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    console.log("NLP Tool")
+</script>
+
+{% endblock %}

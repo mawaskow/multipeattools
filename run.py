@@ -440,6 +440,12 @@ def sub_policy():
          return render_template('polsubmit.html')
     return render_template('polsubmit.html', username=session['username'])
 
+@app.route('/incentive-tool', methods=['GET', 'POST'])
+def incentive_tool():
+    if 'username' not in session:
+         return render_template('incentive_tool.html')
+    return render_template('incentive_tool.html', username=session['username'])
+
 # DATA ENDPOINTS
 
 @app.route('/policy/level=<level>')
