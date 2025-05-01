@@ -1,0 +1,5 @@
+SECURE_PWD='P0stgr3sql'
+#HOSTADR = 'localhost'
+HOSTADR = '140.203.155.91'
+DBNAME = 'geoapp'
+USERNM = 'postgres'

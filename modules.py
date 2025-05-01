@@ -1,7 +1,20 @@
-#from flask import Flask
 import psycopg2
 import json
 from config import SECURE_PWD, HOSTADR, DBNAME, USERNM
+#from flask import Flask
+#from keras.models import load_model
+
+#model = load_model()
+
+###################
+###  ML MODELS  ###
+###################
+
+
+
+#####################
+### DB CONNECTION ###
+#####################
 
 def get_db_cnxn():
     return psycopg2.connect(
@@ -80,3 +93,4 @@ def usrinp_json_to_dict(USRINP_FILE):
     usrinp_dict['invest_costs_inc'] = usrinp_json.invest_costs_inc
     usrinp_dict['reg_costs_inc'] = usrinp_json.reg_costs_inc
     return usrinp_dict
+

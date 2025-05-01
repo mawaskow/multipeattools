@@ -2,7 +2,7 @@ import os
 import json
 from sys import exit
 from flask import Flask
-from flask import url_for, render_template, send_file, request, redirect, session, send_from_directory, flash, jsonify
+from flask import url_for, render_template, send_file, request, redirect, session, send_from_directory, flash, jsonify, abort
 from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
@@ -11,8 +11,17 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from wtforms import StringField, PasswordField, SubmitField, validators
 import psycopg2
+from datetime import datetime
+import csv
+import time
+import pandas as pd
+import glob
+import logging
+from markupsafe import Markup
+import markdown
 #
 from modules import assum_json_to_dict, usrinp_json_to_dict
+from inctcls import pdf_to_sents, classify_w_svm, return_bn_results, return_mc_results
 import requests
 #added remarks for run.py
 # powershell: $env:FLASK_APP = "run"
@@ -23,9 +32,15 @@ app = Flask(__name__)
 
 SECRET_KEY = "please_dont_hack_us_thanks"
 app.config['SECRET_KEY'] = SECRET_KEY
+app.config['MAX_CONTENT_LENGTH'] = 1e8 # 100MB
+app.config['UPLOAD_PATH'] = 'uploads'
 
 csrf = CSRFProtect(app)
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 '''
 APP CONFIGURATION
 '''
@@ -68,6 +83,8 @@ conn_params = {
     'host': '140.203.155.91',
     'port': '5432'
 }
+SAVE_DIR = "saved_files"
+os.makedirs(SAVE_DIR, exist_ok=True)  # Ensure directory exists
 
 def create_dataendpoint(url):
     headers = {
@@ -231,11 +248,16 @@ def logout():
     # Clear the session data
     session.pop('username', None)
     return jsonify({'message': 'Logout successful'}), 200
+
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
      return render_template('map.html', username=session['username'])
     return redirect(url_for('login'))
+
+@app.route('/uploads/<filename>')
+def upload(filename):
+    return send_from_directory(app.config['UPLOAD_PATH'], filename)
 
 '''
 ROUTES
@@ -437,14 +459,155 @@ def sub_policy():
         
     # non-post request
     if 'username' not in session:
-         return render_template('polsubmit.html')
+        return render_template('polsubmit.html')
     return render_template('polsubmit.html', username=session['username'])
 
-@app.route('/incentive-tool', methods=['GET', 'POST'])
+@app.route('/incentive-tool', methods=['GET','POST'])
 def incentive_tool():
+    # will need to add language toggle at some point for tokenization
+    cls_incs = {}
+    filename = ""
+    time_st = ""
+    #cls_incs ={'Credit': ['We do this by providing export credit and trade finance support for exports that might otherwise not happen, thereby supporting UK exports and incentivising overseas buyers to source from the UKWe take account of relevant factors beyond the purely financial.'], 'Technical_assistance': ['Learning and development in this area can be through both formal and informal meansLearning and Development of our peopleWewill ensure our staff have the appropriate knowledge, training and awareness to deliver this strategy across the organisation22EnablersStakeholder engagementWe will engage with our stakeholders to help shape and support delivery of our strategyOur customers :We will engage with all our customers through our International Export Finance Executive network and our domestic Export Finance Manger network.']}
+    if request.method == 'POST':
+        st = time.time()
+        uploaded_file = request.files['inc_file']
+        filename = secure_filename(uploaded_file.filename)
+        if filename != '':
+            file_ext = os.path.splitext(filename)[1]
+            if file_ext not in ['.pdf','.doc','.docx']:
+                abort(400)
+            uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+            sents = pdf_to_sents(os.path.join(app.config['UPLOAD_PATH'], filename))
+            pred_lbls_b, sents = classify_w_svm(sents, 'models/paraphrase-xlm-r-multilingual-v1_bn_v1.pt', 'bn')
+            inc_sents = return_bn_results(pred_lbls_b, sents)
+            cls_preds, sents = classify_w_svm(inc_sents, 'models/paraphrase-xlm-r-multilingual-v1_mc_v1.pt', 'mc')
+            cls_incs = return_mc_results(cls_preds, sents)
+            dur = time.time()-st
+            time_st = f"{round(dur/60,2)} min" if dur>60 else f"{round(dur,2)} s"
+            #print(cls_incs)
+            if 'username' not in session:
+                return render_template('incentive_tool.html', res_dct=cls_incs, filename=filename, time_st=time_st)
+            return render_template('incentive_tool.html', username=session['username'], res_dct=cls_incs, filename=filename, time_st=time_st)
     if 'username' not in session:
-         return render_template('incentive_tool.html')
-    return render_template('incentive_tool.html', username=session['username'])
+        return render_template('incentive_tool.html', res_dct=cls_incs, filename=filename, time_st=time_st)
+    return render_template('incentive_tool.html', username=session['username'], res_dct=cls_incs, filename=filename, time_st=time_st)
+
+def fix_markdown_headings_properly(text):
+    """Dummy markdown fixer. Replace with your actual logic."""
+    return text  # Assuming your original logic will go here
+
+@app.route('/qa-tool', methods=['GET', 'POST'])
+def qa_tool():
+    if request.method == 'GET':
+        return render_template("qa_tool.html")
+    elif request.method=='POST':
+        reasoning = None
+        policies = []
+        # Get user input
+        question = request.form.get('question')
+        language = request.form.get('language')
+        category = request.form.get('category')
+        country = request.form.get('country')
+        governance = request.form.get('governance')
+        # Build query parameters
+        query_params = {"query": question}
+        if language: query_params['language'] = language
+        if category: query_params['category'] = category
+        if country: query_params['country'] = country
+        if governance: query_params['governance_level'] = governance
+
+        if question:
+            try:
+                # Step 1: Call the RAG backend
+                response = requests.get(
+                    "http://140.203.155.51:8001/ask",
+                    params=query_params,
+                    headers={'Accept': 'application/json'},
+                    timeout=200
+                )
+
+                if response.status_code == 200:
+                    response_data = response.json()
+                    raw_answer = response_data.get('answer', "No answer provided.")
+                    sources = response_data.get('sources', [])
+
+                    # Fallback checks
+                    fallback_phrases = [
+                        "do not contain", "does not provide information",
+                        "not found in the provided documents", "no relevant documents"
+                    ]
+                    lowered = raw_answer.lower()
+                    is_fallback = any(phrase in lowered for phrase in fallback_phrases)
+                    is_too_short = len(raw_answer.strip()) < 50
+
+                    if not is_fallback and not is_too_short:
+                        # Step 2: Process reasoning
+                        fixed_raw_answer = fix_markdown_headings_properly(raw_answer)
+                        reasoning_html = Markup(markdown.markdown(fixed_raw_answer))
+                        reasoning = reasoning_html
+
+                        max_score = max([s['score'] for s in sources], default=1)
+
+                        # Step 3: Process each source
+                        for src in sources:
+                            policy_id = src.get("record_id")
+                            file_links = []
+
+                            if policy_id:
+                                try:
+                                    logging.info(f"Fetching attachments for policy ID: {policy_id}")
+                                    file_resp = requests.post(
+                                        f"http://aspect-erp.insight-centre.org:8016/aspect/policy/{policy_id}/files",
+                                        headers={
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json'
+                                        },
+                                        json={},  # Important: send empty JSON
+                                        timeout=30
+                                    )
+                                    logging.info(f"Odoo response status: {file_resp.status_code}")
+                                    logging.info(f"Odoo raw body: {file_resp.text}")
+
+                                    if file_resp.ok:
+                                        file_data = file_resp.json()
+                                        # Correct way to get attachments (inside 'result')
+                                        file_links = file_data.get('result', {}).get('attachments', [])
+                                        logging.info(f"Fetched attachments for policy {policy_id}: {file_links}")
+                                    else:
+                                        logging.warning(f"Odoo responded with status {file_resp.status_code} for policy {policy_id}")
+
+                                except Exception as fe:
+                                    logging.warning(f"Failed to fetch attachments for policy {policy_id}: {fe}")
+
+                            policies.append({
+                                "title": src.get("author", "Unknown"),
+                                "thumbnail_url": "/static/images/pdf_thumbnail.png",
+                                "country": src.get("country", "Unknown"),
+                                "language": src.get("language", "Unknown"),
+                                "author": src.get("author", "Unknown"),
+                                "evidence_location": f"Score: {src['score']}",
+                                "similarity": round((src['score'] / max_score) * 100, 1),
+                                "files": file_links  # Corrected: fetched from Odoo
+                            })
+                    else:
+                        reasoning = raw_answer
+                else:
+                    reasoning = f"API Error {response.status_code}: {response.text}"
+
+            except Exception as e:
+                reasoning = f"Failed to get response: {str(e)}"
+                logging.error("Exception occurred while fetching response: %s", str(e))
+        return render_template(
+            "qa_tool.html",
+            reasoning=reasoning,
+            policies=policies,
+            asked_question=question,
+            selected_language=language,
+            selected_category=category,
+            selected_country=country,
+            selected_governance=governance
+        )
 
 # DATA ENDPOINTS
 
@@ -525,6 +688,11 @@ def getcateg():
     url = 'http://140.203.154.253:8016/aspect/category/'
     return create_dataendpoint(url)
 
+@app.route('/policydata')
+def getpols():
+    url = 'http://140.203.154.253:8016/aspect/policies/'
+    return create_dataendpoint(url)
+
 @app.route('/countrydata')
 def getctry():
     url = 'http://140.203.154.253:8016/aspect/countries/'
@@ -560,6 +728,291 @@ def getpubs(code):
     url = f'http://140.203.154.253:8016/aspect/publishers/{code}/'
     return create_dataendpoint(url)
 
+from flask import Flask, request, jsonify
+@app.route('/save-csv', methods=['POST'])
+@csrf.exempt 
+def save_csv():
+    try:
+        # Check if username is in session
+        if "username" not in session:
+            return jsonify({"error": "Login Required, You need to log in to save your data "}), 401  # Unauthorized
+
+        username = session["username"]  # Retrieve username from session
+
+        # Extract JSON data
+        data = request.get_json()
+        print("Parsed JSON:", data)
+
+        if not data:
+            return jsonify({"error": "Empty JSON received"}), 400
+
+        if "csvData" not in data:
+            return jsonify({"error": "Missing 'csvData' key"}), 400
+
+        csv_content = data["csvData"]
+
+        # Process CSV string into list of lists
+        csv_rows = [row.split(",") for row in csv_content.split("\r\n") if row]  # Split rows properly
+
+        # Generate a timestamped filename with username
+        timestamp = time.strftime("%Y%m%d-%H%M%S")  # e.g., "20250224-130530"
+        csv_filename = f"{username}_{timestamp}.csv"
+
+        # Ensure directory exists
+        os.makedirs("csv_outputs", exist_ok=True)
+        file_path = os.path.join("csv_outputs", csv_filename)
+
+        # Save to CSV file
+        with open(file_path, "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerows(csv_rows)
+
+        print(f"CSV saved as {file_path}")
+
+        return jsonify({"message": "Your Data has been saved successfully saved", "filename": csv_filename}), 200
+
+    except Exception as e:
+        print("Exception occurred:", e)
+        return jsonify({"error": str(e)}), 500
+    
+UPLOAD_FOLDER = "/Users/waqasshoukatali/multipeattools/test_git_multipeat/csv_outputs"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+def get_latest_csv(username):
+    """Find the latest CSV file for the logged-in user"""
+    folder_path = app.config["UPLOAD_FOLDER"]
+    pattern = os.path.join(folder_path, f"{username}_*.csv")  # Match CSV files
+    files = glob.glob(pattern)
+
+    valid_files = [f for f in files if os.path.isfile(f)]
+    if not valid_files:
+        return None  # No valid file found
+
+    latest_file = max(valid_files, key=os.path.getctime)  # Get the most recent file
+    return latest_file  # Return only the latest file path
+
+UPLOAD_FOLDER = "/Users/waqasshoukatali/multipeattools/test_git_multipeat/"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+def get_latest_csv(username):
+    """Find the latest CSV file for the logged-in user"""
+    folder_path = app.config["UPLOAD_FOLDER"]
+    pattern = os.path.join(folder_path, f"{username}_*.csv")
+    files = glob.glob(pattern)
+
+    valid_files = [f for f in files if os.path.isfile(f)]
+    if not valid_files:
+        return None  # No valid file found
+
+    return max(valid_files, key=os.path.getctime)  # Return latest file
+
+def get_all_csv_files(username):
+    """Get all CSV files for a specific user"""
+    # Define the path where user CSV files are stored
+    csv_folder = os.path.join(app.config['UPLOAD_FOLDER'], 'csv_outputs')
+    
+    # Check if the directory exists
+    if not os.path.exists(csv_folder):
+        print(f"Warning: CSV folder does not exist: {csv_folder}")
+        return []
+    
+    # Get all CSV files in the directory that match the username pattern
+    csv_files = []
+    try:
+        for filename in os.listdir(csv_folder):
+            if filename.startswith(f"{username}_") and filename.endswith(".csv"):
+                csv_files.append(os.path.join(csv_folder, filename))
+                
+        # Alternative pattern matching based on your file naming convention
+        if not csv_files:  # If no files found with the above pattern
+            for filename in os.listdir(csv_folder):
+                if filename.startswith(f"{username}") and filename.endswith(".csv"):
+                    csv_files.append(os.path.join(csv_folder, filename))
+        
+        print(f"Found {len(csv_files)} CSV files for user {username}")
+    except Exception as e:
+        print(f"Error listing CSV files: {str(e)}")
+    
+    return csv_files
+
+@app.route("/getAvailableSites", methods=["GET"])
+def get_available_sites():
+    if "username" not in session:
+        return jsonify({"error": "User not logged in"}), 401
+    
+    username = session["username"]
+    
+    # Get all available CSV files for this user
+    csv_files = get_all_csv_files(username)
+    
+    sites = []
+    for idx, csv_file in enumerate(csv_files):
+        try:
+            if not os.path.exists(csv_file):
+                print(f"Warning: File not found: {csv_file}")
+                continue
+            
+            # Extract a meaningful site name from the CSV content
+            site_name = extract_site_name_from_csv(csv_file)
+            
+            # If we couldn't extract a site name, fall back to the filename
+            filename = os.path.basename(csv_file)
+            display_name = site_name if site_name else filename.replace(f"{username}_", "")
+            
+            sites.append({
+                "id": idx, 
+                "name": display_name,  # This is what shows in the dropdown
+                "file": filename  # This is the actual filename used for data loading
+            })
+        except Exception as e:
+            print(f"Error processing {csv_file}: {str(e)}")
+    
+    return jsonify(sites)
+
+def extract_site_name_from_csv(csv_file):
+    """
+    Extract a proper site name from the CSV file.
+    Returns None if no site name could be found.
+    """
+    try:
+        with open(csv_file, "r", encoding="utf-8") as file:
+            current_section = None
+            for line in file:
+                line = line.strip()
+                if not line:
+                    continue
+                
+                if "," not in line:
+                    current_section = line
+                # Look for site name in common locations
+                elif current_section == "General Site Data" and line.startswith("Site Name"):
+                    return line.split(",", 1)[1].strip()
+                elif line.startswith("Site Name") or line.startswith("Name"):
+                    return line.split(",", 1)[1].strip()
+                elif current_section is None and line.startswith("Site:"):
+                    return line.split(":", 1)[1].strip()
+            
+            # If we couldn't find a proper site name, look for a date in the filename
+            # which might be more meaningful than the full filename
+            filename = os.path.basename(csv_file)
+            import re
+            date_match = re.search(r'(\d{8}|\d{6}|\d{4}-\d{2}-\d{2})', filename)
+            if date_match:
+                date_str = date_match.group(0)
+                return f"Site data from {date_str}"
+            
+            return None
+    except Exception as e:
+        print(f"Error extracting site name from {csv_file}: {str(e)}")
+        return None
+    
+@app.route("/fetchSiteData/<file_name>", methods=["GET"])
+def fetch_site_data(file_name):
+    """Fetch data from a specific CSV file"""
+    if "username" not in session:
+        return jsonify({"error": "User not logged in"}), 401  # Unauthorized
+    
+    username = session["username"]
+    
+    # Define the correct path to the CSV files folder
+    csv_folder = os.path.join(app.config['UPLOAD_FOLDER'], 'csv_outputs')
+    
+    # The full path to the file - check both naming patterns
+    file_path = os.path.join(csv_folder, file_name)
+    
+    # Debug information
+    print(f"Looking for file: {file_path}")
+    print(f"File exists: {os.path.exists(file_path)}")
+    
+    if not os.path.exists(file_path):
+        return jsonify({"error": f"File not found at {file_path}"}), 404
+    
+    try:
+        structured_data = {}
+        current_section = None
+        with open(file_path, "r", encoding="utf-8") as file:
+            for line in file:
+                line = line.strip()
+                if not line:
+                    continue
+                
+                if "," not in line:
+                    current_section = line
+                    structured_data[current_section] = {}
+                else:
+                    key, value = map(str.strip, line.split(",", 1))
+                    if value.startswith("[") and value.endswith("]"):
+                        try:
+                            value = ast.literal_eval(value)
+                        except:
+                            pass
+                    if current_section:
+                        structured_data[current_section][key] = value
+                    else:
+                        structured_data[key] = value
+        
+        return jsonify(structured_data)
+    except Exception as e:
+        import traceback
+        traceback_str = traceback.format_exc()
+        print(f"Error reading file {file_path}: {str(e)}\n{traceback_str}")
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
+@app.route("/fetchTestData", methods=["GET"])
+def fetch_test_data():
+    """Fetch the latest CSV file for the logged-in user"""
+    if "username" not in session:
+        return jsonify({"error": "User not logged in"}), 401  # Unauthorized
+
+    username = session["username"]
+    latest_csv = get_latest_csv(username)
+
+    if not latest_csv:
+        return jsonify({"error": "No data found"}), 404  # No CSV file found
+
+    try:
+        structured_data = {}
+        current_section = None  # Track current section header
+
+        with open(latest_csv, "r", encoding="utf-8") as file:
+            for line in file:
+                line = line.strip()
+
+                if not line:
+                    continue  # Skip empty lines
+                
+                if "," not in line:
+                    # If line has no comma, treat it as a section header
+                    current_section = line
+                    structured_data[current_section] = {}
+                else:
+                    # Process key-value pairs
+                    key, value = map(str.strip, line.split(",", 1))
+
+                    # Convert list-like values properly
+                    if value.startswith("[") and value.endswith("]"):
+                        try:
+                            value = ast.literal_eval(value)  # Convert to actual list
+                        except:
+                            pass  # Keep as string if conversion fails
+
+                    if current_section:
+                        structured_data[current_section][key] = value
+                    else:
+                        structured_data[key] = value  # Handle cases without section headers
+
+        return jsonify(structured_data)
+        #return render_template("results.html", data=structured_data)
+
+
+    except FileNotFoundError:
+        return jsonify({"error": "CSV file not found"}), 404
+
+    except Exception as e:
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
+
+
 '''
 Error Handling
 '''
@@ -577,4 +1030,5 @@ def bad_request_error(error):
 
 if __name__ == "__main__":
     #app.run(debug=True, passthrough_errors=True, use_debugger=False, use_reloader=False)
+    app.run(debug=True)
     app.run(host='0.0.0.0', port=5000)

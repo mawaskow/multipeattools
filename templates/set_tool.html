@@ -15,6 +15,7 @@
                     <div class="container disclm">
                         <p style="color:#5C93AC" class="text-descr">Disclaimer: The results calculated by this tool are not a guarantee. If you would like to learn about the logic behind our calculations, please see the <a class="textab" href="https://vb.nweurope.eu/projects/project-search/cconnects-carbon-connects/#tab-6" target="_blank">original</a> XLSM version of the tool and the <a class="textab" href="https://vb.nweurope.eu/media/12209/site-emissions-tool-v12-description.pdf" target="_blank">user manual</a>.</p>
                     </div>
+                    <p id="data_display"></p>
                     <span><p style="color: red;" class="d-inline">*</p><p style="color: #989898;" class="d-inline"> denotes required field.</p></span>    
                 </div>
                 <div class="empty-spacing" style="padding-top: 15px;"></div>
@@ -22,8 +23,31 @@
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="container set-site-div">
                         <div class="row align-items-center">
-                            <div class="col-7">
+                           <!---- <div class="col-7">
+                                <button id="load_data_btn" class="btn btn-success">Load Data</button>
+                                <p id="loading_status" style="color: blue; display: none;">Loading data...</p>
                                 <label for="site_name" class="form-label tt-form-label">Site Name</label> 
+                            </div> --> 
+                            <div class="col-7">
+                                {% if session.get('username') %}
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="load_data_btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-database me-2"></i>Select Site
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="load_data_btn">
+                                        <li><h6 class="dropdown-header">Available Sites</h6></li>
+                                        <li><a class="dropdown-item" href="#" data-site="site1">Site One</a></li>
+                                        <li><a class="dropdown-item" href="#" data-site="site2">Site Two</a></li>
+                                        <li><a class="dropdown-item" href="#" data-site="site3">Site Three</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                <p id="loading_status" style="color: #0d6efd; display: none;">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>Loading data...
+                                </p>
+                                <label for="site_name" class="form-label tt-form-label mt-2">Site Name</label>
                             </div>
                             <div class="col-5">
                                 <input type="text" class="validate form-control" id="site_name" name="site_name" value="{{inpt['gen_site_data']['site_name']}}" onchange="set_calculation()" onkeyup="set_calculation()">
@@ -41,6 +65,7 @@
                         </div>
                         <hr class="inf">
                         <div class="row align-items-center">
+                            
                             <div class="col-7">
                                 <svg height="20" width="16">
                                     <a data-bs-toggle="popover" tabindex="0" data-bs-trigger="focus" data-bs-placement="right" data-bs-content="Coordinates of site.">
@@ -808,7 +833,7 @@
                 <div class="row justify-content-center">
                     <div class="col-auto text-center">
                         <p class="text-descr" style="margin-bottom: 5px;">Export results and assumptions</p>
-                        <button id="set_csv_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">DOWNLOAD CSV</button>
+                        <button id="set_csv_btn" class="btn btn-success btn-sm" style="font-weight: 500; max-width: 175px;">Save</button>
                     </div>
                     <div class="col-auto text-center">
                         <p class="text-descr" style="margin-bottom: 5px;">Export GWP Outcomes</p>
@@ -1312,7 +1337,238 @@
         </div>
     </div>
 </div>
+<script>
+// Fetch data from API and populate fields
+document.addEventListener("DOMContentLoaded", function () {
+    // Check if user is logged in (you'll need to implement this check)
+    const isLoggedIn = {% if session.get('username') %}true{% else %}false{% endif %};    
+    // Reference to the button container
+    const buttonContainer = document.querySelector(".col-7");
+    
+    if (isLoggedIn) {
+        // Create dropdown structure
+        const dropdownHtml = `
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="site_dropdown_btn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-database me-2"></i>Select Site
+                </button>
+                <ul class="dropdown-menu" id="site_dropdown" aria-labelledby="site_dropdown_btn">
+                    <li><h6 class="dropdown-header">Available Sites</h6></li>
+                    <!-- Site options will be added here -->
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#" id="load_latest_data">Load Latest Data</a></li>
+                </ul>
+            </div>
+            <p id="loading_status" style="color: #0d6efd; display: none;">
+                <i class="fas fa-spinner fa-spin me-2"></i>Loading data...
+            </p>
+            <label for="site_name" class="form-label tt-form-label">Site Name</label>
+        `;
+        
+        // Replace the button container with dropdown
+        buttonContainer.innerHTML = dropdownHtml;
+        
+        // Fetch available sites
+        fetch("/getAvailableSites")
+            .then(response => response.json())
+            .then(sites => {
+                const dropdown = document.getElementById("site_dropdown");
+                const divider = dropdown.querySelector("hr").parentNode;
+                
+                if (sites.length === 0) {
+                    const noSitesItem = document.createElement("li");
+                    noSitesItem.innerHTML = `<span class="dropdown-item text-muted">No sites available</span>`;
+                    dropdown.insertBefore(noSitesItem, divider);
+                } else {
+                    // Add site options to dropdown
+                    sites.forEach(site => {
+                        const listItem = document.createElement("li");
+                        const link = document.createElement("a");
+                        link.className = "dropdown-item";
+                        link.href = "#";
+                        link.setAttribute("data-file", site.file);
+                        link.textContent = site.name;
+                        listItem.appendChild(link);
+                        
+                        dropdown.insertBefore(listItem, divider);
+                        
+                        // Add click event to load specific site data
+                        link.addEventListener("click", function(e) {
+                            e.preventDefault();
+                            
+                            // Update button text
+                            document.getElementById("site_dropdown_btn").innerHTML = 
+                                `<i class="fas fa-database me-2"></i>${site.name}`;
+                            
+                            // Show loading status
+                            document.getElementById("loading_status").style.display = "block";
+                            
+                            // Fetch data for this site
+                            fetch(`/fetchSiteData/${encodeURIComponent(site.file)}`)
+                                .then(response => response.json())
+                                .then(data => processData(data))
+                                .catch(error => {
+                                    console.error("Error fetching site data:", error);
+                                    document.getElementById("loading_status").style.display = "none";
+                                    alert("Failed to load site data.");
+                                });
+                        });
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching available sites:", error);
+                alert("Failed to fetch available sites.");
+            });
+        
+        // Add event listener for "Load Latest Data" option
+        document.getElementById("load_latest_data").addEventListener("click", function(e) {
+            e.preventDefault();
+            
+            // Update button text
+            document.getElementById("site_dropdown_btn").innerHTML = 
+                `<i class="fas fa-database me-2"></i>Latest Data`;
+            
+            // Show loading status
+            document.getElementById("loading_status").style.display = "block";
+            
+            // Fetch latest data
+            fetch("/fetchTestData")
+                .then(response => response.json())
+                .then(data => processData(data))
+                .catch(error => {
+                    console.error("Error fetching latest data:", error);
+                    document.getElementById("loading_status").style.display = "none";
+                    alert("Failed to load latest data.");
+                });
+        });
+    } else
+    {
+        buttonContainer.innerHTML = '';
 
+    }
+    
+    // Function to process and display data
+    function processData(data) {
+        console.log("Processing data:", data);
+        document.getElementById("loading_status").style.display = "none";
+        
+        if (!data || Object.keys(data).length === 0) {
+            alert("No data found!");
+            return;
+        }
+        
+        // Fill in Site Name
+        if (data["General Site Data"]) {
+            updateInputField("site_name", data["General Site Data"]["Site Name"]);
+            updateInputField("tot_area", data["General Site Data"]["Total Area"]);
+            updateInputField("coords", data["General Site Data"]["Coordinates"]);
+            updateInputField("elevation", data["General Site Data"]["Elevation"]);
+            updateInputField("peat_type", data["General Site Data"]["Peat Type"]);
+            updateInputField("peat_thick", data["General Site Data"]["Peat Thickness"]);
+            updateInputField("year_start", data["General Site Data"]["Year Rewetting Starts"]);
+        }
+        
+        // Fill in Base section
+        if (data["Base"]) {
+            updateInputField("bs_amount_manure", data["Base"]["Amount Manure"]);
+            updateInputField("bs_amount_org_fert", data["Base"]["Amount Organic Fertilizer"]);
+            updateInputField("bs_amount_synth_fert", data["Base"]["Amount Synthetic Fertilizer"]);
+            updateInputField("bs_avg_num_days", data["Base"]["Average Number of Grazing Days"]);
+            updateInputField("bs_crop_name", data["Base"]["Crop Name"]);
+            updateInputField("bs_crop_yield", data["Base"]["Crop Yield"]);
+            updateInputField("bs_diesel_per_site", data["Base"]["Diesel per Site"]);
+            updateInputField("bs_elec_per_site", data["Base"]["Electricity per Site"]);
+            updateCheckbox("bs_crop_resid", data["Base"]["Include Crop Residuals"]);
+            updateInputField("bs_med_gw_level_summer", data["Base"]["Median Groundwater Level"]);
+            updateInputField("bs_avg_num_animals", data["Base"]["Number of Grazing Animals"]);
+            updateInputField("bs_type_synth_fert", data["Base"]["Type Synthetic Fertilizer"]);
+            updateInputField("bs_type_animals", data["Base"]["Type of Grazing Animals"]);
+            updateInputField("bs_veg_class", data["Base"]["Vegetation Class"]);
+        }
+        
+        // Fill in Rewet section
+        if (data["Rewet"]) {
+            updateInputField("rw_amount_manure", data["Rewet"]["Amount Manure"]);
+            updateInputField("rw_amount_org_fert", data["Rewet"]["Amount Organic Fertilizer"]);
+            updateInputField("rw_amount_synth_fert", data["Rewet"]["Amount Synthetic Fertilizer"]);
+            updateInputField("rw_avg_num_animals", data["Rewet"]["Average Number of Grazing Animals"]);
+            updateInputField("rw_avg_num_days", data["Rewet"]["Average Number of Grazing Days"]);
+            updateInputField("rw_crop_name", data["Rewet"]["Crop Name"]);
+            updateInputField("rw_crop_use", data["Rewet"]["Crop Use"]);
+            updateInputField("rw_crop_yield", data["Rewet"]["Crop Yield"]);
+            updateInputField("rw_diesel_per_site", data["Rewet"]["Diesel per Site"]);
+            updateInputField("rw_elec_per_site", data["Rewet"]["Electricity per Site"]);
+            updateCheckbox("rw_crop_resid", data["Rewet"]["Include Crop Residuals"]);
+            updateInputField("rw_med_gw_level_summer", data["Rewet"]["Median Groundwater Level"]);
+            updateInputField("rw_type_synth_fert", data["Rewet"]["Type Synthetic Fertilizer"]);
+            updateInputField("rw_type_animals", data["Rewet"]["Type of Grazing Animals"]);
+            updateInputField("rw_veg_class", data["Rewet"]["Vegetation Class"]);
+        }
+        
+        // Fill in Results section
+        if (data["Results"]) {
+            updateField("base_CH4", data["Results"]["Base CH4"]);
+            updateField("base_CO2", data["Results"]["Base CO2"]);
+            updateField("base_c_emission_gwp_subtotal", data["Results"]["Base Carbon Emission GWP Subtotal"]);
+            updateField("base_n2o_direct", data["Results"]["Base N2O Direct"]);
+            updateField("base_n2o_indirect", data["Results"]["Base N2O Indirect"]);
+            updateField("base_n2o_emission_gwp_subtotal", data["Results"]["Base N2O Emission GWP Subtotal"]);
+            updateField("base_activity_gwp_subtotal", data["Results"]["Base Activity GWP Subtotal"]);
+            updateField("base_gwp_total", data["Results"]["Base GWP Total"]);
+            updateField("rewet_CH4", data["Results"]["Rewet CH4"]);
+            updateField("rewet_CO2", data["Results"]["Rewet CO2"]);
+            updateField("rewet_c_emission_gwp_subtotal", data["Results"]["Rewet Carbon Emission GWP Subtotal"]);
+            updateField("rewet_n2o_direct", data["Results"]["Rewet N2O Direct"]);
+            updateField("rewet_n2o_indirect", data["Results"]["Rewet N2O Indirect"]);
+            updateField("rewet_n2o_emission_gwp_subtotal", data["Results"]["Rewet N2O Emission GWP Subtotal"]);
+            updateField("rewet_activity_gwp_subtotal", data["Results"]["Rewet Activity GWP Subtotal"]);
+            updateField("rewet_product_gwp_subtotal", data["Results"]["Rewet Product GWP Subtotal"]);
+            updateField("rewet_gwp_total", data["Results"]["Rewet GWP Total"]);
+        }
+    }
+});
+
+// Helper functions
+function updateInputField(id, value) {
+    const field = document.getElementById(id);
+    if (field) {
+        field.value = value || "";
+    }
+}
+
+function updateCheckbox(id, value) {
+    const checkbox = document.getElementById(id);
+    if (checkbox) {
+        checkbox.checked = value === true || value === "true" || value === 1;
+    }
+}
+
+function updateField(id, value) {
+    const field = document.getElementById(id);
+    if (field) {
+        field.textContent = value || "";
+    }
+}
+
+function updateInputField(id, value) {
+    let element = document.getElementById(id);
+    if (element) {
+        element.value = value || "";
+    } else {
+        console.warn(`Input field with ID '${id}' not found`);
+    }
+}
+
+function updateCheckbox(id, value) {
+    let element = document.getElementById(id);
+    if (element) {
+        element.checked = value === "true" || value === true;
+    } else {
+        console.warn(`Checkbox with ID '${id}' not found`);
+    }
+}
+</script>
 <!--set script-->
 <script src="{{url_for('static', filename='scripts/calc_set.js')}}" async></script>
 
