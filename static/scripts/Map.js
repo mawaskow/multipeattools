@@ -179,6 +179,7 @@ const fiLayer= new ImageLayer({
     display: 'Finnish Bogs',
     region: 'Finland'
 });
+
 // EWM Peatlands
 
 const alSource=new ImageWMS({

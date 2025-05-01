@@ -87,6 +87,7 @@ map.on('singleclick', function (evt) {
   // be-wallonia
   const fiInfo=$('#fi-info');
   fiInfo.html('');
+
   // wetlands map of europe layers
   // al-albania
   const alInfo=$('#al-info');
@@ -184,6 +185,7 @@ map.on('singleclick', function (evt) {
   // swi-switzerland
   const swiInfo=$('#swi-info');
   swiInfo.html('');
+
   // default
   const noFeatures=$('#no-features');
   noFeatures.html('<p>No features</p>');
@@ -435,6 +437,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
+
     // wetlands map of europe
     const alLayer=getLayerByName('AL_Peatlands');
     const alSource=alLayer.getSource();
@@ -1139,6 +1142,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
                 }
             })
     }
+
 
   overlay.setPosition(coordinate);
 });
