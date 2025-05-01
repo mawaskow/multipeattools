@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Incentive Tool{% endblock %}
+
+{% block content %}
+
+<div class="container" style="min-height: 800px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h4 class="text-center" style="padding:10px; padding-top: 20px;">POLICY INCENTIVE TOOL</h4>
+            <p class="text-descr" style="padding-bottom:10px">
+                Provide link to policy PDF or file to be analyzed.
+                This tool will extract the text from this policy and separate it into sentences. 
+                Then our pre-trained model will check the sentences for policy incentives and finally will classify the incentive sentences by category.
+                You then may provide feedback on the results and save your final report.
+            </p>
+            <p>This may take a few minutes-- feel free to leave the page?</p>
+            <div class="col-lg-7">
+                <form method="POST" action="/incentive-tool" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <!--
+                    <p><input type="file" name="inc_file" accept=".pdf,.doc,.docx"></p>
+                    <p><input type="submit" value="Submit"></p>
+                    -->
+                    <div class="input-group col-lg-6 col-md-6 inc-inpt-grp" style="justify-self: center;">
+                        <input type="file" class="form-control inc-inpt" name="inc_file" id="inc_cls_file">
+                        <button class="btn btn-success" type="submit">
+                            <!--<span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>-->
+                            <span role="status">Process</span>
+                            <!--<span role="status">Processing...</span>-->
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {% if res_dct %}
+                <div id="inc_result_div" class="inc_res_div">
+                    <h4 class="inc_res_ttl" style="justify-self: center;">Incentives Identified in {{filename}}</h4>
+                    <h5 class="inc_res_ttl" style="justify-self: center;">Runtime: {{time_st}}</h5>
+                    {% for label in res_dct.keys() %} 
+                        <h5 class="inc_res_lbl" style="justify-self: center;">{{label}}</h4>
+                        {% for sent in res_dct[label] %}
+                            <ul><p class="inc_res_sent">{{sent}}</p></ul>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    console.log("NLP Tool")
+    // on click of submit button, update status span inner htmo and activate spinner
+</script>
+
+{% endblock %}

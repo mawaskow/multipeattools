@@ -3,7 +3,6 @@
 {% block title %}Policy Collection{% endblock %}
 
 {% block content %}
-
 <div class="container" style="min-height: 760px;">
     <div class="row justify-content-center">
         <div class="col-lg-10">
@@ -13,27 +12,13 @@
                 At the moment, you can filter the policies by country, governance level, and category.
                 We will be adding further polices and querying methods as we grow our portal.
             </p>
-
             <div class="row justify-content-center">
                 <div class="col-3">
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Countries
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Belgi%C3%AB", "Belgian")'>Belgium</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Bulgaria", "Bulgarian")'>Bulgaria</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Eesti", "Estonian")'>Estonia</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Finland", "Finnish")'>Finland</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Deutschland", "German")'>Germany</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Ireland", "Irish")'>Ireland</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Italia", "Italian")'>Italy</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Latvija", "Latvian")'>Latvia</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Lietuva", "Lithuanian")'>Lithuania</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Nederland", "Dutch")'>Netherlands</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Polska", "Polish")'>Poland</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=Rom%C3%A2nia", "Romanian")'>Romania</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/country=United%20Kingdom", "British")'>United Kingdom</a></li>
+                        <ul class="dropdown-menu overflow-auto" id="pol-ctry-select" style="max-height: 400px;">
                         </ul>
                     </div>
                 </div>
@@ -43,11 +28,26 @@
                             Governance Level
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=Global", "Global")'>Global</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=European", "European")'>EU</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=National", "National")'>National</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=Regional", "Regional")'>Regional</a></li>
-                            <li><a class="dropdown-item" onclick='policyCollectionGetShow("/policy/level=Local", "Local")'>Local</a></li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Global" id="pol-chk-lvl-gb" onchange="filterPolicies()" checked>
+                                <label class="form-check-label" for="flexCheckDefault">Global</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="European" id="pol-chk-lvl-eu" onchange="filterPolicies()" checked>
+                                <label class="form-check-label" for="flexCheckDefault">European</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="National" id="pol-chk-lvl-nt" onchange="filterPolicies()" checked>
+                                <label class="form-check-label" for="flexCheckDefault">National</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Regional" id="pol-chk-lvl-rg" onchange="filterPolicies()" checked>
+                                <label class="form-check-label" for="flexCheckDefault">Regional</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Local" id="pol-chk-lvl-lc" onchange="filterPolicies()" checked>
+                                <label class="form-check-label" for="flexCheckDefault">Local</label>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -57,27 +57,67 @@
                             Policy Category
                         </button>
                         <ul class="dropdown-menu" style="padding:0px;">
-                            <li><a class="dropdown-item bio-class-pill" onclick='policyCollectionGetShow("/policy/categ=bio", "Biodiversity")'>Biodiversity</a></li>
-                            <li><a class="dropdown-item clm-class-pill" onclick='policyCollectionGetShow("/policy/categ=clm", "Climate Action")'>Climate Action</a></li>
-                            <li><a class="dropdown-item comm-class-pill" onclick='policyCollectionGetShow("/policy/categ=comm", "Community and Culture")'>Community / Culture</a></li>
-                            <li><a class="dropdown-item econ-class-pill" onclick='policyCollectionGetShow("/policy/categ=econ", "Economy")'>Economy</a></li>
-                            <li><a class="dropdown-item enr-class-pill" onclick='policyCollectionGetShow("/policy/categ=enr", "Energy")'>Energy</a></li>
-                            <li><a class="dropdown-item env-class-pill" onclick='policyCollectionGetShow("/policy/categ=env", "Environmental Quality")'>Environmental Quality</a></li>
-                            <li><a class="dropdown-item land-class-pill" onclick='policyCollectionGetShow("/policy/categ=land", "Land Use and Agriculture")'>Land Use / Agriculture</a></li>
-                            <li><a class="dropdown-item res-class-pill" onclick='policyCollectionGetShow("/policy/categ=res", "Research and Applied Science")'>Research and Applied Sciences</a></li>
+                            <li>
+                                <div class="bio-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-bio" class="form-check-input stk-chk" value="Biodiversity" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-bio">Biodiversity</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="clm-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-clm" class="form-check-input stk-chk" value="Climate Action" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-clm">Climate Action</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="comm-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-comm" class="form-check-input stk-chk" value="Community and Culture" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-comm">Culture</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="econ-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-econ" class="form-check-input stk-chk" value="Economy" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-econ">Economy</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="enr-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-enr" class="form-check-input stk-chk" value="Energy" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-enr">Energy</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="env-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-env" class="form-check-input stk-chk" value="Environment Quality" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-env">Env. Quality</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="land-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-land" class="form-check-input stk-chk" value="Land Use / Agriculture" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-land">Land Use</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="res-cls-clr">
+                                    <input type="checkbox" id="pol-chk-cat-res" class="form-check-input stk-chk" value="Research and Applied Sciences" onchange="filterPolicies()" checked>
+                                    <label class="form-check-label" for="pol-chk-cat-res">Research</label>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
+            <div id="policyliststore" value="{{ [] }}" style="display:none"></div>
             <div class="accordion pol-coll-div" id="pol-coll-div" style="margin-bottom: 10px;">
-                <p class="text-center" style="padding: 20px;">Please select a filter to begin exploring policies.</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    // defining dictionaries
     const pillDct = 
         {'Economy': `econ-class-pill`,
         'Land-Use / Agriculture': `land-class-pill`,
@@ -86,9 +126,13 @@
         'Climate':`clm-class-pill`,
         'Energy':`enr-class-pill`,
         'Biodiversity':`bio-class-pill`,
-        'Research and applied sciences':`res-class-pill`
+        'Research and applied sciences':`res-class-pill`,
+        //
+        'Land Use / Agriculture': `land-class-pill`,
+        'Climate Action':`clm-class-pill`,
+        'Research and Applied Sciences':`res-class-pill`,
+        'Environment Quality':`env-class-pill`,
         };
-
     const pillNames = 
         {'Economy': `Economy`,
         'Land-Use / Agriculture': `Land-Use / Agriculture`,
@@ -97,51 +141,367 @@
         'Climate':`Climate`,
         'Energy':`Energy`,
         'Biodiversity':`Biodiversity`,
-        'Research and applied sciences':`Research`
+        'Research and applied sciences':`Research`,
+        //
+        'Land Use / Agriculture': `Land-Use / Agriculture`,
+        'Climate Action':`Climate`,
+        'Research and Applied Sciences':`Research`,
+        'Environment Quality':`Environmental Quality`,
         };
+    //https://www.alt-codes.net/flags
+    const flagmojis = {
+        "Global":"🌐",
+        "European":"🇪🇺",
+        "Austria":"🇦🇹",
+        "Belgium":"🇧🇪",
+        "Bulgaria":"🇧🇬",
+        "Croatia":"🇭🇷",
+        "Cyprus":"🇨🇾",
+        "Czech Republic":"🇨🇿",
+        "Denmark":"🇩🇰",
+        "Estonia":"🇪🇪",
+        "Finland":"🇫🇮",
+        "France":"🇫🇷",
+        "Germany":"🇩🇪",
+        "Greece":"🇬🇷",
+        "Hungary":"🇭🇺",
+        "Iceland":"🇮🇸",
+        "Ireland":"🇮🇪",
+        "Italy":"🇮🇹",
+        "Latvia":"🇱🇻",
+        "Liechtenstein":"🇱🇮",
+        "Lithuania":"🇱🇹",
+        "Luxembourg":"🇱🇺",
+        "Malta":"🇲🇹",
+        "Netherlands":"🇳🇱",
+        "Norway":"🇳🇴",
+        "Poland":"🇵🇱",
+        "Portugal":"🇵🇹",
+        "Romania":"🇷🇴",
+        "Slovakia":"🇸🇰",
+        "Slovenia":"🇸🇮",
+        "Spain":"🇪🇸",
+        "Sweden":"🇸🇪",
+        "Switzerland":"🇨🇭",
+        "United Kingdom":"🇬🇧"
+    }
+    const country_select = {
+        "Austria":"at",
+        "Belgium":"be",
+        "Bulgaria":"bg",
+        "Croatia":"hr",
+        "Cyprus":"cy",
+        "Czech Republic":"cz",
+        "Denmark":"dk",
+        "Estonia":"ee",
+        "Finland":"fi",
+        "France":"fr",
+        "Germany":"de",
+        "Greece":"gr",
+        "Hungary":"hu",
+        "Iceland":"is",
+        "Ireland":"ie",
+        "Italy":"it",
+        "Latvia":"lv",
+        "Liechtenstein":"li",
+        "Lithuania":"lt",
+        "Luxembourg":"lu",
+        "Malta":"mt",
+        "Netherlands":"nl",
+        "Norway":"no",
+        "Poland":"pl",
+        "Portugal":"pt",
+        "Romania":"ro",
+        "Slovakia":"sk",
+        "Slovenia":"si",
+        "Spain":"es",
+        "Sweden":"se",
+        "Switzerland":"ch",
+        "United Kingdom":"gb"
+    }
+    // add filters
+    const ctry_sel_hl = $("#pol-ctry-select");
+    ctry_sel_hl.html('');
+    ctry_sel_hl.append(`
+        <li>
+            <input class="form-check-input stk-chk" type="checkbox" value="Toggle all" id="pol-chk-nat-all" onchange="toggle_countries()" checked>
+            <label class="form-check-label">Toggle all</label>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+    `);
+    for(let key in country_select){
+        ctry_sel_hl.append(`
+            <li>
+                <input class="form-check-input stk-chk" type="checkbox" value="${key}" id="pol-chk-nat-${country_select[key]}" onchange="filterPolicies()" checked>
+                <label class="form-check-label">${key}</label>
+            </li>
+        `);
+    }
 
-    async function policyCollectionGetShow(dataAddress, heading){
-        var polLst = [];
+    // sorting policies, level first ascending, then by country
+    function sortPolLst(polLst){
+        var lvl_dct = {"Local":[], "Regional":[], "National":[], "European":[], "Global":[]};
+        polLst.forEach(policy => {
+            lvl_dct[policy['policy_level']].push(policy);
+        });
+        var newLst = [];
+        for(let key in lvl_dct){
+            newLst.push(...lvl_dct[key]);
+        };
+        return newLst;
+    }
 
-        try {
-            const response = await fetch(dataAddress);
-            if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-            }
-            const json = await response.json();
-            json.forEach(pol =>{
-                polLst.push(pol);
-            })
-        } catch (error) {
-            console.error(error.message);
-        }
-
+    // how to display policies
+    function policyCollectionShow(polLstu){
+        polLst = sortPolLst(polLstu);
+        console.log(polLst[0]);
         const polPop = $('#pol-coll-div');
         polPop.html('');
-        var element = `<h4 id="pol-res-he" class="text-center" style="padding-bottom:20px">${heading} Policies</h4>`;
-        polPop.append(element);
+        polPop.append(`<h4 id="pol-res-he" class="text-center" style="padding-bottom:10px">Policies</h4>`);
+        polPop.append(`<p id="pol-count" style="padding:5px">${polLst.length} results</p>`)
         for (let i = 0; i < polLst.length; i++) {
             var policy = polLst[i];
+            // categories html, gets all categories in their pill form
+            var categ_coll = [`<p class="badge rounded-pill ${ pillDct[policy["primary_category"]] }">${ pillNames[policy["primary_category"]] }</p>`];
+            var categ_lst = policy["category"].sort();
+            if(categ_lst.length > 1){
+                categ_coll.push(`|`);
+            }
+            for (let c=0; c < categ_lst.length; c++){
+                if(categ_lst[c] != policy["primary_category"]){
+                    categ_coll.push(`<p class="badge rounded-pill ${ pillDct[categ_lst[c]] }">${ pillNames[categ_lst[c]] }</p>`);
+                }
+            }
+            var categs_html = categ_coll.join(" ");
+            // publishers html, gets all publishers
+            var publs_coll = [];
+            policy["publisher"].forEach(publisher =>
+                publs_coll.push(`<p class="d-inline">${publisher}</p>`)
+            );
+            var publs_html = publs_coll.join(`; <p class="d-inline" style="font-size:14px">👤</p><p class="d-inline">`);
+            // level / sublevel html, accounts for global and european, adds emojis
+            var lvl_area_html = ``;
+            if(["European", "Global"].includes(policy['policy_level'])){
+                lvl_area_html = `<p class="d-inline" style="font-size:14px">${ flagmojis[policy['policy_level']] }</p> <p class="d-inline">${ policy['policy_level'] } </p>`;
+            }else{
+                if(policy["country"] in flagmojis){
+                    lvl_area_html = `<p class="d-inline" style="font-size:14px">${ flagmojis[policy['country']] }</p> <p class="d-inline">${policy['country']} | ${ policy['policy_level'] } </p>`;
+                }else{
+                    lvl_area_html = `<p> ${ policy['country'] } | ${ policy['policy_level'] } </p>`;
+                }
+            }
+            // duration html, accounts for missing dates
+            var duratn_html = ``;
+            if(policy['year_from'] && policy['year_to']){
+                duratn_html = `${policy['year_from']}-${policy['year_to']}`;
+            }else{
+                if(policy['year_from']){
+                    duratn_html = `${policy['year_from']}-`;
+                }else if(policy['year_to']){
+                    duratn_html = `-${policy['year_to']}`;
+                }
+            }
+            // try to split abstract by \n to retain line breaks?
+            var abst_html = ``;
+            var abst_html_section = ``;
+            if(policy['abstract_english']){
+                var abst_sents = policy['abstract_english'].split("\n");
+                var abst_ps = [];
+                abst_sents.forEach(sentence =>
+                    abst_ps.push(`<p class="poltxt">${ sentence }</p>`)
+                );
+                abst_html = abst_ps.join(`<p style="margin-bottom:5px;"></p>`);
+                abst_html_section = `<div class="abst-div">
+                                            <p>Summary</p>
+                                            <div class="collapse abst-collapse" id="abscoll${i}">
+                                                ${ abst_html }
+                                            </div>
+                                            <a role="button" class="collapsed d-flex polcol-lnk" data-bs-toggle="collapse" href="#abscoll${i}" style="font-size:14px;justify-self:center;padding-right:15px;">
+                                            </a>
+                                        </div>`
+            };
+            // split table of contents by \n to retain line breaks
+            var toc_html = ``;
+            var toc_html_section = ``;
+            if(policy['toc_english']){
+                var toc_lines = policy['toc_english'].split("\n");
+                var toc_ps = [];
+                toc_lines.forEach(line =>
+                    toc_ps.push(`<p class="poltxt">${ line }</p>`)
+                );
+                toc_html = toc_ps.join(`<p style="margin-bottom:5px;"></p>`);
+                toc_html_section = `<div class="abst-div">
+                                        <p>Table of Contents</p>
+                                        <div class="collapse abst-collapse" id="toccoll${i}">
+                                            ${ toc_html }
+                                        </div>
+                                        <a role="button" class="collapsed d-flex polcol-lnk" data-bs-toggle="collapse" href="#toccoll${i}" style="font-size:14px;justify-self:center;padding-right:15px;">
+                                        </a>
+                                    </div>`
+            }
+            // title
+            var title_html = `${ policy['name'] }`;
+            // links
+            var links_html = `<div style="margin-top:10px;margin-bottom:10px;">
+                        <a href="${ policy['data_link'] }" class="polcol-lnk d-inline" target="_blank">
+                            Policy Document 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                            </svg>
+                            </a> | 
+                        <a href="${ policy['documentation_link'] }" class="polcol-lnk d-inline" target="_blank">Policy Info Page ↗</a>
+                        </div>`;
             var element = `<div class="accordion-item polcol-acc-itm" style="margin-bottom:5px;">
                                 <div class="accordion-header polcol-acc-hdr">
                                     <button class="accordion-button collapsed polcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
                                         <div class="container">
-                                            <p class="d-inline" style="font-weight:bold;">${ policy[0] } </p>
-                                            <p>${ policy[1] } | ${ policy[4] }</p>
+                                            <p style="font-weight:bold;">${ title_html }</p>
+                                            ${ lvl_area_html }
                                         </div>
                                     </button>
                                 </div>
                                 <div id="collapse${i}" class="accordion-collapse collapse polcol-acc-coll">
                                     <div class="accordion-body polcol-acc-bdy">
-                                        <a href="${ policy[5] }" class="polcol-lnk d-inline" style=>LINK</a>
-                                        <p class="d-inline"> | <em>${ policy[6] }</em> | ${ policy[7] }</p>
-                                        <p>${ policy[2] }</p>
-                                        <p class="badge rounded-pill ${pillDct[policy[3]]}">${pillNames[policy[3]]}</p>
+                                        <div style="line-height: 1; margin-bottom:15px;">
+                                            <p class="d-inline"> ${ duratn_html } | </p><p class="d-inline" style="font-size:14px">👤</p> ${ publs_html }
+                                        </div>
+                                        ${ abst_html_section }
+                                        ${ toc_html_section }
+                                        ${ links_html }
+                                        <div>
+                                            ${ categs_html }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>`
-        polPop.append(element);
+                            </div>`;
+            polPop.append(element);
         };
+        if(!polLst){
+            polPop.append(`<p class="text-center" style="color:black;">No policies found. Please try other filter combinations.</p>`);
+        }
     }
+    // get ALL policies and display them
+    // also return all policies
+    async function datafxn(){
+        const url = '/policydata';
+        var polLst = [];
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            polcol= json["result"]["response"];
+            polcol.forEach(pol =>{
+                polLst.push(pol);
+            })
+        } catch (error) {
+            console.error(error.message);
+        }
+        //console.log(polLst[0]);
+        policyCollectionShow(polLst);
+        //
+        $('#policyliststore').val(JSON.stringify(polLst));
+        //
+        return polLst;
+    }
+    // update policy list based on filter values
+    function filterPolicies(){
+        polLst = JSON.parse($('#policyliststore').val());
+        //console.log(polLst.length)
+        // countries
+        var ctry_at = $('#pol-chk-nat-at:checked').val();
+        var ctry_be = $('#pol-chk-nat-be:checked').val();
+        var ctry_bg = $('#pol-chk-nat-bg:checked').val();
+        var ctry_hr = $('#pol-chk-nat-hr:checked').val();
+        var ctry_cy = $('#pol-chk-nat-cy:checked').val();
+        var ctry_cz = $('#pol-chk-nat-cz:checked').val();
+        var ctry_dk = $('#pol-chk-nat-dk:checked').val();
+        var ctry_ee = $('#pol-chk-nat-ee:checked').val();
+        var ctry_fi = $('#pol-chk-nat-fi:checked').val();
+        var ctry_fr = $('#pol-chk-nat-fr:checked').val();
+        var ctry_de = $('#pol-chk-nat-de:checked').val();
+        var ctry_gr = $('#pol-chk-nat-gr:checked').val();
+        var ctry_hu = $('#pol-chk-nat-hu:checked').val();
+        var ctry_is = $('#pol-chk-nat-is:checked').val();
+        var ctry_ie = $('#pol-chk-nat-ie:checked').val();
+        var ctry_it = $('#pol-chk-nat-it:checked').val();
+        var ctry_lv = $('#pol-chk-nat-lv:checked').val();
+        var ctry_li = $('#pol-chk-nat-li:checked').val();
+        var ctry_lt = $('#pol-chk-nat-lt:checked').val();
+        var ctry_lu = $('#pol-chk-nat-lu:checked').val();
+        var ctry_mt = $('#pol-chk-nat-mt:checked').val();
+        var ctry_nl = $('#pol-chk-nat-nl:checked').val();
+        var ctry_no = $('#pol-chk-nat-no:checked').val();
+        var ctry_pl = $('#pol-chk-nat-pl:checked').val();
+        var ctry_pt = $('#pol-chk-nat-pt:checked').val();
+        var ctry_ro = $('#pol-chk-nat-ro:checked').val();
+        var ctry_sk = $('#pol-chk-nat-sk:checked').val();
+        var ctry_si = $('#pol-chk-nat-si:checked').val();
+        var ctry_es = $('#pol-chk-nat-es:checked').val();
+        var ctry_se = $('#pol-chk-nat-se:checked').val();
+        var ctry_ch = $('#pol-chk-nat-ch:checked').val();
+        var ctry_gb = $('#pol-chk-nat-gb:checked').val();
+        // levels
+        var lvl_gb = $('#pol-chk-lvl-gb:checked').val();
+        var lvl_eu = $('#pol-chk-lvl-eu:checked').val();
+        var lvl_nat = $('#pol-chk-lvl-nt:checked').val();
+        var lvl_rg = $('#pol-chk-lvl-rg:checked').val();
+        var lvl_lc = $('#pol-chk-lvl-lc:checked').val();
+        // categories
+        var catg_bio = $('#pol-chk-cat-bio:checked').val();    
+        var catg_clm = $('#pol-chk-cat-clm:checked').val();   
+        var catg_comm = $('#pol-chk-cat-comm:checked').val();    
+        var catg_econ = $('#pol-chk-cat-econ:checked').val();    
+        var catg_enr = $('#pol-chk-cat-enr:checked').val();    
+        var catg_env = $('#pol-chk-cat-env:checked').val();   
+        var catg_land = $('#pol-chk-cat-land:checked').val();    
+        var catg_res = $('#pol-chk-cat-res:checked').val();
+        //
+        var ctry_lst = [ctry_at, ctry_be, ctry_bg, ctry_hr, ctry_cy, ctry_cz,
+            ctry_dk, ctry_ee, ctry_fi, ctry_fr, ctry_de, ctry_gr, ctry_hu,
+            ctry_is, ctry_ie, ctry_it, ctry_lv, ctry_li, ctry_lt, ctry_lu,
+            ctry_mt, ctry_nl, ctry_no, ctry_pl, ctry_pt, ctry_ro, ctry_sk,
+            ctry_si, ctry_es, ctry_se, ctry_ch, ctry_gb
+        ];
+        var lvl_lst = [lvl_gb, lvl_eu, lvl_nat, lvl_rg, lvl_lc];
+        var categ_lst=[catg_bio, catg_clm, catg_comm, catg_econ, 
+            catg_enr, catg_env, catg_land, catg_res
+        ];
+        //console.log(ctry_lst, lvl_lst, categ_lst);
+        var newLst = [];
+        polLst.forEach(policy =>{
+            // filter level
+            if(lvl_lst.includes(policy["policy_level"])){
+                // filter category
+                var categfltr = categ_lst.some(categ => policy["category"].includes(categ));
+                if(categfltr){
+                    // if sub-EU, filter country
+                    if(!(["European", "Global"].includes(policy['policy_level']))){
+                        if(ctry_lst.includes(policy["country"])){
+                            newLst.push(policy);
+                        }
+                    }else{
+                        newLst.push(policy);
+                    }
+                }
+            }
+        });
+        policyCollectionShow(newLst);
+    }
+    function toggle_countries(){
+        var id_lst = [];
+        for(let key in country_select){
+            id_lst.push(`pol-chk-nat-${country_select[key]}`);
+        }
+        var val = $('#pol-chk-nat-all').is(":checked");
+        id_lst.forEach(id =>{
+                $(`#${id}`).prop('checked', val);
+            });
+        filterPolicies();
+    }
+    var firstPolLst = datafxn();
+    //console.log(firstPolLst);
 </script>
 {% endblock %}

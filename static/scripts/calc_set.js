@@ -1248,13 +1248,83 @@ $("#set_csv_btn").on('click', function(event){
         ["Electricity per Site", document.getElementById("rw_elec_per_site").value],
         ["Crop Use", document.getElementById("rw_crop_use").value]
     ];
-    let csvContent = "data:text/csv;charset=utf-8,";
-    rows.forEach(function(rowArray) {
-        let row = rowArray.join(",");
-        csvContent += row + "\r\n";
+    function downloadAndSaveCSV(rows) {
+        let csvContent = rows.map(row => row.join(",")).join("\r\n");
+        // let csvContent = "data:waqassembled"
+        console.log("Sending CSV Data:", csvContent); // Debugging
+    
+        fetch('http://127.0.0.1:5000/save-csv', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8' 
+            },
+            credentials: 'include',
+            body: JSON.stringify({ csvData: csvContent })
+        })
+        .then(response => response.json().then(data => ({ status: response.status, body: data }))) // Get both status & JSON
+    .then(({ status, body }) => {
+        console.log("Response Status:", status); // Debugging
+        console.log("Server Response:", body); // Debugging
+
+        // Function to show the custom dialog
+function showDialog(type, title, message) {
+    const dialogOverlay = document.getElementById('dialogOverlay');
+    const dialogBox = document.getElementById('dialogBox');
+    const dialogTitle = document.getElementById('dialogTitleText');
+    const dialogContent = document.getElementById('dialogContent');
+    const dialogIcon = document.getElementById('dialogIcon');
+    const dialogClose = document.getElementById('dialogClose');
+    const dialogOk = document.getElementById('dialogOk');
+    
+    // Reset classes
+    dialogBox.className = 'dialog-box';
+    
+    // Set content
+    dialogTitle.textContent = title;
+    dialogContent.textContent = message;
+    
+    // Set styles based on type
+    if (type === 'success') {
+        dialogBox.classList.add('success');
+        dialogIcon.textContent = '✓';
+    } else if (type === 'error') {
+        dialogBox.classList.add('error');
+        dialogIcon.textContent = '!';
+    } else if (type === 'warning') {
+        dialogBox.classList.add('warning');
+        dialogIcon.textContent = '⚠';
+    }
+    
+    // Show dialog
+    dialogOverlay.classList.add('show');
+    
+    // Event listeners
+    const closeDialog = () => {
+        dialogOverlay.classList.remove('show');
+    };
+    
+    dialogClose.onclick = closeDialog;
+    dialogOk.onclick = closeDialog;
+}
+
+// Replace your existing code with this
+if (status === 200) {
+    showDialog('success', 'Success', body.message);
+} else if (status === 401) {
+    showDialog('warning', 'Logged In ', body.error);
+} else if (status === 400) {
+    showDialog('error', 'Bad Request', body.error);
+} else {
+    showDialog('warning', 'Unexpected Error', body.error);
+}
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Network error: Could not connect to the server.");
     });
-    var encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+    }
+    
+    downloadAndSaveCSV(rows);
 });
 
 $("#set_gwp_btn").on('click', function(event){
