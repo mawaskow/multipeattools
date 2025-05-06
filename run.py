@@ -775,7 +775,7 @@ def save_csv():
         print("Exception occurred:", e)
         return jsonify({"error": str(e)}), 500
     
-UPLOAD_FOLDER = "/home/ales/multipeattools"
+UPLOAD_FOLDER = "/home/ales/multipeattools/csv_outputs"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def get_latest_csv(username):
