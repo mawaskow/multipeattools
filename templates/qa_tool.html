@@ -17,9 +17,11 @@
         <select name="language" class="form-select">
           <option value="">🌐 All</option>
           {% for lang in [
-            "Bulgarian", "Croatian", "Czech", "Danish", "Dutch", "English (UK)", "English (US)", "Estonian",
-            "Finnish", "Flemish", "French (BE)", "French", "German", "Greek", "Hungarian", "Irish", "Italian",
-            "Latvian", "Lithuanian", "Polish", "Romanian", "Slovak", "Slovenian", "Spanish", "Swedish"
+            "Bulgarian / български език","Croatian / hrvatski jezik","Czech / Čeština","Danish / Dansk","Dutch / Nederlands","English (UK)",
+            "English (US)","Estonian / Eesti keel","Finnish / Suomi","Flemish / Vlaams","French (BE) / Français (BE)","French / Français",
+            "German / Deutsch","Greek / Ελληνικά","Hungarian / Magyar","Irish / Gaeilge","Italian / Italiano","Latvian / latviešu valoda",
+            "Lithuanian / Lietuvių kalba","Polish / Język polski","Romanian / română","Slovak / Slovenský jazyk","Slovenian / slovenščina",
+            "Spanish / Español","Swedish / Svenska"
           ] %}
           <option value="{{ lang }}" {% if selected_language == lang %}selected{% endif %}>{{ lang }}</option>
           {% endfor %}
