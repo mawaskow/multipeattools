@@ -21,7 +21,6 @@ from markupsafe import Markup
 import markdown
 #
 from modules import assum_json_to_dict, usrinp_json_to_dict
-from inctcls import pdf_to_sents, classify_w_svm, return_bn_results, return_mc_results
 import requests
 #added remarks for run.py
 # powershell: $env:FLASK_APP = "run"
@@ -462,37 +461,6 @@ def sub_policy():
         return render_template('polsubmit.html')
     return render_template('polsubmit.html', username=session['username'])
 
-@app.route('/incentive-tool', methods=['GET','POST'])
-def incentive_tool():
-    # will need to add language toggle at some point for tokenization
-    cls_incs = {}
-    filename = ""
-    time_st = ""
-    #cls_incs ={'Credit': ['We do this by providing export credit and trade finance support for exports that might otherwise not happen, thereby supporting UK exports and incentivising overseas buyers to source from the UKWe take account of relevant factors beyond the purely financial.'], 'Technical_assistance': ['Learning and development in this area can be through both formal and informal meansLearning and Development of our peopleWewill ensure our staff have the appropriate knowledge, training and awareness to deliver this strategy across the organisation22EnablersStakeholder engagementWe will engage with our stakeholders to help shape and support delivery of our strategyOur customers :We will engage with all our customers through our International Export Finance Executive network and our domestic Export Finance Manger network.']}
-    if request.method == 'POST':
-        st = time.time()
-        uploaded_file = request.files['inc_file']
-        filename = secure_filename(uploaded_file.filename)
-        if filename != '':
-            file_ext = os.path.splitext(filename)[1]
-            if file_ext not in ['.pdf','.doc','.docx']:
-                abort(400)
-            uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
-            sents = pdf_to_sents(os.path.join(app.config['UPLOAD_PATH'], filename))
-            pred_lbls_b, sents = classify_w_svm(sents, 'models/paraphrase-xlm-r-multilingual-v1_bn_v1.pt', 'bn')
-            inc_sents = return_bn_results(pred_lbls_b, sents)
-            cls_preds, sents = classify_w_svm(inc_sents, 'models/paraphrase-xlm-r-multilingual-v1_mc_v1.pt', 'mc')
-            cls_incs = return_mc_results(cls_preds, sents)
-            dur = time.time()-st
-            time_st = f"{round(dur/60,2)} min" if dur>60 else f"{round(dur,2)} s"
-            #print(cls_incs)
-            if 'username' not in session:
-                return render_template('incentive_tool.html', res_dct=cls_incs, filename=filename, time_st=time_st)
-            return render_template('incentive_tool.html', username=session['username'], res_dct=cls_incs, filename=filename, time_st=time_st)
-    if 'username' not in session:
-        return render_template('incentive_tool.html', res_dct=cls_incs, filename=filename, time_st=time_st)
-    return render_template('incentive_tool.html', username=session['username'], res_dct=cls_incs, filename=filename, time_st=time_st)
-
 def fix_markdown_headings_properly(text):
     """Dummy markdown fixer. Replace with your actual logic."""
     return text  # Assuming your original logic will go here
@@ -775,7 +743,7 @@ def save_csv():
         print("Exception occurred:", e)
         return jsonify({"error": str(e)}), 500
     
-UPLOAD_FOLDER = "/home/ales/multipeattools/csv_outputs"
+UPLOAD_FOLDER = "/Users/waqasshoukatali/multipeattools/test_git_multipeat/csv_outputs"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def get_latest_csv(username):
@@ -791,7 +759,7 @@ def get_latest_csv(username):
     latest_file = max(valid_files, key=os.path.getctime)  # Get the most recent file
     return latest_file  # Return only the latest file path
 
-UPLOAD_FOLDER = "/home/ales/multipeattools"
+UPLOAD_FOLDER = "/Users/waqasshoukatali/multipeattools/test_git_multipeat/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def get_latest_csv(username):
