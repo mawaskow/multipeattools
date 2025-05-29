@@ -1,32 +1,42 @@
-import {getLayerByName} from './customFunctions.js'
 import {getLayerByDisplay} from './customFunctions.js'
 
 const map=$('#map').data('map');
 
 const pillDct = 
-    {'Biodiversity':`bio-class-pill`,
-    'Climate':`clm-class-pill`,
-    'Community and Culture':`comm-class-pill`,
-    'Economy': `econ-class-pill`,
-    'Energy':`enr-class-pill`,
-    'Environmental quality: water, soil, air':`env-class-pill`,
+    {'Economy': `econ-class-pill`,
     'Land-Use / Agriculture': `land-class-pill`,
-    'Research and applied sciences':`res-class-pill`
+    'Environmental quality: water, soil, air':`env-class-pill`,
+    'Community and Culture':`comm-class-pill`,
+    'Climate':`clm-class-pill`,
+    'Energy':`enr-class-pill`,
+    'Biodiversity':`bio-class-pill`,
+    'Research and applied sciences':`res-class-pill`,
+    //
+    'Land Use / Agriculture': `land-class-pill`,
+    'Climate Action':`clm-class-pill`,
+    'Research and Applied Sciences':`res-class-pill`,
+    'Environment Quality':`env-class-pill`,
     };
-
 const pillNames = 
-    {'Biodiversity':`Biodiversity`,
-    'Climate':`Climate`,
-    'Community and Culture':`Community and Culture`,
-    'Economy': `Economy`,
-    'Energy':`Energy`,
-    'Environmental quality: water, soil, air':`Environmental Quality`,
+    {'Economy': `Economy`,
     'Land-Use / Agriculture': `Land-Use / Agriculture`,
-    'Research and applied sciences':`Research`
+    'Environmental quality: water, soil, air':`Environmental Quality`,
+    'Community and Culture':`Community and Culture`,
+    'Climate':`Climate`,
+    'Energy':`Energy`,
+    'Biodiversity':`Biodiversity`,
+    'Research and applied sciences':`Research`,
+    //
+    'Land Use / Agriculture': `Land-Use / Agriculture`,
+    'Climate Action':`Climate`,
+    'Research and Applied Sciences':`Research`,
+    'Environment Quality':`Environmental Quality`,
     };
 
 // FXNS
 function classQuerying(policy){
+    // takes a policy object and returns whether or not to display the policy
+    // based on the policy's primary category and whether that category box is checked
     var biod = document.getElementById("bio-cls-bx");
     var clmac = document.getElementById("clm-cls-bx");
     var enrg = document.getElementById("enr-cls-bx");
@@ -35,27 +45,29 @@ function classQuerying(policy){
     var comm = document.getElementById("comm-cls-bx");
     var res = document.getElementById("res-cls-bx");
     var env = document.getElementById("env-cls-bx"); 
-    if(policy[2]=="Biodiversity" & biod.checked==true){
+    if(policy["primary_category"]=="Biodiversity" & biod.checked==true){
         return true;
-    }else if(policy[2]=="Climate" & clmac.checked==true){
+    }else if(policy["primary_category"]=='Climate Action' & clmac.checked==true){
         return true;
-    }else if(policy[2]=="Community and Culture" & comm.checked==true){
+    }else if(policy["primary_category"]=="Community and Culture" & comm.checked==true){
         return true;
-    }else if(policy[2]=="Economy" & econ.checked==true){
+    }else if(policy["primary_category"]=="Economy" & econ.checked==true){
         return true;
-    }else if(policy[2]=="Energy" & enrg.checked==true){
+    }else if(policy["primary_category"]=="Energy" & enrg.checked==true){
         return true;
-    }else if(policy[2]=="Environmental quality: water, soil, air" & env.checked==true){
+    }else if(policy["primary_category"]=='Environment Quality' & env.checked==true){
         return true;
-    }else if(policy[2]=="Land-Use / Agriculture" & land.checked==true){
+    }else if(policy["primary_category"]=='Land Use / Agriculture' & land.checked==true){
         return true;
-    }else if(policy[2]=="Research and applied sciences" & res.checked==true){
+    }else if(policy["primary_category"]=='Research and Applied Sciences' & res.checked==true){
         return true;
     }
     return false;
 }
 
-function displayPols(polLst){
+function togglePols(polLst){
+    // takes the polLst, filters it according to levels and categories selected, 
+    // then displays them in their predefined level sections
     ////////////////
     const counPolInfo=$('#coun-pol');
     counPolInfo.html('');
@@ -75,28 +87,28 @@ function displayPols(polLst){
     //console.log(polLst.length, polLst);
     polLst.forEach(pol => {
         var element = 
-            `<a class="pol-lst-name" href=${pol[3]} target="_blank" rel="noopener noreferrer">${pol[0]}</a>
-            <p>Level: ${pol[1]}</p>
+            `<a class="pol-lst-name" href=${pol["data_link"]} target="_blank" rel="noopener noreferrer">${pol["name"]}</a>
+            <p>Level: ${pol["policy_level"]}</p>
             <p style="display: inline">Classification:</p>
-            <p style="display: inline" class="badge rounded-pill ${pillDct[pol[2]]}">${pillNames[pol[2]]}</p>
+            <p style="display: inline" class="badge rounded-pill ${pillDct[pol["primary_category"]]}">${pillNames[pol["primary_category"]]}</p>
             <br><br>`;
-        if(pol[1]=="Local" & document.getElementById("locauth-fltr").checked==true){
+        if(pol["policy_level"]=="Local" & document.getElementById("locauth-fltr").checked==true){
             if(classQuerying(pol)){
                 counPolInfo.append(element);
             }
-        }else if(pol[1]=="Regional" & document.getElementById("regional-fltr").checked==true){
+        }else if(pol["policy_level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
             if(classQuerying(pol)){
                 regPolInfo.append(element);
             }
-        }else if(pol[1]=="National" & document.getElementById("national-fltr").checked==true){
+        }else if(pol["policy_level"]=="National" & document.getElementById("national-fltr").checked==true){
             if(classQuerying(pol)){
                 natPolInfo.append(element);
             }
-        }else if(pol[1]=="European" & document.getElementById("eu-fltr").checked==true){
+        }else if(pol["policy_level"]=="European" & document.getElementById("eu-fltr").checked==true){
             if(classQuerying(pol)){
                 euPolInfo.append(element);
             }
-        }else if(pol[1]=="Global" & document.getElementById("global-fltr").checked==true){
+        }else if(pol["policy_level"]=="Global" & document.getElementById("global-fltr").checked==true){
             if(classQuerying(pol)){
                 globPolInfo.append(element);
             }
@@ -106,55 +118,51 @@ function displayPols(polLst){
 }
 
 function updatePols(){
+    // calls toggling function on polLst stored in #policy-request-store
     var polLst = $('#policy-request-store').val();
     //console.log(polLst);
     if(polLst != JSON.stringify([])){
-        displayPols(JSON.parse(polLst));
+        togglePols(JSON.parse(polLst));
     }
     //console.log(JSON.parse(polLst));
-    
 }
 
-async function getEUGlobPols(eustat){
-    // get global policies
+async function getGlobEuPol(european){
+    // get global policies and maybe european policies 
+    // depending on the value of "european"
+    const url = '/policydata';
     var polLst = [];
     try {
-        const response = await fetch("/getpols/1");
+        const response = await fetch(url);
         if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
         }
         const json = await response.json();
-        json.forEach(pol =>{
-            polLst.push(pol);
+        var polcol= json["result"]["response"];
+        polcol.forEach(pol =>{
+            if(pol["policy_level"] == "Global"){
+                polLst.push(pol);
+            }
+            if(european=="T"){
+                if(pol["policy_level"] == "European"){
+                    polLst.push(pol);
+                }
+            }
         })
     } catch (error) {
         console.error(error.message);
-    }
-    
-    if(eustat=='T'){
-        try {
-            const response = await fetch("/getpols/0");
-            if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-            }
-            const json = await response.json();
-            json.forEach(pol =>{
-                polLst.push(pol);
-            })
-        } catch (error) {
-            console.error(error.message);
-        }
     }
     return polLst;
 }
 
 // MAIN EVENT
-async function getPols(evt){
-    // set html policy store and local list store to empty
+async function parsePols(evt){
+    // on event (click), first check if click is within EU,
+    // then get global (and EU, depending) policies
+    // then get the policies that contain the coordinates of the click i.e. national, regional, local
     $('#policy-request-store').attr({
         value: JSON.stringify([])
     });
-    //var polLst = [];
     // first, get coordinate and map info
     const coordinate = evt.coordinate;
     const view=map.getView();
@@ -166,7 +174,7 @@ async function getPols(evt){
     const ctryUrl=ctrySource.getFeatureInfoUrl(coordinate, resolution, projection,
         {'INFO_FORMAT':'application/json', 'FEATURE_COUNT':'1'});
     // then send ajax request for EU member state status
-    var val= 'F';
+    var val= "F";
     if(ctryUrl){
         $.ajax({
             url:ctryUrl,
@@ -183,7 +191,8 @@ async function getPols(evt){
             }
         })
     }
-    var polLst = await getEUGlobPols(val);
+    var eu_status = $('#eustat-request-store').val();
+    var polLst = await getGlobEuPol(eu_status);
     // get natl and subnatl pols
     const ipolLayer=getLayerByDisplay('Policies');
     const ipolSource=ipolLayer.getSource();
@@ -201,23 +210,19 @@ async function getPols(evt){
                     const ipol=result.features[i];
                     if(ipol){
                         polLst.push( 
-                        [ipol.properties.engname, 
-                        ipol.properties.level, 
-                        ipol.properties.classif, 
-                        ipol.properties.link]
+                        {"name": ipol.properties.name, 
+                        "policy_level": ipol.properties.policy_level, 
+                        "primary_category": ipol.properties.primary_category, 
+                        "data_link": ipol.properties.data_link}
                         );
                     }
                 };
-                //console.log("polLst after pushing natl pols:",polLst);
             }
         })
-        
     }
-    //console.log(polLst.length, polLst);
     document.getElementById('policy-request-store').value = JSON.stringify(polLst);
-    //console.log(JSON.parse(document.getElementById('policy-request-store').value));
-    displayPols(polLst);
-    //console.log(polLst);
+    togglePols(polLst);
+    //console.log(polLst.length, polLst);
 };
 
 function displayChange(evt){
@@ -236,9 +241,9 @@ function displayChange(evt){
     cb.style.display = 'block';
     csv.style.right = `550px`;
 };
-map.addEventListener("singleclick", displayChange);
 
-map.addEventListener("singleclick", getPols);
+map.addEventListener("singleclick", displayChange);
+map.addEventListener("singleclick", parsePols);
 
 const pol_filt_dct = 
 {"biodiv":"Biodiversity", "clmact":"Climate Action", "cultr":"Culture", "econ":"Economy", "enrg":"Energy", "envqual": "Env. Quality", 

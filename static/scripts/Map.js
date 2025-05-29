@@ -61,7 +61,7 @@ const ctryLayer= new ImageLayer({
 // Policies
 const ipolSource=new ImageWMS({
     url:serverURL,
-    params:{"LAYERS":"multipeat:geo_pol", "VERSION":"1.1.1", "FORMAT":"image/png"}
+    params:{"LAYERS":"multipeat:aspect_policy", "VERSION":"1.1.1", "FORMAT":"image/png"}
 });
 
 const ipolLayer= new ImageLayer({
