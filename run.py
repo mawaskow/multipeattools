@@ -489,7 +489,7 @@ def qa_tool():
             try:
                 # Step 1: Call the RAG backend
                 response = requests.get(
-                    "http://140.203.155.51:8001/ask",
+                    "https://test-multipeat.insight-centre.org/ask",
                     params=query_params,
                     headers={'Accept': 'application/json'},
                     timeout=200
