@@ -549,6 +549,7 @@ def qa_tool():
                                     logging.warning(f"Failed to fetch attachments for policy {policy_id}: {fe}")
 
                             policies.append({
+                                "id":policy_id,
                                 "title": src.get("author", "Unknown"),
                                 "thumbnail_url": "/static/images/pdf_thumbnail.png",
                                 "country": src.get("country", "Unknown"),
@@ -577,6 +578,10 @@ def qa_tool():
             selected_governance=governance
         )
 
+@app.route('/policy/<int:pol_id>', methods=['GET'])
+def any_policy(pol_id):
+    return render_template("anypol.html", pol_id = pol_id)#, info=info)#info=json.dumps(info))
+
 # DATA ENDPOINTS
 
 @app.route('/categorydata')
@@ -587,6 +592,11 @@ def getcateg():
 @app.route('/policydata')
 def getpols():
     url = 'http://140.203.154.253:8016/aspect/policies/'
+    return create_dataendpoint(url)
+
+@app.route('/sgpolicy/<int:pol_id>')
+def get_sgpol(pol_id):
+    url = f"http://140.203.154.253:8016/aspect/policy/{pol_id}"
     return create_dataendpoint(url)
 
 @app.route('/countrydata')
