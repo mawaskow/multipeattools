@@ -847,12 +847,16 @@
         var lang=policy['language'].split(" ");
         var lang_pol=lang[0];
 
+        var pol_title_english = policy["name"];
+        var pol_title_native = policy["name_language"];
+        let pol_title_to_display = (currentLang === 'english') ? pol_title_english : pol_title_native;
+
         // categories html, gets all categories in their pill form
         var primary_category_english= pillNames[policy["primary_category"]];
         var primary_category_native=transl_categories[lang_pol][pillNames[policy["primary_category"]]];
         let primary_category_to_display = (currentLang === 'english') ? primary_category_english : primary_category_native;
 
-        var categ_coll = [`<p class="badge rounded-pill ${ pillDct[policy["primary_category" ]] }" style="font-size:17px">${ primary_category_to_display}</p>`];
+        var categ_coll = [`<p class="badge rounded-pill ${ pillDct[policy["primary_category" ]] }" style="font-size:17px; font-weight:400;margin-bottom:5px;">${ primary_category_to_display}</p>`];
         var categ_lst = policy["category"].sort();
         if(categ_lst.length > 1){
             categ_coll.push(`|`);
@@ -862,7 +866,7 @@
                 var category_native = transl_categories[lang_pol][pillNames[categ_lst[c]]];
                 var category_english = pillNames[categ_lst[c]];
                 let category_to_display = (currentLang === 'english') ? categ_lst[c] : category_native;
-                categ_coll.push(`<p class="badge rounded-pill ${ pillDct[categ_lst[c]] }" style="font-size:17px">${ category_to_display }</p>`);
+                categ_coll.push(`<p class="badge rounded-pill ${ pillDct[categ_lst[c]] }" style="font-size:17px; font-weight:400;margin-bottom:5px;">${ category_to_display }</p>`);
             }
         }
         var categs_html = categ_coll.join(" ");
@@ -904,12 +908,12 @@
         let lvl_area_display = (currentLang === 'english') ? lvl_area_english : lvl_area_native;
 
         if(["European", "Global"].includes(policy['policy_level'])){
-            lvl_area_html = `<p class="d-inline" style="font-size:25px">${ flagmojis[lvl_area_display] }</p> <p class="d-inline">${ lvl_area_display } </p>`;
+            lvl_area_html = `<p class="d-inline" style="font-size:20px">${ flagmojis[lvl_area_display] }</p> <p class="d-inline">${ lvl_area_display } </p>`;
         }else{
             if(policy["country"] in flagmojis){
-                lvl_area_html = `<p class="d-inline" style="font-size:25px">${ flagmojis[name_country_english] }</p> <p class="d-inline" style="font-size:25px">${name_country_to_display} | ${ lvl_area_display } </p>`;
+                lvl_area_html = `<p class="d-inline" style="font-size:20px">${ flagmojis[name_country_english] }</p> <p class="d-inline" style="font-size:20px">${name_country_to_display} | ${ lvl_area_display } </p>`;
             }else{
-                lvl_area_html = `<p style="font-size:25px"> ${ name_country_to_display } | ${ lvl_area_display } </p>`;
+                lvl_area_html = `<p style="font-size:20px"> ${ name_country_to_display } | ${ lvl_area_display } </p>`;
             }
         }
 
@@ -941,7 +945,7 @@
             var abst_html_english = abst_ps_english.join(`<p style="margin-bottom:10px;"></p>`);
             var abst_html_section_english = `<div>
                                         <h3 class="section-title-container"><div class="section-title-box">Overview</div></h3>
-                                        <div style="margin-bottom:10px; font-size:18px" align="justify">
+                                        <div style="margin-bottom:10px; font-size:16px" align="justify">
                                             ${ abst_html_english }
                                         </div>
                                     </div>`
@@ -955,7 +959,7 @@
             var abst_html_native = abst_ps_native.join(`<p style="margin-bottom:10px;"></p>`);
             var abst_html_section_native = `<div>
                                         <h3 class="section-title-container"><div class="section-title-box">${transl_overview[lang_pol]}</div></h3>
-                                        <div style="margin-bottom:10px; font-size:18px" align="justify">
+                                        <div style="margin-bottom:10px; font-size:16px" align="justify">
                                             ${ abst_html_native }
                                         </div>
                                     </div>`
@@ -984,6 +988,7 @@
         var toc_html_native = ``;
         var toc_html_section_native = ``;
         if(policy['toc']){
+            console.log(policy['toc']);
             var toc_lines_native = policy['toc'].split("\n");
             var toc_ps_native = [];
             toc_lines_native.forEach(line =>
@@ -996,6 +1001,8 @@
                                         ${ toc_html_native }
                                     </div>
                                 </div>`
+        }else{
+            console.log("No TOC?");
         }
 
         let toc_html_section_to_display = (currentLang === 'english') ? toc_html_section_english : toc_html_section_native;
@@ -1010,43 +1017,35 @@
         var name_link_doc_native = transl_policy_document[lang_pol];
         let name_link_doc_to_display = (currentLang === 'english') ? name_link_doc_english : name_link_doc_native;
 
-        var name_link_info_english = 'Policy Info Page'
+        var name_link_info_english = 'Official Site'
         var name_link_info_native = transl_policy_info_page[lang_pol];
         let name_link_info_to_display = (currentLang === 'english') ? name_link_info_english : name_link_info_native;
 
-        var links_html = `<div style="margin-top:10px;margin-bottom:10px;">
-                    <a href="${ policy['data_link'] }" class="polcol-lnk d-inline" target="_blank">
+        var links_html = `<a href="${ policy['data_link'] }" class="polcol-lnk d-inline" target="_blank">
                         ${name_link_doc_to_display}
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
                             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
                         </svg>
                     </a> | 
-                    <a href="${ policy['documentation_link'] }" class="polcol-lnk d-inline" target="_blank">${name_link_info_to_display} ↗</a>
-                    </div>`;
+                    <a href="${ policy['documentation_link'] }" class="polcol-lnk d-inline" target="_blank">${name_link_info_to_display} ↗</a>`;
         
         // element to append to the policy           
         var element = `
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;margin-top:5px;">
-                        <div style="margin-top:3px">
-                            ${categs_html}
-                        </div>    
-                        <div style="margin-top:3px">
-                            ${ publisher_section_html }
-                        </div>
+                    <div style="display: flex; justify-content: flex-end; align-items: flex-start;margin-top:5px;">  
                         <div id="lang-btns">
                             ${button_native}
                             ${button_english}
-                        </div>  
-                               
+                        </div>       
                     </div>
-                    <h1 id="pol-res-he" class="policy-name-header">${policy["name"]}</h1>
+                    <h1 id="pol-res-he" class="policy-name-header">${pol_title_to_display}</h1>
                     <div>
                         ${lvl_area_html}
-                        <p class="d-inline" style="font-size:25px"> | ${duratn_html} </p>
+                        <p class="d-inline" style="font-size:20px"> | ${duratn_html} | </p> 
+                        ${links_html}
                     </div> 
-                    <div id="excerpt-content">
-                        ${excerpt_html_to_display}
+                    <div style="margin-top:3px">
+                        ${ publisher_section_html }
                     </div>
                     <div style="display: flex; align-items: flex-start; gap: 20px;">
                         <div style="flex: 1; padding-right: 20px; min-width: 300px">
@@ -1056,14 +1055,14 @@
                             <div id="toc-content">        
                                 ${toc_html_section_to_display}
                             </div>
+                            <div style="margin-top:40px">
+                                ${categs_html}
+                            </div>  
                         </div>
                 
                         <div class="right-content">
                             <div class="pdf-viewer-container">
                                 <iframe src="${policy['data_link']}" class="pdf-iframe" align="center"></iframe>
-                            </div>
-                            <div style="margin-right: 3px" align="center">
-                                ${links_html}
                             </div>
                         </div>
                     </div>
@@ -1106,7 +1105,6 @@
             }
         }
 
-        // add event listeners to the buttons
         // add event listeners to the buttons
         if (lang_pol !== "English") {
             const button_english = document.querySelector('#lang-btns button[data-lang="english"]');
