@@ -838,7 +838,7 @@
     };
 
     // how to display policies
-    function policyShow(policy, currentLang = 'english'){
+    function policyShow(policy, currentLang = 'English'){
         console.log(policy);
         const polPop = $('#policy_div');
         polPop.html('');
@@ -849,12 +849,12 @@
 
         var pol_title_english = policy["name"];
         var pol_title_native = policy["name_language"];
-        let pol_title_to_display = (currentLang === 'english') ? pol_title_english : pol_title_native;
+        let pol_title_to_display = (currentLang === 'English') ? pol_title_english : pol_title_native;
 
         // categories html, gets all categories in their pill form
         var primary_category_english= pillNames[policy["primary_category"]];
         var primary_category_native=transl_categories[lang_pol][pillNames[policy["primary_category"]]];
-        let primary_category_to_display = (currentLang === 'english') ? primary_category_english : primary_category_native;
+        let primary_category_to_display = (currentLang === 'English') ? primary_category_english : primary_category_native;
 
         var categ_coll = [`<p class="badge rounded-pill ${ pillDct[policy["primary_category" ]] }" style="font-size:17px; font-weight:400;margin-bottom:5px;">${ primary_category_to_display}</p>`];
         var categ_lst = policy["category"].sort();
@@ -865,7 +865,7 @@
             if(categ_lst[c] != policy["primary_category"]){
                 var category_native = transl_categories[lang_pol][pillNames[categ_lst[c]]];
                 var category_english = pillNames[categ_lst[c]];
-                let category_to_display = (currentLang === 'english') ? categ_lst[c] : category_native;
+                let category_to_display = (currentLang === 'English') ? categ_lst[c] : category_native;
                 categ_coll.push(`<p class="badge rounded-pill ${ pillDct[categ_lst[c]] }" style="font-size:17px; font-weight:400;margin-bottom:5px;">${ category_to_display }</p>`);
             }
         }
@@ -900,12 +900,15 @@
         var lvl_area_html = ``;
 
         var name_country_english= policy['country'];
-        var name_country_native= transl_countries[policy['country']][lang_pol];
-        let name_country_to_display = (currentLang === 'english') ? name_country_english : name_country_native;
-
+        var name_country_native= '';
+        let name_country_to_display = ''
+        if(name_country_english){
+            name_country_native= transl_countries[policy['country']][lang_pol];
+            name_country_to_display = (currentLang === 'English') ? name_country_english : name_country_native;
+        }
         var lvl_area_english= policy['policy_level'];
         var lvl_area_native= transl_scale[lang_pol][policy['policy_level']];
-        let lvl_area_display = (currentLang === 'english') ? lvl_area_english : lvl_area_native;
+        let lvl_area_display = (currentLang === 'English') ? lvl_area_english : lvl_area_native;
 
         if(["European", "Global"].includes(policy['policy_level'])){
             lvl_area_html = `<p class="d-inline" style="font-size:20px">${ flagmojis[lvl_area_display] }</p> <p class="d-inline">${ lvl_area_display } </p>`;
@@ -933,7 +936,7 @@
         if (policy['excerpt_english']) {var excerpt_html_english = `<p class="excerpt-text" align="justify"> ${policy['excerpt_english']}</p>`;}
         if (policy['excerpt']) {var excerpt_html_native = `<p class="excerpt-text" align="justify"> ${policy['excerpt']}</p>`;}
 
-        let excerpt_html_to_display = (currentLang === 'english') ? excerpt_html_english : excerpt_html_native;
+        let excerpt_html_to_display = (currentLang === 'English') ? excerpt_html_english : excerpt_html_native;
 
         // try to split abstract by \n to retain line breaks?
         if (policy['abstract_english']) {
@@ -965,7 +968,7 @@
                                     </div>`
         }
 
-        let abst_html_section_to_display = (currentLang === 'english') ? abst_html_section_english : abst_html_section_native;
+        let abst_html_section_to_display = (currentLang === 'English') ? abst_html_section_english : abst_html_section_native;
 
         // split table of contents by \n to retain line breaks
         var toc_html_english = ``;
@@ -1005,7 +1008,7 @@
             console.log("No TOC?");
         }
 
-        let toc_html_section_to_display = (currentLang === 'english') ? toc_html_section_english : toc_html_section_native;
+        let toc_html_section_to_display = (currentLang === 'English') ? toc_html_section_english : toc_html_section_native;
            
         // create button to switch between languages
         
@@ -1015,11 +1018,11 @@
         // links
         var name_link_doc_english = 'Policy Document'
         var name_link_doc_native = transl_policy_document[lang_pol];
-        let name_link_doc_to_display = (currentLang === 'english') ? name_link_doc_english : name_link_doc_native;
+        let name_link_doc_to_display = (currentLang === 'English') ? name_link_doc_english : name_link_doc_native;
 
         var name_link_info_english = 'Official Site'
         var name_link_info_native = transl_policy_info_page[lang_pol];
-        let name_link_info_to_display = (currentLang === 'english') ? name_link_info_english : name_link_info_native;
+        let name_link_info_to_display = (currentLang === 'English') ? name_link_info_english : name_link_info_native;
 
         var links_html = `<a href="${ policy['data_link'] }" class="polcol-lnk d-inline" target="_blank">
                         ${name_link_doc_to_display}
@@ -1029,7 +1032,7 @@
                         </svg>
                     </a> | 
                     <a href="${ policy['documentation_link'] }" class="polcol-lnk d-inline" target="_blank">${name_link_info_to_display} ↗</a>`;
-        
+
         // element to append to the policy           
         var element = `
                     <div style="display: flex; justify-content: flex-end; align-items: flex-start;margin-top:5px;">  
@@ -1134,13 +1137,13 @@
         } catch (error) {
             console.error(error.message);
         }
-        policyShow(pol_obj, 'english')
+        policyShow(pol_obj, 'English')
         //
         //$('#policyliststore').val(JSON.stringify(polLst));
         //
         return pol_obj;
     }
-    //policyShow(policy_obj, 'english');
+    //policyShow(policy_obj, 'English');
     datafxn(pol_id);
 </script>
 
