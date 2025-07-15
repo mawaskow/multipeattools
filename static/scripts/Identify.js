@@ -81,29 +81,33 @@ map.on('singleclick', function (evt) {
   // be-wallonia
   const bewInfo=$('#bew-info');
   bewInfo.html('');
-  // be-wallonia
+  // estonia
   const eeInfo=$('#ee-info');
   eeInfo.html('');
-  // be-wallonia
+  // finland
   const fiInfo=$('#fi-info');
   fiInfo.html('');
 
   // wetlands map of europe layers
+  /*
   // al-albania
   const alInfo=$('#al-info');
   alInfo.html('');
   // an-andorra
   const anInfo=$('#an-info');
   anInfo.html('');
+  */
   // au-austria
   const auInfo=$('#au-info');
   auInfo.html('');
   // be-belgium
   const beInfo=$('#be-info');
   beInfo.html('');
+  /*
   // bo-bosnia
   const boInfo=$('#bo-info');
   boInfo.html('');
+  */
   // bu-bulgaria
   const buInfo=$('#bu-info');
   buInfo.html('');
@@ -128,9 +132,11 @@ map.on('singleclick', function (evt) {
   // hu-hungary
   const huInfo=$('#hu-info');
   huInfo.html('');
+  /*
   // ic-iceland
   const icInfo=$('#ic-info');
   icInfo.html('');
+  */
   // ir-ireland
   const irInfo=$('#ir-info');
   irInfo.html('');
@@ -140,21 +146,25 @@ map.on('singleclick', function (evt) {
   // la-latvia
   const laInfo=$('#la-info');
   laInfo.html('');
+  /*
   // lie-liechtenstein
   const lieInfo=$('#lie-info');
   lieInfo.html('');
+  */
   // lit-lithuania
   const litInfo=$('#lit-info');
   litInfo.html('');
   // lu-luxembourg
   const luInfo=$('#lu-info');
   luInfo.html('');
+  /*
   // ma-macedonia
   const maInfo=$('#ma-info');
   maInfo.html('');
   // mo-montenegro
   const moInfo=$('#mo-info');
   moInfo.html('');
+  */
   // ne-netherland 
   const neInfo=$('#ne-info');
   neInfo.html('');
@@ -167,9 +177,11 @@ map.on('singleclick', function (evt) {
   // ro-romania
   const roInfo=$('#ro-info');
   roInfo.html('');
+  /*
   // se-serbia
   const seInfo=$('#se-info');
   seInfo.html('');
+  */
   // slk-slovekia
   const slkInfo=$('#slk-info');
   slkInfo.html('');
@@ -182,9 +194,11 @@ map.on('singleclick', function (evt) {
   // swe-sweden
   const sweInfo=$('#swe-info');
   sweInfo.html('');
+  /*
   // swi-switzerland
   const swiInfo=$('#swi-info');
   swiInfo.html('');
+  */
 
   // default
   const noFeatures=$('#no-features');
@@ -437,7 +451,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+/*
     // wetlands map of europe
     const alLayer=getLayerByName('AL_Peatlands');
     const alSource=alLayer.getSource();
@@ -480,7 +494,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+*/
     const auLayer=getLayerByName('AU_Peatlands');
     const auSource=auLayer.getSource();
     const auUrl=auSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -522,7 +536,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+/*
     const boLayer=getLayerByName('BO_Peatlands');
     const boSource=boLayer.getSource();
     const boUrl=boSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -543,7 +557,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+*/
     const buLayer=getLayerByName('BU_Peatlands');
     const buSource=buLayer.getSource();
     const buUrl=buSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -711,7 +725,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
         }
-
+/*
     const icLayer=getLayerByName('IC_Peatlands');
     const icSource=icLayer.getSource();
     const icUrl=icSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -732,7 +746,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
         }
-
+*/
     const irLayer=getLayerByName('IR_Peatlands');
     const irSource=irLayer.getSource();
     const irUrl=irSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -795,7 +809,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
         }
-
+/*
     const lieLayer=getLayerByName('LIE_Peatlands');
     const lieSource=lieLayer.getSource();
     const lieUrl=lieSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -816,7 +830,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
         }
-
+*/
     const litLayer=getLayerByName('LIT_Peatlands');
     const litSource=litLayer.getSource();
     const litUrl=litSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -858,7 +872,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+/*
     const maLayer=getLayerByName('MA_Peatlands');
     const maSource=maLayer.getSource();
     const maUrl=maSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -900,7 +914,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+*/
     const neLayer=getLayerByName('NE_Peatlands');
     const neSource=neLayer.getSource();
     const neUrl=neSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -984,7 +998,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
         }
-
+/*
     const seLayer=getLayerByName('SE_Peatlands');
     const seSource=seLayer.getSource();
     const seUrl=seSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -1005,7 +1019,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
         }
-
+*/
     const slkLayer=getLayerByName('SLK_Peatlands');
     const slkSource=slkLayer.getSource();
     const slkUrl=slkSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -1089,7 +1103,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
         }
-
+/*
     const swiLayer=getLayerByName('SWI_Peatlands');
     const swiSource=swiLayer.getSource();
     const swiUrl=swiSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -1110,7 +1124,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+*/
 
   overlay.setPosition(coordinate);
 });

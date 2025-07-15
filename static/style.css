@@ -521,12 +521,12 @@ span.Economy{
 
 /*land type color classes*/
 .corine-box:checked{
-    background-color: #a57013;
+    background-color: #c69966;
     border-color: transparent;
 }
 
 .ie-dipm-box:checked{
-    background-color: #e7970d;
+    background-color: #8f6543;
     border-color: transparent;
 }
 
@@ -536,42 +536,42 @@ span.Economy{
 }
 
 .alk-fen-box:checked{
-    background-color: #c69966;
+    background-color: #bd7b0b;
     border-color: transparent;
 }
 
 .pl-torf-box:checked{
-    background-color: #8d5018;
-    border-color: transparent;
-}
-
-.nl-soil-box:checked{
-    background-color: #e1903f;
-    border-color: transparent;
-}
-
-.de-soil-box:checked{
-    background-color: #a63a04;
-    border-color: transparent;
-}
-
-.bef-soil-box:checked{
-    background-color: #e38046;
-    border-color: transparent;
-}
-
-.bew-soil-box:checked{
-    background-color: #b66843;
-    border-color: transparent;
-}
-
-.ee-soil-box:checked{
     background-color: #8f6543;
     border-color: transparent;
 }
 
+.nl-soil-box:checked{
+    background-color: #8f6543;
+    border-color: transparent;
+}
+
+.de-soil-box:checked{
+    background-color: #8f6543;
+    border-color: transparent;
+}
+
+.bef-soil-box:checked{
+    background-color: #bd7b0b;
+    border-color: transparent;
+}
+
+.bew-soil-box:checked{
+    background-color: #8f6543;
+    border-color: transparent;
+}
+
+.ee-soil-box:checked{
+    background-color: #704405;
+    border-color: transparent;
+}
+
 .fi-soil-box:checked{
-    background-color: #c56b21;
+    background-color: #704405;
     border-color: transparent;
 }
 

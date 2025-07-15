@@ -1,4 +1,5 @@
 import {getLayerByName} from "./customFunctions.js";
+import {getLayersByCluster} from "./customFunctions.js";
 
 const map=$('#map').data('map');
 const layers=map.getLayers();
@@ -103,7 +104,10 @@ layers.forEach(layer => {
 $('.layerbox').on('change', function(){
     const checkbox=this;
     const layerName=checkbox.id;
-    const layer=getLayerByName(layerName);
+    const layers=getLayersByCluster(layerName);
     // @ts-ignore
-    layer.setVisible(checkbox.checked);
+    layers.forEach(layer => {
+        layer.setVisible(checkbox.checked);
+    }
+    );
 });
