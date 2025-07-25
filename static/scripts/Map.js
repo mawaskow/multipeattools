@@ -13,12 +13,12 @@ const serverURL="https://multipeat.insight-centre.org/geoserver/wms";
 
 const res_dct={
     "max":{
-        0: 4, //5.2, // 575K
-        1: 15 //20.7 // 2.3M
+        0: 100, //5.2, // 575K
+        1: 850 //15 //20.7 // 2.3M
     },
     "min":{
-        1: 4, // 425K
-        2: 15 //15.3 // 1.7M
+        1: 100, // 425K
+        2: 850 //15 //15.3 // 1.7M
     }
 };
 
@@ -2167,6 +2167,178 @@ const swi_s2Layer= new TileLayer({
     minResolution: res_dct["min"][2]
 });
 */
+
+//UK EWM
+const gbrSource=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:britain_ni","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const gbrLayer= new TileLayer({
+    source:gbrSource,
+    preload: 0,
+    // @ts-ignore
+    name:'GBR_Peatlands',
+    display: 'UK Bogs',
+    region: 'United Kingdom',
+    cluster: "GBR_Peatlands",
+    simp_lvl: 0,
+    maxResolution: res_dct["max"][0]
+});
+
+const gbr_s1Source=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:britain_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const gbr_s1Layer= new TileLayer({
+    source:gbr_s1Source,
+    preload: 0,
+    // @ts-ignore
+    name:null,
+    display: 'UK Bogs s1',
+    cluster: "GBR_Peatlands",
+    simp_lvl: 1,
+    minResolution: res_dct["min"][1],
+    maxResolution: res_dct["max"][1]
+});
+
+const gbr_s2Source=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:britain_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const gbr_s2Layer= new TileLayer({
+    source:gbr_s2Source,
+    preload: 0,
+    // @ts-ignore
+    name:null,
+    display: 'UK Bogs s2',
+    cluster: "GBR_Peatlands",
+    simp_lvl: 2,
+    minResolution: res_dct["min"][2]
+});
+
+//england
+const engSource=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:uk_england","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const engLayer= new TileLayer({
+    source:engSource,
+    preload: 0,
+    // @ts-ignore
+    name:'ENG_Peatlands',
+    display: 'English Bogs',
+    region: 'United Kingdom',
+    cluster: "ENG_Peatlands",
+    simp_lvl: 0,
+    maxResolution: res_dct["max"][0]
+});
+
+const eng_s1Source=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:uk_england_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const eng_s1Layer= new TileLayer({
+    source:eng_s1Source,
+    preload: 0,
+    // @ts-ignore
+    name:null,
+    display: '',
+    cluster: "ENG_Peatlands",
+    simp_lvl: 1,
+    minResolution: res_dct["min"][1],
+    maxResolution: res_dct["max"][1]
+});
+
+const eng_s2Source=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:uk_england_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const eng_s2Layer= new TileLayer({
+    source:eng_s2Source,
+    preload: 0,
+    // @ts-ignore
+    name:null,
+    display: '',
+    cluster: "ENG_Peatlands",
+    simp_lvl: 2,
+    minResolution: res_dct["min"][2]
+});
+
+//Scotland
+const scotSource=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:uk_scotland","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const scotLayer= new TileLayer({
+    source:scotSource,
+    preload: 0,
+    // @ts-ignore
+    name:'SCOT_Peatlands',
+    display: 'Scottish Bogs',
+    region: 'United Kingdom',
+    cluster: "SCOT_Peatlands",
+    simp_lvl: 0,
+    maxResolution: res_dct["max"][0]
+});
+
+const scot_s1Source=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:uk_scotland_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const scot_s1Layer= new TileLayer({
+    source:scot_s1Source,
+    preload: 0,
+    // @ts-ignore
+    name:null,
+    display: '',
+    cluster: "SCOT_Peatlands",
+    simp_lvl: 1,
+    minResolution: res_dct["min"][1],
+    maxResolution: res_dct["max"][1]
+});
+
+const scot_s2Source=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:uk_scotland_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const scot_s2Layer= new TileLayer({
+    source:scot_s2Source,
+    preload: 0,
+    // @ts-ignore
+    name:null,
+    display: '',
+    cluster: "SCOT_Peatlands",
+    simp_lvl: 2,
+    minResolution: res_dct["min"][2]
+});
+
+//Wales
+const welSource=new TileWMS({
+    url:serverURL,
+    params:{"LAYERS":"multipeat:uk_wales","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+});
+
+const welLayer= new TileLayer({
+    source:welSource,
+    preload: 0,
+    // @ts-ignore
+    name:'WEL_Peatlands',
+    display: 'Welsh Bogs',
+    region: 'United Kingdom',
+    cluster: "WEL_Peatlands",
+    simp_lvl: 0,
+});
+
+/*
 // CORINE-18 
 const corineSource=new TileWMS({
     url:serverURL,
@@ -2217,29 +2389,31 @@ const corine_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-
+*/
 const osmLayer=new TileLayer({
     source:new OSM(),
     preload: 0,
     // @ts-ignore
-    name: null,
-    display: 'Basemap'
+    name: 'Basemap',
+    region: 'International',
+    cluster: 'Basemap',
+    display: 'OSM Basemap'
 });
 
 const view=new View({
     // left bottom right top
     //extent:[-1189593, 6692152.5, -665102.8125, 7450535], // ireland
-    //extent:[-2005155, 3723095, 3711745, 8600839], // europe
-    extent:[-4000000, 3500000, 7000000, 13000000], // europe and EEA countries
-    center:[2000000,7500000],
-    zoom:5,
+    extent:[-2010000, 3800000, 3800000, 11500000], // europe
+    //extent:[-4000000, 3500000, 7000000, 13000000], // europe and EEA countries
+    center:[895000, 7000000],//[895000, 7400000],//[2000000, 7500000],
+    zoom:0,
     projection: mapProjection
 });
 
 const map=new Map({
     target:"map",
     layers:[osmLayer, ctryLayer, 
-        corineLayer, corine_s1Layer, corine_s2Layer, 
+        //corineLayer, corine_s1Layer, corine_s2Layer, 
         ieLayer, ie_s1Layer, ie_s2Layer, 
         nlSoilLayer, nlSoil_s1Layer, nlSoil_s2Layer, 
         detLayer, det_s1Layer, det_s2Layer, 
@@ -2281,6 +2455,10 @@ const map=new Map({
         spLayer, sp_s1Layer, sp_s2Layer,
         sweLayer, swe_s1Layer, swe_s2Layer, 
         //swiLayer, swi_s1Layer, swi_s2Layer, 
+        gbrLayer, gbr_s1Layer, gbr_s2Layer,
+        engLayer, eng_s1Layer, eng_s2Layer,
+        scotLayer, scot_s1Layer, scot_s2Layer,
+        welLayer,
         PSLayer, ipolLayer],
     view:view
 });

@@ -343,16 +343,11 @@
             var title_html = `${ policy['name'] }`;
             //var title_html = `<a href="/policy/${policy['id']}" target="_blank" style="text-decoration:none;color:black;">${ policy['name'] }</a>`;
             // links
-            var links_html = `<div style="margin-top:10px;margin-bottom:10px;">
-                        <a href="${ policy['data_link'] }" class="polcol-lnk d-inline" target="_blank">
-                            Policy Document 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                            </svg>
-                            </a> | 
-                        <a href="${ policy['documentation_link'] }" class="polcol-lnk d-inline" target="_blank">Policy Info Page ↗</a>
-                        </div>`;
+            var links_html = `<div style="margin-top:10px;margin-bottom:10px;" class="d-flex justify-content-start">
+                            <a href="https://peatlandpolicyportal.eu/policy/${policy["id"]}" class="polcol-lnk d-inline" style="font-weight:600;" target="_blank">
+                                Policy Profile ↗
+                            </a>
+                            </div>`;
             var element = `<div class="accordion-item polcol-acc-itm" style="margin-bottom:5px;">
                                 <div class="accordion-header polcol-acc-hdr">
                                     <button class="accordion-button collapsed polcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">

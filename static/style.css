@@ -738,6 +738,26 @@ span.Economy{
     border-color: transparent;
 }
 
+.gbr-soil-box:checked{
+    background-color: #704405;
+    border-color: transparent;
+}
+
+.eng-soil-box:checked{
+    background-color: #8f6543;
+    border-color: transparent;
+}
+
+.scot-soil-box:checked{
+    background-color: #8f6543;
+    border-color: transparent;
+}
+
+.wel-soil-box:checked{
+    background-color: #8f6543;
+    border-color: transparent;
+}
+
 /*classification pills*/
 
 .enr-class-pill{

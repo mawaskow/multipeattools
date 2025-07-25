@@ -837,6 +837,83 @@
         },
     };
 
+    const policy_category_mappings= {
+        "Biodiversity":{
+            "green":["Circular Economy"],
+            "sdg":["Life Land", "Life Water"]
+        },
+        "Climate":{
+            "green":["Climate", "Zero Pollution"],
+            "sdg":["Climate Action"]
+        },
+        "Climate Action":{
+            "green":["Climate", "Zero Pollution"],
+            "sdg":["Climate Action"]
+        },
+        "Community and Culture":{
+            "green":["Circular Economy", "Natural Capital", "Just Transition", "Transformation"],
+            "sdg":["Economic Growth", "Communities"]
+        },
+        "Economy":{
+            "green":["Financing the Transition", "Circular Economy"],
+            "sdg":["Economic Growth", "Consumption"]
+        },
+        "Energy":{
+            "green":["Clean Energy", "Zero Pollution"],
+            "sdg":["Clean Energy"]
+        },
+        "Environmental Quality":{
+            "green":["Natural Capital", "Zero Pollution"],
+            "sdg":["Life Water", "Clean Water"]
+        },
+        "Environment Quality":{
+            "green":["Natural Capital", "Zero Pollution"],
+            "sdg":["Life Water", "Clean Water"]
+        },
+        "Land-Use / Agriculture":{
+            "green":["CAP", "Transformation", "Farm to Fork"],
+            "sdg":["Life Land"]
+        },
+        "Land Use / Agriculture":{
+            "green":["CAP", "Transformation", "Farm to Fork"],
+            "sdg":["Life Land"]
+        },
+        "Research":{
+            "green":["Circular Economy"],
+            "sdg":["Consumption"]
+        },
+        "Research and Applied Sciences":{
+            "green":["Circular Economy"],
+            "sdg":["Consumption"]
+        }
+    };
+    //https://www.compostnetwork.info/eu-green-deal/
+    const greendeal_categories ={
+        "Circular Economy":"Transition to a Circular Economy",
+        "Zero Pollution":"A Zero Pollution Europe",
+        "Farm to Fork":"Farm to Fork",
+        "Transformation":"The Transformation of Agriculture and Rural Areas",
+        "CAP":"Towards a Modernised and Simplified CAP",
+        "Just Transition":"Leave No One Behind (Just Transition)",
+        "Financing the Transition":"Financing the Transition",
+        "Clean Energy":"Clean, Reliable, and Affordable Energy",
+        "Climate":"Achieving Climate Neutrality",
+        "Transport":"Sustainable Transport",
+        "Natural Capital":"Preserving Europe's Natural Capital"
+    };
+    //https://sdgs.un.org/goals
+    const sdg_categories={
+        "Climate Action":"13 Climate Action",
+        "Life Water":"14 Life below Water",
+        "Consumption":"12 Responsible Consumption & Production",
+        "Life Land":"15 Life on Land",
+        "Clean Water":"6 Clean Water & Sanitation",
+        "Clean Energy":"7 Affordable & Clean Energy",
+        "Economic Growth":"8 Decent Work & Economic Growth",
+        "Infrastructure":"9 Industry, Innovation & Infrastructure",
+        "Communities":"11 Sustainable Cities & Communities"
+    };
+
     // how to display policies
     function policyShow(policy, currentLang = 'English'){
         console.log(policy);
@@ -870,6 +947,33 @@
             }
         }
         var categs_html = categ_coll.join(" ");
+        var green_goals =[];
+        var sdgs = [];
+        categ_lst.forEach(categ => {
+            //green_goals.concat(policy_category_mappings[categ]["green"]);
+            //sdgs.concat(policy_category_mappings[categ]["sdg"])
+            var gr = policy_category_mappings[categ]["green"];
+            var sd = policy_category_mappings[categ]["sdg"];
+            gr.forEach(gr =>{
+                green_goals.push(gr);
+            });
+            sd.forEach(sd =>{
+                sdgs.push(sd);
+            });
+        });
+        let green_uniq = new Set(green_goals.sort());
+        let sdg_uniq = new Set(sdgs.sort());
+        
+        var green_coll = [];
+        var sdg_coll = [];
+        green_uniq.forEach(goal => {
+            green_coll.push(`<p class="badge rounded-pill text-bg-secondary" style="font-size:14px; font-weight:400;margin-bottom:5px;">${ greendeal_categories[goal] }</p>`);
+        });
+        sdg_uniq.forEach(goal => {
+            sdg_coll.push(`<p class="badge rounded-pill text-bg-secondary" style="font-size:14px; font-weight:400;margin-bottom:5px;">${ sdg_categories[goal] }</p>`);
+        });
+        var green_html = green_coll.join(" ");
+        var sdg_html = sdg_coll.join(" ");
 
         // publishers html
         var publs_coll = [];
@@ -1058,8 +1162,14 @@
                             <div id="toc-content">        
                                 ${toc_html_section_to_display}
                             </div>
-                            <div style="margin-top:40px">
-                                ${categs_html}
+                            <div style="margin-top:30px;">
+                                Policy Categories: ${categs_html}
+                            </div>  
+                            <div style="margin-top:20px;">
+                                Green Deal Goals: ${green_html}
+                            </div>  
+                            <div style="margin-top:20px;">
+                                Sustainable Development Goals: ${sdg_html}
                             </div>  
                         </div>
                 

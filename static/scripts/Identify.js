@@ -199,6 +199,18 @@ map.on('singleclick', function (evt) {
   const swiInfo=$('#swi-info');
   swiInfo.html('');
   */
+  // uk
+  const ukInfo=$('#uk-info');
+  ukInfo.html('');
+  // eng
+  const engInfo=$('#eng-info');
+  engInfo.html('');
+  // scot
+  const scotInfo=$('#scot-info');
+  scotInfo.html('');
+  // wel
+  const welInfo=$('#wel-info');
+  welInfo.html('');
 
   // default
   const noFeatures=$('#no-features');
@@ -296,7 +308,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+/*
   const corineLayer=getLayerByName('Corine18');
   const corineSource=corineLayer.getSource();
   const corineUrl=corineSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -318,7 +330,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
-
+*/
   const nlsLayer=getLayerByName('NL_Peat_Soils');
   const nlsSource=nlsLayer.getSource();
   const nlsUrl=nlsSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -1102,7 +1114,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
 
             }
         })
-        }
+    }
 /*
     const swiLayer=getLayerByName('SWI_Peatlands');
     const swiSource=swiLayer.getSource();
@@ -1126,5 +1138,89 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
     }
 */
 
+    const ukLayer=getLayerByName('GBR_Peatlands');
+    const ukSource=ukLayer.getSource();
+    const ukUrl=ukSource.getFeatureInfoUrl(coordinate, resolution, projection,
+        {'INFO_FORMAT':'application/json'});
+    if(ukUrl){
+        $.ajax({
+            url:ukUrl,
+            method:'GET',
+            success:function(result){
+                const uk=result.features[0];
+                if(uk){
+                    const styp=uk.properties.type;
+                    ukInfo.html(`
+                        <p>Site Type: ${styp}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+/*// commenting out since it doesn't have any labels
+    const engLayer=getLayerByName('ENG_Peatlands');
+    const engSource=engLayer.getSource();
+    const engUrl=engSource.getFeatureInfoUrl(coordinate, resolution, projection,
+        {'INFO_FORMAT':'application/json'});
+    if(engUrl){
+        $.ajax({
+            url:engUrl,
+            method:'GET',
+            success:function(result){
+                const eng=result.features[0];
+                if(eng){
+                    const styp=eng.properties.type;
+                    engInfo.html(`
+                        <p>Site Type: ${styp}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+*/
+    const scotLayer=getLayerByName('SCOT_Peatlands');
+    const scotSource=scotLayer.getSource();
+    const scotUrl=scotSource.getFeatureInfoUrl(coordinate, resolution, projection,
+        {'INFO_FORMAT':'application/json'});
+    if(scotUrl){
+        $.ajax({
+            url:scotUrl,
+            method:'GET',
+            success:function(result){
+                const scot=result.features[0];
+                if(scot){
+                    const styp=scot.properties.primary_la;
+                    scotInfo.html(`
+                        <p>Primary Class: ${styp}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+/*// commenting bc it doesn't have data to add
+    const welLayer=getLayerByName('WEL_Peatlands');
+    const welSource=welLayer.getSource();
+    const welUrl=welSource.getFeatureInfoUrl(coordinate, resolution, projection,
+        {'INFO_FORMAT':'application/json'});
+    if(welUrl){
+        $.ajax({
+            url:welUrl,
+            method:'GET',
+            success:function(result){
+                const wel=result.features[0];
+                if(wel){
+                    const styp=wel.properties.type;
+                    welInfo.html(`
+                        <p>Site Type: ${styp}</p>`);
+                    noFeatures.html('');
+                    }
+
+            }
+        })
+    }
+*/
   overlay.setPosition(coordinate);
 });

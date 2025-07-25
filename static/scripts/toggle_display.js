@@ -663,6 +663,22 @@ $("#swi-lyr-tog").on('click', function(event){
     }
 });
 
+$("#uk-lyr-tog").on('click', function(event){
+    el = document.getElementById("uk-lyr-lyrs");
+    td = document.getElementById("uk-lyr-tog-down");
+    tu = document.getElementById("uk-lyr-tog-up");
+    
+    if(el.style.display == 'none'){
+        el.style.display = 'block';
+        td.style.display = 'none';
+        tu.style.display = 'block';
+    }else if(el.style.display != 'none'){
+        el.style.display = 'none';
+        td.style.display = 'block';
+        tu.style.display = 'none';
+    }
+});
+
 //
 $("#inputPolLvl").on('change', function(event){
     var lvl_sel = document.getElementById('inputPolLvl');

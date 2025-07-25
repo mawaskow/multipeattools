@@ -47,7 +47,11 @@ const lyrClrLib = {
     'SLV_Peatlands': `slv-soil-box`,
     'SP_Peatlands': `sp-soil-box`,
     'SWE_Peatlands': `swe-soil-box`,
-    'SWI_Peatlands': `swi-soil-box`
+    'SWI_Peatlands': `swi-soil-box`,
+    "GBR_Peatlands" :`gbr-soil-box`,
+    "ENG_Peatlands" :`eng-soil-box`,
+    "SCOT_Peatlands" :`scot-soil-box`,
+    "WEL_Peatlands" :`wel-soil-box`
 };
 
 const regLib = {
@@ -85,7 +89,8 @@ const regLib = {
     'Slovenia':"slv-lyr-lyrs",
     'Spain':"sp-lyr-lyrs",
     'Sweden':"swe-lyr-lyrs",
-    'Switzerland':"swi-lyr-lyrs"
+    'Switzerland':"swi-lyr-lyrs",
+    "United Kingdom":"uk-lyr-lyrs"
 };
 
 layers.forEach(layer => {
