@@ -1116,8 +1116,8 @@
            
         // create button to switch between languages
         
-        var button_native=`<button data-lang="native" class="btn btn-outline-dark hidden" style="font-size:14px" >${ flagmojis[policy['country']] } ${lang_pol}</button>`
-        var button_english=`<button data-lang="english" class="btn btn-outline-dark hidden" style="font-size:14px" >${ flagmojis['United Kingdom'] } English</button>`
+        var button_native=`<button data-lang="Native" class="btn btn-outline-dark hidden" style="font-size:14px" >${ flagmojis[policy['country']] } ${lang_pol}</button>`
+        var button_english=`<button data-lang="English" class="btn btn-outline-dark hidden" style="font-size:14px" >${ flagmojis['United Kingdom'] } English</button>`
         
         // links
         var name_link_doc_english = 'Policy Document'
@@ -1175,7 +1175,8 @@
                 
                         <div class="right-content">
                             <div class="pdf-viewer-container">
-                                <iframe src="${policy['data_link']}" class="pdf-iframe" align="center"></iframe>
+                                <!--<iframe src="${policy['data_link']}" class="pdf-iframe" align="center"></iframe>-->
+                                <iframe src="https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(policy['data_link'])}" class="pdf-iframe" align="center"></iframe>
                             </div>
                         </div>
                     </div>
@@ -1220,9 +1221,9 @@
 
         // add event listeners to the buttons
         if (lang_pol !== "English") {
-            const button_english = document.querySelector('#lang-btns button[data-lang="english"]');
+            const button_english = document.querySelector('#lang-btns button[data-lang="English"]');
             button_english.classList.remove('hidden');
-            const button_native = document.querySelector('#lang-btns button[data-lang="native"]');
+            const button_native = document.querySelector('#lang-btns button[data-lang="Native"]');
             button_native.classList.remove('hidden');
             document.querySelectorAll('#lang-btns button').forEach(button => {
             button.addEventListener('click', () => {
