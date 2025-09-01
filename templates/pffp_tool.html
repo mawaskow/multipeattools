@@ -1,0 +1,608 @@
+{% extends "base.html" %}
+
+{% block title %}Paludiculture Financial Model{% endblock %}
+
+{% block content %}
+
+<!--This script was written by our intern Fiona Lefebvre.-->
+<div class="container" style="padding:0px; margin:0px;max-width: none;">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="container" style="min-height: 625px;">
+                <div style="margin-left: 25px; padding:10px 0px 0px 0px;">
+                    <h3 style="padding-bottom: 10px; display: flex; align-items: center; gap: 15px;"> 
+                        PALUDICULTURE FINANCIAL MODEL
+                        <img src="{{url_for('static', filename='VIPNL.png')}}" width="50" height="30" class="d-inline-block align-text-center" style="vertical-align: top;">
+                    </h3>
+                    <p class="text-descr" style="color:#535353; padding-bottom: 10px; font-size: 16px;">This calculation model aims to provide insight into the economic feasibility of bulrush under certain conditions, based on balance calculations. With this calculation tool, various scenarios can be calculated. Note: This is a beta version, so the exact values are still under deliberation.</p>
+                    <div class="accordion" id="collapseFormBalanceCalculation"> 
+                        <div class="accordion-item" style="margin-top:10px"> 
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background-color: #dce7f1;"> 
+                                    Yields 
+                                </button>
+                            </h2> 
+                            <div id="collapseOne" class="accordion-collapse collapse show" style="background-color: #fafafa;"> 
+                                <div class="accordion-body"> 
+                                    <div id="input-form-div-yields">
+                                        <form action="/balance-calculation" method="POST" id="input-form-yields" enctype=multipart/form-data>
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <p style="padding-bottom: 5px;">• Crop Types</p>
+                                                <input type="text" class="form-control" id="crop_types" name="crop_types" placeholder="Name/Type of the peatland" style="border: 2px solid #939191; border-radius: 10px;" required>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Crop Yield (in ton/hectare)</p>
+                                                        <input type="range" class="form-range" id="crop_yield" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Sales price (in €/ton of dry matter)</p>
+                                                        <input type="range" class="form-range" id="sales_price" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 9px; padding-top: 17px;">• CAP subsidy yield (in €/ha)</p>
+                                                        <input type="number" class="form-control" id="CAP_subsidy" name="CAP_subsidy" placeholder="200" value="200" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Eco-scheme yield (in €/ha)</p>
+                                                        <input type="range" class="form-range" id="Eco_scheme_yield" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Number of CO2 credits per hectare </p>
+                                                        <input type="range" class="form-range" id="CO2_credit" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Net market price C-credit (in €/ton CO2-eq)</p>
+                                                        <input type="range" class="form-range" id="price_C_credit" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                </div>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Fraction of plant material (DM) that ends up in building material (in %)</p>
+                                                <input type="range" class="form-range" id="plant_in_building" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="accordion-item"> 
+                            <h2 class="accordion-header"> 
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background-color: #dce7f1;"> 
+                                    Allocated Costs 
+                                </button>
+                            </h2> 
+                            <div id="collapseTwo" class="accordion-collapse collapse" style="background-color: #fafafa;"> 
+                                <div class="accordion-body"> 
+                                    <div id="input-form-div-allocated-costs">
+                                        <form action="/balance-calculation" method="POST" id="input-form-allocated-costs" enctype=multipart/form-data>
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <p style="padding-bottom: 5px;">• Planting</p>
+                                                <select id="type_planting" class="form-select" aria-label="Default select example" style="border: 2px solid #939191; border-radius: 10px;">
+                                                    <option selected>Select...</option>
+                                                    <option value="Planting Cuttings">Planting Cuttings</option>
+                                                    <option value="Sowing">Sowing</option>
+                                                </select>
+                                                <div id="planting_cost_container" style="display: block;">
+                                                    <p id="text_planting_costs" style="padding-bottom: 7px; padding-top: 17px;">• Planting Cuttings Costs (in €/ha, one-time investment)</p>
+                                                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                            <small style="color: #666;"><strong id="min_value_planting_costs"></strong></small>
+                                                            <small style="color: #666;"><strong id="current_value_planting_costs"></strong></small>
+                                                            <small style="color: #666;"><strong id="max_value_planting_costs"></strong></small>
+                                                        </div>
+
+                                                        <input type="range" class="form-range" id="planting_costs"
+                                                            onchange="balance_calculation()"
+                                                            oninput="document.getElementById('current_value_planting_costs').textContent = this.value;"
+                                                            required>
+                                               </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Fertilisation costs (in €/ha)</p>
+                                                        <input type="number" class="form-control" id="fertilisation" name="fertilisation" placeholder="0" value="0" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Crop protection costs (in €/ha)</p>
+                                                        <input type="number" class="form-control" id="crop_protection" name="crop_protection" placeholder="0" value="0" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Pest control costs (in €/ha) </p>
+                                                        <input type="range" class="form-range" id="pest_control" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p style="padding-bottom: 7px; padding-top: 17px;">• Crop insurance costs (in €/ha)</p>
+                                                        <input type="range" class="form-range" id="crop_insurance" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                    </div>
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="accordion-item"> 
+                            <h2 class="accordion-header"> 
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="background-color: #dce7f1;"> 
+                                    Processing Costs
+                                </button>
+                            </h2> 
+                            <div id="collapseThree" class="accordion-collapse collapse" style="background-color: #fafafa;"> 
+                                <div class="accordion-body"> 
+                                    <div id="input-form-div-processing-costs">
+                                        <form action="/balance-calculation" method="POST" id="input-form-processing-costs" enctype=multipart/form-data>
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Labour costs of crop care, checking water level etc. (in €/ha)</p>
+                                                <input type="range" class="form-range" id="crop_care" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Labour costs of dike management and ditch maintenance (in €/ha)</p>
+                                                <input type="range" class="form-range" id="dike_and_ditch" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation of pumps (incl. power supply) (in €/ha)</p>
+                                                <input type="range" class="form-range" id="pumps" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation of water leverl control (gates, sludges boxes, etc.) (in €/ha)</p>
+                                                <input type="range" class="form-range" id="water_level_control" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Maintenance percentage on devices (in %) </p>
+                                                <input type="range" class="form-range" id="percentage_maintenance" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Costs of contract work: harvesting (incl. machines) (in €/ha)</p>
+                                                <input type="range" class="form-range" id="harvesting_contract_work" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="accordion-item"> 
+                            <h2 class="accordion-header"> 
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="background-color: #dce7f1;"> 
+                                    Land and Buldings Costs
+                                </button>
+                            </h2> 
+                            <div id="collapseFour" class="accordion-collapse collapse" style="background-color: #fafafa;"> 
+                                <div class="accordion-body"> 
+                                    <div id="input-form-div-land-and-buildings-costs">
+                                        <form action="/balance-calculation" method="POST" id="input-form-land-and-buildings-costs" enctype=multipart/form-data>
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation of the construction of plots : earthmoving (in €/ha)</p>
+                                                <input type="number" class="form-control" id="earthmoving" name="earthmoving" placeholder="6700" value="6700" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation of the construction of plots : soil supply (in €/ha)</p>
+                                                <input type="number" class="form-control" id="soil_supply" name="soil_supply" placeholder="2600" value="2600" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation of the construction of plots : water supply (in €/ha)</p>
+                                                <input type="number" class="form-control" id="water_supply" name="water_supply" placeholder="200" value="200" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation of the construction of plots : water drainage (in €/ha)</p>
+                                                <input type="number" class="form-control" id="water_drainage" name="water_drainage" placeholder="200" value="200" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Maintenance percentage of dikes and waterways</p>
+                                                <input type="range" class="form-range" id="percentage_maintenance_dikes_and_waterways" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                        </form>
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="accordion-item"> 
+                            <h2 class="accordion-header"> 
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="background-color: #dce7f1;"> 
+                                    Financing Costs
+                                </button>
+                            </h2> 
+                            <div id="collapseFive" class="accordion-collapse collapse" style="background-color: #fafafa;"> 
+                                <div class="accordion-body"> 
+                                    <div id="input-form-div-financing-costs">
+                                        <form action="/balance-calculation" method="POST" id="input-form-financing-costs" enctype=multipart/form-data>
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Interest investments pourcentage (%)</p>
+                                                <input type="number" class="form-control" id="calculated_interest_investments" name="calculated_interest_investments" placeholder="0" value="0" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation periods of investment plot (pumps and water level management) (in years)</p>
+                                                <input type="number" class="form-control" id="depreciation_period_investment_plot" name="depreciation_period_investment_plot" placeholder="10" value="10" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Depreciation periods of water level controls (gates, sludge boxes, etc.) (in years)</p>
+                                                <input type="number" class="form-control" id="depreciation_period_water_level_controls" name="depreciation_period_water_level_controls" placeholder="10" value="10" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Lease/land rent plus land charges (in €/ha)</p>
+                                                <input type="range" class="form-range" id="lease_land_rent_and_land_charges" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="accordion-item"> 
+                            <h2 class="accordion-header"> 
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" style="background-color: #dce7f1;"> 
+                                    General Costs
+                                </button>
+                            </h2> 
+                            <div id="collapseSix" class="accordion-collapse collapse" style="background-color: #fafafa;"> 
+                                <div class="accordion-body"> 
+                                    <div id="input-form-div-general-costs">
+                                        <form action="/balance-calculation" method="POST" id="input-form-general-costs" enctype=multipart/form-data>
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Electricity consumption irrigation and water level management (in €/ha)</p>
+                                                <input type="range" class="form-range" id="electricity_irrigation" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Other electricity consumption (in €/ha)</p>
+                                                <input type="range" class="form-range" id="other_electricity" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Water board tax (in €/ha)</p>
+                                                <input type="range" class="form-range" id="water_costs" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                                <p style="padding-bottom: 7px; padding-top: 17px;">• Other costs (in €/ha)</p>
+                                                <input type="number" class="form-control" id="other_costs" name="other_costs" placeholder="0" value="0" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center" style="padding-top: 7px; padding-bottom: 10px;">
+                        <button class="btn btn-primary" id="closeAllAccordions" type="button"
+                            style="background-color: #90b8d4; border: 0px; padding-top: 7px;">
+                            Close all accordions
+                        </button>
+                        <button class="btn btn-primary" id="showResults" type="button"
+                            style="background-color: #90b8d4; border: 0px; padding-top: 7px;">
+                            Show Results
+                        </button>
+                    </div>
+                    <div id="results" style="display: none;">
+                        <h3 style="padding-top: 20px; text-align: center;">RESULTS</h3>
+                        <div style="padding-bottom: 7px;"> 
+                            <p style="padding-bottom: 7px; font-size: 18px;">• Margin (in %)</p>
+                            <input type="number" class="form-control" id="margin" name="margin" placeholder="20" value="20" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                        </div>
+                        <div class="row" style="display: flex;">
+                            <div class="col" style="padding-bottom: 20px;">
+                                <p style="padding-top: 7px; font-size: 18px;">• Balance per hectare (yield - allocated costs): <span id="bal_hect_1" style="font-weight: bold;"></span> €</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Balance per hectare (yield - allocated costs - processing costs): <span id="bal_hect_2" style="font-weight: bold;"></span> €</p>
+                                <p style="padding-top: 7px; font-size: 18px; font-weight: bold;">• Balance per hectare (yield - total costs): <span id="bal_hect_3" style="font-weight: bold;"></span> €</p>
+                            </div>  
+                            <div class="col">
+                                <p style="padding-top: 7px; font-size: 18px;">• Total cost per hectare : <span id="tot_cost_hect" style="font-weight: bold;"></span> €</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total gross cash yields : <span id="tot_gross_cs_yield" style="font-weight: bold;"></span> €</p>
+                            </div>
+                        </div>  
+                        <div class="d-flex justify-content-center" style="padding-bottom: 7px;">
+                            <button class="btn btn-primary" id="showDetailedResults" type="button"
+                                    style="background-color: #90b8d4; border: 0px; padding-top: 7px;">
+                                    Show Detailed Results
+                            </button>
+                        </div>  
+                    </div>
+                    <div id="DetailedResults" style="display: none;">
+                        <h3 style="padding-top: 20px; text-align: center;">DETAILED RESULTS</h3>
+                        <div class="row" style="display: flex;">
+                            <div class="col" style="padding-bottom: 20px;">
+                                <p style="padding-top: 7px; font-size: 18px;">• Total gross cash yields : <span id="tot_gross_cs_yield_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total allocated costs : <span id="tot_allocated_costs_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total processing costs : <span id="tot_processing_costs_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total land and buildings costs : <span id="tot_land_buildings_costs_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total financing costs : <span id="tot_financing_costs_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total general costs : <span id="tot_general_costs_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total cost per hectare : <span id="tot_cost_hect_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total costs per hectare - CAP yield : <span id="tot_less_CAPyield_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Total costs per hectare - CAP yield - CC yield : <span id="tot_less_CAPyield_CCyield_det" style="font-weight: bold;"></span> €/ha/yr</p>
+                            </div>  
+                            <div class="col">
+                                <p style="padding-top: 7px; font-size: 18px;">• Cost price per net ton kg DS : <span id="cost_net_ton_ds_det" style="font-weight: bold;"></span> €/ton DS</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Real yield price per kg DS (cost price + margin) : <span id="real_yield_price_det" style="font-weight: bold;"></span> €/ton DS</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Balance per hectare (yield - allocated costs): <span id="bal_hect_1_det" style="font-weight: bold;"></span> €</p>
+                                <p style="padding-top: 7px; font-size: 18px;">• Balance per hectare (yield - allocated costs - processing costs): <span id="bal_hect_2_det" style="font-weight: bold;"></span> €</p>
+                                <p style="padding-top: 7px; font-size: 18px; font-weight: bold;">• Balance per hectare (yield - total costs): <span id="bal_hect_3_det" style="font-weight: bold;"></span> €</p>
+                            </div>
+                        </div> 
+                    </div>
+                    <footer class="border-top" style="margin: 0px; padding-bottom: 10px;">
+                        <div class="d-flex justify-content-center" style="padding-bottom: 5px;">
+                        This tool for balance calculation was developed within the Veenweide Innovatie Programma NL, project Wet Crops. It was adapted to the web by Insight intern Fiona Lefebvre.
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="d-flex align-items-center" style="max-width: 800px;">
+                                <img src="{{url_for('static', filename='VIPNL.png')}}"  height="35" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+                                <img src="{{url_for('static', filename='van-hall-larenstein.png')}}"  height="45" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+                                <img src="{{url_for('static', filename='louis-bolk-instituut.png')}}"  height="45" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+                                <img src="{{url_for('static', filename='INSIGHT-LOGO.png')}}" width="105" height="35" class="d-inline-block align-text-center" style="margin: 0px 10px 0px 10px;">
+                        </div>
+                    </footer>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+      
+<script>
+// Default, min, max values libraries
+const range_config = {
+    "crop_yield": {
+        min: 3,
+        max: 15,
+        step: 0.5,
+        default: 9,
+        label: "Crop Yield"
+    },
+    "sales_price": {
+        min: 125,
+        max: 250,
+        step: 1,
+        default: 180,
+        label: "Sales Price"
+    },
+    /*"CAP_subsidy": { //no more data about the range, just the typical value at 200
+        min: 0,
+        max: 500,
+        step: 1,
+        default: 200,
+        label: "CAP Subsidy"
+    },
+    */
+    "Eco_scheme_yield": {
+        min: 0,
+        max: 500, // Adjusted max value for Eco-scheme yield (>200)
+        step: 1,
+        default: 60,
+        label: "Eco-scheme Yield"
+    },
+    "CO2_credit": {
+        min: 2,
+        max: 15,
+        step: 1,
+        default: 8,
+        label: "CO2 Credit"
+    },
+    "price_C_credit": {
+        min: 40,
+        max: 90,
+        step: 0.5,
+        default: 64,
+        label: "Price C Credit"
+    },
+    "plant_in_building": {
+        min: 50,
+        max: 95,
+        step: 1,
+        default: 70,
+        label: "Plant in Building"
+    },
+    "pest_control": {
+        min: 100,
+        max: 300,
+        step: 1,
+        default: 125,
+        label: "Pest Control"
+    },
+    "crop_insurance": {
+        min: 50,
+        max: 100,
+        step: 1,
+        default: 75,
+        label: "Crop Insurance"
+    },
+    "crop_care": {
+        min: 200,
+        max: 1000,
+        step: 1,
+        default: 600,
+        label: "Crop Care"
+    },
+    "dike_and_ditch": {
+        min: 50,
+        max: 80,
+        step: 1,
+        default: 60,
+        label: "Dike and Ditch"
+    },
+    "pumps": {
+        min: 750,
+        max: 2000,
+        step: 1,
+        default: 1250,
+        label: "Pumps"
+    },
+    "water_level_control": {
+        min: 250,
+        max: 800,
+        step: 1,
+        default: 500,
+        label: "Water Level Control"
+    },
+    "percentage_maintenance": {
+        min: 5,
+        max: 15,
+        step: 1,
+        default: 10,
+        label: "Percentage Maintenance"
+    },
+    "harvesting_contract_work": {
+        min: 600,
+        max: 1200,
+        step: 1,
+        default: 850,
+        label: "Harvesting Contract Work"
+    },
+    /*"earthmoving": { //no more data about the range, just the typical value at 200
+        min: 1000,
+        max: 3000,
+        step: 1,
+        default: 1500,
+        label: "Earthmoving"
+    },
+    "soil_supply": { //no more data about the range, just the typical value at 200
+        min: 500,
+        max: 2000,
+        step: 1,
+        default: 1000,
+        label: "Soil Supply"
+    },
+    "water_supply": { //no more data about the range, just the typical value at 200
+        min: 0,
+        max: 500,
+        step: 1,
+        default: 200,
+        label: "Water Supply"
+    },
+    "water_drainage": { //no more data about the range, just the typical value at 200
+        min: 0,
+        max: 500,
+        step: 1,
+        default: 200,
+        label: "Water Drainage"
+    },
+    */
+    "percentage_maintenance_dikes_and_waterways": {
+        min: 1,
+        max: 5,
+        step: 1,
+        default: 2,
+        label: "Percentage Maintenance Dikes and Waterways"
+    },
+    "lease_land_rent_and_land_charges": {
+        min: 0,
+        max: 1000,
+        step: 1,
+        default: 0,
+        label: "Lease Land Rent and Land Charges"
+    },
+    "electricity_irrigation": {
+        min: 10,
+        max: 50,
+        step: 1,
+        default: 25,
+        label: "Electricity Irrigation"
+    },
+    "other_electricity": {
+        min: 10,
+        max: 50,
+        step: 1,
+        default: 25,
+        label: "Other Electricity"   
+    },
+    "water_costs": {
+        min: 90,
+        max: 125,
+        step: 1,
+        default: 105,
+        label: "Water Costs"
+    },     
+
+}
+
+
+// Library for the type of plantation (because of different displays)
+const planting_costs = {
+    "Planting Cuttings": {
+        min: 7000,
+        max: 38000,
+        step: 100,
+        default: 23000,
+        label: "Planting Cuttings Costs (in €/ha, one-time investment)"
+    },
+    "Sowing": {
+        min: 300,
+        max: 700,
+        step: 10,
+        default: 500,
+        label: "Sowing Costs (in €/ha, during 2 years)"
+    }
+};
+
+// Display function depending on the type of plantation selected
+function updatePlantingText() {
+    const select = document.getElementById("type_planting");
+    const container = document.getElementById("planting_cost_container");
+    const text = document.getElementById("text_planting_costs");
+    const rangeInput = document.getElementById("planting_costs");
+
+    const config = planting_costs[select.value];
+    if (!config) {
+        container.style.display = "none";
+        return;
+    }
+
+    // Show section
+    container.style.display = "block";
+
+    // Update the text
+    text.textContent = `• ${config.label}`;
+
+    // Update range attributes
+    rangeInput.min = config.min;
+    rangeInput.max = config.max;
+    rangeInput.step = config.step;
+    rangeInput.value = config.default;
+
+    // Update the displayed values
+    document.getElementById("min_value_planting_costs").textContent = config.min;
+    document.getElementById("max_value_planting_costs").textContent = config.max;
+    document.getElementById("current_value_planting_costs").textContent = config.default;
+}
+
+// Manage the display of values for the ranges of all inputs and run updatePlantingText
+document.addEventListener('DOMContentLoaded', function() {
+    // Cycle through all configured cursors
+    Object.keys(range_config).forEach(function(rangerId) {
+        const rangeInput = document.getElementById(rangerId);
+        
+        if (rangeInput) {
+            const config = range_config[rangerId];
+            
+            // Set attributes dynamically
+            rangeInput.setAttribute('min', config.min);
+            rangeInput.setAttribute('max', config.max);
+            rangeInput.setAttribute('step', config.step);
+            rangeInput.value = config.default;
+            
+            // Create min/max display for this slider
+            const minMaxDisplay = document.createElement('div');
+            minMaxDisplay.innerHTML = `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <small style="color: #666;"><strong>${config.min}</strong></small>
+                    <small style="color: #666;"><strong id="current_value_${rangerId}">${config.default}</strong></small>
+                    <small style="color: #666;"><strong>${config.max}</strong></small>
+                </div>
+            `;
+            
+            // Insert before cursor
+            rangeInput.parentNode.insertBefore(minMaxDisplay, rangeInput);
+            
+            // Listen for changes for this specific slider
+            rangeInput.addEventListener('input', function() {
+                document.getElementById(`current_value_${rangerId}`).textContent = this.value;
+            });
+        }
+    });
+
+    // run updatePlantingText
+    const select = document.getElementById("type_planting");
+    select.addEventListener("change", updatePlantingText);
+    select.addEventListener("change", balance_calculation);
+    updatePlantingText();
+    
+});
+
+
+document.getElementById('closeAllAccordions').addEventListener('click', () => {
+    // Récupérer toutes les sections ouvertes (éléments avec la classe 'show')
+    const openItems = document.querySelectorAll('.accordion-collapse.show');
+    
+    openItems.forEach(item => {
+      // Utiliser l’API Bootstrap pour cacher la section
+      let bsCollapse = bootstrap.Collapse.getInstance(item);
+      if (!bsCollapse) {
+        // Si l’instance n’existe pas, la créer
+        bsCollapse = new bootstrap.Collapse(item, {toggle: false});
+      }
+      bsCollapse.hide();
+    });
+  });
+
+
+// Show results
+let resultsVisible = false;
+document.getElementById("showResults").addEventListener("click", function () {
+    balance_calculation()
+    resultsVisible = !resultsVisible;
+    document.getElementById("results").style.display = resultsVisible ? 'block' : 'none';
+    document.getElementById("showResults").textContent = resultsVisible ? 'Hide Results' : 'Show Results';
+});
+
+// Show Detailed results 
+let DetailedresultsVisible = false;
+document.getElementById("showDetailedResults").addEventListener("click", function () {
+    DetailedresultsVisible = !DetailedresultsVisible;
+    document.getElementById("DetailedResults").style.display = DetailedresultsVisible ? 'block' : 'none';
+    document.getElementById("showDetailedResults").textContent = DetailedresultsVisible ? 'Hide Detailed Results' : 'Show Detailed Results';
+});
+
+</script>
+
+<script src="{{ url_for('static', filename='scripts/js_balance_calculation.js') }}"></script>
+{% endblock %}

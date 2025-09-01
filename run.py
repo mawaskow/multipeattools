@@ -319,6 +319,10 @@ def set_tool():
     
     return render_template("set_tool.html", username=session['username'], results=results_dct, inpt=input_dct)
 
+@app.route('/pffptool', methods=['GET'])
+def pffp_tool():
+    return render_template('pffp_tool.html')
+
 @app.route('/keywords', methods=['GET', 'POST'])
 def policy_keywords():
     username = session.get('username')
