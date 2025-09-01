@@ -133,7 +133,8 @@ def signup():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        url = 'http://140.203.154.253:8016/aspect/signup/'
+        #url = 'http://140.203.154.253:8016/aspect/signup/'
+        url = 'https://aspect-erp.insight-centre.org/aspect/signup/'
         headers = {'Content-Type': 'application/json'}
         data = {
         'jsonrpc': '2.0',
@@ -161,7 +162,8 @@ def signup():
 def authenticate_external_api(username, password):
     
     print("authenticate_external_api called with Username:", username) 
-    url = 'http://140.203.154.253:8016/web/session/authenticate'
+    #url = 'http://140.203.154.253:8016/web/session/authenticate'
+    url = 'https://aspect-erp.insight-centre.org/web/session/authenticate'
     headers = {'Content-Type': 'application/json'}
     data = {
     'jsonrpc': '2.0',
@@ -357,7 +359,8 @@ def sub_policy():
     }
     if request.method == 'POST':
         #url = 'http://localhost:8616/aspect/create_policy/'
-        url = 'http://140.203.154.253:8016/aspect/create_policy/'
+        #url = 'http://140.203.154.253:8016/aspect/create_policy/'
+        url = 'https://aspect-erp.insight-centre.org/aspect/create_policy/'
         # Set up the headers
         headers = {
             'Content-Type': 'application/json',
