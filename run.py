@@ -591,52 +591,62 @@ def any_policy(pol_id):
 
 @app.route('/categorydata')
 def getcateg():
-    url = 'http://140.203.154.253:8016/aspect/category/'
+    #url = 'http://140.203.154.253:8016/aspect/category/'
+    url = 'https://aspect-erp.insight-centre.org/aspect/category/'
     return create_dataendpoint(url)
 
 @app.route('/policydata')
 def getpols():
-    url = 'http://140.203.154.253:8016/aspect/policies/'
+    #url = 'http://140.203.154.253:8016/aspect/policies/'
+    url = 'https://aspect-erp.insight-centre.org/aspect/policies/'
     return create_dataendpoint(url)
 
 @app.route('/sgpolicy/<int:pol_id>')
 def get_sgpol(pol_id):
-    url = f"http://140.203.154.253:8016/aspect/policy/{pol_id}"
+    #url = f"http://140.203.154.253:8016/aspect/policy/{pol_id}"
+    url = f'https://aspect-erp.insight-centre.org/aspect/policy/{pol_id}'
     return create_dataendpoint(url)
 
 @app.route('/countrydata')
 def getctry():
-    url = 'http://140.203.154.253:8016/aspect/countries/'
+    #url = 'http://140.203.154.253:8016/aspect/countries/'
+    url = 'https://aspect-erp.insight-centre.org/aspect/countries/'
     return create_dataendpoint(url)
 
 @app.route('/localdata/<int:code>')
 def getlocal(code):
-    url = f'http://140.203.154.253:8016/aspect/state/{code}/'
+    #url = f'http://140.203.154.253:8016/aspect/state/{code}/'
+    url = f'https://aspect-erp.insight-centre.org/aspect/state/{code}/'
     return create_dataendpoint(url)
 
 @app.route('/nutsdata/<int:code>')
 def getnuts(code):
-    url = f'http://140.203.154.253:8016/aspect/nuts/{code}/'
+    #url = f'http://140.203.154.253:8016/aspect/nuts/{code}/'
+    url = f'https://aspect-erp.insight-centre.org/aspect/nuts/{code}/'
     return create_dataendpoint(url)
 
 @app.route('/languagedata')
 def getlangs():
-    url = 'http://140.203.154.253:8016/aspect/languages/'
+    #url = 'http://140.203.154.253:8016/aspect/languages/'
+    url = 'https://aspect-erp.insight-centre.org/aspect/languages/'
     return create_dataendpoint(url)
 
 @app.route('/keyworddata')
 def getkwdsnew():
-    url = 'http://140.203.154.253:8016/aspect/keywords/'
+    #url = 'http://140.203.154.253:8016/aspect/keywords/'
+    url = 'https://aspect-erp.insight-centre.org/aspect/keywords/'
     return create_dataendpoint(url)
 
 @app.route('/stakeholderdata/<int:code>')
 def getstknew(code):
-    url = f'http://140.203.154.253:8016/aspect/stakeholders/{code}/'
+    #url = f'http://140.203.154.253:8016/aspect/stakeholders/{code}/'
+    url = f'https://aspect-erp.insight-centre.org/aspect/stakeholders/{code}/'
     return create_dataendpoint(url)
 
 @app.route('/publisherdata/<int:code>')
 def getpubs(code):
-    url = f'http://140.203.154.253:8016/aspect/publishers/{code}/'
+    #url = f'http://140.203.154.253:8016/aspect/publishers/{code}/'
+    url = f'https://aspect-erp.insight-centre.org/aspect/publishers/{code}/'
     return create_dataendpoint(url)
 
 from flask import Flask, request, jsonify
