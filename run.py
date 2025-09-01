@@ -86,6 +86,7 @@ SAVE_DIR = "saved_files"
 os.makedirs(SAVE_DIR, exist_ok=True)  # Ensure directory exists
 
 def create_dataendpoint(url):
+    data=None
     headers = {
         'Content-Type': 'application/json'
         #'Cookie': 'session_id='+str(cookie_value)

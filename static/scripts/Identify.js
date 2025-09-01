@@ -241,7 +241,7 @@ map.on('singleclick', function (evt) {
         })
     }
 
-  const ieLayer=getLayerByName('IE_dipm');
+  const ieLayer=getLayerByName('IE_ispm');
   const ieSource=ieLayer.getSource();
   const ieUrl=ieSource.getFeatureInfoUrl(coordinate, resolution, projection,
     {'INFO_FORMAT':'application/json'});
@@ -253,9 +253,9 @@ map.on('singleclick', function (evt) {
             success:function(result){
                 const ie=result.features[0];
                 if(ie){
-                    const iegc=ie.properties.site_type;
+                    const iegc=ie.properties.descrip;
 
-                    ieInfo.html(`<p>Site Type: ${iegc}</p>`);
+                    ieInfo.html(`<p>Description: ${iegc}</p>`);
                     noFeatures.html('');
                     }
 
@@ -759,27 +759,6 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
         })
         }
 */
-    const irLayer=getLayerByName('IR_Peatlands');
-    const irSource=irLayer.getSource();
-    const irUrl=irSource.getFeatureInfoUrl(coordinate, resolution, projection,
-        {'INFO_FORMAT':'application/json'});
-    if(irUrl){
-        $.ajax({
-            url:irUrl,
-            method:'GET',
-            success:function(result){
-                const ir=result.features[0];
-                if(ir){
-                    const styp=ir.properties.peatl_type;
-                    irInfo.html(`
-                        <p>Site Type: ${styp}</p>`);
-                    noFeatures.html('');
-                    }
-
-            }
-        })
-        }
-
     const itLayer=getLayerByName('IT_Peatlands');
     const itSource=itLayer.getSource();
     const itUrl=itSource.getFeatureInfoUrl(coordinate, resolution, projection,

@@ -6,7 +6,7 @@ const layers=map.getLayers();
 
 const lyrClrLib = {
     'Project_Sites':`proj-sites-box`,
-    'IE_dipm':`ie-dipm-box`,
+    'IE_ispm':`ie-ispm-box`,
     'PL_Alk_Fens':`alk-fen-box`,
     'PL_Torf':`pl-torf-box`,
     'Corine18':`corine-box`,
@@ -30,7 +30,6 @@ const lyrClrLib = {
     'GR_Peatlands': `gr-soil-box`,
     'HU_Peatlands': `hu-soil-box`,
     'IC_Peatlands': `ic-soil-box`,
-    'IR_Peatlands': `ir-soil-box`,
     'IT_Peatlands': `it-soil-box`,
     'LA_Peatlands': `la-soil-box`,
     'LIE_Peatlands': `lie-soil-box`,

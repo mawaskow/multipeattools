@@ -49,54 +49,19 @@ const PSLayer= new TileLayer({
 // Irish Peat Classes
 const ieSource=new TileWMS({
     url:serverURL,
-    params:{"LAYERS":"multipeat:dipm","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
+    params:{"LAYERS":"multipeat:ispm","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
 });
 
 const ieLayer= new TileLayer({
     source:ieSource,
     preload: 0,
     // @ts-ignore
-    name:'IE_dipm',
+    name:'IE_ispm',
     display: 'Irish Peat Map',
     region: 'Ireland',
-    cluster: "IE_dipm",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const ie_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:dipm_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ie_s1Layer= new TileLayer({
-    source:ie_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Irish Peat Map s1',
-    region: 'Ireland',
-    cluster: "IE_dipm",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const ie_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:dipm_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ie_s2Layer= new TileLayer({
-    source:ie_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Irish Peat Map s2',
-    region: 'Ireland',
-    cluster: "IE_dipm",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
+    cluster: "IE_ispm",
+    //simp_lvl: 0,
+    //maxResolution: res_dct["max"][0]
 });
 
 // Countries
@@ -1249,57 +1214,6 @@ const ic_s2Layer= new TileLayer({
     minResolution: res_dct["min"][2]
 });
 */
-//ireland
-const irSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:ireland","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const irLayer= new TileLayer({
-    source:irSource,
-    preload: 0,
-    // @ts-ignore
-    name:'IR_Peatlands',
-    display: 'Irish Bogs',
-    region: 'Ireland',
-    cluster: "IR_Peatlands",
-    //simp_lvl: 0,
-    //maxResolution: res_dct["max"][0]
-});
-/*
-const ir_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:ireland_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ir_s1Layer= new TileLayer({
-    source:ir_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Irish Bogs s1',
-    cluster: "IR_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const ir_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:ireland_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ir_s2Layer= new TileLayer({
-    source:ir_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Irish Bogs s2',
-    cluster: "IR_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //italy
 const itSource=new TileWMS({
     url:serverURL,
@@ -2414,7 +2328,7 @@ const map=new Map({
     target:"map",
     layers:[osmLayer, ctryLayer, 
         //corineLayer, corine_s1Layer, corine_s2Layer, 
-        ieLayer, ie_s1Layer, ie_s2Layer, 
+        ieLayer,
         nlSoilLayer, nlSoil_s1Layer, nlSoil_s2Layer, 
         detLayer, det_s1Layer, det_s2Layer, 
         pltLayer, plt_s1Layer, plt_s2Layer, 
@@ -2437,7 +2351,6 @@ const map=new Map({
         grLayer, gr_s1Layer, gr_s2Layer, 
         huLayer, hu_s1Layer, hu_s2Layer, 
         //icLayer, ic_s1Layer, ic_s2Layer, 
-        irLayer, //ir_s1Layer, ir_s2Layer, 
         itLayer, it_s1Layer, it_s2Layer, 
         laLayer, la_s1Layer, la_s2Layer, 
         //lieLayer, lie_s1Layer, lie_s2Layer, 
