@@ -297,11 +297,9 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             success:function(result){
                 const plt=result.features[0];
                 if(plt){
-                    const pltTyp=plt.properties.TYP_NAZWA
-                    const pltRos=plt.properties.ROS_NAZWA;
+                    const pltTyp=plt.properties.type_name;
 
-                    pltInfo.html(`<p>Typ: ${pltTyp}</p>
-                        <p>Ros: ${pltRos}</p>`);
+                    pltInfo.html(`<p>Type: ${pltTyp}</p>`);
                     noFeatures.html('');
                     }
 
