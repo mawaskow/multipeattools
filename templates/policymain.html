@@ -29,6 +29,11 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Toggle all" id="pol-chk-lvl-all" onchange="toggle_level()" checked>
+                                <label class="form-check-label">Toggle all</label>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
                                 <input class="form-check-input stk-chk" type="checkbox" value="Global" id="pol-chk-lvl-gb" onchange="filterPolicies()" checked>
                                 <label class="form-check-label" for="flexCheckDefault">Global</label>
                             </li>
@@ -57,6 +62,11 @@
                             Policy Category
                         </button>
                         <ul class="dropdown-menu" style="padding:0px;">
+                            <li>
+                                <input class="form-check-input stk-chk" type="checkbox" value="Toggle all" id="pol-chk-cat-all" onchange="toggle_categories()" checked>
+                                <label class="form-check-label">Toggle all</label>
+                            </li>
+                            <li><hr class="dropdown-divider" style="margin:0px;"></li>
                             <li>
                                 <div class="bio-cls-clr">
                                     <input type="checkbox" id="pol-chk-cat-bio" class="form-check-input stk-chk" value="Biodiversity" onchange="filterPolicies()" checked>
@@ -238,7 +248,27 @@
             </li>
         `);
     }
-
+    // expand/collapse all
+    function toggle_accordions(){
+        var toggle_button = document.getElementById("expcol_allpols");
+        var polaccbtn_lst = document.getElementsByClassName("accordion-button");
+        var polacccol_lst = document.getElementsByClassName("accordion-collapse");
+        if(toggle_button.value=="expand"){
+            toggle_button.innerHTML = "Collapse All";
+            toggle_button.value = "collapse";
+            for (let i=0; i < polaccbtn_lst.length; i++) {
+                polaccbtn_lst[i].classList.remove("collapsed");
+                polacccol_lst[i].classList.add("show");
+            }
+        }else{
+            toggle_button.innerHTML = "Expand All";
+            toggle_button.value = "expand";
+            for (let i=0; i < polaccbtn_lst.length; i++) {
+                polaccbtn_lst[i].classList.add("collapsed");
+                polacccol_lst[i].classList.remove("show");
+            }
+        };
+    }
     // sorting policies
     function sortbytitles(pollst){
         var sorting = pollst.sort((a,b) =>{
@@ -295,7 +325,10 @@
         console.log(polLst[0]);
         const polPop = $('#pol-coll-div');
         polPop.html('');
-        polPop.append(`<h4 id="pol-res-he" class="text-center" style="padding-bottom:10px">Policies</h4>`);
+        polPop.append(`<div class="row" style="padding-left:15px; padding-right:15px;">
+        <div class="col-10"></div>
+        <button class="btn btn-success col-2 justify-self-right" value="expand" id="expcol_allpols" onclick="toggle_accordions()">Expand All</button>
+        </div>`);
         polPop.append(`<p id="pol-count" style="padding:5px">${polLst.length} results</p>`)
         for (let i = 0; i < polLst.length; i++) {
             var policy = polLst[i];
@@ -530,6 +563,28 @@
             id_lst.push(`pol-chk-nat-${country_select[key]}`);
         }
         var val = $('#pol-chk-nat-all').is(":checked");
+        id_lst.forEach(id =>{
+                $(`#${id}`).prop('checked', val);
+            });
+        filterPolicies();
+    }    
+    function toggle_level(){
+        var id_lst = [];
+        ["gb","eu","nt","rg","lc"].forEach(lvl =>{
+            id_lst.push(`pol-chk-lvl-${lvl}`);
+        });
+        var val = $('#pol-chk-lvl-all').is(":checked");
+        id_lst.forEach(id =>{
+                $(`#${id}`).prop('checked', val);
+            });
+        filterPolicies();
+    }    
+    function toggle_categories(){
+        var id_lst = [];
+        ["bio", "clm","comm", "econ","enr","env", "land","res"].forEach(cat=>{
+            id_lst.push(`pol-chk-cat-${cat}`);
+        });
+        var val = $('#pol-chk-cat-all').is(":checked");
         id_lst.forEach(id =>{
                 $(`#${id}`).prop('checked', val);
             });
