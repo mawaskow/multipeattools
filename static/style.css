@@ -60,7 +60,7 @@ p{
 
 p.text-descr, label.text-descr{
     font-size: 16px;
-    color:  #747474;
+    color: #3f3f3f /*#747474*/;
 }
 
 .form-select, .form-control{
@@ -1032,10 +1032,9 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
 }
 
 .pol-coll-div, .stk-coll-div{
-    background-color: #b1c8cf;
+    background-color: #cbdfe9;
     border-radius: 20px;
     padding: 20px;
-    margin:20px;
 }
 
 /*Stakeholders page*/

@@ -366,12 +366,7 @@ def sub_policy():
             'Content-Type': 'application/json',
             #='Cookie': 'session_id='+str(cookie_value)
         }
-        # get policy level for conditional
-        policy_level = request.form['govlvl']
         category_list = []
-        pub_list = []
-        stk_list = []
-        kwd_list=[]
         # get category list
         for key in list(categdct):
             # try/ except so non-selected categories don't trigger bad request 
@@ -380,41 +375,24 @@ def sub_policy():
                     category_list.append(categdct[key])
             except:
                 pass
-        # get publisher list and handle "other"
-        # [int(entry) for entry in request.form.getlist('polpub')] if request.form['polpub'] else [] # triggers error when "other"
-        # try/except for 
-        try:
-            for entry in request.form.getlist('polpub'):
-                if entry != "other":
-                    pub_list.append(int(entry))
-        except:
-            pass
-        # get stakeholder list and handle "other"
-        try:
-            for entry in request.form.getlist('polsta'):
-                if entry != "other":
-                    stk_list.append(int(entry))
-        except:
-            pass
-        # if english name is empty, set to native language name
-        engname = request.form['engtitle']
-        if engname == "":
-            engname = request.form['nattitle']
         # if language, convert to int
         lang = request.form['pollang']
         if lang != "":
             lang = int(request.form['pollang'])
-        # get keyword list [may need to handle 'other' in future]
-        try:
-            for entry in request.form.getlist('polkwd'):
-                kwd_list.append(int(entry))
-        except:
-            pass
         #
+        new_info_format = ""
+        new_info_format+=f"Email: {request.form['email']}"
+        new_info_format+=f"\nRegion: {request.form['reg']}"
+        new_info_format+=f"\nLanguage ID: {lang}"
+        new_info_format+=f"\nStart year: {request.form['startyr']}"
+        new_info_format+=f"\nPublishers: {request.form['polpub']}"
+        new_info_format+=f"\nRelevance: {request.form['relev']}"
+        new_info_format+=f"\nDocumentation Info: {request.form['pglnk']}"
+        new_info_format+=f"\nAdditional Info: {request.form['addtl']}"
         payload = {
             "jsonrpc": "2.0",
             "params": {
-                "name": engname,
+                "name": request.form["engtitle"],
                 "name_language": request.form['nattitle'],
                 "language": lang,
                 "type": "Policy",  
@@ -422,22 +400,22 @@ def sub_policy():
                 "policy_level": request.form['govlvl'],  
                 "country_group": 1,  
                 "country": request.form['ctry'],  
-                "localauthority1": request.form['loc'], 
-                "nuts_level_1": '' if policy_level in ['Global', 'European'] else request.form['reg'],  # Conditional assignment
-                "year_from": request.form['startyr'],  
-                "year_to": request.form['endyr'],
-                "publisher": pub_list,
-                "publisher_char": request.form['polpub_t'],
-                "stakholder_ids": stk_list,
-                "stakeholder_char": request.form['polsta_t'],
+                "localauthority1": "", 
+                "nuts_level_1": '',
+                "year_from": "",  
+                "year_to": "",
+                "publisher": [],
+                "publisher_char": "",
+                "stakholder_ids": [],
+                "stakeholder_char": "",
                 "publisher_link": request.form['pglnk'], 
                 "data_link": request.form['pdflnk'],  
-                "excerpt": request.form['excnat'],  
-                "excerpt_english": request.form['exceng'],  
-                "abstract": request.form['absnat'],  
-                "abstract_english": request.form['abseng'],  
-                "keywords":kwd_list,
-                "additional_info":request.form['addtl'],
+                "excerpt": '',  
+                "excerpt_english": '',  
+                "abstract": '',  
+                "abstract_english": '',  
+                "keywords":[],
+                "additional_info":new_info_format,
                 "state": "Draft"
             }
         }
