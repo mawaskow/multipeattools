@@ -110,6 +110,7 @@
                 </div>
             </div>
             <div id="policyliststore" value="{{ [] }}" style="display:none"></div>
+            <br>
             <div class="accordion pol-coll-div" id="pol-coll-div" style="margin-bottom: 10px;">
             </div>
         </div>
@@ -238,16 +239,53 @@
         `);
     }
 
-    // sorting policies, level first ascending, then by country
-    function sortPolLst(polLst){
-        var lvl_dct = {"Local":[], "Regional":[], "National":[], "European":[], "Global":[]};
-        polLst.forEach(policy => {
-            lvl_dct[policy['policy_level']].push(policy);
+    // sorting policies
+    function sortbytitles(pollst){
+        var sorting = pollst.sort((a,b) =>{
+            if(a.name < b.name){
+                return -1;
+            }else if(a.name > b.name){
+                return 1;
+            }else{
+                return 0;
+            }
         });
-        var newLst = [];
-        for(let key in lvl_dct){
-            newLst.push(...lvl_dct[key]);
+        return sorting;
+    }
+    function sortPolLst(polLst){
+        // get list of country_select keys (should already be alphabetised)
+        // create dictionary of format: {country: {"National": [], "Regional": [], "Local": []}}
+        // create dictionary: {"European": [], "Global": []}
+        // loop though pol_list
+        // end loop
+        // start going through the countries by level, for each list
+        // then do the same with European and Global
+        country_lst = [];
+        for(let key in country_select){
+            country_lst.push(key)
         };
+        country_dct = {};
+        country_lst.forEach(country =>{
+            country_dct[country]= {"National":[], "Regional":[], "Local":[]};
+        });
+        gleu_dct = {"European":[], "Global":[]};
+        polLst.forEach(pol => {
+            if(["European", "Global"].includes(pol['policy_level'])){
+                gleu_dct[pol['policy_level']].push(pol);
+            }else{
+                country_dct[pol['country']][pol['policy_level']].push(pol);
+            }
+        });
+        //console.log(country_dct);
+        //console.log(gleu_dct);
+        var newLst = [];
+        country_lst.forEach(country =>{
+            newLst.push(...sortbytitles(country_dct[country]['National']));
+            newLst.push(...sortbytitles(country_dct[country]['Regional']));
+            newLst.push(...sortbytitles(country_dct[country]['Local']));
+        });
+        newLst.push(...sortbytitles(gleu_dct["European"]));
+        newLst.push(...sortbytitles(gleu_dct["Global"]));
         return newLst;
     }
 
