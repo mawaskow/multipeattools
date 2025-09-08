@@ -1191,6 +1191,11 @@ input[type="checkbox"]:checked + #glb-fltr-svg {
         color: #FF9800;
     }
 
+.tooltip-inner {
+    max-width: 275px !important; 
+    text-align: left;
+}
+
 /* Incentive Classifier */
 
 div.inc_res_div{
