@@ -3,6 +3,270 @@
 {% block title %}Policy Suggestion Form{% endblock %}
 
 {% block content %}
+<!-- Import Inter font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        color: #374151; /* gray-700 */
+    }
+
+    .text-descr {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #374151;
+        margin: 0;
+    }
+
+    .textab {
+        color: #2563eb; /* blue-600 */
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .textab:hover {
+        text-decoration: underline;
+    }
+
+    /* Professional dropdown-like UL */
+    ul.policy-list {
+        list-style: none;
+        padding: 0;
+        margin: 8px 0;
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        overflow: hidden;
+    }
+
+    ul.policy-list li {
+        padding: 10px 14px;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    ul.policy-list li:not(:last-child) {
+        border-bottom: 1px solid #f3f4f6; /* gray-100 */
+    }
+
+    ul.policy-list li:hover {
+        background-color: #f9fafb; /* gray-50 */
+        color: #2563eb; /* blue-600 */
+    }
+
+    ul.policy-list li em {
+        color: #6b7280; /* gray-500 for examples */
+        font-style: italic;
+    }
+
+    /* Success Popup Styles */
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .popup-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .popup-content {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        max-width: 450px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        transform: scale(0.8) translateY(20px);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .popup-overlay.show .popup-content {
+        transform: scale(1) translateY(0);
+    }
+
+    .popup-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #10b981, #059669);
+    }
+
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 24px;
+        background: linear-gradient(135deg, #10b981, #059669);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: scaleIn 0.5s ease 0.2s both;
+    }
+
+    .success-icon svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+        stroke-width: 3;
+    }
+
+    @keyframes scaleIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .popup-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 12px;
+        animation: slideUp 0.5s ease 0.3s both;
+    }
+
+    .popup-message {
+        font-size: 16px;
+        color: #6b7280;
+        line-height: 1.5;
+        margin-bottom: 32px;
+        animation: slideUp 0.5s ease 0.4s both;
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .popup-close-btn {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        border: none;
+        padding: 12px 32px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        animation: slideUp 0.5s ease 0.5s both;
+    }
+
+    .popup-close-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .popup-close-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid #f3f4f6;
+        border-top: 3px solid #10b981;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 8px;
+        display: inline-block;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .btn-loading {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    /* Error Popup Styles */
+    .error-popup .popup-content::before {
+        background: linear-gradient(90deg, #ef4444, #dc2626);
+    }
+
+    .error-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 24px;
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: scaleIn 0.5s ease 0.2s both;
+    }
+
+    .error-icon svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+        stroke-width: 3;
+    }
+
+    .error-popup .popup-close-btn {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .error-popup .popup-close-btn:hover {
+        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+    }
+
+    .error-list {
+        text-align: left;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 16px 0;
+    }
+
+    .error-list ul {
+        margin: 0;
+        padding-left: 20px;
+        color: #dc2626;
+    }
+
+    .error-list li {
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+</style>
+
 <div class="container" style="min-height: 760px;">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -13,11 +277,11 @@
                     <br>
                     Please use this form to suggest a policy. We are currently collecting policies that affect EU member states and the UK. This includes:
                 </p>
-                <ul style="margin:0px">
-                    <li><p class="text-descr">Globally and multinationally binding agreements (<em>e.g. the Paris Agreement</em>)</p></li>
-                    <li><p class="text-descr">European Union policies (<em>e.g. the Nature Restoration Regulation</em>)</p></li>
-                    <li><p class="text-descr">National government policies (<em>e.g. Germany's National Peatland Protection Strategy</em>)</p></li>
-                    <li><p class="text-descr">Regional and local policies (<em>e.g. Ireland's Galway County Development Plan 2022 - 2028</em>)</p></li>
+                <ul class="policy-list">
+                    <li>Globally and multinationally binding agreements <em>(e.g. the Paris Agreement)</em></li>
+                    <li>European Union policies <em>(e.g. the Nature Restoration Regulation)</em></li>
+                    <li>National government policies <em>(e.g. Germany's National Peatland Protection Strategy)</em></li>
+                    <li>Regional and local policies <em>(e.g. Ireland's Galway County Development Plan 2022 - 2028)</em></li>
                 </ul>
                 <p class="text-descr">
                     Visit the current policy collection at <a class="textab" href="https://peatlandpolicyportal.eu/policy">https://peatlandpolicyportal.eu/policy</a>.
@@ -27,14 +291,18 @@
                     EU-LIFE Multi Peat Team
                 </p>
             </div>
-            <h4 class="text-center" style="padding:10px; color:rgb(0, 128, 0)">{{ message }}</h4> 
+            
+            <h4 class="text-center" style="padding:10px; color:rgb(0, 128, 0); display: none;" id="message">{{ message }}</h4> 
+            
             <div class="pol-coll-div" style="margin-bottom: 10px;">
                 <form method="post" class="container">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <span class="d-flex justify-content-between" style="width: 100%;">
+                    
+                    <div style="width: 100%;">
                         <h5>Contact Information</h5>
-                        <p style="color: red;">* indicates required question</p>
-                    </span>
+                        <p style="color: blue; text-align: left; margin: 0;">* indicates required question</p>
+                    </div>
+                
                     <br>
                     <div class="col-6">
                         <!-- email -->
@@ -46,6 +314,7 @@
                         <label for="inputEmail" class="form-label">Email (optional)</label>
                         <input type="text" class="form-control" id="inputEmail" name="email">
                     </div>
+                    
                     <hr class="pol">
                     <h5>Language and Title</h5>
                     <br>
@@ -62,6 +331,7 @@
                             <option value="" selected>Language</option>
                         </select>
                         <br>
+                        
                         <!-- original title -->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the policy's original title <br> Example: <br> <em>Aktionsprogramm Natürlicher Klimaschutz</em> <br> or <em>Scottish National Flood Resilience Strategy</em>">
@@ -72,6 +342,7 @@
                         <p style="color: red;" class="d-inline">*</p>
                         <input type="text" class="form-control" id="inputPolNatName" name="nattitle" required>
                         <br>
+                        
                         <!-- english title -->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the English translation of the title <br> Example: <em>German Federal Action Plan on Nature-based Solution for Climate and Biodiversity</em>">
@@ -81,6 +352,7 @@
                         <label for="inputPolEngName" class="form-label">Policy title in English (if applicable)</label>
                         <input type="text" class="form-control" id="inputPolEngName" name="engtitle">
                     </div>
+                    
                     <hr class="pol">
                     <h5>Governance Level</h5>
                     <br>
@@ -101,6 +373,7 @@
                             <option value="Regional">Regional</option>
                         </select>
                         <br>
+                        
                         <!--country-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Select the country the policy affects.">
@@ -112,6 +385,7 @@
                             <option value="" selected>Country</option>
                         </select>
                         <br>
+                        
                         <!--region-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the region and/or local authority that the policy affects.<br>Example: <em>Galway County</em>">
@@ -121,6 +395,7 @@
                         <label for="inputPolReg" class="form-label">Region and/or local authority (if applicable)</label>
                         <input type="text" class="form-control" id="inputPolReg" name="reg"/>
                     </div>
+                    
                     <hr class="pol">
                     <h5>Publishing Information</h5>
                     <br>
@@ -134,6 +409,7 @@
                         <label for="inputPolStartDate" class="form-label">Year of publication</label>
                         <input type="text" class="form-control" id="inputPolStartDate" name="startyr"/>
                         <br>
+                        
                         <!--publishers-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the publisher's name in the original language. Separate multiple names with a semicolon.<br>Example: <em>Department of Agriculture; Ministry of the Environment</em>">
@@ -143,6 +419,7 @@
                         <label for="inputPolPub" class="form-label">Publisher(s)</label>
                         <input type="text" class="form-control" id="inputPolPub" name="polpub"/>
                     </div>
+                    
                     <hr class="pol">
                     <h5>Policy Information</h5>
                     <br>
@@ -157,6 +434,7 @@
                         <p style="color: red;" class="d-inline">*</p>
                         <input type="text" class="form-control" id="inputPolPageLnk" name="pglnk" required/>
                         <br>
+                        
                         <!-- link to policy pdf -->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the link to the official PDF">
@@ -166,6 +444,7 @@
                         <label for="inputPolPdfLnk" class="form-label">Link to PDF of the policy</label>
                         <input type="text" class="form-control" id="inputPolPdfLnk" name="pdflnk"/>
                         <br>
+                        
                         <!--categories-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Select the policy's area(s) of impact">
@@ -212,6 +491,7 @@
                         </ul>
                     </div>
                     <br>
+                    
                     <!-- relevance to peatland -->
                     <svg height="20" width="16">
                         <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Briefly explain the policy's relevance to peatland (e.g., conservation, restoration, extraction).">
@@ -221,6 +501,7 @@
                     <label for="inputPolRelev" class="form-label">Relevance to peatlands</label>
                     <textarea class="form-control" id="inputPolRelev" name="relev"></textarea>
                     <br>
+                    
                     <!-- additional information -->
                     <svg height="20" width="16">
                         <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Please leave a comment or provide any other details here">
@@ -229,6 +510,7 @@
                     </svg>
                     <label for="inputPolAddtl" class="form-label">Additional information</label>
                     <textarea class="form-control" id="inputPolAddtl" name="addtl"></textarea>
+                    
                     <!-- submit -->
                     <div class="row justify-content-center" style="margin-top: 15px;">
                         <div class="col-md-3">
@@ -241,18 +523,199 @@
     </div>
 </div>
 
+<!-- Success Popup -->
+<div class="popup-overlay" id="successPopup">
+    <div class="popup-content">
+        <div class="success-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+        <h3 class="popup-title">Success!</h3>
+        <p class="popup-message">We have received your policy suggestion!</p>
+        <button class="popup-close-btn" onclick="closeSuccessPopup()">Continue</button>
+    </div>
+</div>
+
+<!-- Error Popup -->
+<div class="popup-overlay error-popup" id="errorPopup">
+    <div class="popup-content">
+        <div class="error-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </div>
+        <h3 class="popup-title">Validation Error</h3>
+        <p class="popup-message">Please fix the following issues:</p>
+        <div class="error-list" id="errorList">
+            <!-- Error messages will be inserted here -->
+        </div>
+        <button class="popup-close-btn" onclick="closeErrorPopup()">Fix Issues</button>
+    </div>
+</div>
+
 <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form submission with loading state and popup
+        const submitBtn = document.getElementById('inputPolSub');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Validate form before submission
+                const validationErrors = validateForm();
+                
+                if (validationErrors.length > 0) {
+                    showErrorPopup(validationErrors);
+                    return;
+                }
+                
+                // Add loading state to button
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="loading-spinner"></span>Submitting...';
+                this.classList.add('btn-loading');
+                
+                // Simulate form submission (replace with actual form submission)
+                setTimeout(() => {
+                    // Reset button
+                    this.innerHTML = originalText;
+                    this.classList.remove('btn-loading');
+                    
+                    // Show success popup
+                    showSuccessPopup();
+                }, 2000); // Simulated 2-second delay
+            });
+        } else {
+            console.error('Submit button not found');
+        }
+    });
+
+    // URL validation function
+    function isValidURL(string) {
+        try {
+            const url = new URL(string);
+            return url.protocol === 'http:' || url.protocol === 'https:';
+        } catch (_) {
+            return false;
+        }
+    }
+
+    // Form validation function
+    function validateForm() {
+        const errors = [];
+        
+        // Get the policy page link
+        const policyPageLink = document.getElementById('inputPolPageLnk').value.trim();
+        const policyPdfLink = document.getElementById('inputPolPdfLnk').value.trim();
+        
+        // Validate policy information page link (required)
+        if (!policyPageLink) {
+            errors.push('Policy information page link is required');
+        } else if (!isValidURL(policyPageLink)) {
+            errors.push('Policy information page link must be a valid URL (e.g., https://example.com)');
+        }
+        
+        // Validate PDF link (optional, but if provided must be valid)
+        if (policyPdfLink && !isValidURL(policyPdfLink)) {
+            errors.push('PDF link must be a valid URL (e.g., https://example.com/document.pdf)');
+        }
+        
+        // Additional URL format checks
+        if (policyPageLink && isValidURL(policyPageLink)) {
+            const pageUrl = new URL(policyPageLink);
+            if (pageUrl.hostname.length < 3) {
+                errors.push('Policy information page URL appears to be invalid');
+            }
+        }
+        
+        if (policyPdfLink && isValidURL(policyPdfLink)) {
+            const pdfUrl = new URL(policyPdfLink);
+            if (pdfUrl.hostname.length < 3) {
+                errors.push('PDF URL appears to be invalid');
+            }
+        }
+        
+        return errors;
+    }
+
+    function showSuccessPopup() {
+        const popup = document.getElementById('successPopup');
+        popup.classList.add('show');
+        
+        // Prevent body scroll when popup is open
+        document.body.style.overflow = 'hidden';
+    }
+
+    function showErrorPopup(errors) {
+        const popup = document.getElementById('errorPopup');
+        const errorList = document.getElementById('errorList');
+        
+        // Create error list HTML
+        let errorHTML = '<ul>';
+        errors.forEach(error => {
+            errorHTML += `<li>${error}</li>`;
+        });
+        errorHTML += '</ul>';
+        
+        errorList.innerHTML = errorHTML;
+        popup.classList.add('show');
+        
+        // Prevent body scroll when popup is open
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSuccessPopup() {
+        const popup = document.getElementById('successPopup');
+        popup.classList.remove('show');
+        
+        // Restore body scroll
+        document.body.style.overflow = 'auto';
+        
+        // Optional: Reset form
+        document.querySelector('form').reset();
+    }
+
+    function closeErrorPopup() {
+        const popup = document.getElementById('errorPopup');
+        popup.classList.remove('show');
+        
+        // Restore body scroll
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close popups when clicking overlay
+    document.getElementById('successPopup').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeSuccessPopup();
+        }
+    });
+
+    document.getElementById('errorPopup').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeErrorPopup();
+        }
+    });
+
+    // Close popups with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeSuccessPopup();
+            closeErrorPopup();
+        }
+    });
+
     /// populate country selection
-    var xhttp;
-    xhttp =  new XMLHttpRequest();
+    var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText)['result']['response'];
-            //console.log(obj);
-            obj.forEach(entry =>{
+            obj.forEach(entry => {
                 const element = `<option value="${entry['id']}">${entry['name']}</option>`;
-                const ctry_sel = $(`#inputPolCtry`);
-                ctry_sel.append(element);
+                const ctry_sel = document.getElementById('inputPolCtry');
+                if (ctry_sel) {
+                    ctry_sel.insertAdjacentHTML('beforeend', element);
+                }
             });
         }
     };
@@ -260,27 +723,27 @@
     xhttp.send();
 
     /// populate language selection
-    var xhttp;
-    xhttp =  new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    var xhttp2 = new XMLHttpRequest();
+    xhttp2.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText)['result']['response'];
-            //console.log(obj);
-            const ctry_sel = $(`#inputPolLang`);
-            obj.forEach(entry =>{
-                const element = `<option value="${entry['id']}" label="${entry['name']}">${entry['name']}</option>`;
-                ctry_sel.append(element);
-            });
+            const lang_sel = document.getElementById('inputPolLang');
+            if (lang_sel) {
+                obj.forEach(entry => {
+                    const element = `<option value="${entry['id']}" label="${entry['name']}">${entry['name']}</option>`;
+                    lang_sel.insertAdjacentHTML('beforeend', element);
+                });
+            }
         }
     };
-    xhttp.open("GET", "/languagedata", true);
-    xhttp.send();
+    xhttp2.open("GET", "/languagedata", true);
+    xhttp2.send();
 </script>
 
 <!--popover script-->
 <script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 </script>
 
 {% endblock %}
