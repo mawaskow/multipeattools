@@ -295,7 +295,7 @@
             <h4 class="text-center" style="padding:10px; color:rgb(0, 128, 0); display: none;" id="message">{{ message }}</h4> 
             
             <div class="pol-coll-div" style="margin-bottom: 10px;">
-                <form method="post" class="container">
+                <form method="post" class="container" id="policyForm">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     
                     <div style="width: 100%;">
@@ -559,7 +559,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Form submission with loading state and popup
         const submitBtn = document.getElementById('inputPolSub');
-        if (submitBtn) {
+        const form = document.getElementById('policyForm');
+        
+        if (submitBtn && form) {
             submitBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 
@@ -576,18 +578,42 @@
                 this.innerHTML = '<span class="loading-spinner"></span>Submitting...';
                 this.classList.add('btn-loading');
                 
-                // Simulate form submission (replace with actual form submission)
-                setTimeout(() => {
+                // Create form data
+                const formData = new FormData(form);
+                
+                // Submit form via fetch
+                fetch(form.action || window.location.pathname, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
                     // Reset button
                     this.innerHTML = originalText;
                     this.classList.remove('btn-loading');
                     
-                    // Show success popup
-                    showSuccessPopup();
-                }, 2000); // Simulated 2-second delay
-            });
+                    if (response.ok) {
+                        // Show success popup and reset form
+                        showSuccessPopup();
+                        form.reset();
+                    } else {
+                        // Handle server error
+                        return response.text().then(text => {
+                            throw new Error(`Server error: ${response.status}`);
+                        });
+                    }
+                })
+                .catch(error => {
+                    // Reset button
+                    this.innerHTML = originalText;
+                    this.classList.remove('btn-loading');
+                    
+                    // Show error popup
+                    console.error('Form submission error:', error);
+                    showErrorPopup(['Form submission failed. Please try again.']);
+                });
+            }.bind(submitBtn));
         } else {
-            console.error('Submit button not found');
+            console.error('Submit button or form not found');
         }
     });
 
@@ -672,8 +698,8 @@
         // Restore body scroll
         document.body.style.overflow = 'auto';
         
-        // Optional: Reset form
-        document.querySelector('form').reset();
+        // Optional: Reset form (already done in submission handler)
+        // document.getElementById('policyForm').reset();
     }
 
     function closeErrorPopup() {
@@ -705,7 +731,7 @@
         }
     });
 
-    /// populate country selection
+    // Populate country selection
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -722,7 +748,7 @@
     xhttp.open("GET", "/countrydata", true);
     xhttp.send();
 
-    /// populate language selection
+    // Populate language selection
     var xhttp2 = new XMLHttpRequest();
     xhttp2.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
