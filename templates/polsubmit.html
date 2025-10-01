@@ -7,60 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        font-size: 15px;
-        color: #374151; /* gray-700 */
-    }
-
-    .text-descr {
-        font-size: 14px;
-        line-height: 1.6;
-        color: #374151;
-        margin: 0;
-    }
-
-    .textab {
-        color: #2563eb; /* blue-600 */
-        text-decoration: none;
-        font-weight: 500;
-    }
-
-    .textab:hover {
-        text-decoration: underline;
-    }
-
-    /* Professional dropdown-like UL */
-    ul.policy-list {
-        list-style: none;
-        padding: 0;
-        margin: 8px 0;
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-        overflow: hidden;
-    }
-
-    ul.policy-list li {
-        padding: 10px 14px;
-        transition: all 0.2s ease-in-out;
-        cursor: pointer;
-    }
-
-    ul.policy-list li:not(:last-child) {
-        border-bottom: 1px solid #f3f4f6; /* gray-100 */
-    }
-
-    ul.policy-list li:hover {
-        background-color: #f9fafb; /* gray-50 */
-        color: #2563eb; /* blue-600 */
-    }
-
-    ul.policy-list li em {
-        color: #6b7280; /* gray-500 for examples */
-        font-style: italic;
-    }
-
     /* Success Popup Styles */
     .popup-overlay {
         position: fixed;
@@ -109,14 +55,14 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #10b981, #059669);
+        background: #66BB6A;
     }
 
     .success-icon {
         width: 80px;
         height: 80px;
         margin: 0 auto 24px;
-        background: linear-gradient(135deg, #10b981, #059669);
+        background: #66BB6A;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -170,7 +116,7 @@
     }
 
     .popup-close-btn {
-        background: linear-gradient(135deg, #10b981, #059669);
+        background: #66BB6A;
         color: white;
         border: none;
         padding: 12px 32px;
@@ -215,14 +161,14 @@
 
     /* Error Popup Styles */
     .error-popup .popup-content::before {
-        background: linear-gradient(90deg, #ef4444, #dc2626);
+        background: #FFC107;
     }
 
     .error-icon {
         width: 80px;
         height: 80px;
         margin: 0 auto 24px;
-        background: linear-gradient(135deg, #ef4444, #dc2626);
+        background: #FFC107;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -238,17 +184,17 @@
     }
 
     .error-popup .popup-close-btn {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
+        background: #FFC107;
     }
 
     .error-popup .popup-close-btn:hover {
-        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        box-shadow: 0 8px 25px rgba(239, 179, 68, 0.3);
     }
 
     .error-list {
         text-align: left;
-        background: #fef2f2;
-        border: 1px solid #fecaca;
+        background: #fefaf2;
+        border: 1px solid #feecca;
         border-radius: 8px;
         padding: 16px;
         margin: 16px 0;
@@ -257,7 +203,7 @@
     .error-list ul {
         margin: 0;
         padding-left: 20px;
-        color: #dc2626;
+        color: #5f5100;
     }
 
     .error-list li {
@@ -275,13 +221,14 @@
                 <p class="text-descr">
                     Thank you for helping us grow the <a class="textab" href="https://peatlandpolicyportal.eu/">Peatland Policy Portal</a>.
                     <br>
-                    Please use this form to suggest a policy. We are currently collecting policies that affect EU member states and the UK. This includes:
+                    Please use this form to suggest a policy. Please note that we only include officially published policies at the moment. We do not collect policies in the drafting or consultation stage. 
+                    We are currently collecting policies that affect EU member states and the UK. This includes:
                 </p>
-                <ul class="policy-list">
-                    <li>Globally and multinationally binding agreements <em>(e.g. the Paris Agreement)</em></li>
-                    <li>European Union policies <em>(e.g. the Nature Restoration Regulation)</em></li>
-                    <li>National government policies <em>(e.g. Germany's National Peatland Protection Strategy)</em></li>
-                    <li>Regional and local policies <em>(e.g. Ireland's Galway County Development Plan 2022 - 2028)</em></li>
+                <ul style="margin: 0px;">
+                    <li><p class="text-descr">Globally and multinationally binding agreements <em>(e.g. the Paris Agreement)</em></p></li>
+                    <li><p class="text-descr">European Union policies <em>(e.g. the Nature Restoration Regulation)</em></p></li>
+                    <li><p class="text-descr">National government policies <em>(e.g. Germany's National Peatland Protection Strategy)</em></p></li>
+                    <li><p class="text-descr">Regional and local policies <em>(e.g. Ireland's Galway County Development Plan 2022 - 2028)</em></p></li>
                 </ul>
                 <p class="text-descr">
                     Visit the current policy collection at <a class="textab" href="https://peatlandpolicyportal.eu/policy">https://peatlandpolicyportal.eu/policy</a>.
@@ -298,17 +245,17 @@
                 <form method="post" class="container" id="policyForm">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     
-                    <div style="width: 100%;">
+                    <span class="d-flex justify-content-between" style="width: 100%;">
                         <h5>Contact Information</h5>
-                        <p style="color: blue; text-align: left; margin: 0;">* indicates required question</p>
-                    </div>
+                        <p style="color: red; font-size: 18px;">* indicates required question</p>
+                    </span>
                 
                     <br>
                     <div class="col-6">
                         <!-- email -->
                         <svg height="20" width="16">
-                            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="You will receive a confirmation email once your suggestion is submitted. By providing your email address, you consent to us contacting you if we have questions about your submission. We will not share or use this email for any other purpose.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="By providing your email address, you consent to us contacting you if we have questions about your submission. We will not share or use this email for any other purpose.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputEmail" class="form-label">Email (optional)</label>
@@ -322,7 +269,7 @@
                         <!-- language -->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Select the policy's original language">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolLang" class="form-label">Original language of the policy</label>
@@ -335,7 +282,7 @@
                         <!-- original title -->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the policy's original title <br> Example: <br> <em>Aktionsprogramm Natürlicher Klimaschutz</em> <br> or <em>Scottish National Flood Resilience Strategy</em>">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolNatName" class="form-label">Policy title in original language</label>
@@ -346,7 +293,7 @@
                         <!-- english title -->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the English translation of the title <br> Example: <em>German Federal Action Plan on Nature-based Solution for Climate and Biodiversity</em>">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolEngName" class="form-label">Policy title in English (if applicable)</label>
@@ -360,7 +307,7 @@
                         <!--level-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title='Select the governance level the policy affects.<br>Example: Select "European Union" for EU directives.'>
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolLvl" class="form-label">Governance level</label>
@@ -377,7 +324,7 @@
                         <!--country-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Select the country the policy affects.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolCtry" class="form-label">Country (if applicable)</label>
@@ -389,7 +336,7 @@
                         <!--region-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the region and/or local authority that the policy affects.<br>Example: <em>Galway County</em>">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolReg" class="form-label">Region and/or local authority (if applicable)</label>
@@ -403,7 +350,7 @@
                         <!--publication year-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the year of publication (yyyy)<br>Example: 2021">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolStartDate" class="form-label">Year of publication</label>
@@ -413,7 +360,7 @@
                         <!--publishers-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the publisher's name in the original language. Separate multiple names with a semicolon.<br>Example: <em>Department of Agriculture; Ministry of the Environment</em>">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolPub" class="form-label">Publisher(s)</label>
@@ -426,8 +373,8 @@
                     <div class="col-6">
                         <!-- link to policy page -->
                         <svg height="20" width="16">
-                            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="We prefer links to official government websites or legal repositories. If this is not possible, you can link to a trustworthy site.">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Please link to the official government website that provides additional policy information. You can provide a link to the policy document itself in the next field.">
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolPageLnk" class="form-label">Link to policy information page</label>
@@ -438,7 +385,7 @@
                         <!-- link to policy pdf -->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Enter the link to the official PDF">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label for="inputPolPdfLnk" class="form-label">Link to PDF of the policy</label>
@@ -448,7 +395,7 @@
                         <!--categories-->
                         <svg height="20" width="16">
                             <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Select the policy's area(s) of impact">
-                                <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                                <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                             </a>
                         </svg>
                         <label class="form-label">Policy Domain</label>
@@ -495,7 +442,7 @@
                     <!-- relevance to peatland -->
                     <svg height="20" width="16">
                         <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Briefly explain the policy's relevance to peatland (e.g., conservation, restoration, extraction).">
-                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                         </a>
                     </svg>
                     <label for="inputPolRelev" class="form-label">Relevance to peatlands</label>
@@ -505,7 +452,7 @@
                     <!-- additional information -->
                     <svg height="20" width="16">
                         <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip-inner" data-bs-html="true" data-bs-title="Please leave a comment or provide any other details here">
-                            <image xlink:href="{{ url_for('static', filename='INFO-icon.png') }}" style="height:20px; width:16px"></image>                            
+                            <image xlink:href="{{ url_for('static', filename='INFO-icon-darker.png') }}" style="height:20px; width:16px"></image>                            
                         </a>
                     </svg>
                     <label for="inputPolAddtl" class="form-label">Additional information</label>
@@ -531,8 +478,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
         </div>
-        <h3 class="popup-title">Success!</h3>
-        <p class="popup-message">We have received your policy suggestion!</p>
+        <h3 class="popup-title">Thank you for your suggestion!</h3>
+        <p class="popup-message">We have received your submission.</p>
         <button class="popup-close-btn" onclick="closeSuccessPopup()">Continue</button>
     </div>
 </div>
@@ -541,16 +488,16 @@
 <div class="popup-overlay error-popup" id="errorPopup">
     <div class="popup-content">
         <div class="error-icon">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            <svg fill="none" stroke="currentColor" viewBox="-2 -1 20 20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
             </svg>
         </div>
-        <h3 class="popup-title">Validation Error</h3>
-        <p class="popup-message">Please fix the following issues:</p>
+        <h3 class="popup-title">Please check your submission</h3>
+        <p class="popup-message">Please complete the required field(s) below:</p>
         <div class="error-list" id="errorList">
             <!-- Error messages will be inserted here -->
         </div>
-        <button class="popup-close-btn" onclick="closeErrorPopup()">Fix Issues</button>
+        <button class="popup-close-btn" onclick="closeErrorPopup()">Return to Form</button>
     </div>
 </div>
 
