@@ -144,6 +144,7 @@ const alkFen_s2Layer= new TileLayer({
 });
 
 // Polish Torfowiska
+/*
 const pltSource=new TileWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:pl_peat","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -193,7 +194,7 @@ const plt_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-
+*/
 // Dutch Peat Soils
 const nlSoilSource=new TileWMS({
     url:serverURL,
@@ -2331,7 +2332,7 @@ const map=new Map({
         ieLayer,
         nlSoilLayer, nlSoil_s1Layer, nlSoil_s2Layer, 
         detLayer, det_s1Layer, det_s2Layer, 
-        pltLayer, plt_s1Layer, plt_s2Layer, 
+        //pltLayer, plt_s1Layer, plt_s2Layer, 
         alkFenLayer, alkFen_s1Layer, alkFen_s2Layer, 
         befLayer, //bef_s1Layer, bef_s2Layer, 
         bewLayer, bew_s1Layer, bew_s2Layer,
