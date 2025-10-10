@@ -284,7 +284,7 @@ map.on('singleclick', function (evt) {
             }
         })
     }
-
+/*
 const pltLayer=getLayerByName('PL_Torf');
 const pltSource=pltLayer.getSource();
 const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
@@ -306,6 +306,7 @@ const pltUrl=pltSource.getFeatureInfoUrl(coordinate, resolution, projection,
             }
         })
     }
+*/
 /*
   const corineLayer=getLayerByName('Corine18');
   const corineSource=corineLayer.getSource();
