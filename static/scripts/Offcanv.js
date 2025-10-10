@@ -34,37 +34,6 @@ const pillNames =
     };
 
 // FXNS
-function classQuerying(policy){
-    // takes a policy object and returns whether or not to display the policy
-    // based on the policy's primary category and whether that category box is checked
-    var biod = document.getElementById("bio-cls-bx");
-    var clmac = document.getElementById("clm-cls-bx");
-    var enrg = document.getElementById("enr-cls-bx");
-    var econ = document.getElementById("econ-cls-bx");
-    var land = document.getElementById("land-cls-bx");
-    var comm = document.getElementById("comm-cls-bx");
-    var res = document.getElementById("res-cls-bx");
-    var env = document.getElementById("env-cls-bx"); 
-    if(policy["primary_category"]=="Biodiversity" & biod.checked==true){
-        return true;
-    }else if(policy["primary_category"]=='Climate Action' & clmac.checked==true){
-        return true;
-    }else if(policy["primary_category"]=="Community and Culture" & comm.checked==true){
-        return true;
-    }else if(policy["primary_category"]=="Economy" & econ.checked==true){
-        return true;
-    }else if(policy["primary_category"]=="Energy" & enrg.checked==true){
-        return true;
-    }else if(policy["primary_category"]=='Environment Quality' & env.checked==true){
-        return true;
-    }else if(policy["primary_category"]=='Land Use / Agriculture' & land.checked==true){
-        return true;
-    }else if(policy["primary_category"]=='Research and Applied Sciences' & res.checked==true){
-        return true;
-    }
-    return false;
-}
-
 function togglePols(polLst){
     // takes the polLst, filters it according to levels and categories selected, 
     // then displays them in their predefined level sections
@@ -93,25 +62,15 @@ function togglePols(polLst){
             <p style="display: inline" class="badge rounded-pill ${pillDct[pol["primary_category"]]}">${pillNames[pol["primary_category"]]}</p>
             <br><br>`;
         if(pol["policy_level"]=="Local" & document.getElementById("locauth-fltr").checked==true){
-            if(classQuerying(pol)){
-                counPolInfo.append(element);
-            }
+            counPolInfo.append(element);
         }else if(pol["policy_level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
-            if(classQuerying(pol)){
-                regPolInfo.append(element);
-            }
+            regPolInfo.append(element);
         }else if(pol["policy_level"]=="National" & document.getElementById("national-fltr").checked==true){
-            if(classQuerying(pol)){
-                natPolInfo.append(element);
-            }
+            natPolInfo.append(element);
         }else if(pol["policy_level"]=="European" & document.getElementById("eu-fltr").checked==true){
-            if(classQuerying(pol)){
-                euPolInfo.append(element);
-            }
+            euPolInfo.append(element);
         }else if(pol["policy_level"]=="Global" & document.getElementById("global-fltr").checked==true){
-            if(classQuerying(pol)){
-                globPolInfo.append(element);
-            }
+            globPolInfo.append(element);
         }
         noFeatures.html('');
     })
@@ -232,14 +191,8 @@ function displayChange(evt){
     lsv.style.left = `200px`;
     var pb = document.getElementById("map-pol-box");
     var psv = document.getElementById("map-pol-svg");
-    var pcs = document.getElementById("map-pol-cls-svg");
     pb.style.display = 'block';
     psv.style.right = `400px`;
-    pcs.style.display = 'block';
-    var cb = document.getElementById("map-pols-cls-div");
-    var csv = document.getElementById("map-pol-cls-svg");
-    cb.style.display = 'block';
-    csv.style.right = `550px`;
 };
 
 map.addEventListener("singleclick", displayChange);
@@ -274,20 +227,3 @@ var euFltr = document.getElementById("eu-fltr");
 euFltr.addEventListener("click", updatePols);
 var glbFltr = document.getElementById("global-fltr");
 glbFltr.addEventListener("click", updatePols);
-// classes
-var bioFltr = document.getElementById("bio-cls-bx");
-bioFltr.addEventListener("click", updatePols);
-var clmFltr = document.getElementById("clm-cls-bx");
-clmFltr.addEventListener("click", updatePols);
-var commFltr = document.getElementById("comm-cls-bx");
-commFltr.addEventListener("click", updatePols);
-var econFltr = document.getElementById("econ-cls-bx");
-econFltr.addEventListener("click", updatePols);
-var enrFltr = document.getElementById("enr-cls-bx");
-enrFltr.addEventListener("click", updatePols);
-var envFltr = document.getElementById("env-cls-bx");
-envFltr.addEventListener("click", updatePols);
-var landFltr = document.getElementById("land-cls-bx");
-landFltr.addEventListener("click", updatePols);
-var resFltr = document.getElementById("res-cls-bx");
-resFltr.addEventListener("click", updatePols);
