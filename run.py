@@ -266,7 +266,14 @@ ROUTES
 '''
 @app.route('/')
 def landingpage():
-    return redirect(url_for('map_page'))
+    return redirect(url_for('home'))
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    username = session.get('username')
+    if username is None:
+        return render_template('home.html')
+    return render_template('home.html', username=session['username'])
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
@@ -281,6 +288,13 @@ def map_page():
     if username is None:
         return render_template('map.html')
     return render_template('map.html', username=session['username'])
+
+@app.route('/map-info', methods=['GET', 'POST'])
+def map_info():
+    username = session.get('username')
+    if username is None:
+        return render_template('map_info.html')
+    return render_template('map_info.html', username=session['username'])
 
 @app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
@@ -337,6 +351,13 @@ def policy():
     if 'username' not in session:
          return render_template('policymain.html')
     return render_template('policymain.html', username=session['username'])
+
+@app.route('/policy-info', methods=['GET', 'POST'])
+def policy_info():
+    username = session.get('username')
+    if username is None:
+        return render_template('policy_info.html')
+    return render_template('policy_info.html', username=session['username'])
 
 @app.route('/stakeholders', methods=['GET', 'POST'])
 def stakeholders():
