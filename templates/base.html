@@ -95,7 +95,7 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" data-bs-auto-close="outside" style="padding: 7px; margin-left: 15px; font-weight: bold;">Maps</a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item disabled" href="{{ url_for('map_info') }}">Map Data Explainer</a></li>
+                                            <li><a class="dropdown-item" href="{{ url_for('map_info') }}">Map Data Explainer</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('map_page') }}">Explore the Maps</a></li>
                                         </ul>
                                     </li>
@@ -103,7 +103,7 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" data-bs-auto-close="outside" style="padding: 7px; margin-left: 15px; font-weight: bold;">Policies</a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item disabled" href="{{ url_for('policy_info') }}">Policy Data Explainer</a></li>
+                                            <li><a class="dropdown-item" href="{{ url_for('policy_info') }}">Policy Data Explainer</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('policy') }}">Explore Policy Collection</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('sub_policy') }}">Policy Suggestion & Correction</a></li>
                                         </ul>
@@ -112,6 +112,7 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" data-bs-auto-close="outside" style="padding: 7px; margin-left: 15px; font-weight: bold;">Calculators</a>
                                         <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="{{ url_for('calculators') }}">About the Calculators</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('ffp_tool') }}">Financial Feasibility Tool</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('set_tool') }}">Site Emissions Tool</a></li>
                                             <li><a class="dropdown-item disabled" href="{{ url_for('pffp_tool') }}">Paludiculture Tool</a></li>
@@ -121,7 +122,9 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" data-bs-auto-close="outside" style="padding: 7px; margin-left: 15px; font-weight: bold;">Resources</a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item disabled" href="">Coming Soon</a></li>
+                                            <li><a class="dropdown-item" href="{{ url_for('project_collection') }}">Project Collection</a></li>
+                                            <li><a class="dropdown-item" href="{{ url_for('project_map') }}">Project Map</a></li>
+                                            <li><a class="dropdown-item" href="{{ url_for('best_practice') }}">Best Practice</a></li>
                                         </ul>
                                     </li>
                                     <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
@@ -130,7 +133,7 @@
                                     </li>
                                     <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url_for('sub_policy') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">Feedback</a>
+                                        <a class="nav-link" href="{{ url_for('feedback') }}" style="padding: 7px; margin-left: 15px; font-weight: bold;">Feedback</a>
                                     </li>
                                     <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
                                     <li class="nav-item">
@@ -164,10 +167,6 @@
                                 <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
                                 <li class="nav-item">
                                     <a class="nav-link" href="https://multipeat.org/en/downloads-media/gallery" target="_blank" style="padding: 7px; margin-left: 15px; font-weight: bold;">Gallery</a>
-                                </li>
-                                <div style="border-right: 1px solid #747474; height: 25px; padding: 0px 10px; align-self: center;"></div>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="/" style="padding: 7px; margin-left: 15px; font-weight: bold;">Data Upload</a>
                                 </li>
                             </ul>
                         </div>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 40px; padding-bottom: 20px;">
+    <div class="row row-cols-3 justify-content-center">
+        <div class="col text-center">
+            <a href="{{ url_for('sub_policy') }}"><img src="{{url_for('static', filename='images/feedback_vis.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>Suggest/Correct a Policy</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('sub_policy') }}"><img src="{{url_for('static', filename='multipeat_logo.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>Share Feedback for the Portal</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('contact') }}">
+                <img src="{{url_for('static', filename='multipeat_logo.png')}}" width="300" height="300" style="padding:10px;">
+            </a>
+            <h5>Contact Us</h5>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -3,8 +3,43 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="container" style="height: 400px;">
-
+<div class="container" style="padding-top: 40px; padding-bottom: 20px;">
+    <div class="row justify-content-center">
+        <h1 style="text-align: center;">Welcome to the Peatland Policy Portal</h1>
+        <div class="col-4 d-flex justify-content-center" style="padding-top: 30px;">
+            <a href="{{ url_for('qa_tool') }}"><button class="btn btn-success">Ask our AI a peatland policy question</button></a>
+        </div>
+    </div>
+    <div class="row row-cols-3 gy-3 justify-content-center" style="padding-top:40px;">
+        <div class="col text-center">
+            <a href="{{ url_for('map_page') }}"><img src="{{url_for('static', filename='images/map_vis.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>Peatland Maps</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('policy') }}"><img src="{{url_for('static', filename='images/policies_vis.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>Policy Collection</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('calculators') }}">
+                <img src="{{url_for('static', filename='images/calculators_vis.png')}}" width="300" height="300" style="padding:10px;">
+            </a>
+            <h5>Peatland Farming Calculators</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('resources') }}"><img src="{{url_for('static', filename='images/projects_vis.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>Resources</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('feedback') }}">
+                <img src="{{url_for('static', filename='images/feedback_vis.png')}}" width="300" height="300" style="padding:10px;">
+            </a>
+            <h5>Feedback & Contact</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('about') }}"><img src="{{url_for('static', filename='multipeat_logo.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>About the Portal</h5>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

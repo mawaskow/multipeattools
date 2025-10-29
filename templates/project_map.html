@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Project Map{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding:0px; margin:0px;height:100vh; position:relative">
+    <div id="project_map" style="height:100vh;"></div>
+</div>
+
+<script type="module" src="{{url_for('static', filename='scripts/Projects_map.js')}}" ></script>
+{% endblock %}

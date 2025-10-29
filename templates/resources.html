@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Resources{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 40px; padding-bottom: 20px;">
+    <div class="row row-cols-3 justify-content-center">
+        <div class="col text-center">
+            <a href="{{ url_for('project_collection') }}"><img src="{{url_for('static', filename='multipeat_logo.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>Project Collection</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('project_map') }}"><img src="{{url_for('static', filename='images/projects_vis.png')}}" width="300" height="300" style="padding:10px;"></a>
+            <h5>Project Map</h5>
+        </div>
+        <div class="col text-center">
+            <a href="{{ url_for('best_practice') }}">
+                <img src="{{url_for('static', filename='multipeat_logo.png')}}" width="300" height="300" style="padding:10px;">
+            </a>
+            <h5>Best Practice</h5>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

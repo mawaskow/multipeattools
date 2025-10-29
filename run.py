@@ -364,6 +364,49 @@ def stakeholders():
     if 'username' not in session:
          return render_template('stakeholders.html')
     return render_template('stakeholders.html', username=session['username'])
+
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback():
+    if 'username' not in session:
+         return render_template('feedback.html')
+    return render_template('feedback.html', username=session['username'])
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if 'username' not in session:
+         return render_template('contact.html')
+    return render_template('contact.html', username=session['username'])
+
+@app.route('/resources', methods=['GET', 'POST'])
+def resources():
+    if 'username' not in session:
+         return render_template('resources.html')
+    return render_template('resources.html', username=session['username'])
+
+@app.route('/calculators', methods=['GET', 'POST'])
+def calculators():
+    if 'username' not in session:
+         return render_template('calculators.html')
+    return render_template('calculators.html', username=session['username'])
+
+@app.route('/best_practice', methods=['GET', 'POST'])
+def best_practice():
+    if 'username' not in session:
+         return render_template('best_practice.html')
+    return render_template('best_practice.html', username=session['username'])
+    
+@app.route('/project_collection', methods=['GET', 'POST'])
+def project_collection():
+    if 'username' not in session:
+         return render_template('project_collection.html')
+    return render_template('project_collection.html', username=session['username'])
+
+@app.route('/project_map', methods=['GET', 'POST'])
+def project_map():
+    if 'username' not in session:
+         return render_template('project_map.html')
+    return render_template('project_map.html', username=session['username'])
+
     
 @app.route('/policy-suggestion', methods=['GET', 'POST'])
 def sub_policy():
