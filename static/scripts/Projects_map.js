@@ -54,7 +54,7 @@ const osmLayer=new TileLayer({
 const ProjectSource = new VectorSource({
   url: serverURL.replace('/wms', '/wfs') +
        '?service=WFS&version=1.1.0&request=GetFeature' +
-       '&typename=multipeat:proj_maps1and2' +
+       '&typename=multipeat:project_map_data' +
        '&outputFormat=application/json',
   format: new GeoJSON()
 });
@@ -90,12 +90,43 @@ const project_map=new Map({
 // make map
 $('#project_map').data('project_map', project_map);
 
+/////////////////////////////////////////////////////////////////////
+// populate sidebar with project info
+const projs_lst = [];
+const projs_div = $('#map-projs-div');
+projs_div.html('');
+ProjectSource.on('featuresloadend', function() {
+    ProjectSource.getFeatures().forEach(f =>{
+        var projname = f.get("project");
+        if(!(projname ==null)&!(f.get("life_reference")==null)){
+            if(!(projs_lst.includes(projname))){
+                var projlink = f.get('proj_link');
+                if(projlink == null){
+                    projlink = '';
+                }else{
+                    projlink = `<p>${projlink}</p>`
+                };
+                var element = `<div style="padding: 5px;">
+                    <h5>${f.get("project")}</h5>
+                    <p>${f.get("life_reference")}</p>
+                    <p>${f.get("start_yr")}-${f.get("end_yr")}</p>
+                    ${projlink}
+                    <hr>
+                </div>`;
+                projs_div.append(element);
+                projs_lst.push(projname);
+            }
+        }
+    });
+});
+
 ///////////////////////////////////////////////////////////////////////
 // handle clicks on map
 
 project_map.on('singleclick', function (evt) {
   project_map.forEachFeatureAtPixel(evt.pixel, function (clickedFeature) {
-    const clickedProject = clickedFeature.get('project'); // project of clicked site
+    const clickedProject = clickedFeature.get('project');
+    const clickedSite = clickedFeature.get('name');
 
     ProjectSource.getFeatures().forEach(f => {
       let icon;
@@ -109,5 +140,9 @@ project_map.on('singleclick', function (evt) {
 
       f.setStyle(iconStyle(icon));
     });
+    //
   });
+  //
 });
+
+/////////////////////////////////////////////////////////
