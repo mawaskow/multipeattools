@@ -127,22 +127,35 @@ project_map.on('singleclick', function (evt) {
   project_map.forEachFeatureAtPixel(evt.pixel, function (clickedFeature) {
     const clickedProject = clickedFeature.get('project');
     const clickedSite = clickedFeature.get('name');
-
     ProjectSource.getFeatures().forEach(f => {
-      let icon;
-      if (f === clickedFeature) {
+        let icon;
+        if (f === clickedFeature) {
         icon = activeIcon;
-      } else if (f.get('project') === clickedProject) {
+        //
+        projs_div.html('');
+        var projlink = f.get('proj_link');
+        if(projlink == null){
+            projlink = '';
+        }else{
+            projlink = `<p>${projlink}</p>`
+        };
+        var element = `<div style="padding: 5px;">
+            <h5>${f.get("project")}</h5>
+            <p>${f.get("life_reference")}</p>
+            <p>${f.get("start_yr")}-${f.get("end_yr")}</p>
+            ${projlink}
+            <hr>
+        </div>`;
+        projs_div.append(element);
+        } else if (f.get('project') === clickedProject) {
         icon = projIcon;
-      } else {
+        } else {
         icon = baseIcon;
-      }
-
-      f.setStyle(iconStyle(icon));
+        }
+        f.setStyle(iconStyle(icon));
+        //
     });
-    //
   });
-  //
 });
 
 /////////////////////////////////////////////////////////
