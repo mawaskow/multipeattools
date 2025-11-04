@@ -92,70 +92,92 @@ $('#project_map').data('project_map', project_map);
 
 /////////////////////////////////////////////////////////////////////
 // populate sidebar with project info
-const projs_lst = [];
-const projs_div = $('#map-projs-div');
-projs_div.html('');
-ProjectSource.on('featuresloadend', function() {
-    ProjectSource.getFeatures().forEach(f =>{
-        var projname = f.get("project");
-        if(!(projname ==null)&!(f.get("life_reference")==null)){
-            if(!(projs_lst.includes(projname))){
-                var projlink = f.get('proj_link');
-                if(projlink == null){
-                    projlink = '';
-                }else{
-                    projlink = `<p>${projlink}</p>`
-                };
-                var element = `<div style="padding: 5px;">
-                    <h5>${f.get("project")}</h5>
-                    <p>${f.get("life_reference")}</p>
-                    <p>${f.get("start_yr")}-${f.get("end_yr")}</p>
-                    ${projlink}
-                    <hr>
-                </div>`;
-                projs_div.append(element);
-                projs_lst.push(projname);
-            }
-        }
-    });
-});
+function proj_div_pop_all() {
+  const projs_div = $('#map-projs-div');
+  const seen = new Set();
+  projs_div.html('');
 
+  ProjectSource.getFeatures().forEach(f => {
+    const projname = f.get('project');
+    const ref = f.get('life_reference');
+    if (!projname || !ref) return;
+    if (seen.has(projname)) return;
+    seen.add(projname);
+
+    let projlink = f.get('proj_link') || '';
+    if (projlink) projlink = `<p>${projlink}</p>`;
+
+    const element = $(`
+      <div class="proj-item" data-proj="${projname}" style="padding:5px; cursor:pointer;">
+        <h5>${projname}</h5>
+        <p>${ref}</p>
+        <p>${f.get('start_yr')}-${f.get('end_yr')}</p>
+        ${projlink}
+        <hr>
+      </div>
+    `);
+
+    projs_div.append(element);
+  });
+
+  // click handler: recolor features to pink for selected project
+  $('.proj-item').on('click', function () {
+    const selProj = $(this).data('proj');
+    ProjectSource.getFeatures().forEach(f => {
+      const icon =
+        f.get('project') === selProj ? '/static/icon-loc-proj.png' : '/static/icon-loc-def.png';
+      f.setStyle(iconStyle(icon));
+    });
+  });
+}
+
+// single project
+function show_single_project(f) {
+  const projs_div = $('#map-projs-div');
+  projs_div.html('');
+
+  let projlink = f.get('proj_link') || '';
+  if (projlink) projlink = `<p>${projlink}</p>`;
+
+  const element = $(`
+    <div style="padding:10px;">
+      <h5>${f.get('project')}</h5>
+      <p>${f.get('life_reference')}</p>
+      <p>${f.get('start_yr')}-${f.get('end_yr')}</p>
+      ${projlink}
+      <p><b>Site:</b> ${f.get('name')}</p>
+      <hr>
+      <button id="return_all_proj_btn" class="btn btn-success" style="cursor:pointer;">Return to all projects</button>
+    </div>
+  `);
+
+  projs_div.append(element);
+  $('#return_all_proj_btn').on('click', function () {
+    // reset styles and repopulate
+    ProjectSource.getFeatures().forEach(f => f.setStyle(iconStyle('/static/icon-loc-def.png')));
+    proj_div_pop_all();
+  });
+}
 ///////////////////////////////////////////////////////////////////////
 // handle clicks on map
 
 project_map.on('singleclick', function (evt) {
   project_map.forEachFeatureAtPixel(evt.pixel, function (clickedFeature) {
     const clickedProject = clickedFeature.get('project');
-    const clickedSite = clickedFeature.get('name');
     ProjectSource.getFeatures().forEach(f => {
-        let icon;
-        if (f === clickedFeature) {
-        icon = activeIcon;
-        //
-        projs_div.html('');
-        var projlink = f.get('proj_link');
-        if(projlink == null){
-            projlink = '';
-        }else{
-            projlink = `<p>${projlink}</p>`
-        };
-        var element = `<div style="padding: 5px;">
-            <h5>${f.get("project")}</h5>
-            <p>${f.get("life_reference")}</p>
-            <p>${f.get("start_yr")}-${f.get("end_yr")}</p>
-            ${projlink}
-            <hr>
-        </div>`;
-        projs_div.append(element);
-        } else if (f.get('project') === clickedProject) {
-        icon = projIcon;
-        } else {
-        icon = baseIcon;
-        }
-        f.setStyle(iconStyle(icon));
-        //
+      let icon;
+      if (f === clickedFeature) {
+        icon = '/static/icon-loc-act.png';
+        show_single_project(f);
+      } else if (f.get('project') === clickedProject) {
+        icon = '/static/icon-loc-proj.png';
+      } else {
+        icon = '/static/icon-loc-def.png';
+      }
+      f.setStyle(iconStyle(icon));
     });
   });
 });
 
+ProjectSource.once('featuresloadend', proj_div_pop_all);
 /////////////////////////////////////////////////////////
