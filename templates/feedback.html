@@ -3,7 +3,8 @@
 {% block title %}Feedback{% endblock %}
 
 {% block content %}
-<div class="container" style="padding-top: 40px; padding-bottom: 20px;">
+<div class="container" style="padding-top: 40px; padding-bottom: 20px; min-height: 700px;">
+    <h3 class="text-center">Feedback</h3>
     <div class="row row-cols-3 justify-content-center">
         <div class="col text-center">
             <a href="{{ url_for('sub_policy') }}"><img src="{{url_for('static', filename='images/feedback_vis.png')}}" width="300" height="300" style="padding:10px;"></a>
