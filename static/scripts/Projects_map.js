@@ -76,7 +76,7 @@ const proj_view=new View({
     // left bottom right top
     //extent:[-2010000, 3800000, 3800000, 11500000], // europe
     extent:[-4000000, 3500000, 7000000, 13000000], // europe and EEA countries
-    center:[2000000, 7500000],
+    center:[2000000, 6000000],
     zoom:0,
     projection: mapProjection
 });
@@ -140,7 +140,7 @@ function show_single_project(f) {
   if (projlink) projlink = `<p>${projlink}</p>`;
 
   const element = $(`
-    <div style="padding:10px;">
+    <div style="padding:5px;">
       <h5>${f.get('project')}</h5>
       <p>${f.get('life_reference')}</p>
       <p>${f.get('start_yr')}-${f.get('end_yr')}</p>
