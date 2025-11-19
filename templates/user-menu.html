@@ -1,0 +1,47 @@
+<!-- templates/includes/user-menu.html -->
+
+<div class="d-inline-flex align-middle justify-content-end" style="margin-right: 0px;">
+    {% if session.get('username') %}
+    <div class="user-menu">
+        <div class="user-info">
+            <p class="welcome-text d-inline-flex align-self-middle">Welcome, {{ username or session.get('username') }}</p>
+            <div class="dropdown">
+                <div class="user-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- JavaScript will populate initials -->
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="#" onclick="openProfileModal()">
+                            <i class="fas fa-user"></i>
+                            My Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#" onclick="openPasswordResetModal()">
+                            <i class="fas fa-key"></i>
+                            Reset Password
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item btn-logout" href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Log out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <a style="padding: 5px; padding-right: 20px;" href="{{ url_for('login') }}">
+        <button class="btn login-btn">Log in</button>
+    </a>
+    {% endif %}
+</div>
