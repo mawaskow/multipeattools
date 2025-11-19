@@ -382,7 +382,37 @@ function ffp_calculation(){
     let min_thresh_of_credits= document.getElementById("min_thresh_of_credits").value;
     let interest_rt= document.getElementById("interest_rt").value;
     let payments_p_yr= document.getElementById("payments_p_yr").value;
+    let fieldname = document.getElementById("fieldname").value;
+        console.log(fieldname)
 
+
+        console.log("--- MAIN FORM VALUES ---");
+        console.log("Field Name:", fieldname);
+        console.log("Number of Years:", num_yrs);
+        console.log("Credits per Hectare per Year:", cred_p_hect_p_yr);
+        console.log("Hectares Restored:", hect_restored);
+        console.log("Investment Amount:", invest_amt);
+        console.log("Start Year:", start_yr);
+        console.log("Price per Credit:", price_p_cred);
+        console.log("Investment Costs Included:", invest_costs_inc);
+        console.log("Registry Costs Included:", reg_costs_inc);
+    
+        // CONSOLE LOGGING - Assumptions Values
+        console.log("--- ASSUMPTIONS VALUES ---");
+        console.log("Nominal Interest Rate:", nom_int_rt);
+        console.log("Inflation Rate:", inflation_rt);
+        console.log("Registry Account Opening Fee:", reg_acct_open_fee);
+        console.log("Registry Listing Cost per Credit:", reg_listing_cost_p_credit);
+        console.log("Registry Conversion Cost Fee per Inspection:", reg_conv_cost_fee_p_inspect);
+        console.log("Registry Conversion Cost per Credit above Min Threshold:", reg_conv_cost_p_cred_abv_min_thresh_of_credits);
+        console.log("Registry Levy Cost per Credit:", reg_levy_cost_p_cred);
+        console.log("Validation & Verification App Cost per Inspection:", valid_and_verif_app_cost_p_inspect);
+        console.log("Validation & Verification Statement Cost per Inspection:", valid_and_verif_stmnt_cost_p_inspect);
+        console.log("Validation & Verification Inspector Travel Cost per Inspection:", valid_and_verif_inspctr_travel_cost_p_inspect);
+        console.log("Inspection Cycle Length:", inspect_cycle_len);
+        console.log("Minimum Threshold of Credits:", min_thresh_of_credits);
+        console.log("Interest Rate:", interest_rt);
+        console.log("Payments per Year:", payments_p_yr);
     // make sure the values are present
     if (num_yrs.length === 0 || 
         cred_p_hect_p_yr.length === 0 ||
@@ -404,7 +434,8 @@ function ffp_calculation(){
         inspect_cycle_len.length === 0 ||
         min_thresh_of_credits.length === 0 ||
         interest_rt.length === 0 ||
-        payments_p_yr.length === 0
+        payments_p_yr.length === 0 ||
+        fieldname.length == 0
         ){
             return;
         }
@@ -416,48 +447,359 @@ function ffp_calculation(){
 }
 
 // Export assumptions and results to CSV
+
+
 $("#ffp_csv_btn").on('click', function(event){
-    let rows = [
-        ["Results"],
-        ["Credits Generated", document.getElementById("r_cred_gen").innerHTML],
-        ["Cost per Credit", document.getElementById("r_cost_p_cred").innerHTML],
-        ["Net Present Value", parseFloat(document.getElementById("r_net_pres_val").innerHTML.replace(/,/g, ''))],
-        ["Gross Present Value", parseFloat(document.getElementById("r_gro_pres_val").innerHTML.replace(/,/g, ''))],
-        ["CARG", document.getElementById("r_carg").innerHTML],
-        ["Profit per Credit", document.getElementById("r_prof_p_cred").innerHTML],
-        ["Profit per Hectare per Year", document.getElementById("r_prof_p_hect_p_yr").innerHTML],
-        ["Rate of Return", document.getElementById("r_rate_return").innerHTML],
-        ["Profitable", document.getElementById("r_prof").innerHTML],
-        ["Arguments"],
-        ["Number of Years", document.getElementById("num_yrs").value],
-        ["Credits per Hectare per Year", document.getElementById("cred_p_hect_p_yr").value],
-        ["Hectares for Restoration", document.getElementById("hect_restored").value],
-        ["Investment Amount", document.getElementById("invest_amt").value],
-        ["Start Year", document.getElementById("start_yr").value],
-        ["Price per Credit", document.getElementById("price_p_cred").value],
-        ["Investment Costs Included", document.getElementById("invest_costs_inc").checked],
-        ["Registration Costs Included", document.getElementById("reg_costs_inc").checked],
-        ["Assumptions"],
-        ["Nominal Interest Rate", document.getElementById("nom_int_rt").value],
-        ["Inflation Rate", document.getElementById("inflation_rt").value],
-        ["Registry Account Opening Fee", document.getElementById("reg_acct_open_fee").value],
-        ["Registry Listing Cost per Credit", document.getElementById("reg_listing_cost_p_credit").value],
-        ["Registry Conversion Cost Fee per Inspection", document.getElementById("reg_conv_cost_fee_p_inspect").value],
-        ["Registry Conversion Cost per Credit above Minimum Threshold of Credits", document.getElementById("reg_conv_cost_p_cred_abv_min_thresh_of_credits").value],
-        ["Registration Levy Cost per Credit", document.getElementById("reg_levy_cost_p_cred").value],
-        ["Validation and Verification Application Cost per Inspection", document.getElementById("valid_and_verif_app_cost_p_inspect").value],
-        ["Validation and Verification Statement Cost per Inspection", document.getElementById("valid_and_verif_stmnt_cost_p_inspect").value],
-        ["Validation and Verification Inspector Travel Cost per Inspection", document.getElementById("valid_and_verif_inspctr_travel_cost_p_inspect").value],
-        ["Inspection Cycle Length", document.getElementById("inspect_cycle_len").value],
-        ["Minimum Threshold of Credits", document.getElementById("min_thresh_of_credits").value],
-        ["Interest Rate", document.getElementById("interest_rt").value],
-        ["Payments per Year", document.getElementById("payments_p_yr").value]
-    ];
-    let csvContent = "data:text/csv;charset=utf-8,";
-    rows.forEach(function(rowArray) {
-        let row = rowArray.join(",");
-        csvContent += row + "\r\n";
-    });
-    var encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+    // Prevent any default button behavior
+    event.preventDefault();
+    
+    try {
+        // FIXED Helper function to safely get element value
+        function getElementValue(id, defaultValue = '') {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.warn(`Element with ID '${id}' not found`);
+                return defaultValue;
+            }
+            
+            // Handle checkboxes first
+            if (element.type === 'checkbox') {
+                return element.checked;
+            }
+            
+            // Handle form inputs (input, select, textarea) - these have .value
+            if (element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
+                return element.value || defaultValue;
+            }
+            
+            // Handle display elements (p, div, span) - these use innerHTML
+            if (element.innerHTML !== undefined) {
+                return element.innerHTML.replace(/<[^>]*>/g, '').trim() || defaultValue;
+            }
+            
+            return defaultValue;
+        }
+
+        // Helper function to safely parse numeric values
+        function parseNumericValue(value) {
+            if (typeof value === 'string') {
+                // Remove commas and other formatting
+                const cleaned = value.replace(/[,\s]/g, '');
+                const parsed = parseFloat(cleaned);
+                return isNaN(parsed) ? value : parsed;
+            }
+            return value;
+        }
+
+        // Test the function first
+        console.log("=== TESTING getElementValue FUNCTION ===");
+        console.log("num_yrs:", getElementValue("num_yrs"));
+        console.log("fieldname:", getElementValue("fieldname"));
+        console.log("start_yr:", getElementValue("start_yr"));
+        console.log("invest_costs_inc:", getElementValue("invest_costs_inc"));
+        console.log("r_cred_gen:", getElementValue("r_cred_gen"));
+
+        let rows = [
+            // Field Name at the top
+            ["Field Name", getElementValue("fieldname")],
+            [""], // Empty row for separation
+            
+            // Key Project Parameters Section
+            ["Key Project Parameters"],
+            ["Start Year", getElementValue("start_yr")],
+            ["Project Duration (years)", getElementValue("num_yrs")],
+            ["Avg. Credits/ha/annum", getElementValue("cred_p_hect_p_yr")],
+            ["Hectares of Potential Restoration", getElementValue("hect_restored")],
+            ["Investment / Financial Inputs (€)", getElementValue("invest_amt")],
+            ["Selling Price of a Carbon Credit (€)", getElementValue("price_p_cred")],
+            [""], // Empty row for separation
+            
+            // Results Section
+            ["Results"],
+            ["Credits Generated", getElementValue("r_cred_gen")],
+            ["Cost per Credit", getElementValue("r_cost_p_cred")],
+            ["Net Present Value", parseNumericValue(getElementValue("r_net_pres_val"))],
+            ["Gross Present Value", parseNumericValue(getElementValue("r_gro_pres_val"))],
+            ["CARG", getElementValue("r_carg")],
+            ["Profit per Credit", getElementValue("r_prof_p_cred")],
+            ["Profit per Hectare per Year", getElementValue("r_prof_p_hect_p_yr")],
+            ["Rate of Return", getElementValue("r_rate_return")],
+            ["Profitable", getElementValue("r_prof")],
+            [""], // Empty row for separation
+            
+            // Arguments Section
+            ["Arguments"],
+            ["Number of Years", getElementValue("num_yrs")],
+            ["Credits per Hectare per Year", getElementValue("cred_p_hect_p_yr")],
+            ["Hectares for Restoration", getElementValue("hect_restored")],
+            ["Investment Amount", getElementValue("invest_amt")],
+            ["Start Year", getElementValue("start_yr")],
+            ["Price per Credit", getElementValue("price_p_cred")],
+            ["Investment Costs Included", getElementValue("invest_costs_inc")],
+            ["Registration Costs Included", getElementValue("reg_costs_inc")],
+            [""], // Empty row for separation
+            
+            // Assumptions Section
+            ["Assumptions"],
+            ["Nominal Interest Rate", getElementValue("nom_int_rt")],
+            ["Inflation Rate", getElementValue("inflation_rt")],
+            ["Registry Account Opening Fee", getElementValue("reg_acct_open_fee")],
+            ["Registry Listing Cost per Credit", getElementValue("reg_listing_cost_p_credit")],
+            ["Registry Conversion Cost Fee per Inspection", getElementValue("reg_conv_cost_fee_p_inspect")],
+            ["Registry Conversion Cost per Credit above Minimum Threshold", getElementValue("reg_conv_cost_p_cred_abv_min_thresh_of_credits")],
+            ["Registration Levy Cost per Credit", getElementValue("reg_levy_cost_p_cred")],
+            ["Validation and Verification Application Cost per Inspection", getElementValue("valid_and_verif_app_cost_p_inspect")],
+            ["Validation and Verification Statement Cost per Inspection", getElementValue("valid_and_verif_stmnt_cost_p_inspect")],
+            ["Validation and Verification Inspector Travel Cost per Inspection", getElementValue("valid_and_verif_inspctr_travel_cost_p_inspect")],
+            ["Inspection Cycle Length", getElementValue("inspect_cycle_len")],
+            ["Minimum Threshold of Credits", getElementValue("min_thresh_of_credits")],
+            ["Interest Rate", getElementValue("interest_rt")],
+            ["Payments per Year", getElementValue("payments_p_yr")],
+            [""], // Empty row
+            
+            // Export Information
+            ["Export Information"],
+            ["Export Date", new Date().toISOString()],
+            ["Export Timestamp", Date.now()]
+        ];
+
+        console.log("=== SAMPLE CSV ROWS ===");
+        console.log("First 20 rows:", rows.slice(0, 20));
+        
+        // Save CSV data to server
+        saveCSVData(rows);
+        
+    } catch (error) {
+        console.error('Error in CSV export:', error);
+        showDialog('error', 'Export Error', 'An error occurred while preparing CSV data: ' + error.message);
+    }
 });
+
+// Improved CSV save function with better error handling
+function saveCSVData(rows) {
+    // Validate input
+    if (!rows || !Array.isArray(rows) || rows.length === 0) {
+        showDialog('error', 'Invalid Data', 'No data available to export');
+        return;
+    }
+
+    // Convert rows to properly escaped CSV format
+    const csvContent = rows.map(row => {
+        return row.map(cell => {
+            // Convert cell to string and handle special characters
+            let cellStr = String(cell);
+            
+            // If cell contains comma, newline, or quote, wrap in quotes and escape quotes
+            if (cellStr.includes(',') || cellStr.includes('\n') || cellStr.includes('"')) {
+                cellStr = '"' + cellStr.replace(/"/g, '""') + '"';
+            }
+            
+            return cellStr;
+        }).join(',');
+    }).join('\r\n');
+
+    console.log("Sending CSV Data:", csvContent);
+
+    // Show loading state (optional)
+    showDialog('info', 'Exporting...', 'Please wait while we save your data...');
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ 
+            csvData: csvContent,
+            timestamp: new Date().toISOString(),
+            dataType: 'financial_forest_project'
+        })
+    };
+
+    fetch('https://multipeat.insight-centre.org/save-csv', requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json().then(data => ({ status: response.status, body: data }));
+        })
+        .then(({ status, body }) => {
+            console.log("Response Status:", status);
+            console.log("Server Response:", body);
+
+            switch (status) {
+                case 200:
+                    showDialog('success', 'Export Successful', body.message || 'Your data has been saved successfully.');
+                    break;
+                case 401:
+                    showDialog('warning', 'Authentication Required', body.error || 'Please log in to save data.');
+                    break;
+                case 400:
+                    showDialog('error', 'Invalid Request', body.error || 'The request could not be processed.');
+                    break;
+                default:
+                    showDialog('warning', 'Unexpected Response', body.error || 'An unexpected error occurred.');
+            }
+        })
+        .catch(error => {
+            console.error('Error saving CSV:', error);
+            
+            // Provide more specific error messages
+            let errorMessage = 'Could not connect to the server.';
+            if (error.name === 'TypeError') {
+                errorMessage = 'Network error: Please check your connection and try again.';
+            } else if (error.message.includes('HTTP error')) {
+                errorMessage = 'Server error: ' + error.message;
+            }
+            
+            showDialog('warning', 'Login Required to Save Data');
+        });
+}
+
+// Enhanced retrieve function with better data processing
+function retrieveCSVData() {
+    console.log("Retrieving CSV Data...");
+
+    fetch('https://multipeat.insight-centre.org/get-csv', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+        },
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json().then(data => ({ status: response.status, body: data }));
+    })
+    .then(({ status, body }) => {
+        console.log("Response Status:", status);
+        console.log("Server Response:", body);
+
+        switch (status) {
+            case 200:
+                if (body.csvData) {
+                    showDialog('success', 'Data Retrieved', 'CSV data loaded successfully');
+                    return processRetrievedCSV(body.csvData);
+                } else {
+                    showDialog('warning', 'No Data', 'No CSV data found in response');
+                }
+                break;
+            case 401:
+                showDialog('warning', 'Authentication Required', body.error || 'Please log in to access data.');
+                break;
+            case 404:
+                showDialog('info', 'No Data Found', 'No saved CSV data found for this session');
+                break;
+            case 400:
+                showDialog('error', 'Bad Request', body.error || 'Invalid request format');
+                break;
+            default:
+                showDialog('warning', 'Unexpected Error', body.error || 'An unexpected error occurred');
+        }
+    })
+    .catch(error => {
+        console.error('Error retrieving CSV:', error);
+        showDialog('error', 'Retrieval Failed', 'Could not retrieve data from server');
+    });
+}
+
+// Process retrieved CSV data
+function processRetrievedCSV(csvData) {
+    try {
+        const rows = csvData.split('\r\n')
+            .filter(row => row.trim() !== '')
+            .map(row => {
+                // Simple CSV parsing (for more complex CSV, consider using a library)
+                const cells = [];
+                let current = '';
+                let inQuotes = false;
+                
+                for (let i = 0; i < row.length; i++) {
+                    const char = row[i];
+                    
+                    if (char === '"' && (i === 0 || row[i-1] === ',')) {
+                        inQuotes = true;
+                    } else if (char === '"' && inQuotes && (i === row.length - 1 || row[i+1] === ',')) {
+                        inQuotes = false;
+                    } else if (char === ',' && !inQuotes) {
+                        cells.push(current);
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                cells.push(current);
+                
+                return cells;
+            });
+
+        console.log("Parsed CSV Rows:", rows);
+        return rows;
+        
+    } catch (error) {
+        console.error('Error parsing CSV data:', error);
+        showDialog('error', 'Parse Error', 'Could not parse the retrieved CSV data');
+        return null;
+    }
+}
+
+// Enhanced dialog function with additional type support
+function showDialog(type, title, message) {
+    const dialogOverlay = document.getElementById('dialogOverlay');
+    const dialogBox = document.getElementById('dialogBox');
+    const dialogTitle = document.getElementById('dialogTitleText');
+    const dialogContent = document.getElementById('dialogContent');
+    const dialogIcon = document.getElementById('dialogIcon');
+    const dialogClose = document.getElementById('dialogClose');
+    const dialogOk = document.getElementById('dialogOk');
+    
+    // Fallback if dialog elements don't exist
+    if (!dialogOverlay || !dialogBox || !dialogTitle || !dialogContent) {
+        console.error('Dialog elements not found in DOM');
+        alert(`${title}: ${message}`);
+        return;
+    }
+    
+    // Reset classes
+    dialogBox.className = 'dialog-box';
+    
+    // Set content
+    dialogTitle.textContent = title;
+    dialogContent.textContent = message;
+    
+    // Set styles and icons based on type
+    const iconMap = {
+        'success': '✓',
+        'error': '!',
+        'warning': '⚠',
+        'info': 'ℹ'
+    };
+    
+    if (type && iconMap[type]) {
+        dialogBox.classList.add(type);
+        if (dialogIcon) {
+            dialogIcon.textContent = iconMap[type];
+        }
+    }
+    
+    // Show dialog
+    dialogOverlay.classList.add('show');
+    
+    // Enhanced event listeners with cleanup
+    const closeDialog = () => {
+        dialogOverlay.classList.remove('show');
+        // Clean up event listeners
+        if (dialogClose) dialogClose.onclick = null;
+        if (dialogOk) dialogOk.onclick = null;
+    };
+    
+    if (dialogClose) dialogClose.onclick = closeDialog;
+    if (dialogOk) dialogOk.onclick = closeDialog;
+    
+    // Auto-close for info messages after 3 seconds
+    if (type === 'info') {
+        setTimeout(closeDialog, 3000);
+    }
+}
