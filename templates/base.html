@@ -89,12 +89,12 @@
                                 <div>
                                     <p style="padding-left: 20px; padding-right:10px;" class="d-inline-flex align-self-middle">  Welcome, {{ username }} </p>
                                     <a style="padding: 5px; padding-right: 20px;" href="#" onclick="logout()"> 
-                                        <button class="btn btn-success"> Log out </button>
+                                        <button class="btn login-btn"> Log out </button>
                                     </a>
                                 </div>
                                 {% else %}
                                 <a style="padding: 5px; padding-right: 20px;" href="{{ url_for('login') }}">
-                                    <button class="btn btn-success"> Log in </button>
+                                    <button class="btn login-btn"> Log in </button>
                                 </a>
                                 {% endif %}
                                 <!-- LANGUAGE SELECTION
