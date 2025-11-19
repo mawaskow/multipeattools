@@ -251,6 +251,88 @@ def logout():
     session.pop('username', None)
     return jsonify({'message': 'Logout successful'}), 200
 
+from flask import request, jsonify, session
+import requests
+
+@app.route('/reset_password', methods=['POST'])
+@csrf.exempt 
+def reset_password():
+    """
+    Proxy route to handle password reset via your existing API
+    """
+    if 'username' not in session and 'email' not in session:
+        return jsonify({'success': False, 'message': 'Not authenticated'}), 401
+
+    try:
+        data = request.get_json()
+        new_password = data.get('new_password')
+
+        if not new_password:
+            return jsonify({'success': False, 'message': 'New password is required'}), 400
+
+        # Get user login from session - adjust based on your session structure
+        user_login = session.get('email') or session.get('username')
+
+        if not user_login:
+            return jsonify({'success': False, 'message': 'User login not found in session'}), 400
+
+        # Call your existing API
+        api_url = 'https://aspect-erp.insight-centre.org/aspect/reset_password'
+        api_payload = {
+            'login': user_login,
+            'new_password': new_password
+        }
+
+        response = requests.post(
+            api_url,
+            json=api_payload,
+            headers={'Content-Type': 'application/json'},
+            timeout=30
+        )
+
+        if response.status_code == 200:
+            return jsonify({'success': True, 'message': 'Password updated successfully'})
+        else:
+            # Handle different error codes from your API
+            error_message = 'Failed to update password'
+            if response.status_code == 404:
+                error_message = 'User not found'
+            elif response.status_code == 400:
+                error_message = 'Invalid request data'
+            elif response.status_code == 500:
+                error_message = 'Server error occurred'
+
+            return jsonify({'success': False, 'message': error_message}), response.status_code
+
+    except requests.exceptions.Timeout:
+        return jsonify({'success': False, 'message': 'Request timeout - please try again'}), 408
+    except requests.exceptions.ConnectionError:
+        return jsonify({'success': False, 'message': 'Unable to connect to password service'}), 503
+    except Exception as e:
+        print(f"Password reset error: {str(e)}")
+        return jsonify({'success': False, 'message': 'An unexpected error occurred'}), 500
+
+@app.route('/load_country/<country>', methods=['GET'])
+def load_country(country):
+    country = country.lower()
+    base_path = os.path.join(os.getcwd(), 'datasets')  # Adjust if needed
+
+    # Define your default datasets
+    datasets = {
+        "poland": os.path.join(base_path, "poland.json"),
+        "belgium": os.path.join(base_path, "belgium.json"),
+        "default": os.path.join(base_path, "default.json"),
+    }
+
+    if country not in datasets:
+        return jsonify({"error": "Invalid country"}), 400
+
+    try:
+        with open(datasets[country], 'r') as file:
+            data = json.load(file)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
@@ -266,7 +348,14 @@ ROUTES
 '''
 @app.route('/')
 def landingpage():
-    return redirect(url_for('map_page'))
+    return redirect(url_for('home'))
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    username = session.get('username')
+    if username is None:
+        return render_template('home.html')
+    return render_template('home.html', username=session['username'])
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
@@ -281,6 +370,13 @@ def map_page():
     if username is None:
         return render_template('map.html')
     return render_template('map.html', username=session['username'])
+
+@app.route('/map-info', methods=['GET', 'POST'])
+def map_info():
+    username = session.get('username')
+    if username is None:
+        return render_template('map_info.html')
+    return render_template('map_info.html', username=session['username'])
 
 @app.route('/ffptool', methods=['GET', 'POST'])
 def ffp_tool():
@@ -338,11 +434,61 @@ def policy():
          return render_template('policymain.html')
     return render_template('policymain.html', username=session['username'])
 
+@app.route('/policy-info', methods=['GET', 'POST'])
+def policy_info():
+    username = session.get('username')
+    if username is None:
+        return render_template('policy_info.html')
+    return render_template('policy_info.html', username=session['username'])
+
 @app.route('/stakeholders', methods=['GET', 'POST'])
 def stakeholders():
     if 'username' not in session:
          return render_template('stakeholders.html')
     return render_template('stakeholders.html', username=session['username'])
+
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback():
+    if 'username' not in session:
+         return render_template('feedback.html')
+    return render_template('feedback.html', username=session['username'])
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if 'username' not in session:
+         return render_template('contact.html')
+    return render_template('contact.html', username=session['username'])
+
+@app.route('/resources', methods=['GET', 'POST'])
+def resources():
+    if 'username' not in session:
+         return render_template('resources.html')
+    return render_template('resources.html', username=session['username'])
+
+@app.route('/calculators', methods=['GET', 'POST'])
+def calculators():
+    if 'username' not in session:
+         return render_template('calculators.html')
+    return render_template('calculators.html', username=session['username'])
+
+@app.route('/best_practice', methods=['GET', 'POST'])
+def best_practice():
+    if 'username' not in session:
+         return render_template('best_practice.html')
+    return render_template('best_practice.html', username=session['username'])
+    
+@app.route('/project_collection', methods=['GET', 'POST'])
+def project_collection():
+    if 'username' not in session:
+         return render_template('project_collection.html')
+    return render_template('project_collection.html', username=session['username'])
+
+@app.route('/project_map', methods=['GET', 'POST'])
+def project_map():
+    if 'username' not in session:
+         return render_template('project_map.html')
+    return render_template('project_map.html', username=session['username'])
+
     
 @app.route('/policy-suggestion', methods=['GET', 'POST'])
 def sub_policy():
@@ -914,6 +1060,128 @@ def fetch_test_data():
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
 
+@app.route("/getAvailableFields", methods=["GET"])
+def get_available_fields():
+    if "username" not in session:
+        return jsonify({"error": "User not logged in"}), 401
+
+    username = session["username"]
+
+    # Get all available CSV files for this user
+    csv_files = get_all_csv_files(username)
+
+    sites = []
+    for idx, csv_file in enumerate(csv_files):
+        try:
+            if not os.path.exists(csv_file):
+                print(f"Warning: File not found: {csv_file}")
+                continue
+
+            # Extract a meaningful site name from the CSV content
+            site_name = extract_field_name_from_csv(csv_file)
+
+            # If we couldn't extract a site name, fall back to the filename
+            filename = os.path.basename(csv_file)
+            display_name = site_name if site_name else filename.replace(f"{username}_", "")
+
+            sites.append({
+                "id": idx, 
+                "name": display_name,  # This is what shows in the dropdown
+                "file": filename  # This is the actual filename used for data loading
+            })
+        except Exception as e:
+            print(f"Error processing {csv_file}: {str(e)}")
+
+    return jsonify(sites)
+
+def extract_field_name_from_csv(csv_file):
+    """
+    Extract a proper site name from the CSV file.
+    Returns None if no site name could be found.
+    """
+    try:
+        with open(csv_file, "r", encoding="utf-8") as file:
+            current_section = None
+            for line in file:
+                line = line.strip()
+                if not line:
+                    continue
+
+                if "," not in line:
+                    current_section = line
+                # Look for site name in common locations
+                elif current_section == "Field Name" or line.startswith("Field Name"):
+                    return line.split(",", 1)[1].strip()
+                elif line.startswith("Field Name") or line.startswith("Field Name"):
+                    return line.split(",", 1)[1].strip()
+                elif current_section is None and line.startswith("Field Name"):
+                    return line.split(":", 1)[1].strip()
+
+            # If we couldn't find a proper site name, look for a date in the filename
+            # which might be more meaningful than the full filename
+            filename = os.path.basename(csv_file)
+            import re
+            date_match = re.search(r'(\d{8}|\d{6}|\d{4}-\d{2}-\d{2})', filename)
+            if date_match:
+                date_str = date_match.group(0)
+                return f"Site data from {date_str}"
+
+            return None
+    except Exception as e:
+        print(f"Error extracting site name from {csv_file}: {str(e)}")
+        return None
+@app.route("/fetchFieldData/<file_name>", methods=["GET"])
+def fetch_field_data(file_name):
+    print (file_name)
+    """Fetch data from a specific CSV file"""
+    if "username" not in session:
+        return jsonify({"error": "User not logged in"}), 401  # Unauthorized
+
+    username = session["username"]
+
+    # Define the correct path to the CSV files folder
+    csv_folder = os.path.join(app.config['UPLOAD_FOLDER'], 'csv_outputs')
+
+    # The full path to the file - check both naming patterns
+    file_path = os.path.join(csv_folder, file_name)
+
+    # Debug information
+    print(f"Looking for file: {file_path}")
+    print(f"File exists: {os.path.exists(file_path)}")
+
+    if not os.path.exists(file_path):
+        return jsonify({"error": f"File not found at {file_path}"}), 404
+
+    try:
+        structured_data = {}
+        current_section = None
+        with open(file_path, "r", encoding="utf-8") as file:
+            for line in file:
+                line = line.strip()
+                if not line:
+                    continue
+
+                if "," not in line:
+                    current_section = line
+                    structured_data[current_section] = {}
+                else:
+                    key, value = map(str.strip, line.split(",", 1))
+                    if value.startswith("[") and value.endswith("]"):
+                        try:
+                            value = ast.literal_eval(value)
+                        except:
+                            pass
+                    if current_section:
+                        structured_data[current_section][key] = value
+                    else:
+                        structured_data[key] = value
+
+        return jsonify(structured_data)
+    except Exception as e:
+        import traceback
+        traceback_str = traceback.format_exc()
+        print(f"Error reading file {file_path}: {str(e)}\n{traceback_str}")
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
 '''
 Error Handling

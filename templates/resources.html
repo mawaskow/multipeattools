@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Resources{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title text-center fw-bold mb-4">Resources</h2>
+      <p class="text-center text-muted mb-5">
+        Information about peatland restoration projects and best practice in the areas of peatland restoration and peatland policy.
+      </p>
+      <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+        <div class="col">
+          <div class="card h-100 text-center border-0 bg-light shadow-sm">
+            <div class="card-body">
+              <a href="{{ url_for('project_collection') }}">
+                <img src="{{url_for('static', filename='multipeat_logo.png')}}"
+                     alt="Project Collection" class="img-fluid rounded mb-3 menu-img">
+              </a>
+              <h5 class="fw-semibold">Project Collection</h5>
+              <p class="text-muted small">
+                Explore European peatland projects.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 text-center border-0 bg-light shadow-sm">
+            <div class="card-body">
+              <a href="{{ url_for('project_map') }}">
+                <img src="{{url_for('static', filename='images/projects_vis.png')}}"
+                     alt="Project Map" class="img-fluid rounded mb-3 menu-img">
+              </a>
+              <h5 class="fw-semibold">Project Map</h5>
+              <p class="text-muted small">
+                View the distribution of European peatland projects and sites.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 text-center border-0 bg-light shadow-sm">
+            <div class="card-body">
+              <a href="{{ url_for('best_practice') }}">
+                <img src="{{ url_for('static', filename='multipeat_logo.png') }}"
+                    alt="Best Practise" class="img-fluid rounded mb-3 menu-img">
+              </a>
+                <h5 class="fw-semibold">Best Practise</h5>
+              <p class="text-muted small">
+                Refer to best practice in the areas of peatland projects and policymaking.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

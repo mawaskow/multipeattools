@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold mb-4">Welcome to the Peatland Policy Portal</h1>
+    <a href="{{ url_for('qa_tool') }}"><button class="btn btn-success btn-lg shadow-sm">Ask our AI a Peatland Policy Question</button></a>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+    <div class="col">
+      <div class="card h-100 border-0 bg-light text-center shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('map_page') }}">
+            <img src="{{ url_for('static', filename='images/map_vis.png') }}"
+                 alt="Peatland Maps" class="img-fluid rounded mb-3 menu-img">
+          </a>
+          <h5 class="fw-semibold">Peatland Maps</h5>
+          <p class="text-muted small mb-0">Explore the peat soils of Europe and the policies that affect them.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 border-0 bg-light text-center shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('policy') }}">
+            <img src="{{ url_for('static', filename='images/policies_vis.png') }}"
+                 alt="Policy Collection" class="img-fluid rounded mb-3 menu-img">
+          </a>
+          <h5 class="fw-semibold">Policy Collection</h5>
+          <p class="text-muted small mb-0">Browse our catalogue of peatland policies across Europe.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 border-0 bg-light text-center shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('calculators') }}">
+            <img src="{{ url_for('static', filename='images/calculators_vis.png') }}"
+                 alt="Peatland Farming Calculators" class="img-fluid rounded mb-3 menu-img">
+          </a>
+          <h5 class="fw-semibold">Peatland Farming Calculators</h5>
+          <p class="text-muted small mb-0">Use tools from EU projects to estimate site emissions and peatland restoration project feasibility.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 border-0 bg-light text-center shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('resources') }}">
+            <img src="{{ url_for('static', filename='images/projects_vis.png') }}"
+                 alt="Resources" class="img-fluid rounded mb-3 menu-img">
+          </a>
+          <h5 class="fw-semibold">Resources</h5>
+          <p class="text-muted small mb-0">View information about peatland restoration projects and best practice for conservationists and policymakers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 border-0 bg-light text-center shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('feedback') }}">
+            <img src="{{ url_for('static', filename='images/feedback_vis.png') }}"
+                 alt="Feedback" class="img-fluid rounded mb-3 menu-img">
+          </a>
+          <h5 class="fw-semibold">Feedback & Contact</h5>
+          <p class="text-muted small mb-0">Ask questions or share suggestions.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 border-0 bg-light text-center shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('about') }}">
+            <img src="{{ url_for('static', filename='multipeat_logo.png') }}"
+                 alt="About the Portal" class="img-fluid rounded mb-3 menu-img">
+          </a>
+          <h5 class="fw-semibold">About the Portal</h5>
+          <p class="text-muted small mb-0">Learn about our the EU LIFE MultiPeat project.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

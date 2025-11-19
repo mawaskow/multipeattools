@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Project Map{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding:0px; margin:0px;height:100vh; position:relative">
+    <div id="project_map" style="height:100vh;"></div>
+    <div id="map-projs-box" style="position: absolute; top: 0; right: 0; width:400px; min-height: 150px; display:block; background-color: #d3dee9; padding:5px;">
+        <div id="map-projs-default" class="row">
+            <h4 style="font-weight: bold; margin-left: 5px;">Project Information</h4>
+            <p style="margin-left: 5px;">About the project collection</p>
+        </div>
+        <div id="map-projs-div" style="margin: 5px; min-height: 75px; max-height:500px; overflow:auto; background-color: white; padding:5px;"></div>
+    </div>
+</div>
+
+<script type="module" src="{{url_for('static', filename='scripts/Projects_map.js')}}" ></script>
+{% endblock %}

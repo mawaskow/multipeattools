@@ -1,0 +1,147 @@
+<!-- templates/includes/user-menu-scripts.html -->
+
+<script>
+    // Make functions globally available immediately
+    window.openPasswordResetModal = function() {
+        const modal = new bootstrap.Modal(document.getElementById('passwordResetModal'));
+        modal.show();
+    };
+    
+    window.openProfileModal = function() {
+        const modal = new bootstrap.Modal(document.getElementById('profileModal'));
+        modal.show();
+    };
+    
+    window.resetPassword = function() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (!newPassword || !confirmPassword) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+            alert('New passwords do not match');
+            return;
+        }
+        
+        if (newPassword.length < 4) {
+            alert('Password must be at least 4 characters long');
+            return;
+        }
+        
+        // Show loading state
+        const resetBtn = document.querySelector('#passwordResetModal .btn-primary-custom');
+        const originalText = resetBtn.innerHTML;
+        resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Updating...';
+        resetBtn.disabled = true;
+        
+        // Get user login from session
+        const userLogin = '{{ session.get("email") or session.get("username") }}';
+        
+        if (!userLogin) {
+            alert('User login information not found. Please log in again.');
+            resetBtn.innerHTML = originalText;
+            resetBtn.disabled = false;
+            return;
+        }
+        
+        // API URL
+        const apiUrl = 'http://127.0.0.1:5000/reset_password';
+        
+        console.log('Calling API:', apiUrl);
+        console.log('User login:', userLogin);
+        
+        // Direct call to API
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                login: userLogin,
+                new_password: newPassword
+            }),
+            mode: 'cors'
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('User not found');
+                } else if (response.status === 400) {
+                    throw new Error('Invalid request data');
+                } else if (response.status === 500) {
+                    throw new Error('Server error occurred');
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            }
+            
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return response.json();
+            } else {
+                return { success: true };
+            }
+        })
+        .then(data => {
+            console.log('API response:', data);
+            alert('Password updated successfully!');
+            bootstrap.Modal.getInstance(document.getElementById('passwordResetModal')).hide();
+            document.getElementById('passwordResetForm').reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            
+            let errorMessage = 'An error occurred while updating the password.';
+            
+            if (error.message.includes('Failed to fetch')) {
+                errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+            } else if (error.message.includes('CORS')) {
+                errorMessage = 'Security error. Please contact support.';
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+            
+            alert(errorMessage + ' Please try again.');
+        })
+        .finally(() => {
+            resetBtn.innerHTML = originalText;
+            resetBtn.disabled = false;
+        });
+    };
+    
+    window.updateProfile = function() {
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        
+        alert('Profile update functionality would be implemented here!');
+        bootstrap.Modal.getInstance(document.getElementById('profileModal')).hide();
+    };
+    
+    // Initialize user avatar with user's initials
+    function initializeUserAvatar(username) {
+        const avatars = document.querySelectorAll('.user-avatar');
+        const initials = username.split(' ').map(name => name[0]).join('').toUpperCase();
+        avatars.forEach(avatar => {
+            if (avatar.textContent.trim() === '') {
+                avatar.textContent = initials;
+            }
+        });
+    }
+    
+    // Set user data for the user menu
+    {% if session.get('username') %}
+    window.currentUser = {
+        username: '{{ username or session.get("username") }}',
+        email: '{{ session.get("email") or session.get("username") }}'
+    };
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeUserAvatar('{{ username or session.get("username") }}');
+    });
+    {% endif %}
+    </script>

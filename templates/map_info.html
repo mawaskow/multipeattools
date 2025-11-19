@@ -1,0 +1,448 @@
+{% extends "base.html" %}
+
+{% block title %}Map Info{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-4 fw-bold">European Peatland Map Data</h3>
+            <p class="card-text text-center" style="padding:5px;">
+                Our European peatland map is an approximation of the peat soils of Europe based on various types of maps across European Union member state countries and the United Kingdom.
+                Not every country has a national peatlands or peat soils map, and even when they do, definitions of peatlands vary across countries, as well as the format of their data.
+                When countries have no dedicated map of national peatlands, we estimate peat soils from maps of organic soils or ecological contexts, topographic surveys, and other related fields.
+                Additionally, we use the <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> which similarly has created approximate maps of national wetlands across Europe based on various types of data. We filter layers from this dataset to only include "Peatlands."
+            </p>
+            <div class="d-flex justify-content-center gap-2 my-3">
+                <button class="btn btn-success col-2 justify-self-right" value="expand" id="expcol_allsrc" onclick="toggle_accordions()">Expand All</button>
+            </div>
+            <hr class="my-4">
+            <div class="accordion" id="mapDataAccordion">
+                <!--Austria-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-austria">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-austria">
+                    Austria
+                    </button>
+                    </h2>
+                    <div id="collapse-austria" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Belgium-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-belgium">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-belgium">
+                    Belgium
+                    </button>
+                    </h2>
+                    <div id="collapse-belgium" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://www.dov.vlaanderen.be/geonetwork/srv/api/records/eea63bc5-85d4-4860-b9aa-793ef632c688?language=all" target="_blank">Surface Peat Probability Map</a> comes from the Flanders Subsurface Database, administrated by the Flemish Environmental Planning Agency, gathered on 03/10/2024, at https://www.dov.vlaanderen.be. The data was modified from raster to shapefile format. This data is available for display under <a class="texta" href="https://codex.vlaanderen.be/PrintDocument.ashx?id=1020931">this decision</a> by the Flemish government.</li>
+                                <li>The <a class="textab" href="http://geodata.wallonie.be/id/b18318eb-5e91-48ae-a6a5-6f49d06b15a1" target="_blank">Marginal and Sensitive Ecological Contexts</a> soil map is published by the Public Service of Wallonia (SPW) (2021-12-03) at http://geodata.wallonie.be/id/b18318eb-5e91-48ae-a6a5-6f49d06b15a1. This data was filtered to only include polygons where the field NOM_NIV2 was equal to "Sol tourbeux et paratourbeux." This data is available for display under <a class="texta" href="https://geoportail.wallonie.be/files/documents/ConditionsSPW/DataSPW-CPU-TypeA.pdf">Special Condition Type A</a>.</li>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Bulgaria-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-bulgaria">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-bulgaria">
+                    Bulgaria
+                    </button>
+                    </h2>
+                    <div id="collapse-bulgaria" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Croatia-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-croatia">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-croatia">
+                    Croatia
+                    </button>
+                    </h2>
+                    <div id="collapse-croatia" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Czechia-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-czechia">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-czechia">
+                    Czechia
+                    </button>
+                    </h2>
+                    <div id="collapse-czechia" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Denmark-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-denmark">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-denmark">
+                    Denmark
+                    </button>
+                    </h2>
+                    <div id="collapse-denmark" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Estonia-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-estonia">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-estonia">
+                    Estonia
+                    </button>
+                    </h2>
+                    <div id="collapse-estonia" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://geoportaal.maaamet.ee/eng/spatial-data/estonian-topographic-database-p305.html" target="_blank">Estonian Topograhic Database</a> (2022) was created by the Land Board of Estonia. The data was modified, selecting only Code 202 Type 40 (bog pool), and selecting Code 306 types 10 (swamp/mire), 20 (bog), and 30 (quaking bog). This data is available under the Estonian <a class="texta" href="https://geoportaal.maaamet.ee/docs/Avaandmed/Licence-of-open-data-of-Estonian-Land-Board.pdf">Land Board Open Data License</a>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Finland-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-finland">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-finland">
+                    Finland
+                    </button>
+                    </h2>
+                    <div id="collapse-finland" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/topographic-database" target="_blank">Finnish Topographic Database</a> from 2017-03-08 was created by the National Land Survey of Finland. The data was modified, selecting only the "Suo" shapefile from the geopackage. This data is available under a <a class="texta" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--France-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-france">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-france">
+                    France
+                    </button>
+                    </h2>
+                    <div id="collapse-france" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Germany-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-germany">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-germany">
+                    Germany
+                    </button>
+                    </h2>
+                    <div id="collapse-germany" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://doi.org/10.3220/DATA20230510130443-0" target="_blank">Updated Map of Organic Soils in Germany</a> was created by the Moor Research Group at the Thünen Institute for Agricultural Climate Protection. The data was modified to exclude polygons which contain fewer than 10cm of peat or are covered by mineral substrates. This data is available under a <a class="texta" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</li>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Greece-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-greece">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-greece">
+                    Greece
+                    </button>
+                    </h2>
+                    <div id="collapse-greece" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Hungary-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-hungary">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-hungary">
+                    Hungary
+                    </button>
+                    </h2>
+                    <div id="collapse-hungary" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Ireland-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-ireland">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-ireland">
+                    Ireland
+                    </button>
+                    </h2>
+                    <div id="collapse-ireland" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://doi.org/10.17605/OSF.IO/27HJ3" target="_blank">Irish Peat Map</a>'s creation and details are documented in <a class="textab" href="https://doi.org/10.1016/j.geoderma.2024.116933" target="_blank">this 2024 article</a> by Louis Gilet, Terry R. Morley, Raymond Flynn, and John Connolly.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Italy-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-italy">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-italy">
+                    Italy
+                    </button>
+                    </h2>
+                    <div id="collapse-italy" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Latvia-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-latvia">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-latvia">
+                    Latvia
+                    </button>
+                    </h2>
+                    <div id="collapse-latvia" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Lithuania-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-lithuania">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-lithuania">
+                    Lithuania
+                    </button>
+                    </h2>
+                    <div id="collapse-lithuania" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Luxembourg-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-luxembourg">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-luxembourg">
+                    Luxembourg
+                    </button>
+                    </h2>
+                    <div id="collapse-luxembourg" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Netherlands-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-netherlands">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-netherlands">
+                    Netherlands
+                    </button>
+                    </h2>
+                    <div id="collapse-netherlands" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://www.nationaalgeoregister.nl/geonetwork/srv/api/records/ed960299-a147-4c1a-bc57-41ff83a2264f?language=all" target="_blank">Soil Map of the Netherlands</a> was originally created and published by Wageningen Environmental Research (2023), accessed on 30-07-2024 at https://www.pdok.nl/. The data was filtered to only display peat soils. This data is available under a <a class="texta" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</li>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>                    
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Poland-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-poland">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-poland">
+                    Poland
+                    </button>
+                    </h2>
+                    <div id="collapse-poland" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="http://alkfens.kp.org.pl/ogolnopolska-baza-mechowisk/" target="_blank">National Alkaline Peatland Database</a> of Poland comes from Klubu Przyrodników's 2011 alkaline fen conservation project conducted by the Naturalists' Club under the European Regional Development Fund.</li>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>                    
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Portugal-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-portugal">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-portugal">
+                    Portugal
+                    </button>
+                    </h2>
+                    <div id="collapse-portugal" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Romania-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-romania">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-romania">
+                    Romania
+                    </button>
+                    </h2>
+                    <div id="collapse-romania" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Slovakia-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-slovakia">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-slovakia">
+                    Slovakia
+                    </button>
+                    </h2>
+                    <div id="collapse-slovakia" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Slovenia-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-slovenia">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-slovenia">
+                    Slovenia
+                    </button>
+                    </h2>
+                    <div id="collapse-slovenia" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Spain-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-spain">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-spain">
+                    Spain
+                    </button>
+                    </h2>
+                    <div id="collapse-spain" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Sweden-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-sweden">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-sweden">
+                    Sweden
+                    </button>
+                    </h2>
+                    <div id="collapse-sweden" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--United Kingdom-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-unitedkingdom">
+                    <button class="accordion-button sourceacc collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-unitedkingdom">
+                    United Kingdom
+                    </button>
+                    </h2>
+                    <div id="collapse-unitedkingdom" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
+                        <div class="accordion-body sourceacc">
+                            <ul>
+                                <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
+                                <li>England's <a class="textab" href="https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::england-peat-map-peaty-soil-extent-1/about" target ="_blank">Peaty Soil Extent</a> comes from the <a class="textab" href="https://environment.data.gov.uk/dataset/3c72669a-1331-4930-a12d-b4f8032aa5cd" target ="_blank">England Peat Map</a> published by Natural England. The data is available under an <a class="textab" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target ="_blank">Open Government License</a></li>
+                                <li>Scotland's <a class="textab" href="https://spatialdata.gov.scot/geonetwork/srv/api/records/51b36efb-3521-4243-9bb0-93f8a7a60a71?language=all" target ="_blank">Carbon and Peatland 2016 v2 Map</a> was published by NatureScot. The data was filtered by only including entries whose PRIMARY_LA field included "peat." The data is available under a <a class="textab" href="https://www.nationalarchives.gov.uk/doc/non-commercial-government-licence/version/2/" target ="_blank">Non-Commercial Government Licence</a></li>
+                                <li>Wales' <a class="textab" href="https://datamap.gov.wales/layers/geonode:peatlands_of_wales_scg8" target ="_blank">Peatlands of Wales Map</a> published by the Welsh Government. The data is available under an <a class="textab" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target ="_blank">Open Government Licence for Public Sector Information (OGL)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggle_accordions(){
+        var toggle_button = document.getElementById("expcol_allsrc");
+        var srcaccbtn_lst = document.getElementsByClassName("accordion-button sourceacc");
+        var srcacccol_lst = document.getElementsByClassName("accordion-collapse");
+        if(toggle_button.value=="expand"){
+            toggle_button.innerHTML = "Collapse All";
+            toggle_button.value = "collapse";
+            for (let i=0; i < srcaccbtn_lst.length; i++) {
+                srcaccbtn_lst[i].classList.remove("collapsed");
+                srcacccol_lst[i].classList.add("show");
+            }
+        }else{
+            toggle_button.innerHTML = "Expand All";
+            toggle_button.value = "expand";
+            for (let i=0; i < srcaccbtn_lst.length; i++) {
+                srcaccbtn_lst[i].classList.add("collapsed");
+                srcacccol_lst[i].classList.remove("show");
+            }
+        };
+    }
+</script>
+
+{% endblock %}

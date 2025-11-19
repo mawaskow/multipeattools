@@ -7,6 +7,12 @@ import Projection from 'https://cdn.skypack.dev/ol/proj/Projection.js';
 import ImageLayer from 'https://cdn.skypack.dev/ol/layer/Image.js';
 import ImageWMS from 'https://cdn.skypack.dev/ol/source/TileWMS.js';
 
+////////////////////
+//                //
+// PEAT SOILS MAP //
+//                //
+////////////////////
+
 const serverURL="https://multipeat.insight-centre.org/geoserver/wms";
 //const serverURL="http://140.203.155.66:8080/geoserver/wms";
 //const serverURL="https://test-multipeat.insight-centre.org/geoserver/wms";
@@ -143,58 +149,6 @@ const alkFen_s2Layer= new TileLayer({
     minResolution: res_dct["min"][2]
 });
 
-// Polish Torfowiska
-/*
-const pltSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:pl_peat","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const pltLayer= new TileLayer({
-    source:pltSource,
-    preload: 0,
-    // @ts-ignore
-    name:'PL_Torf',
-    display: 'Peatland Map',
-    region: 'Poland',
-    cluster: "PL_Torf",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const plt_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:pl_peat_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const plt_s1Layer= new TileLayer({
-    source:plt_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Peatland Map s1',
-    cluster: "PL_Torf",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const plt_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:pl_peat_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const plt_s2Layer= new TileLayer({
-    source:plt_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Peatland Map s2',
-    cluster: "PL_Torf",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 // Dutch Peat Soils
 const nlSoilSource=new TileWMS({
     url:serverURL,
@@ -314,40 +268,7 @@ const befLayer= new TileLayer({
     //simp_lvl: 0,
     //maxResolution: res_dct["max"][0]
 });
-/*
-const bef_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:be_fland_peatsurf_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const bef_s1Layer= new TileLayer({
-    source:bef_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Flanders Surface Peat s1',
-    cluster: "BE_Fland_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const bef_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:be_fland_peatsurf_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const bef_s2Layer= new TileLayer({
-    source:bef_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Flanders Surface Peat s2',
-    cluster: "BE_Fland_Peatlands",
-    simp_lvl: 2,
-    maxResolution: 15.3
-});
-*/
 const bewSource=new TileWMS({
     url:serverURL,
     params:{"LAYERS":"multipeat:be_wallon_peat","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
@@ -499,110 +420,7 @@ const fi_s2Layer= new TileLayer({
 });
 
 // EWM Peatlands
-//albania
-/*
-const alSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:albania","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const alLayer= new TileLayer({
-    source:alSource,
-    preload: 0,
-    // @ts-ignore
-    name:'AL_Peatlands',
-    display: 'Albanian Bogs',
-    region: 'Albania',
-    cluster: "AL_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const al_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:albania_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const al_s1Layer= new TileLayer({
-    source:al_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Albanian Bogs s1',
-    cluster: "AL_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const al_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:albania_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const al_s2Layer= new TileLayer({
-    source:al_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Albanian Bogs s2',
-    cluster: "AL_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-
-
-//andorra
-const anSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:andorra","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const anLayer= new TileLayer({
-    source:anSource,
-    preload: 0,
-    // @ts-ignore
-    name:'AN_Peatlands',
-    display: 'Andorran Bogs',
-    region: 'Andorra',
-    cluster: "AN_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const an_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:andorra_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const an_s1Layer= new TileLayer({
-    source:an_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Andorran Bogs s1',
-    cluster: "AN_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const an_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:andorra_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const an_s2Layer= new TileLayer({
-    source:an_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Andorran Bogs s2',
-    cluster: "AN_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //austria
 const auSource=new TileWMS({
     url:serverURL,
@@ -704,58 +522,7 @@ const be_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-/*
-//bosnia
-const boSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:bosnia","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const boLayer= new TileLayer({
-    source:boSource,
-    preload: 0,
-    // @ts-ignore
-    name:'BO_Peatlands',
-    display: 'Bosnian Bogs',
-    region: 'Bosnia',
-    cluster: "BO_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const bo_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:bosnia_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const bo_s1Layer= new TileLayer({
-    source:bo_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Bosnian Bogs s1',
-    cluster: "BO_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const bo_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:bosnia_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const bo_s2Layer= new TileLayer({
-    source:bo_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Bosnian Bogs s2',
-    cluster: "BO_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //bulgaria
 const buSource=new TileWMS({
     url:serverURL,
@@ -1163,58 +930,7 @@ const hu_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-/*
-// iceland
-const icSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:iceland","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const icLayer= new TileLayer({
-    source:icSource,
-    preload: 0,
-    // @ts-ignore
-    name:'IC_Peatlands',
-    display: 'Icelandic Bogs',
-    region: 'Iceland',
-    cluster: "IC_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const ic_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:iceland_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ic_s1Layer= new TileLayer({
-    source:ic_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Icelandic Bogs s1',
-    cluster: "IC_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const ic_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:iceland_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ic_s2Layer= new TileLayer({
-    source:ic_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Icelandic Bogs s2',
-    cluster: "IC_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //italy
 const itSource=new TileWMS({
     url:serverURL,
@@ -1316,58 +1032,7 @@ const la_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-/*
-//liechtenstein
-const lieSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:liechtenstein","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const lieLayer= new TileLayer({
-    source:lieSource,
-    preload: 0,
-    // @ts-ignore
-    name:'LIE_Peatlands',
-    display: 'Liechtenstein Bogs',
-    region: 'Liechtenstein',
-    cluster: "LIE_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const lie_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:liechtenstein_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const lie_s1Layer= new TileLayer({
-    source:lie_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Liechtenstein Bogs s1',
-    cluster: "LIE_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const lie_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:liechtenstein_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const lie_s2Layer= new TileLayer({
-    source:lie_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Liechtenstein Bogs s2',
-    cluster: "LIE_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //lithuania
 const litSource=new TileWMS({
     url:serverURL,
@@ -1469,109 +1134,7 @@ const lu_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-/*
-//macedonia
-const maSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:macedonia","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const maLayer= new TileLayer({
-    source:maSource,
-    preload: 0,
-    // @ts-ignore
-    name:'MA_Peatlands',
-    display: 'Macedonian Bogs',
-    region: 'Macedonia',
-    cluster: "MA_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const ma_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:macedonia_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ma_s1Layer= new TileLayer({
-    source:ma_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Macedonian Bogs s1',
-    cluster: "MA_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const ma_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:macedonia_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const ma_s2Layer= new TileLayer({
-    source:ma_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Macedonian Bogs s2',
-    cluster: "MA_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-
-//montenegro
-const moSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:montenegro","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const moLayer= new TileLayer({
-    source:moSource,
-    preload: 0,
-    // @ts-ignore
-    name:'MO_Peatlands',
-    display: 'Montenegrin Bogs',
-    region: 'Montenegro',
-    cluster: "MO_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const mo_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:montenegro_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const mo_s1Layer= new TileLayer({
-    source:mo_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Montenegrin Bogs s1',
-    cluster: "MO_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const mo_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:montenegro_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const mo_s2Layer= new TileLayer({
-    source:mo_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Montenegrin Bogs s2',
-    cluster: "MO_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //netherlands
 const neSource=new TileWMS({
     url:serverURL,
@@ -1640,40 +1203,7 @@ const polLayer= new TileLayer({
     //simp_lvl: 0,
     //maxResolution: res_dct["max"][0]
 });
-/*
-const pol_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:poland_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const pol_s1Layer= new TileLayer({
-    source:pol_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Polish Bogs s1',
-    cluster: "POL_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const pol_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:poland_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const pol_s2Layer= new TileLayer({
-    source:pol_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Polish Bogs s2',
-    cluster: "POL_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //portugal
 const porSource=new TileWMS({
     url:serverURL,
@@ -1775,58 +1305,7 @@ const ro_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-/*
-//serbia
-const seSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:serbia","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const seLayer= new TileLayer({
-    source:seSource,
-    preload: 0,
-    // @ts-ignore
-    name:'SE_Peatlands',
-    display: 'Serbian Bogs',
-    region: 'Serbia',
-    cluster: "SE_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const se_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:serbia_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const se_s1Layer= new TileLayer({
-    source:se_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Serbian Bogs s1',
-    cluster: "SE_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const se_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:serbia_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const se_s2Layer= new TileLayer({
-    source:se_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Serbian Bogs s2',
-    cluster: "SE_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //slovakia
 const slkSource=new TileWMS({
     url:serverURL,
@@ -1895,40 +1374,7 @@ const slvLayer= new TileLayer({
     //simp_lvl: 0,
     //maxResolution: res_dct["max"][0]
 });
-/*
-const slv_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:slovenia_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
 
-const slv_s1Layer= new TileLayer({
-    source:slv_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Slovenian Bogs s1',
-    cluster: "SLV_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const slv_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:slovenia_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const slv_s2Layer= new TileLayer({
-    source:slv_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Slovenian Bogs s2',
-    cluster: "SLV_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 //spain
 const spSource=new TileWMS({
     url:serverURL,
@@ -2030,58 +1476,6 @@ const swe_s2Layer= new TileLayer({
     simp_lvl: 2,
     minResolution: res_dct["min"][2]
 });
-/*
-//switzerland
-const swiSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:switzerland","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const swiLayer= new TileLayer({
-    source:swiSource,
-    preload: 0,
-    // @ts-ignore
-    name:'SWI_Peatlands',
-    display: 'Swiss Bogs',
-    region: 'Switzerland',
-    cluster: "SWI_Peatlands",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const swi_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:switzerland_s1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const swi_s1Layer= new TileLayer({
-    source:swi_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Swiss Bogs s1',
-    cluster: "SWI_Peatlands",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const swi_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:switzerland_s2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const swi_s2Layer= new TileLayer({
-    source:swi_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'Swiss Bogs s2',
-    cluster: "SWI_Peatlands",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 
 //UK EWM
 const gbrSource=new TileWMS({
@@ -2253,58 +1647,6 @@ const welLayer= new TileLayer({
     simp_lvl: 0,
 });
 
-/*
-// CORINE-18 
-const corineSource=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:corine18","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const corineLayer= new TileLayer({
-    source:corineSource,
-    preload: 0,
-    // @ts-ignore
-    name:'Corine18',
-    display: 'CORINE',
-    region: 'International',
-    cluster: "Corine18",
-    simp_lvl: 0,
-    maxResolution: res_dct["max"][0]
-});
-
-const corine_s1Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:corine18_drop1","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const corine_s1Layer= new TileLayer({
-    source:corine_s1Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'CORINE s1',
-    cluster: "Corine18",
-    simp_lvl: 1,
-    minResolution: res_dct["min"][1],
-    maxResolution: res_dct["max"][1]
-});
-
-const corine_s2Source=new TileWMS({
-    url:serverURL,
-    params:{"LAYERS":"multipeat:corine18_drop2","TILED":true, "VERSION":"1.1.1", "FORMAT":"image/png"}
-});
-
-const corine_s2Layer= new TileLayer({
-    source:corine_s2Source,
-    preload: 0,
-    // @ts-ignore
-    name:null,
-    display: 'CORINE s2',
-    cluster: "Corine18",
-    simp_lvl: 2,
-    minResolution: res_dct["min"][2]
-});
-*/
 const osmLayer=new TileLayer({
     source:new OSM(),
     preload: 0,
@@ -2377,6 +1719,4 @@ const map=new Map({
     view:view
 });
 
-
 $('#map').data('map',map);
-

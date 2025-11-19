@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Calculators Info{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title text-center fw-bold mb-4">Calculators</h2>
+      <p class="text-center text-muted mb-5">
+        These calculators were originally developed for different projects in spreadsheet format, now adapted to the web for increased accessibility.
+      </p>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+        <!-- Site Emissions Tool -->
+        <div class="col">
+          <div class="card h-100 text-center border-0 bg-light shadow-sm">
+            <div class="card-body">
+              <a href="{{ url_for('set_tool') }}">
+                <img src="{{ url_for('static', filename='images/set_vis.png') }}"
+                     alt="Site Emissions Tool" class="img-fluid rounded mb-3 menu-img">
+              </a>
+              <h5 class="fw-semibold">Site Emissions Tool</h5>
+              <p class="text-muted small">
+                Calculate the greenhouse gas emissions and reductions of managed peat soil areas.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Feasibility Tool -->
+        <div class="col">
+          <div class="card h-100 text-center border-0 bg-light shadow-sm">
+            <div class="card-body">
+              <a href="{{ url_for('ffp_tool') }}">
+                <img src="{{ url_for('static', filename='images/ffp_vis.png') }}"
+                     alt="Financial Feasibility Tool" class="img-fluid rounded mb-3 menu-img">
+              </a>
+              <h5 class="fw-semibold">Financial Feasibility & Pricing Tool</h5>
+              <p class="text-muted small">
+                Estimates cost-efficiency of peatland restoration projects using carbon credits.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paludiculture Feasibility Tool -->
+        <div class="col">
+          <div class="card h-100 text-center border-0 bg-light shadow-sm">
+            <div class="card-body opacity-75">
+              <img src="{{ url_for('static', filename='multipeat_logo.png') }}"
+                   alt="Paludiculture Feasibility Tool" class="img-fluid rounded mb-3 menu-img grayscale">
+              <h5 class="fw-semibold">Paludiculture Feasibility Tool</h5>
+              <p class="text-muted small mb-0">Coming soon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

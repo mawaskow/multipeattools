@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Policy Info{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="card border-0 shadow-sm">
+        <div class="card-body" style="padding:20px;">
+            <h2 class="card-title text-center fw-bold mb-4" style="padding: 10px;">Policy Data Explainer</h2>
+            <section class="mb-5">
+                <h4 class="fw-semibold border-bottom pb-2 mb-3">Policy Inclusion Criteria</h4>
+                <p>Policies to include in the Peatland Policy Portal (PPP) must adhere to the following rules:</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">All policies in the PPP database should ideally refer to "Peat", "Peatlands" or "Wetlands" or translations or synonyms of these words in the native language of the policy; however, a case could be made for those policies that should but don't contain these words if they potentially have an impact on peatlands.</li>
+                    <li class="list-group-item">Policies must be democratically approved by one of the following: the United Nations, the European Union, a government of an EU member state or an associated country within Europe, including officially recognised elected national, regional and local governments. This includes policies that are approved by individual conventions, ministries, departments or agencies that have been democratically mandated to act on behalf of the government.</li>
+                    <li class="list-group-item">Policies must be in the form of a written document.</li>
+                    <li class="list-group-item">A policy relates to a set of objectives derived from the goals of government to be used for forward-looking decision-making by governments, government departments, or government agencies.</li>
+                    <li class="list-group-item">Documents that are used primarily by the legal system to enforce the law should not be included in any list of policies on the portal. Such documents relate to the enforcement of regulations and not to decision-making.</li>
+                    <li class="list-group-item">Policies on the PPP should be categorised by one or more of the following categories: (1) Energy, (2) Climate Action, (3) Community and Culture, (4) Economy, (5) Environmental Quality: Water, Soil and Air, (6) Biodiversity, (7) Land Use and Agriculture, (8) Research and Applied Sciences.</li>
+                </ul>
+            </section>
+            <section class="mb-5">
+                <h4 class="fw-semibold border-bottom pb-2 mb-3">Policy Collection Method Explainer</h4>
+                <div class="mb-4">
+                    <h5 class="fw-semibold">Phase I (up to February 2025)</h5>
+                    <p class="mb-1 fw-semibold text-muted">Main methods</p>
+                    <ul>
+                        <li>Google search "peatland" or broad categories such as "biodiversity" + country name</li>
+                        <li>Partner workshop</li>
+                    </ul>
+                    <p class="mb-1 fw-semibold text-muted">Results</p>
+                    <ul>
+                        <li>≈ 100 policies collected</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h5 class="fw-semibold">Phase II (March-June 2025)</h5>
+                    <p class="mb-1 fw-semibold text-muted">Main methods</p>
+                    <ul>
+                        <li>We cleaned the previous 100-ish policy entries by completing the policy information in Odoo. In this process, we developed a methodology for the next phase of policy collection, which is centred around the national adaptation of EU-level directives, regulations, frameworks, strategies, and so on.</li>
+                        <li>We conducted a keyword research ("peatland" and "peat" especially) on <strong>EUR-Lex</strong>, with additional input from reading various policy reports (Wet Horizon, etc) to understand how these EU items are related to each other. After <strong>consulting subject experts</strong> (Jenny Merten of NABU and Maria Nolan of Liverpool John Moores, especially) and internal discussions, we narrowed down the list to 19 EU laws and strategies that are core to peatland conservation and peat or peatland use (full list at the end).</li>
+                        <li>In reality, these 19 items became <strong>19 sets of keywords</strong> for Phase II policy collection. These keywords are:</li>
+                        <ul>
+                            <li>"Habitats directive", "Birds Directive", "Natura 2000", "Biodiversity strategy", "nature restoration regulation" or "nature restoration law", "soil strategy", "Forestry Strategy", "Farm to Fork" or "Food System", "Common Agricultural Policy", "Land use, land use change, and forestry" or "LULUCF", "Environmental impact assessment" or "EIA", "Carbon removals certification" or "CRCF", "Greenhouse gas emission" or "EU ETS", "methane strategy", "water framework", "taxonomy regulation", "renewable energy" or "RED III", "National energy and climate plans" or "NECP", and "Climate-ADAPT".</li>
+                        </ul>
+                        <li>Though individual researchers' search processes may vary, the general idea is to use these keywords to identify the core policies that may touch on peatland. When we identify a policy, we then search "peat" or "peatland" (and, if both fail, we search for "wetland") within the document to determine the policy's eligibility. This is to say, except for a handful of special cases, <strong>the core requirement for an item to be included is to contain the word "peat" or "peatland" or "wetland"</strong>.</li>
+                        <li>In addition to the keyword search, we also delved into the <strong>government website and local literature</strong> (e.g. Naturalists Klub's report for Life Peat Restore) to ensure we covered other prominent peatland-specific documents that fall between the above 19 keywords.</li>
+                        <li>For government websites, many countries' websites have <strong>"site maps"</strong> that show entries to topical policy collections, which are somehow hard to find from googling. These repositories are a great source for topical strategies that are less prioritised in search engines' algorithms.</li>
+                        <li>For policies that are immediately relevant to peatlands (e.g. a peatland strategy), we would read the <strong>policy framework section</strong> and make sure we have relevant policies included.</li>
+                        <li>We rely on <strong>Google Translate</strong> for any non-English materials.</li>
+                        <li>Language barrier is a major reason for how deep (and broad) we are able to go into a given country's collection, but this method should have given each country a <strong>somewhat standardised starting point</strong>.</li>
+                    </ul>
+                    <p class="mb-1 fw-semibold text-muted">Results</p>
+                    <ul>
+                        <li>405 total policies</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="fw-semibold">Phase III (June 2025-Present)</h5>
+                    <p class="mb-1 fw-semibold text-muted">Main methods</p>
+                    <ul>
+                        <li>Expert workshops</li>
+                        <li>Submissions via our policy suggestion form</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h4 class="fw-semibold border-bottom pb-2 mb-3">EU Laws and Strategies Reference</h4>
+                <p class="text-muted">The following EU-level policies guide our exploration of national implementations:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Habitats Directive (92/43/EEC)</li>
+                            <li>Birds Directive (79/409/EEC)</li>
+                            <li>Natura 2000</li>
+                            <li>Biodiversity Strategy for 2030 (BS2030)</li>
+                            <li>Nature Restoration Regulation (EU) 2024/1991, amending Regulation (EU) 2022/869</li>
+                            <li>EU Soil Strategy (Soil Monitoring Law in making) (key deliverable of BS2030) COM(2021) 699 final</li>
+                            <li>Forestry Strategy (in making: new EU Framework for Forest Monitoring and Strategic Plans) COM(2021) 572 final</li>
+                            <li>EU Strategy on Adaptation to Climate Change (COM(2021) 82)</li>
+                            <li>Farm to Fork Strategy; On-going Framework for Sustainable Food Systems legislation</li>
+                            <li>Common Agricultural Policy (CAP) Regulation (EU) 2021/2115</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Land Use, Land-Use Change, and Forestry (LULUCF) Regulation</li>
+                            <li>Environmental Impact Assessment Directive (EIA) (2014/52/EU + 2011/92/EU)</li>
+                            <li>Greenhouse Gas Emission Trading (EU ETS) Directive (2003/87/EC) (amending 96/61/EC)</li>
+                            <li>The EU Carbon Removals Certification Framework: The Carbon Removals and Carbon Farming (CRCF) Regulation (EU/2024/3012)</li>
+                            <li>EU Methane Strategy (COM/2020/663)</li>
+                            <li>Water Framework Directive (2000/60/EC)</li>
+                            <li>Taxonomy Regulation (EU) 2020/852 *Only supplement Technical Screening Criteria for Climate Change Activity Regulation (EU) 2021/2139</li>
+                            <li>Renewable Energy Directive (2023/2413) (RED III Directive) (initially 2009/28/EC, several amendments, recast as 2018/2001, now 2023/2413)</li>
+                            <li>National Energy and Climate Plans (NECPs) Regulation (EU) 2018/1999</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

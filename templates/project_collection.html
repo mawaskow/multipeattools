@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Project Collection{% endblock %}
+
+{% block content %}
+<div class="container" style="min-height: 760px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h4 class="text-center" style="padding:10px; padding-top: 20px;">Project Collection</h4>
+            <p class="text-descr" style="padding-bottom:10px">
+                On this page you can explore our collection of European peatland projects.
+            </p>
+            <div id="projectliststore" value="{{ [] }}" style="display:none"></div>
+            <div class="accordion pol-coll-div container" id="proj-coll-ctr" style="margin-bottom: 10px;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const wfsURL =
+    'https://multipeat.insight-centre.org/geoserver/wfs' +
+    '?service=WFS&version=1.1.0&request=GetFeature' +
+    '&typename=multipeat:project_map_data' +
+    '&propertyName=project,life_reference,start_yr,end_yr,proj_link,name' +
+    '&outputFormat=application/json';
+    // data comes through for sites, need to aggregate for project display
+    fetch(wfsURL)
+    .then(r => r.json())
+    .then(data => {
+        // dict that will store all projects, adding the details and
+        // appending the sites
+        const grouped = {};
+        data.features.forEach(f => {
+            const p = f.properties;
+            if(!p.project){return};
+            if(!p.proj_link){return};
+            if(!grouped[p.project]){
+                grouped[p.project] = {
+                'project': p.project,
+                'life_reference': p.life_reference,
+                'start_yr': p.start_yr,
+                'end_yr': p.end_yr,
+                'proj_link': p.proj_link,
+                'sites': []
+                };
+            }
+            if(p.name){
+                grouped[p.project].sites.push(p.name);
+            }
+        });
+        // store in case we do filtering later
+        $('#projectliststore').text(JSON.stringify(grouped));
+        // populate display
+        const projs_div = $('#proj-coll-ctr');
+        projs_div.empty();
+        Object.values(grouped).forEach((p, i) =>{
+            const siteList = p.sites.length
+                ? `<ul>${p.sites.map(s => `<li>${s}</li>`).join('')}</ul>`
+                : '<p><i>No site names available</i></p>';
+            var links_html = `<a href="${p.proj_link}" class="polcol-lnk d-inline" style="font-weight:600;" target="_blank">
+                                Project Page ↗
+                            </a>`;
+            projs_div.append(`
+                <div class="accordion-item polcol-acc-itm" style="margin-bottom:5px;>
+                    <div class="accordion-header polcol-acc-hdr">
+                        <button class="accordion-button collapsed polcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#projcollapse${i}" aria-expanded="true" aria-controls="projcollapse${i}">
+                            <div class="container">
+                                <h5>${p.project}</h5>
+                                <p>${p.life_reference}</p>
+                            </div>
+                        </button>
+                        <div id="projcollapse${i}" class="accordion-collapse collapse polcol-acc-coll">
+                            <div class="accordion-body polcol-acc-bdy">
+                                <p>${links_html} | ${p.start_yr}-${p.end_yr}</p>
+                                <p>Sites:</p> ${siteList}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+        });
+    })
+    .catch(err => console.error('Error loading projects:', err));
+</script>
+
+{% endblock %}

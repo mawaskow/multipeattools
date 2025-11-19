@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Policy Document Chat</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px; }
+        .card { border: 1px solid #ccc; padding: 10px; text-align: center; border-radius: 8px; }
+        .thumbnail { width: 100%; height: 120px; object-fit: cover; background: #eee; }
+    </style>
+</head>
+<body>
+    <h1>Ask about Policy Documents</h1>
+    <form method="POST">
+        <input type="text" name="query" placeholder="Ask a question..." style="width: 400px;" required>
+        <button type="submit">Ask</button>
+    </form>
+    {% if answer %}
+        <h2>Answer:</h2>
+        <p>{{ answer }}</p>
+        {% if sources %}
+            <h3>Relevant Documents</h3>
+            <div class="grid">
+                {% for doc in sources %}
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='thumbnails/' + doc.filename.replace('.pdf', '.png')) }}" alt="{{ doc.filename }}" class="thumbnail">
+                        <p><strong>{{ doc.filename }}</strong></p>
+                        <p>Score: {{ "%.2f"|format(doc.score) }}</p>
+                        <a href="{{ url_for('static', filename='docs/' + doc.filename) }}" target="_blank">View PDF</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
+
+
+
+
+
+
