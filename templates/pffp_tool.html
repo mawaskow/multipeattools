@@ -254,10 +254,6 @@
                     </div>
                     <div id="results" style="display: none;">
                         <h3 style="padding-top: 20px; text-align: center;">RESULTS</h3>
-                        <div style="padding-bottom: 7px;"> 
-                            <p style="padding-bottom: 7px; font-size: 18px;">Margin (in %)</p>
-                            <input type="number" class="form-control" id="margin" name="margin" placeholder="20" value="20" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
-                        </div>
                         <div class="row" style="display: flex;">
                             <div class="col" style="padding-bottom: 20px;">
                                 <p style="padding-top: 7px; font-size: 18px;">Balance per hectare (yield - allocated costs): <span id="bal_hect_1" style="font-weight: bold;"></span> €</p>
@@ -292,6 +288,14 @@
                             </div>  
                             <div class="col">
                                 <p style="padding-top: 7px; font-size: 18px;">Cost price per net ton kg DS : <span id="cost_net_ton_ds_det" style="font-weight: bold;"></span> €/ton DS</p>
+                                <div class="row"> 
+                                    <div class="col-4" style="justify-content: center; align-content: center;">
+                                        <label for="margin"><p style="padding-bottom: 7px; font-size: 18px;">Margin (in %)</p></label> 
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="number" class="form-control" id="margin" name="margin" placeholder="20" value="20" style="border: 2px solid #939191; border-radius: 10px;" onchange="balance_calculation()" onkeyup="balance_calculation()" required>
+                                    </div>
+                                </div>
                                 <p style="padding-top: 7px; font-size: 18px;">Real yield price per kg DS (cost price + margin) : <span id="real_yield_price_det" style="font-weight: bold;"></span> €/ton DS</p>
                                 <p style="padding-top: 7px; font-size: 18px;">Balance per hectare (yield - allocated costs): <span id="bal_hect_1_det" style="font-weight: bold;"></span> €</p>
                                 <p style="padding-top: 7px; font-size: 18px;">Balance per hectare (yield - allocated costs - processing costs): <span id="bal_hect_2_det" style="font-weight: bold;"></span> €</p>
