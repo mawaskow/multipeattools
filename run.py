@@ -427,7 +427,12 @@ def policy_keywords():
     if username is None:
         return render_template('keywords.html')
     return render_template('keywords.html', username=session['username'])
-    
+@app.route('/factsheet', methods=['GET', 'POST'])
+def policy_factsheet():
+    username = session.get('username')
+    if username is None:
+        return render_template('factsheet.html')
+    return render_template('factsheet.html', username=session['username'])
 @app.route('/policy', methods=['GET', 'POST'])
 def policy():
     if 'username' not in session:

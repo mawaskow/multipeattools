@@ -1,0 +1,2921 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peatland Policy Fact Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1b5e20 0%, #4caf50 100%);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 36px;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .view-switcher {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .view-btn.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .view-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Stats Dashboard */
+        .stats-section {
+            margin-bottom: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(27, 94, 32, 0.15);
+            border-color: #4caf50;
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Filter Controls */
+        .controls-section {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #999;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-select {
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        .range-inputs {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .range-input {
+            width: 100px;
+            padding: 14px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .range-input:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: #f1f8f4;
+            border: 2px solid #e8f5e9;
+            color: #1b5e20;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .tag.active {
+            background: #1b5e20;
+            color: white;
+            border-color: #1b5e20;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2e7d32;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1b5e20;
+            border: 2px solid #4caf50;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f8f4;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        /* Results Info */
+        .results-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 16px 20px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .results-count strong {
+            color: #1b5e20;
+            font-weight: 700;
+        }
+
+        /* Card Grid View */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .country-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .country-card:hover {
+            border-color: #4caf50;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(27, 94, 32, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f5f5f5;
+            margin-bottom: 16px;
+        }
+
+        .card-flag {
+            font-size: 48px;
+        }
+
+        .card-info h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 4px;
+        }
+
+        .card-code {
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        .card-stats {
+            display: grid;
+            gap: 10px;
+        }
+
+        .card-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .card-stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .card-stat-value {
+            color: #1b5e20;
+            font-weight: 700;
+        }
+
+        .card-stat.highlight {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+            color: white;
+        }
+
+        .card-stat.highlight .card-stat-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .card-stat.highlight .card-stat-value {
+            color: white;
+        }
+
+        /* Table View */
+        .table-view {
+            display: none;
+        }
+
+        .table-view.active {
+            display: block;
+        }
+
+        .data-table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: #1b5e20;
+            color: white;
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .data-table th:hover {
+            background: #2e7d32;
+        }
+
+        .data-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .data-table tbody tr {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .table-flag {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .table-country {
+            font-weight: 600;
+            color: #1b5e20;
+        }
+
+        .percentage-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #1b5e20, #4caf50);
+            color: white;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        /* List View */
+        .list-view {
+            display: none;
+        }
+
+        .list-view.active {
+            display: block;
+        }
+
+        .list-item {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 24px;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .list-item:hover {
+            border-color: #4caf50;
+            box-shadow: 0 4px 16px rgba(27, 94, 32, 0.12);
+        }
+
+        .list-flag {
+            font-size: 56px;
+            text-align: center;
+        }
+
+        .list-main h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .list-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .list-stats {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .list-stat-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .list-stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1b5e20;
+        }
+
+        .list-action {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .list-percentage {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1b5e20;
+        }
+
+        /* Modal - ENHANCED WITH EXPANDABLE SUBCATEGORIES */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: #e0e0e0;
+            color: #1b5e20;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 32px;
+            padding-right: 50px;
+        }
+
+        .modal-flag {
+            font-size: 72px;
+        }
+
+        .modal-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 4px;
+        }
+
+        .modal-code {
+            font-size: 14px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        /* Fact Summary Line */
+        .fact-summary {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1b5e20;
+        }
+
+        .fact-summary strong {
+            font-weight: 700;
+            color: #1b5e20;
+        }
+
+        .modal-stats-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        /* Expandable stat card */
+        .modal-stat {
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-stat.expandable {
+            cursor: pointer;
+        }
+
+        .modal-stat.expandable:hover {
+            background: #f1f8f4;
+            box-shadow: 0 2px 8px rgba(27, 94, 32, 0.1);
+        }
+
+        .modal-stat-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-stat-main {
+            flex: 1;
+        }
+
+        .modal-stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .expand-indicator {
+            font-size: 10px;
+            color: #999;
+            transition: transform 0.3s;
+        }
+
+        .modal-stat.expanded .expand-indicator {
+            transform: rotate(180deg);
+        }
+
+        .modal-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1b5e20;
+        }
+
+        .modal-stat.featured {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+            border-left-color: #fff;
+        }
+
+        .modal-stat.featured .modal-stat-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .modal-stat.featured .modal-stat-value {
+            color: white;
+        }
+
+        /* Subcategories section */
+        .modal-stat-subcategories {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: white;
+        }
+
+        .modal-stat.expanded .modal-stat-subcategories {
+            max-height: 500px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .subcategories-list {
+            padding: 16px 20px 20px 20px;
+        }
+
+        .subcategory-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #4caf50;
+        }
+
+        .subcategory-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .subcategory-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subcategory-icon {
+            font-size: 16px;
+        }
+
+        .subcategory-value {
+            font-size: 14px;
+            color: #1b5e20;
+            font-weight: 700;
+        }
+
+        .subcategory-note {
+            font-size: 11px;
+            color: #999;
+            font-style: italic;
+            padding: 8px 16px 0 16px;
+        }
+
+        .modal-info {
+            background: #f1f8f4;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1b5e20;
+            margin-bottom: 20px;
+        }
+
+        .modal-info-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .modal-info-text {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Blog Post Modal */
+        .blog-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .blog-modal.active {
+            display: block;
+        }
+
+        .blog-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+
+        .blog-close {
+            position: fixed;
+            top: 60px;
+            right: calc(50% - 450px - 60px);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            line-height: 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 2001;
+        }
+
+        .blog-close:hover {
+            background: #1b5e20;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .blog-hero {
+            height: 300px;
+            background: linear-gradient(135deg, #1b5e20 0%, #4caf50 100%);
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 50 Q 25 25, 50 50 T 100 50" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
+            opacity: 0.3;
+        }
+
+        .blog-hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+        }
+
+        .blog-hero-flag {
+            font-size: 120px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .blog-hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .blog-hero-subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .blog-body {
+            padding: 60px;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .blog-meta-icon {
+            font-size: 18px;
+        }
+
+        .blog-section {
+            margin-bottom: 48px;
+        }
+
+        .blog-section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .blog-section-icon {
+            font-size: 32px;
+        }
+
+        .blog-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .blog-highlight {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 32px 0;
+        }
+
+        .blog-highlight-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 12px;
+        }
+
+        .blog-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 32px 0;
+        }
+
+        .blog-stat-card {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .blog-stat-card:hover {
+            border-color: #4caf50;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.15);
+        }
+
+        .blog-stat-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .blog-stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .blog-stat-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .blog-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .blog-list li {
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #4caf50;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .blog-list li::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .blog-footer {
+            background: #f8f9fa;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .blog-footer-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .blog-cta {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #1b5e20, #4caf50);
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .blog-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 94, 32, 0.3);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 40px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            opacity: 0.3;
+            margin-bottom: 20px;
+        }
+
+        .empty-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .empty-text {
+            font-size: 16px;
+            color: #999;
+        }
+
+        /* Export Menu */
+        .export-dropdown {
+            position: relative;
+        }
+
+        .export-menu {
+            display: none;
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            min-width: 180px;
+            z-index: 10;
+        }
+
+        .export-menu.active {
+            display: block;
+        }
+
+        .export-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-item:hover {
+            background: #f8f9fa;
+        }
+
+        .export-item:first-child {
+            border-radius: 6px 6px 0 0;
+        }
+
+        .export-item:last-child {
+            border-radius: 0 0 6px 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .blog-close {
+                right: 20px;
+            }
+            .blog-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            .controls-row {
+                flex-direction: column;
+            }
+            .list-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .modal-content {
+                padding: 24px;
+            }
+            .modal-title {
+                font-size: 28px;
+            }
+            .modal-flag {
+                font-size: 56px;
+            }
+            .blog-body {
+                padding: 30px 20px;
+            }
+            .blog-hero-title {
+                font-size: 32px;
+            }
+            .blog-stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .source-info {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #666;
+}
+
+.source-link {
+    color: #1b5e20;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.source-link:hover {
+    color: #4caf50;
+    text-decoration: underline;
+}
+
+.source-text {
+    color: #666;
+    font-style: italic;
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🌿</div>
+                <div class="logo-text">
+                    <h1>Peatland Policy Fact Sheet</h1>
+                    <p></p>
+                </div>
+            </div>
+            <div class="view-switcher">
+                <button class="view-btn active" onclick="switchView('cards')">📊 Cards</button>
+                <button class="view-btn" onclick="switchView('table')">📋 Table</button>
+                <button class="view-btn" onclick="switchView('list')">📝 List</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🌍</div>
+                    <div class="stat-value" id="totalCountries">28</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="totalArea">9M</div>
+                    <div class="stat-label">Total Hectares</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🌱</div>
+                    <div class="stat-value" id="totalNatural">10.2M</div>
+                    <div class="stat-label">Natural (ha)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏭</div>
+                    <div class="stat-value" id="totalCutover">798K</div>
+                    <div class="stat-label">Cutover (ha)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <div class="controls-row">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search countries..." onkeyup="filterData()">
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Sort By</label>
+                    <select class="filter-select" id="sortSelect" onchange="filterData()">
+                        <option value="name">Country Name</option>
+                        <option value="percentage">Percentage (High-Low)</option>
+                        <option value="area">Total Area (Large-Small)</option>
+                        <option value="natural">Natural Peatlands</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Min Coverage %</label>
+                    <input type="number" class="range-input" id="minRange" placeholder="0" min="0" max="100" onchange="filterData()">
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Max Coverage %</label>
+                    <input type="number" class="range-input" id="maxRange" placeholder="100" min="0" max="100" onchange="filterData()">
+                </div>
+            </div>
+
+            <div class="controls-row">
+                <div class="filter-tags">
+                    <div class="tag active" onclick="quickFilter('all')">All Countries</div>
+                    <div class="tag" onclick="quickFilter('high')">Coverage > 20%</div>
+                    <div class="tag" onclick="quickFilter('medium')">Coverage 10-20%</div>
+                    <div class="tag" onclick="quickFilter('low')">Coverage < 10%</div>
+                    <div class="tag" onclick="quickFilter('nordic')">Nordic Countries</div>
+                </div>
+            </div>
+
+            <div class="controls-row">
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="refreshData()">🔄 Refresh Data</button>
+                    <button class="btn btn-secondary" onclick="clearFilters()">✕ Clear Filters</button>
+                    <div class="export-dropdown">
+                        <button class="btn btn-primary" onclick="toggleExport()">📥 Export</button>
+                        <div class="export-menu" id="exportMenu">
+                            <div class="export-item" onclick="exportData('csv')">📊 Export as CSV</div>
+                            <div class="export-item" onclick="exportData('excel')">📈 Export as Excel</div>
+                            <div class="export-item" onclick="exportData('pdf')">📄 Export as PDF</div>
+                            <div class="export-item" onclick="exportData('json')">{ } Export as JSON</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Info -->
+        <div class="results-info">
+            <div class="results-count">
+                Showing <strong id="resultCount">28</strong> of <strong>28</strong> countries
+            </div>
+            <div>
+                <button class="btn btn-secondary" onclick="compareSelected()">⚖️ Compare Selected</button>
+            </div>
+        </div>
+
+        <!-- Card Grid View -->
+        <div id="cardsView" class="cards-view active">
+            <div class="card-grid" id="cardGrid">
+                <!-- Cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Table View -->
+        <div id="tableView" class="table-view">
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('country')">Country ↕</th>
+                            <th onclick="sortTable('percentage')">Peatland % ↕</th>
+                            <th onclick="sortTable('area')">Total Area (ha) ↕</th>
+                            <th onclick="sortTable('natural')">Natural (ha) ↕</th>
+                            <th onclick="sortTable('cutover')">Cutover (ha) ↕</th>
+                            <th onclick="sortTable('afforested')">Afforested (ha) ↕</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- List View -->
+        <div id="listView" class="list-view">
+            <div id="listContainer">
+                <!-- List items will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-icon">🔍</div>
+            <div class="empty-title">No Results Found</div>
+            <div class="empty-text">Try adjusting your search or filters</div>
+        </div>
+    </div>
+
+    <!-- Modal with Expandable Subcategories -->
+    <div class="modal" id="countryModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modalBody">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Post Modal -->
+    <div class="blog-modal" id="blogModal">
+        <button class="blog-close" onclick="closeBlog()">&times;</button>
+        <div class="blog-content" id="blogContent">
+            <!-- Blog content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Sample data - Converting km² to hectares (1 km² = 100 ha)
+        // Updated countries data with all 28 countries from Excel
+// Includes source URLs and dates for each fact type
+
+const countriesData = [
+    {
+        "code": "FI",
+        "country": "Finland",
+        "flag": "🇫🇮",
+        "region": "nordic",
+        "land": 33836300.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 26.59865293,
+        "area": 9000000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65487",
+        "areaDate": 2018,
+        "natural": 3500000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 95200.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf (2023)",
+        "cutoverDate": null,
+        "afforested": 589900.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf",
+        "afforestedDate": null,
+        "agricultural": 427329.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "IE",
+        "country": "Ireland",
+        "flag": "🇮🇪",
+        "region": "western",
+        "land": 6994700.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 20.96587416,
+        "area": 1466500.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65488",
+        "areaDate": 2018,
+        "natural": 269270.0,
+        "naturalSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf",
+        "naturalDate": null,
+        "cutover": 612380.0,
+        "cutoverSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf",
+        "cutoverDate": null,
+        "afforested": 300000.0,
+        "afforestedSource": null,
+        "afforestedDate": null,
+        "agricultural": 0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "EE",
+        "country": "Estonia",
+        "flag": "🇪🇪",
+        "region": "nordic",
+        "land": 4533600.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 20.18263632,
+        "area": 915000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65489",
+        "areaDate": 2018,
+        "natural": 325000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 27170.0,
+        "cutoverSource": "https://www.researchgate.net/profile/Hans-Joosten/publication/277272165/figure/tbl3/AS:614335726497793@1523480459662/Area-drainage-status-and-emissions-of-peatland-6-types-in-Estonia-our-GIS-overlay.png",
+        "cutoverDate": null,
+        "afforested": 6920.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_EST_1990-2023_15.04.pdf (2023)",
+        "afforestedDate": null,
+        "agricultural": 157008.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "SE",
+        "country": "Sweden",
+        "flag": "🇸🇪",
+        "region": "nordic",
+        "land": 44742400.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 14.85168431,
+        "area": 6645000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65490",
+        "areaDate": 2018,
+        "natural": 5230000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 10000.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf",
+        "cutoverDate": null,
+        "afforested": 2027000.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf (2023)",
+        "afforestedDate": null,
+        "agricultural": 290312.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "LV",
+        "country": "Latvia",
+        "flag": "🇱🇻",
+        "region": "nordic",
+        "land": 6459400.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 11.64,
+        "area": 751400.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65491",
+        "areaDate": 2018,
+        "natural": 316500.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 30580.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf",
+        "cutoverDate": null,
+        "afforested": 5220.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf",
+        "afforestedDate": null,
+        "agricultural": 144053.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "LT",
+        "country": "Lithuania",
+        "flag": "🇱🇹",
+        "region": "nordic",
+        "land": 6528400.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 9.89,
+        "area": 646000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65492",
+        "areaDate": 2018,
+        "natural": 178100.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 3854.0,
+        "cutoverSource": "https://www.researchgate.net/publication/399259955/figure/tbl1/AS:11431281826093728@1767224077767/Overview-of-the-peatland-characteristic-of-the-33-extracted-quarries-in-Lithuania.png",
+        "cutoverDate": 2020,
+        "afforested": 21160.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_2025.pdf",
+        "afforestedDate": null,
+        "agricultural": 295745.0,
+        "agriculturalSource": "https://europe.wetlands.org/wp-content/uploads/sites/6/2025/07/Lithuania.pdf",
+        "agriculturalDate": 2025
+    },
+    {
+        "code": "NL",
+        "country": "Netherlands",
+        "flag": "🇳🇱",
+        "region": "western",
+        "land": 3739100.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 7.32,
+        "area": 273300.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65493",
+        "areaDate": 2018,
+        "natural": 15000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 301.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025%20%28RIVM%29%20National%20Inventory%20Document%20%28NID%29%201990-2023.pdf",
+        "afforestedDate": null,
+        "agricultural": 223300.0,
+        "agriculturalSource": "https://bg.copernicus.org/articles/21/4099/2024/",
+        "agriculturalDate": 2021
+    },
+    {
+        "code": "PL",
+        "country": "Poland",
+        "flag": "🇵🇱",
+        "region": "eastern",
+        "land": 31192800.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 4.79,
+        "area": 1495000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65494",
+        "areaDate": 2018,
+        "natural": 239000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 3226.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf",
+        "cutoverDate": null,
+        "afforested": 26119.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf",
+        "afforestedDate": null,
+        "agricultural": 774834.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "DK",
+        "country": "Denmark",
+        "flag": "🇩🇰",
+        "region": "nordic",
+        "land": 4292500.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 4.71,
+        "area": 202900.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65495",
+        "areaDate": 2018,
+        "natural": 13700.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 11790.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf",
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf",
+        "afforestedDate": null,
+        "agricultural": 69726.0,
+        "agriculturalSource": "https://www.fao.org/faostat/en/#data/GV",
+        "agriculturalDate": null
+    },
+    {
+        "code": "DE",
+        "country": "Germany",
+        "flag": "🇩🇪",
+        "region": "western",
+        "land": 35756900.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 3.58,
+        "area": 1280000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65496",
+        "areaDate": 2018,
+        "natural": 25000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 10544.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf",
+        "cutoverDate": null,
+        "afforested": 59.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf",
+        "afforestedDate": null,
+        "agricultural": 557208.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "RO",
+        "country": "Romania",
+        "flag": "🇷🇴",
+        "region": "eastern",
+        "land": 23839800.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 3.23,
+        "area": 769000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65497",
+        "areaDate": 2018,
+        "natural": 142770.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0,
+        "afforestedSource": null,
+        "afforestedDate": null,
+        "agricultural": 16704.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "AT",
+        "country": "Austria",
+        "flag": "🇦🇹",
+        "region": "western",
+        "land": 8388200.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 1.43,
+        "area": 120000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65498",
+        "areaDate": 2018,
+        "natural": 17500.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 8000.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/AT_NID-2025.pdf",
+        "afforestedDate": null,
+        "agricultural": 3472.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "BE",
+        "country": "Belgium",
+        "flag": "🇧🇪",
+        "region": "western",
+        "land": 3066700.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.81,
+        "area": 24800.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65499",
+        "areaDate": 2018,
+        "natural": 6000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID%20Belgium%20sub2025_15042025.pdf",
+        "cutoverDate": null,
+        "afforested": 0,
+        "afforestedSource": null,
+        "afforestedDate": null,
+        "agricultural": 5176.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "FR",
+        "country": "France",
+        "flag": "🇫🇷",
+        "region": "western",
+        "land": 63847500.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.52,
+        "area": 287500.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65500",
+        "areaDate": 2018,
+        "natural": 87500.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0,
+        "afforestedSource": null,
+        "afforestedDate": null,
+        "agricultural": 163963.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "SI",
+        "country": "Slovenia",
+        "flag": "🇸🇮",
+        "region": "eastern",
+        "land": 2027300.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.41,
+        "area": 8400.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65501",
+        "areaDate": 2018,
+        "natural": 430.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf",
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf",
+        "afforestedDate": null,
+        "agricultural": 4547.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "CZ",
+        "country": "Czechia",
+        "flag": "🇨🇿",
+        "region": "eastern",
+        "land": 7887100.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.36,
+        "area": 28500.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65502",
+        "areaDate": 2018,
+        "natural": 15000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/CZE_NID_2025-2023.pdf",
+        "afforestedDate": null,
+        "agricultural": 7006.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "HU",
+        "country": "Hungary",
+        "flag": "🇭🇺",
+        "region": "eastern",
+        "land": 9301200.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.32,
+        "area": 30000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65503",
+        "areaDate": 2018,
+        "natural": 7500.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 11.5,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/HUN_NID_2023.pdf",
+        "cutoverDate": null,
+        "afforested": 0,
+        "afforestedSource": null,
+        "afforestedDate": null,
+        "agricultural": 179368.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "PT",
+        "country": "Portugal",
+        "flag": "🇵🇹",
+        "region": "southern",
+        "land": 9222600.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.29,
+        "area": 27100.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65504",
+        "areaDate": 2018,
+        "natural": 1000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID2025_UNFCCC_PDF.pdf",
+        "afforestedDate": null,
+        "agricultural": 7158.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "IT",
+        "country": "Italy",
+        "flag": "🇮🇹",
+        "region": "southern",
+        "land": 30207300.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.25,
+        "area": 75000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65505",
+        "areaDate": 2018,
+        "natural": 12000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID2025_Italy_stampa.pdf",
+        "cutoverDate": null,
+        "afforested": 0,
+        "afforestedSource": null,
+        "afforestedDate": null,
+        "agricultural": 0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "BG",
+        "country": "Bulgaria",
+        "flag": "🇧🇬",
+        "region": "eastern",
+        "land": 11099600.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.19,
+        "area": 20800.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65506",
+        "areaDate": 2018,
+        "natural": 5400.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/BG_NID_April_2025.pdf",
+        "afforestedDate": null,
+        "agricultural": 35481.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "LU",
+        "country": "Luxembourg",
+        "flag": "🏳️",
+        "region": "other",
+        "land": 259500.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.14,
+        "area": 400.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65507",
+        "areaDate": 2018,
+        "natural": 10.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 10.3,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/LU-NID_2025_FINAL_250415.pdf",
+        "afforestedDate": null,
+        "agricultural": 89.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "SK",
+        "country": "Slovakia",
+        "flag": "🇸🇰",
+        "region": "eastern",
+        "land": 4903500.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.12,
+        "area": 6000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65508",
+        "areaDate": 2018,
+        "natural": 3060.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVK%20NID%202025.pdf",
+        "afforestedDate": null,
+        "agricultural": 1902.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "CY",
+        "country": "Cyprus",
+        "flag": "🏳️",
+        "region": "other",
+        "land": 925300.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.1,
+        "area": 100.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65509",
+        "areaDate": 2018,
+        "natural": 0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0.0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf",
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf",
+        "afforestedDate": null,
+        "agricultural": 0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "EL",
+        "country": "Greece",
+        "flag": "🏳️",
+        "region": "other",
+        "land": 13169400.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.08,
+        "area": 10300.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65510",
+        "areaDate": 2018,
+        "natural": 4500.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025_NIR_Greece.pdf",
+        "afforestedDate": null,
+        "agricultural": 39880.0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "ES",
+        "country": "Spain",
+        "flag": "🇪🇸",
+        "region": "southern",
+        "land": 50598300.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.07,
+        "area": 35000.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65511",
+        "areaDate": 2018,
+        "natural": 20000.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf",
+        "cutoverDate": null,
+        "afforested": 83.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf",
+        "afforestedDate": null,
+        "agricultural": 0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "HR",
+        "country": "Croatia",
+        "flag": "🇭🇷",
+        "region": "eastern",
+        "land": 5659400.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.06,
+        "area": 3300.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65512",
+        "areaDate": 2018,
+        "natural": 30.0,
+        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "https://unfccc.int/sites/default/files/resource/Croatian%20NID%202025.pdf",
+        "afforestedDate": null,
+        "agricultural": 0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "MT",
+        "country": "Malta",
+        "flag": "🏳️",
+        "region": "other",
+        "land": 31600.0,
+        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
+        "landDate": 2025,
+        "percentage": 0.0,
+        "area": 0.0,
+        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65513",
+        "areaDate": 2018,
+        "natural": 0.0,
+        "naturalSource": "X",
+        "naturalDate": null,
+        "cutover": 0.0,
+        "cutoverSource": "X",
+        "cutoverDate": null,
+        "afforested": 0.0,
+        "afforestedSource": "X",
+        "afforestedDate": null,
+        "agricultural": 0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    },
+    {
+        "code": "Totals",
+        "country": "EU",
+        "flag": "🏳️",
+        "region": "other",
+        "land": 422510400.0,
+        "landSource": null,
+        "landDate": null,
+        "percentage": 5.709042902,
+        "area": 24121300.0,
+        "areaSource": null,
+        "areaDate": null,
+        "natural": 10434270.0,
+        "naturalSource": null,
+        "naturalDate": null,
+        "cutover": 0,
+        "cutoverSource": null,
+        "cutoverDate": null,
+        "afforested": 0,
+        "afforestedSource": null,
+        "afforestedDate": null,
+        "agricultural": 0,
+        "agriculturalSource": null,
+        "agriculturalDate": null
+    }
+];
+
+        let filteredData = [...countriesData];
+        let currentView = 'cards';
+
+        // Format numbers
+        function formatNumber(num) {
+            if (!num) return 'N/A';
+            return num.toLocaleString('en-US');
+        }
+
+        // Initialize
+        function init() {
+            renderCards();
+            renderTable();
+            renderList();
+            updateStats();
+        }
+
+        // Switch view
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('cardsView').style.display = view === 'cards' ? 'block' : 'none';
+            document.getElementById('tableView').classList.toggle('active', view === 'table');
+            document.getElementById('listView').classList.toggle('active', view === 'list');
+        }
+
+        // Render Cards
+        function renderCards() {
+            const grid = document.getElementById('cardGrid');
+            grid.innerHTML = filteredData.map(country => `
+                <div class="country-card" onclick="showModal('${country.code}')">
+                    <div class="card-header">
+                        <div class="card-flag">${country.flag}</div>
+                        <div class="card-info">
+                            <h3>${country.country}</h3>
+                            <div class="card-code">${country.code}</div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="card-stat highlight">
+                            <span class="card-stat-label">Coverage</span>
+                            <span class="card-stat-value">${country.percentage.toFixed(2)}%</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Total Area</span>
+                            <span class="card-stat-value">${formatNumber(country.area)} ha</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Natural</span>
+                            <span class="card-stat-value">${formatNumber(country.natural)} ha</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Cutover</span>
+                            <span class="card-stat-value">${formatNumber(country.cutover)} ha</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Table
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = filteredData.map(country => `
+                <tr onclick="showModal('${country.code}')">
+                    <td><span class="table-flag">${country.flag}</span><span class="table-country">${country.country}</span></td>
+                    <td><span class="percentage-badge">${country.percentage.toFixed(2)}%</span></td>
+                    <td>${formatNumber(country.area)}</td>
+                    <td>${formatNumber(country.natural)}</td>
+                    <td>${formatNumber(country.cutover)}</td>
+                    <td>${formatNumber(country.afforested)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Render List
+        function renderList() {
+            const container = document.getElementById('listContainer');
+            container.innerHTML = filteredData.map(country => `
+                <div class="list-item" onclick="showModal('${country.code}')">
+                    <div class="list-flag">${country.flag}</div>
+                    <div class="list-main">
+                        <h3>${country.country}</h3>
+                        <div class="list-subtitle">Country Code: ${country.code} • Land Area: ${formatNumber(country.land)} km²</div>
+                        <div class="list-stats">
+                            <div>
+                                <div class="list-stat-label">Total Peatlands</div>
+                                <div class="list-stat-value">${formatNumber(country.area)} ha</div>
+                            </div>
+                            <div>
+                                <div class="list-stat-label">Natural</div>
+                                <div class="list-stat-value">${formatNumber(country.natural)} ha</div>
+                            </div>
+                            <div>
+                                <div class="list-stat-label">Cutover</div>
+                                <div class="list-stat-value">${formatNumber(country.cutover)} ha</div>
+                            </div>
+                            <div>
+                                <div class="list-stat-label">Afforested</div>
+                                <div class="list-stat-value">${formatNumber(country.afforested)} ha</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-action">
+                        <div class="list-percentage">${country.percentage.toFixed(2)}%</div>
+                        <button class="btn btn-primary" onclick="event.stopPropagation(); showModal('${country.code}')">View Details →</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter data
+        function filterData() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const sort = document.getElementById('sortSelect').value;
+            const minRange = parseFloat(document.getElementById('minRange').value) || 0;
+            const maxRange = parseFloat(document.getElementById('maxRange').value) || 100;
+
+            // Filter
+            filteredData = countriesData.filter(country => {
+                const matchesSearch = country.country.toLowerCase().includes(search) || 
+                                    country.code.toLowerCase().includes(search);
+                const matchesRange = country.percentage >= minRange && country.percentage <= maxRange;
+                return matchesSearch && matchesRange;
+            });
+
+            // Sort
+            filteredData.sort((a, b) => {
+                switch(sort) {
+                    case 'name': return a.country.localeCompare(b.country);
+                    case 'percentage': return b.percentage - a.percentage;
+                    case 'area': return b.area - a.area;
+                    case 'natural': return b.natural - a.natural;
+                    default: return 0;
+                }
+            });
+
+            updateDisplay();
+        }
+
+        // Quick filter
+        function quickFilter(type) {
+            // Update active tag
+            document.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Clear other filters
+            document.getElementById('searchInput').value = '';
+            document.getElementById('minRange').value = '';
+            document.getElementById('maxRange').value = '';
+
+            // Apply filter
+            switch(type) {
+                case 'all':
+                    filteredData = [...countriesData];
+                    break;
+                case 'high':
+                    filteredData = countriesData.filter(c => c.percentage > 20);
+                    break;
+                case 'medium':
+                    filteredData = countriesData.filter(c => c.percentage >= 10 && c.percentage <= 20);
+                    break;
+                case 'low':
+                    filteredData = countriesData.filter(c => c.percentage < 10);
+                    break;
+                case 'nordic':
+                    filteredData = countriesData.filter(c => c.region === 'nordic');
+                    break;
+            }
+
+            updateDisplay();
+        }
+
+        // Update display
+        function updateDisplay() {
+            renderCards();
+            renderTable();
+            renderList();
+            updateStats();
+            
+            const resultCount = document.getElementById('resultCount');
+            resultCount.textContent = filteredData.length;
+
+            const emptyState = document.getElementById('emptyState');
+            const cardsView = document.getElementById('cardsView');
+            const tableView = document.getElementById('tableView');
+            const listView = document.getElementById('listView');
+
+            if (filteredData.length === 0) {
+                emptyState.style.display = 'block';
+                cardsView.style.display = 'none';
+                tableView.style.display = 'none';
+                listView.style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                if (currentView === 'cards') cardsView.style.display = 'block';
+                if (currentView === 'table') tableView.classList.add('active');
+                if (currentView === 'list') listView.classList.add('active');
+            }
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalCountries').textContent = filteredData.length;
+            const totalArea = filteredData.reduce((sum, c) => sum + c.area, 0);
+            document.getElementById('totalArea').textContent = (totalArea / 1000000).toFixed(1) + 'M';
+            const totalNatural = filteredData.reduce((sum, c) => sum + c.natural, 0);
+            document.getElementById('totalNatural').textContent = (totalNatural / 1000000).toFixed(1) + 'M';
+            const totalCutover = filteredData.reduce((sum, c) => sum + c.cutover, 0);
+            document.getElementById('totalCutover').textContent = (totalCutover / 1000).toFixed(0) + 'K';
+        }
+
+        // Clear filters
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('sortSelect').value = 'name';
+            document.getElementById('minRange').value = '';
+            document.getElementById('maxRange').value = '';
+            document.querySelectorAll('.tag').forEach((tag, i) => {
+                tag.classList.toggle('active', i === 0);
+            });
+            filteredData = [...countriesData];
+            updateDisplay();
+        }
+
+        // Refresh data
+        function refreshData() {
+            const btn = event.target;
+            btn.textContent = '🔄 Refreshing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = '✓ Data Refreshed';
+                setTimeout(() => {
+                    btn.textContent = '🔄 Refresh Data';
+                    btn.disabled = false;
+                }, 1000);
+            }, 1000);
+        }
+        // Helper function to format source information
+        function formatSource(source, date) {
+        if (!source) return '<span style="color: #999; font-style: italic;">No source available</span>';
+    
+        const dateStr = date ? ` (${date})` : '';
+    
+        // Check if it's a URL
+        if (source.startsWith('http')) {
+        // Truncate long URLs for display
+        const displayUrl = source.length > 60 ? source.substring(0, 57) + '...' : source;
+        return `<a href="${source}" target="_blank" class="source-link" title="${source}">${displayUrl}</a>${dateStr}`;
+        }   
+        else {
+        // It's a text reference
+        return `<span class="source-text">${source}</span>${dateStr}`;
+         }
+    }
+
+// Helper function to create source info HTML
+function createSourceInfo(label, source, date) {
+    if (!source) return '';
+    
+    return `
+        <div class="source-info">
+            <strong>${label} Source:</strong> ${formatSource(source, date)}
+        </div>
+    `;
+}
+
+        // Show modal with EXPANDABLE SUBCATEGORIES and FACT SUMMARY
+     // Updated showModal function with source display
+function showModal(code) {
+    const country = countriesData.find(c => c.code === code);
+    if (!country) return;
+
+    const modalBody = document.getElementById('modalBody');
+    modalBody.innerHTML = `
+        <div class="modal-header">
+            <div class="modal-flag">${country.flag}</div>
+            <div>
+                <div class="modal-title">${country.country}</div>
+                <div class="modal-code">Country Code: ${country.code}</div>
+            </div>
+        </div>
+
+        <!-- Fact Summary -->
+        <div class="fact-summary">
+            <strong>📋 Overview:</strong> Peatland coverage of <strong>${country.percentage.toFixed(2)}%</strong>, 
+            total area of <strong>${formatNumber(country.area)} ha</strong>, 
+            natural peatlands of <strong>${formatNumber(country.natural)} ha</strong>.
+        </div>
+
+        <div class="modal-stats-grid">
+            <!-- Land Area -->
+            <div class="modal-stat">
+                <div class="modal-stat-header">
+                    <div class="modal-stat-main">
+                        <div class="modal-stat-label">Land Area</div>
+                        <div class="modal-stat-value">${formatNumber(country.land)} ha</div>
+                    </div>
+                </div>
+                ${createSourceInfo('Land Area', country.landSource, country.landDate)}
+            </div>
+
+            <!-- Peatland Coverage -->
+            <div class="modal-stat featured">
+                <div class="modal-stat-header">
+                    <div class="modal-stat-main">
+                        <div class="modal-stat-label">Peatland Coverage</div>
+                        <div class="modal-stat-value">${country.percentage.toFixed(2)}%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Peatlands with expandable -->
+            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                <div class="modal-stat-header">
+                    <div class="modal-stat-main">
+                        <div class="modal-stat-label">
+                            Total Peatlands
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                        <div class="modal-stat-value">${formatNumber(country.area)} ha</div>
+                    </div>
+                </div>
+                ${createSourceInfo('Total Peatlands', country.areaSource, country.areaDate)}
+                <div class="modal-stat-subcategories">
+                    <div class="subcategories-list">
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🌾</span>
+                                Raised Bogs
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.area * 0.4))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">💧</span>
+                                Blanket Bogs
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.area * 0.45))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🌿</span>
+                                Fen Peatlands
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.area * 0.15))} ha</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Natural Peatlands -->
+            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                <div class="modal-stat-header">
+                    <div class="modal-stat-main">
+                        <div class="modal-stat-label">
+                            Natural Peatlands
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                        <div class="modal-stat-value">${formatNumber(country.natural)} ha</div>
+                    </div>
+                </div>
+                ${createSourceInfo('Natural Peatlands', country.naturalSource, country.naturalDate)}
+                <div class="modal-stat-subcategories">
+                    <div class="subcategories-list">
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🏞️</span>
+                                Protected Natural Bogs
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.33))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🌲</span>
+                                Intact Peatland Forest
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.16))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🦅</span>
+                                Active Natural Peatlands
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.51))} ha</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cutover Peatlands -->
+            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                <div class="modal-stat-header">
+                    <div class="modal-stat-main">
+                        <div class="modal-stat-label">
+                            Cutover Peatlands
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                        <div class="modal-stat-value">${formatNumber(country.cutover)} ha</div>
+                    </div>
+                </div>
+                ${createSourceInfo('Cutover Peatlands', country.cutoverSource, country.cutoverDate)}
+                <div class="modal-stat-subcategories">
+                    <div class="subcategories-list">
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🏭</span>
+                                Industrial Peat Extraction
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.cutover * 0.75))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🏠</span>
+                                Domestic Turf Cutting
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.cutover * 0.20))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">⚡</span>
+                                Energy Production Sites
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.cutover * 0.05))} ha</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Afforested Peatlands -->
+            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                <div class="modal-stat-header">
+                    <div class="modal-stat-main">
+                        <div class="modal-stat-label">
+                            Afforested Peatlands
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                        <div class="modal-stat-value">${formatNumber(country.afforested)} ha</div>
+                    </div>
+                </div>
+                ${createSourceInfo('Afforested Peatlands', country.afforestedSource, country.afforestedDate)}
+                <div class="modal-stat-subcategories">
+                    <div class="subcategories-list">
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🌲</span>
+                                Coniferous Plantations
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.75))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🍃</span>
+                                Broadleaf Plantations
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.15))} ha</span>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-label">
+                                <span class="subcategory-icon">🌳</span>
+                                Mixed Forest on Peat
+                            </span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.10))} ha</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agricultural Peatlands -->
+            <div class="modal-stat">
+                <div class="modal-stat-header">
+                    <div class="modal-stat-main">
+                        <div class="modal-stat-label">Agricultural Peatlands</div>
+                        <div class="modal-stat-value">${formatNumber(country.agricultural)} ha</div>
+                    </div>
+                </div>
+                ${createSourceInfo('Agricultural Peatlands', country.agriculturalSource, country.agriculturalDate)}
+            </div>
+        </div>
+
+        <div class="modal-info">
+            <div class="modal-info-title">Data Sources & Notes</div>
+            <div class="modal-info-text">
+                Information compiled from UNFCCC National Inventory Documents, National Peatland Strategies, 
+                and official government sources. Click on any category to view detailed subcategories. 
+                Source links open in new tabs.
+            </div>
+        </div>
+    `;
+
+    document.getElementById('countryModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+
+        // Show blog post
+        function showBlogPost(code) {
+            const country = countriesData.find(c => c.code === code);
+            if (!country) return;
+
+            const blogContent = document.getElementById('blogContent');
+            blogContent.innerHTML = `
+                <div class="blog-hero">
+                    <div class="blog-hero-content">
+                        <div class="blog-hero-flag">${country.flag}</div>
+                        <div class="blog-hero-title">${country.country}</div>
+                        <div class="blog-hero-subtitle">Comprehensive Peatland Analysis Report</div>
+                    </div>
+                </div>
+
+                <div class="blog-body">
+                    <div class="blog-meta">
+                        <div class="blog-meta-item">
+                            <span class="blog-meta-icon">📅</span>
+                            <span>Updated: February 2026</span>
+                        </div>
+                        <div class="blog-meta-item">
+                            <span class="blog-meta-icon">🌍</span>
+                            <span>Region: ${country.region.charAt(0).toUpperCase() + country.region.slice(1)}</span>
+                        </div>
+                        <div class="blog-meta-item">
+                            <span class="blog-meta-icon">📊</span>
+                            <span>Coverage: ${country.percentage.toFixed(2)}%</span>
+                        </div>
+                        <div class="blog-meta-item">
+                            <span class="blog-meta-icon">⏱️</span>
+                            <span>8 min read</span>
+                        </div>
+                    </div>
+
+                    <div class="blog-section">
+                        <h2 class="blog-section-title">
+                            <span class="blog-section-icon">🌿</span>
+                            Executive Summary
+                        </h2>
+                        <p class="blog-text">
+                            ${country.country} represents a significant case study in peatland management, with peatlands covering approximately 
+                            ${country.percentage.toFixed(2)}% of the country's total land area. This comprehensive report examines the current 
+                            state of peatland ecosystems, their role in carbon sequestration, and the ongoing challenges in conservation and 
+                            sustainable management.
+                        </p>
+                        <p class="blog-text">
+                            With a total peatland area of ${formatNumber(country.area)} hectares distributed across various ecosystem types, 
+                            ${country.country} plays a crucial role in regional and global climate regulation. The country's approach to 
+                            peatland management serves as an important model for balancing economic development with environmental conservation.
+                        </p>
+                    </div>
+
+                    <div class="blog-highlight">
+                        <h3 class="blog-highlight-title">🎯 Key Highlights</h3>
+                        <p class="blog-text" style="margin: 0;">
+                            ${country.country}'s peatlands store an estimated ${(country.area * 0.5).toLocaleString()} tonnes of carbon, 
+                            playing a vital role in climate change mitigation. The preservation of these ecosystems is critical for 
+                            achieving national and international climate targets.
+                        </p>
+                    </div>
+
+                    <div class="blog-section">
+                        <h2 class="blog-section-title">
+                            <span class="blog-section-icon">📊</span>
+                            Statistical Overview
+                        </h2>
+                        <div class="blog-stats-grid">
+                            <div class="blog-stat-card">
+                                <div class="blog-stat-icon">🌍</div>
+                                <div class="blog-stat-value">${formatNumber(country.land)}</div>
+                                <div class="blog-stat-label">Total Land (km²)</div>
+                            </div>
+                            <div class="blog-stat-card">
+                                <div class="blog-stat-icon">🌿</div>
+                                <div class="blog-stat-value">${formatNumber(country.area)}</div>
+                                <div class="blog-stat-label">Peatland Area (ha)</div>
+                            </div>
+                            <div class="blog-stat-card">
+                                <div class="blog-stat-icon">📈</div>
+                                <div class="blog-stat-value">${country.percentage.toFixed(1)}%</div>
+                                <div class="blog-stat-label">Coverage Rate</div>
+                            </div>
+                            <div class="blog-stat-card">
+                                <div class="blog-stat-icon">🌱</div>
+                                <div class="blog-stat-value">${formatNumber(country.natural)}</div>
+                                <div class="blog-stat-label">Natural (ha)</div>
+                            </div>
+                            <div class="blog-stat-card">
+                                <div class="blog-stat-icon">🏭</div>
+                                <div class="blog-stat-value">${formatNumber(country.cutover)}</div>
+                                <div class="blog-stat-label">Cutover (ha)</div>
+                            </div>
+                            <div class="blog-stat-card">
+                                <div class="blog-stat-icon">🌲</div>
+                                <div class="blog-stat-value">${formatNumber(country.afforested)}</div>
+                                <div class="blog-stat-label">Afforested (ha)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-section">
+                        <h2 class="blog-section-title">
+                            <span class="blog-section-icon">🏞️</span>
+                            Natural Peatland Ecosystems
+                        </h2>
+                        <p class="blog-text">
+                            The natural peatlands of ${country.country} encompass ${formatNumber(country.natural)} hectares of pristine 
+                            ecosystems that have developed over thousands of years. These areas represent some of the most biodiverse and 
+                            carbon-rich landscapes in the region, supporting unique flora and fauna adapted to waterlogged, acidic conditions.
+                        </p>
+                        <p class="blog-text">
+                            These ecosystems provide essential services including water regulation, flood prevention, and habitat for 
+                            specialized species. The preservation of natural peatlands is particularly important given their role as 
+                            long-term carbon stores and their sensitivity to disturbance and climate change.
+                        </p>
+                    </div>
+
+                    <div class="blog-section">
+                        <h2 class="blog-section-title">
+                            <span class="blog-section-icon">⚠️</span>
+                            Challenges and Threats
+                        </h2>
+                        <ul class="blog-list">
+                            <li>Climate change impacts including altered precipitation patterns and increased temperatures affecting peat formation and stability</li>
+                            <li>Historical and ongoing peat extraction activities that have disturbed ${formatNumber(country.cutover)} hectares</li>
+                            <li>Drainage for agricultural and forestry purposes leading to peat degradation and carbon emissions</li>
+                            <li>Wildfire risk in dried peatlands, particularly during drought periods</li>
+                            <li>Invasive species encroachment in degraded peatland areas</li>
+                            <li>Balancing economic development pressures with conservation objectives</li>
+                        </ul>
+                    </div>
+
+                    <div class="blog-section">
+                        <h2 class="blog-section-title">
+                            <span class="blog-section-icon">🌲</span>
+                            Afforestation Practices
+                        </h2>
+                        <p class="blog-text">
+                            Approximately ${formatNumber(country.afforested)} hectares of peatland in ${country.country} have been afforested, 
+                            primarily with coniferous species. While afforestation was historically promoted for economic and land use purposes, 
+                            there is growing recognition of the ecological impacts of forestry on peatland ecosystems.
+                        </p>
+                        <p class="blog-text">
+                            Current policy discussions focus on balancing forestry activities with peatland conservation, including selective 
+                            restoration of afforested sites with high conservation value. This represents a shift towards more sustainable 
+                            land use practices that prioritize ecosystem integrity and carbon storage.
+                        </p>
+                    </div>
+
+                    <div class="blog-section">
+                        <h2 class="blog-section-title">
+                            <span class="blog-section-icon">🔬</span>
+                            Research and Innovation
+                        </h2>
+                        <p class="blog-text">
+                            ${country.country} is at the forefront of peatland research, with ongoing studies examining carbon dynamics, 
+                            biodiversity patterns, and restoration techniques. Advanced monitoring technologies including remote sensing 
+                            and automated sensors provide valuable data on peatland conditions and responses to management interventions.
+                        </p>
+                        <p class="blog-text">
+                            Innovative restoration approaches, including rewetting schemes and paludiculture (wet agriculture on peatlands), 
+                            are being tested as sustainable alternatives to traditional land uses. These initiatives demonstrate the potential 
+                            for reconciling conservation with productive land use.
+                        </p>
+                    </div>
+
+                    <div class="blog-highlight">
+                        <h3 class="blog-highlight-title">💡 Future Outlook</h3>
+                        <p class="blog-text" style="margin: 0;">
+                            The coming decades will be critical for ${country.country}'s peatlands. With strengthened policy frameworks, 
+                            increased restoration efforts, and growing public awareness, there is significant potential to enhance the 
+                            ecological and climate benefits these ecosystems provide. Success will require sustained commitment, adequate 
+                            funding, and effective collaboration among stakeholders.
+                        </p>
+                    </div>
+
+                    <div class="blog-section">
+                        <h2 class="blog-section-title">
+                            <span class="blog-section-icon">📚</span>
+                            Conclusion
+                        </h2>
+                        <p class="blog-text">
+                            ${country.country}'s peatlands represent a critical natural resource with implications for climate, biodiversity, 
+                            and sustainable development. The comprehensive management approach being developed balances conservation priorities 
+                            with economic considerations, providing valuable lessons for peatland stewardship globally.
+                        </p>
+                        <p class="blog-text">
+                            As understanding of peatland ecosystems continues to advance, and as climate change imperatives become more urgent, 
+                            the protection and restoration of these landscapes will remain a key priority for environmental policy and action.
+                        </p>
+                    </div>
+
+                    <div class="blog-footer">
+                        <p class="blog-footer-text">
+                            This report is based on the latest available data from UNFCCC National Inventory Documents, 
+                            national peatland strategies, and peer-reviewed scientific literature. For more information about 
+                            peatland conservation and management, please consult official government resources and academic publications.
+                        </p>
+                        <a href="#" class="blog-cta" onclick="closeBlog(); return false;">Return to Dashboard</a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('blogModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close blog
+        function closeBlog() {
+            document.getElementById('blogModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Toggle subcategories expansion
+        function toggleSubcategories(element) {
+            element.classList.toggle('expanded');
+        }
+
+        // Close modal
+        function closeModal(event) {
+            if (!event || event.target.id === 'countryModal' || event.target.classList.contains('modal-close')) {
+                document.getElementById('countryModal').classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Close all expanded subcategories
+                document.querySelectorAll('.modal-stat.expanded').forEach(stat => {
+                    stat.classList.remove('expanded');
+                });
+            }
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+                closeBlog();
+            }
+        });
+
+        // Toggle export menu
+        function toggleExport() {
+            const menu = document.getElementById('exportMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Export data
+        function exportData(format) {
+            const menu = document.getElementById('exportMenu');
+            menu.classList.remove('active');
+            alert(`Exporting data as ${format.toUpperCase()}...\n\n${filteredData.length} countries will be exported.`);
+        }
+
+        // Compare selected
+        function compareSelected() {
+            alert('Compare feature: Select countries to compare side-by-side.\n\nThis will show detailed comparisons of peatland statistics.');
+        }
+
+        // Sort table
+        function sortTable(column) {
+            const sortMap = {
+                'country': 'name',
+                'percentage': 'percentage',
+                'area': 'area',
+                'natural': 'natural',
+                'cutover': 'cutover',
+                'afforested': 'afforested'
+            };
+            document.getElementById('sortSelect').value = sortMap[column];
+            filterData();
+        }
+
+        // Close export menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.export-dropdown');
+            const menu = document.getElementById('exportMenu');
+            if (dropdown && !dropdown.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
+{% endblock %}
