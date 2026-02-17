@@ -1251,6 +1251,45 @@
     color: #666;
     font-style: italic;
 }
+/* Make backgrounds blend with portal */
+body {
+    background: transparent;
+}
+
+.container {
+    background: transparent;
+}
+
+/* Add shadows for depth */
+.stat-card,
+.country-card,
+.controls-section {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.fact-summary-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1b5e20;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #4caf50;
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fact-summary-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #1b5e20;
+}
+img.emoji {
+    height: 1em;
+    width: 1em;
+    vertical-align: -0.1em;
+  }
+
+</style>
     </style>
 </head>
 <body>
@@ -1276,15 +1315,11 @@
         <!-- Stats Section -->
         <div class="stats-section">
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🌍</div>
-                    <div class="stat-value" id="totalCountries">28</div>
-                    <div class="stat-label">Countries</div>
-                </div>
+                
                 <div class="stat-card">
                     <div class="stat-icon">📊</div>
                     <div class="stat-value" id="totalArea">9M</div>
-                    <div class="stat-label">Total Hectares</div>
+                    <div class="stat-label"> Total EU PeatLand (HA)</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🌱</div>
@@ -1293,8 +1328,18 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🏭</div>
-                    <div class="stat-value" id="totalCutover">798K</div>
-                    <div class="stat-label">Cutover (ha)</div>
+                    <div class="stat-value" id="totalExtraction">798K</div>
+                    <div class="stat-label">Extraction (ha)</div>
+                </div>
+                 <div class="stat-card">
+                    <div class="stat-icon">🏭</div>
+                    <div class="stat-value" id="totalAfforested">2.9M</div>
+                    <div class="stat-label">Afforested Peatlands (ha)</div>
+                </div>
+                 <div class="stat-card">
+                    <div class="stat-icon">🏭</div>
+                    <div class="stat-value" id="totalAgricultural">3.4M</div>
+                    <div class="stat-label">Agricultural Peatlands (ha)</div>
                 </div>
             </div>
         </div>
@@ -1303,7 +1348,8 @@
         <div class="controls-section">
             <div class="controls-row">
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
+                   
+                    <label class="filter-label">Search</label>
                     <input type="text" class="search-input" id="searchInput" placeholder="Search countries..." onkeyup="filterData()">
                 </div>
                 
@@ -1340,17 +1386,9 @@
 
             <div class="controls-row">
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="refreshData()">🔄 Refresh Data</button>
-                    <button class="btn btn-secondary" onclick="clearFilters()">✕ Clear Filters</button>
-                    <div class="export-dropdown">
-                        <button class="btn btn-primary" onclick="toggleExport()">📥 Export</button>
-                        <div class="export-menu" id="exportMenu">
-                            <div class="export-item" onclick="exportData('csv')">📊 Export as CSV</div>
-                            <div class="export-item" onclick="exportData('excel')">📈 Export as Excel</div>
-                            <div class="export-item" onclick="exportData('pdf')">📄 Export as PDF</div>
-                            <div class="export-item" onclick="exportData('json')">{ } Export as JSON</div>
-                        </div>
-                    </div>
+                   
+                    <button class="btn btn-secondary" onclick="clearFilters()">Reset</button>
+                    
                 </div>
             </div>
         </div>
@@ -1358,11 +1396,9 @@
         <!-- Results Info -->
         <div class="results-info">
             <div class="results-count">
-                Showing <strong id="resultCount">28</strong> of <strong>28</strong> countries
+                Showing <strong id="resultCount">27</strong> of <strong>27</strong> countries
             </div>
-            <div>
-                <button class="btn btn-secondary" onclick="compareSelected()">⚖️ Compare Selected</button>
-            </div>
+            
         </div>
 
         <!-- Card Grid View -->
@@ -1382,7 +1418,7 @@
                             <th onclick="sortTable('percentage')">Peatland % ↕</th>
                             <th onclick="sortTable('area')">Total Area (ha) ↕</th>
                             <th onclick="sortTable('natural')">Natural (ha) ↕</th>
-                            <th onclick="sortTable('cutover')">Cutover (ha) ↕</th>
+                            <th onclick="sortTable('Extraction')">Extraction (ha) ↕</th>
                             <th onclick="sortTable('afforested')">Afforested (ha) ↕</th>
                         </tr>
                     </thead>
@@ -1418,6 +1454,7 @@
         </div>
     </div>
 
+
     <!-- Blog Post Modal -->
     <div class="blog-modal" id="blogModal">
         <button class="blog-close" onclick="closeBlog()">&times;</button>
@@ -1427,6 +1464,9 @@
     </div>
 
     <script>
+        function applyTwemoji() {
+         twemoji.parse(document.body, { folder: 'svg', ext: '.svg' });
+        }
         // Sample data - Converting km² to hectares (1 km² = 100 ha)
         // Updated countries data with all 28 countries from Excel
 // Includes source URLs and dates for each fact type
@@ -1447,9 +1487,9 @@ const countriesData = [
         "natural": 3500000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 95200.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf (2023)",
-        "cutoverDate": null,
+        "Extraction": 95200.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf (2023)",
+        "ExtractionDate": null,
         "afforested": 589900.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf",
         "afforestedDate": null,
@@ -1472,9 +1512,9 @@ const countriesData = [
         "natural": 269270.0,
         "naturalSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf",
         "naturalDate": null,
-        "cutover": 612380.0,
-        "cutoverSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf",
-        "cutoverDate": null,
+        "Extraction": 612380.0,
+        "ExtractionSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf",
+        "ExtractionDate": null,
         "afforested": 300000.0,
         "afforestedSource": null,
         "afforestedDate": null,
@@ -1497,9 +1537,9 @@ const countriesData = [
         "natural": 325000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 27170.0,
-        "cutoverSource": "https://www.researchgate.net/profile/Hans-Joosten/publication/277272165/figure/tbl3/AS:614335726497793@1523480459662/Area-drainage-status-and-emissions-of-peatland-6-types-in-Estonia-our-GIS-overlay.png",
-        "cutoverDate": null,
+        "Extraction": 27170.0,
+        "ExtractionSource": "https://www.researchgate.net/profile/Hans-Joosten/publication/277272165/figure/tbl3/AS:614335726497793@1523480459662/Area-drainage-status-and-emissions-of-peatland-6-types-in-Estonia-our-GIS-overlay.png",
+        "ExtractionDate": null,
         "afforested": 6920.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_EST_1990-2023_15.04.pdf (2023)",
         "afforestedDate": null,
@@ -1522,9 +1562,9 @@ const countriesData = [
         "natural": 5230000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 10000.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf",
-        "cutoverDate": null,
+        "Extraction": 10000.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf",
+        "ExtractionDate": null,
         "afforested": 2027000.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf (2023)",
         "afforestedDate": null,
@@ -1547,9 +1587,9 @@ const countriesData = [
         "natural": 316500.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 30580.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf",
-        "cutoverDate": null,
+        "Extraction": 30580.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf",
+        "ExtractionDate": null,
         "afforested": 5220.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf",
         "afforestedDate": null,
@@ -1572,9 +1612,9 @@ const countriesData = [
         "natural": 178100.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 3854.0,
-        "cutoverSource": "https://www.researchgate.net/publication/399259955/figure/tbl1/AS:11431281826093728@1767224077767/Overview-of-the-peatland-characteristic-of-the-33-extracted-quarries-in-Lithuania.png",
-        "cutoverDate": 2020,
+        "Extraction": 3854.0,
+        "ExtractionSource": "https://www.researchgate.net/publication/399259955/figure/tbl1/AS:11431281826093728@1767224077767/Overview-of-the-peatland-characteristic-of-the-33-extracted-quarries-in-Lithuania.png",
+        "ExtractionDate": 2020,
         "afforested": 21160.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_2025.pdf",
         "afforestedDate": null,
@@ -1597,9 +1637,9 @@ const countriesData = [
         "natural": 15000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 301.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025%20%28RIVM%29%20National%20Inventory%20Document%20%28NID%29%201990-2023.pdf",
         "afforestedDate": null,
@@ -1622,9 +1662,9 @@ const countriesData = [
         "natural": 239000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 3226.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf",
-        "cutoverDate": null,
+        "Extraction": 3226.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf",
+        "ExtractionDate": null,
         "afforested": 26119.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf",
         "afforestedDate": null,
@@ -1647,9 +1687,9 @@ const countriesData = [
         "natural": 13700.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 11790.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf",
-        "cutoverDate": null,
+        "Extraction": 11790.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf",
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf",
         "afforestedDate": null,
@@ -1672,9 +1712,9 @@ const countriesData = [
         "natural": 25000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 10544.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf",
-        "cutoverDate": null,
+        "Extraction": 10544.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf",
+        "ExtractionDate": null,
         "afforested": 59.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf",
         "afforestedDate": null,
@@ -1697,9 +1737,9 @@ const countriesData = [
         "natural": 142770.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0,
         "afforestedSource": null,
         "afforestedDate": null,
@@ -1722,9 +1762,9 @@ const countriesData = [
         "natural": 17500.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 8000.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/AT_NID-2025.pdf",
         "afforestedDate": null,
@@ -1747,9 +1787,9 @@ const countriesData = [
         "natural": 6000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID%20Belgium%20sub2025_15042025.pdf",
-        "cutoverDate": null,
+        "Extraction": 0.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%20Belgium%20sub2025_15042025.pdf",
+        "ExtractionDate": null,
         "afforested": 0,
         "afforestedSource": null,
         "afforestedDate": null,
@@ -1772,9 +1812,9 @@ const countriesData = [
         "natural": 87500.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0,
         "afforestedSource": null,
         "afforestedDate": null,
@@ -1797,9 +1837,9 @@ const countriesData = [
         "natural": 430.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf",
-        "cutoverDate": null,
+        "Extraction": 0.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf",
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf",
         "afforestedDate": null,
@@ -1822,9 +1862,9 @@ const countriesData = [
         "natural": 15000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/CZE_NID_2025-2023.pdf",
         "afforestedDate": null,
@@ -1847,9 +1887,9 @@ const countriesData = [
         "natural": 7500.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 11.5,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/HUN_NID_2023.pdf",
-        "cutoverDate": null,
+        "Extraction": 11.5,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/HUN_NID_2023.pdf",
+        "ExtractionDate": null,
         "afforested": 0,
         "afforestedSource": null,
         "afforestedDate": null,
@@ -1872,9 +1912,9 @@ const countriesData = [
         "natural": 1000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID2025_UNFCCC_PDF.pdf",
         "afforestedDate": null,
@@ -1897,9 +1937,9 @@ const countriesData = [
         "natural": 12000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/NID2025_Italy_stampa.pdf",
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID2025_Italy_stampa.pdf",
+        "ExtractionDate": null,
         "afforested": 0,
         "afforestedSource": null,
         "afforestedDate": null,
@@ -1922,9 +1962,9 @@ const countriesData = [
         "natural": 5400.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/BG_NID_April_2025.pdf",
         "afforestedDate": null,
@@ -1947,9 +1987,9 @@ const countriesData = [
         "natural": 10.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 10.3,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/LU-NID_2025_FINAL_250415.pdf",
         "afforestedDate": null,
@@ -1972,9 +2012,9 @@ const countriesData = [
         "natural": 3060.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVK%20NID%202025.pdf",
         "afforestedDate": null,
@@ -1997,9 +2037,9 @@ const countriesData = [
         "natural": 0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0.0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf",
-        "cutoverDate": null,
+        "Extraction": 0.0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf",
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf",
         "afforestedDate": null,
@@ -2022,9 +2062,9 @@ const countriesData = [
         "natural": 4500.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025_NIR_Greece.pdf",
         "afforestedDate": null,
@@ -2047,9 +2087,9 @@ const countriesData = [
         "natural": 20000.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf",
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf",
+        "ExtractionDate": null,
         "afforested": 83.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf",
         "afforestedDate": null,
@@ -2072,9 +2112,9 @@ const countriesData = [
         "natural": 30.0,
         "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "https://unfccc.int/sites/default/files/resource/Croatian%20NID%202025.pdf",
         "afforestedDate": null,
@@ -2097,9 +2137,9 @@ const countriesData = [
         "natural": 0.0,
         "naturalSource": "X",
         "naturalDate": null,
-        "cutover": 0.0,
-        "cutoverSource": "X",
-        "cutoverDate": null,
+        "Extraction": 0.0,
+        "ExtractionSource": "X",
+        "ExtractionDate": null,
         "afforested": 0.0,
         "afforestedSource": "X",
         "afforestedDate": null,
@@ -2122,9 +2162,9 @@ const countriesData = [
         "natural": 10434270.0,
         "naturalSource": null,
         "naturalDate": null,
-        "cutover": 0,
-        "cutoverSource": null,
-        "cutoverDate": null,
+        "Extraction": 0,
+        "ExtractionSource": null,
+        "ExtractionDate": null,
         "afforested": 0,
         "afforestedSource": null,
         "afforestedDate": null,
@@ -2149,6 +2189,7 @@ const countriesData = [
             renderTable();
             renderList();
             updateStats();
+            applyTwemoji();
         }
 
         // Switch view
@@ -2188,12 +2229,13 @@ const countriesData = [
                             <span class="card-stat-value">${formatNumber(country.natural)} ha</span>
                         </div>
                         <div class="card-stat">
-                            <span class="card-stat-label">Cutover</span>
-                            <span class="card-stat-value">${formatNumber(country.cutover)} ha</span>
+                            <span class="card-stat-label">Extraction</span>
+                            <span class="card-stat-value">${formatNumber(country.Extraction)} ha</span>
                         </div>
                     </div>
                 </div>
             `).join('');
+            applyTwemoji();
         }
 
         // Render Table
@@ -2205,10 +2247,11 @@ const countriesData = [
                     <td><span class="percentage-badge">${country.percentage.toFixed(2)}%</span></td>
                     <td>${formatNumber(country.area)}</td>
                     <td>${formatNumber(country.natural)}</td>
-                    <td>${formatNumber(country.cutover)}</td>
+                    <td>${formatNumber(country.Extraction)}</td>
                     <td>${formatNumber(country.afforested)}</td>
                 </tr>
             `).join('');
+            applyTwemoji();
         }
 
         // Render List
@@ -2230,8 +2273,8 @@ const countriesData = [
                                 <div class="list-stat-value">${formatNumber(country.natural)} ha</div>
                             </div>
                             <div>
-                                <div class="list-stat-label">Cutover</div>
-                                <div class="list-stat-value">${formatNumber(country.cutover)} ha</div>
+                                <div class="list-stat-label">Extraction</div>
+                                <div class="list-stat-value">${formatNumber(country.Extraction)} ha</div>
                             </div>
                             <div>
                                 <div class="list-stat-label">Afforested</div>
@@ -2245,6 +2288,7 @@ const countriesData = [
                     </div>
                 </div>
             `).join('');
+            applyTwemoji();
         }
 
         // Filter data
@@ -2344,8 +2388,8 @@ const countriesData = [
             document.getElementById('totalArea').textContent = (totalArea / 1000000).toFixed(1) + 'M';
             const totalNatural = filteredData.reduce((sum, c) => sum + c.natural, 0);
             document.getElementById('totalNatural').textContent = (totalNatural / 1000000).toFixed(1) + 'M';
-            const totalCutover = filteredData.reduce((sum, c) => sum + c.cutover, 0);
-            document.getElementById('totalCutover').textContent = (totalCutover / 1000).toFixed(0) + 'K';
+            const totalExtraction = filteredData.reduce((sum, c) => sum + c.Extraction, 0);
+            document.getElementById('totalExtraction').textContent = (totalExtraction / 1000).toFixed(0) + 'K';
         }
 
         // Clear filters
@@ -2406,25 +2450,25 @@ function createSourceInfo(label, source, date) {
 
         // Show modal with EXPANDABLE SUBCATEGORIES and FACT SUMMARY
      // Updated showModal function with source display
+// Updated showModal function with blog button
 function showModal(code) {
     const country = countriesData.find(c => c.code === code);
     if (!country) return;
 
     const modalBody = document.getElementById('modalBody');
+    
+    // Check if blog is available for this country
+    const hasBlog = window.availableBlogs && window.availableBlogs.includes(code);
+    
     modalBody.innerHTML = `
         <div class="modal-header">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+           
             <div class="modal-flag">${country.flag}</div>
             <div>
                 <div class="modal-title">${country.country}</div>
                 <div class="modal-code">Country Code: ${country.code}</div>
             </div>
-        </div>
-
-        <!-- Fact Summary -->
-        <div class="fact-summary">
-            <strong>📋 Overview:</strong> Peatland coverage of <strong>${country.percentage.toFixed(2)}%</strong>, 
-            total area of <strong>${formatNumber(country.area)} ha</strong>, 
-            natural peatlands of <strong>${formatNumber(country.natural)} ha</strong>.
         </div>
 
         <div class="modal-stats-grid">
@@ -2527,18 +2571,18 @@ function showModal(code) {
                 </div>
             </div>
 
-            <!-- Cutover Peatlands -->
+            <!-- Extraction Peatlands -->
             <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
                 <div class="modal-stat-header">
                     <div class="modal-stat-main">
                         <div class="modal-stat-label">
-                            Cutover Peatlands
+                            Extraction Peatlands
                             <span class="expand-indicator">▼</span>
                         </div>
-                        <div class="modal-stat-value">${formatNumber(country.cutover)} ha</div>
+                        <div class="modal-stat-value">${formatNumber(country.Extraction)} ha</div>
                     </div>
                 </div>
-                ${createSourceInfo('Cutover Peatlands', country.cutoverSource, country.cutoverDate)}
+                ${createSourceInfo('Extraction Peatlands', country.ExtractionSource, country.ExtractionDate)}
                 <div class="modal-stat-subcategories">
                     <div class="subcategories-list">
                         <div class="subcategory-item">
@@ -2546,21 +2590,21 @@ function showModal(code) {
                                 <span class="subcategory-icon">🏭</span>
                                 Industrial Peat Extraction
                             </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.cutover * 0.75))} ha</span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.75))} ha</span>
                         </div>
                         <div class="subcategory-item">
                             <span class="subcategory-label">
                                 <span class="subcategory-icon">🏠</span>
                                 Domestic Turf Cutting
                             </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.cutover * 0.20))} ha</span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.20))} ha</span>
                         </div>
                         <div class="subcategory-item">
                             <span class="subcategory-label">
                                 <span class="subcategory-icon">⚡</span>
                                 Energy Production Sites
                             </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.cutover * 0.05))} ha</span>
+                            <span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.05))} ha</span>
                         </div>
                     </div>
                 </div>
@@ -2616,229 +2660,156 @@ function showModal(code) {
                 ${createSourceInfo('Agricultural Peatlands', country.agriculturalSource, country.agriculturalDate)}
             </div>
         </div>
-
-        <div class="modal-info">
-            <div class="modal-info-title">Data Sources & Notes</div>
-            <div class="modal-info-text">
-                Information compiled from UNFCCC National Inventory Documents, National Peatland Strategies, 
-                and official government sources. Click on any category to view detailed subcategories. 
-                Source links open in new tabs.
+            <div class="fact-summary">
+            <div class="fact-summary-title">
+            ${country.country} Peatland Profile
             </div>
-        </div>
+            <div class="fact-summary-text">
+            <strong>${country.country}</strong> is a member state of the European Union. The total land area of ${country.country} is <strong>${formatNumber(country.land)} hectares</strong>. Of this, <strong>${country.percentage.toFixed(2)}%</strong> is peatlands covering <strong>${formatNumber(country.area)} hectares</strong>. This is broken down into a number of categories. The total area of peatlands used for agriculture is <strong>${formatNumber(country.agricultural)} ha</strong>. Afforested peatlands account for <strong>${formatNumber(country.afforested)} hectares</strong>. Natural peatlands cover <strong>${formatNumber(country.natural)} hectares</strong> and finally peatland extraction sites cover <strong>${formatNumber(country.Extraction)} hectares</strong>.
+            </div>
+            </div>
+                ${hasBlog ? 
+                `<button class="btn btn-primary" style="position: absolute; down: 20px; right: 70px; padding: 8px 16px; font-size: 14px; z-index: 10;" onclick="event.stopPropagation(); closeModal(); setTimeout(() => showBlogPost('${code}'), 300);">
+                    📖 Read More
+                </button>` : ''}
     `;
 
     document.getElementById('countryModal').classList.add('active');
     document.body.style.overflow = 'hidden';
+    setTimeout(() => applyTwemoji(), 50);
 }
 
+     // Show blog post - now fetches from backend
+async function showBlogPost(code) {
+    const country = countriesData.find(c => c.code === code);
+    if (!country) return;
 
-        // Show blog post
-        function showBlogPost(code) {
-            const country = countriesData.find(c => c.code === code);
-            if (!country) return;
-
-            const blogContent = document.getElementById('blogContent');
-            blogContent.innerHTML = `
-                <div class="blog-hero">
-                    <div class="blog-hero-content">
-                        <div class="blog-hero-flag">${country.flag}</div>
-                        <div class="blog-hero-title">${country.country}</div>
-                        <div class="blog-hero-subtitle">Comprehensive Peatland Analysis Report</div>
-                    </div>
-                </div>
-
-                <div class="blog-body">
-                    <div class="blog-meta">
-                        <div class="blog-meta-item">
-                            <span class="blog-meta-icon">📅</span>
-                            <span>Updated: February 2026</span>
-                        </div>
-                        <div class="blog-meta-item">
-                            <span class="blog-meta-icon">🌍</span>
-                            <span>Region: ${country.region.charAt(0).toUpperCase() + country.region.slice(1)}</span>
-                        </div>
-                        <div class="blog-meta-item">
-                            <span class="blog-meta-icon">📊</span>
-                            <span>Coverage: ${country.percentage.toFixed(2)}%</span>
-                        </div>
-                        <div class="blog-meta-item">
-                            <span class="blog-meta-icon">⏱️</span>
-                            <span>8 min read</span>
-                        </div>
-                    </div>
-
+    try {
+        const response = await fetch(`/api/blog/${code}`);
+        
+        if (!response.ok) {
+            alert('Blog post not available for this country yet.');
+            return;
+        }
+        
+        const blogData = await response.json();
+        
+        const blogContent = document.getElementById('blogContent');
+        
+        // Build sections HTML
+        let sectionsHTML = '';
+        
+        for (const section of blogData.sections) {
+            if (section.type === 'section') {
+                sectionsHTML += `
                     <div class="blog-section">
                         <h2 class="blog-section-title">
-                            <span class="blog-section-icon">🌿</span>
-                            Executive Summary
+                            <span class="blog-section-icon">${section.icon}</span>
+                            ${section.title}
                         </h2>
-                        <p class="blog-text">
-                            ${country.country} represents a significant case study in peatland management, with peatlands covering approximately 
-                            ${country.percentage.toFixed(2)}% of the country's total land area. This comprehensive report examines the current 
-                            state of peatland ecosystems, their role in carbon sequestration, and the ongoing challenges in conservation and 
-                            sustainable management.
-                        </p>
-                        <p class="blog-text">
-                            With a total peatland area of ${formatNumber(country.area)} hectares distributed across various ecosystem types, 
-                            ${country.country} plays a crucial role in regional and global climate regulation. The country's approach to 
-                            peatland management serves as an important model for balancing economic development with environmental conservation.
-                        </p>
+                        <p class="blog-text">${section.content.replace(/\n\n/g, '</p><p class="blog-text">')}</p>
+                        ${section.image ? `
+                            <div style="text-align: center; margin: 20px 0;">
+                                <img src="/blog/images/${code}/${section.image}" alt="${section.caption || ''}" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                ${section.caption ? `<p style="font-size: 14px; color: #666; margin-top: 8px; font-style: italic;">${section.caption}</p>` : ''}
+                            </div>
+                        ` : ''}
                     </div>
-
+                `;
+            } else if (section.type === 'highlight') {
+                sectionsHTML += `
                     <div class="blog-highlight">
-                        <h3 class="blog-highlight-title">🎯 Key Highlights</h3>
-                        <p class="blog-text" style="margin: 0;">
-                            ${country.country}'s peatlands store an estimated ${(country.area * 0.5).toLocaleString()} tonnes of carbon, 
-                            playing a vital role in climate change mitigation. The preservation of these ecosystems is critical for 
-                            achieving national and international climate targets.
-                        </p>
+                        <h3 class="blog-highlight-title">${section.title}</h3>
+                        <p class="blog-text" style="margin: 0;">${section.content}</p>
                     </div>
-
-                    <div class="blog-section">
-                        <h2 class="blog-section-title">
-                            <span class="blog-section-icon">📊</span>
-                            Statistical Overview
-                        </h2>
-                        <div class="blog-stats-grid">
-                            <div class="blog-stat-card">
-                                <div class="blog-stat-icon">🌍</div>
-                                <div class="blog-stat-value">${formatNumber(country.land)}</div>
-                                <div class="blog-stat-label">Total Land (km²)</div>
-                            </div>
-                            <div class="blog-stat-card">
-                                <div class="blog-stat-icon">🌿</div>
-                                <div class="blog-stat-value">${formatNumber(country.area)}</div>
-                                <div class="blog-stat-label">Peatland Area (ha)</div>
-                            </div>
-                            <div class="blog-stat-card">
-                                <div class="blog-stat-icon">📈</div>
-                                <div class="blog-stat-value">${country.percentage.toFixed(1)}%</div>
-                                <div class="blog-stat-label">Coverage Rate</div>
-                            </div>
-                            <div class="blog-stat-card">
-                                <div class="blog-stat-icon">🌱</div>
-                                <div class="blog-stat-value">${formatNumber(country.natural)}</div>
-                                <div class="blog-stat-label">Natural (ha)</div>
-                            </div>
-                            <div class="blog-stat-card">
-                                <div class="blog-stat-icon">🏭</div>
-                                <div class="blog-stat-value">${formatNumber(country.cutover)}</div>
-                                <div class="blog-stat-label">Cutover (ha)</div>
-                            </div>
-                            <div class="blog-stat-card">
-                                <div class="blog-stat-icon">🌲</div>
-                                <div class="blog-stat-value">${formatNumber(country.afforested)}</div>
-                                <div class="blog-stat-label">Afforested (ha)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="blog-section">
-                        <h2 class="blog-section-title">
-                            <span class="blog-section-icon">🏞️</span>
-                            Natural Peatland Ecosystems
-                        </h2>
-                        <p class="blog-text">
-                            The natural peatlands of ${country.country} encompass ${formatNumber(country.natural)} hectares of pristine 
-                            ecosystems that have developed over thousands of years. These areas represent some of the most biodiverse and 
-                            carbon-rich landscapes in the region, supporting unique flora and fauna adapted to waterlogged, acidic conditions.
-                        </p>
-                        <p class="blog-text">
-                            These ecosystems provide essential services including water regulation, flood prevention, and habitat for 
-                            specialized species. The preservation of natural peatlands is particularly important given their role as 
-                            long-term carbon stores and their sensitivity to disturbance and climate change.
-                        </p>
-                    </div>
-
+                `;
+            } else if (section.type === 'list') {
+                sectionsHTML += `
                     <div class="blog-section">
                         <h2 class="blog-section-title">
                             <span class="blog-section-icon">⚠️</span>
-                            Challenges and Threats
+                            ${section.title}
                         </h2>
                         <ul class="blog-list">
-                            <li>Climate change impacts including altered precipitation patterns and increased temperatures affecting peat formation and stability</li>
-                            <li>Historical and ongoing peat extraction activities that have disturbed ${formatNumber(country.cutover)} hectares</li>
-                            <li>Drainage for agricultural and forestry purposes leading to peat degradation and carbon emissions</li>
-                            <li>Wildfire risk in dried peatlands, particularly during drought periods</li>
-                            <li>Invasive species encroachment in degraded peatland areas</li>
-                            <li>Balancing economic development pressures with conservation objectives</li>
+                            ${section.items.map(item => `<li>${item}</li>`).join('')}
                         </ul>
                     </div>
+                `;
+            }
+        }
+        
+        // Get hero image or use default
+        const heroImage = blogData.metadata.hero_image 
+            ? `/blog/images/${code}/${blogData.metadata.hero_image}` 
+            : '';
+        
+        const heroStyle = heroImage 
+            ? `background: linear-gradient(rgba(27, 94, 32, 0.8), rgba(27, 94, 32, 0.8)), url('${heroImage}') center/cover;`
+            : `background: linear-gradient(135deg, #1b5e20 0%, #4caf50 100%);`;
+        
+        blogContent.innerHTML = `
+            <div class="blog-hero" style="${heroStyle}">
+                <div class="blog-hero-content">
+                    <div class="blog-hero-flag">${country.flag}</div>
+                    <div class="blog-hero-title">${blogData.metadata.title || country.country}</div>
+                    <div class="blog-hero-subtitle">${blogData.metadata.subtitle || 'Comprehensive Peatland Analysis Report'}</div>
+                </div>
+            </div>
 
-                    <div class="blog-section">
-                        <h2 class="blog-section-title">
-                            <span class="blog-section-icon">🌲</span>
-                            Afforestation Practices
-                        </h2>
-                        <p class="blog-text">
-                            Approximately ${formatNumber(country.afforested)} hectares of peatland in ${country.country} have been afforested, 
-                            primarily with coniferous species. While afforestation was historically promoted for economic and land use purposes, 
-                            there is growing recognition of the ecological impacts of forestry on peatland ecosystems.
-                        </p>
-                        <p class="blog-text">
-                            Current policy discussions focus on balancing forestry activities with peatland conservation, including selective 
-                            restoration of afforested sites with high conservation value. This represents a shift towards more sustainable 
-                            land use practices that prioritize ecosystem integrity and carbon storage.
-                        </p>
+            <div class="blog-body">
+                <div class="blog-meta">
+                    <div class="blog-meta-item">
+                        <span class="blog-meta-icon">📅</span>
+                        <span>${blogData.metadata.date || 'February 2026'}</span>
                     </div>
-
-                    <div class="blog-section">
-                        <h2 class="blog-section-title">
-                            <span class="blog-section-icon">🔬</span>
-                            Research and Innovation
-                        </h2>
-                        <p class="blog-text">
-                            ${country.country} is at the forefront of peatland research, with ongoing studies examining carbon dynamics, 
-                            biodiversity patterns, and restoration techniques. Advanced monitoring technologies including remote sensing 
-                            and automated sensors provide valuable data on peatland conditions and responses to management interventions.
-                        </p>
-                        <p class="blog-text">
-                            Innovative restoration approaches, including rewetting schemes and paludiculture (wet agriculture on peatlands), 
-                            are being tested as sustainable alternatives to traditional land uses. These initiatives demonstrate the potential 
-                            for reconciling conservation with productive land use.
-                        </p>
+                    <div class="blog-meta-item">
+                        <span class="blog-meta-icon">✍️</span>
+                        <span>${blogData.metadata.author || 'Research Team'}</span>
                     </div>
-
-                    <div class="blog-highlight">
-                        <h3 class="blog-highlight-title">💡 Future Outlook</h3>
-                        <p class="blog-text" style="margin: 0;">
-                            The coming decades will be critical for ${country.country}'s peatlands. With strengthened policy frameworks, 
-                            increased restoration efforts, and growing public awareness, there is significant potential to enhance the 
-                            ecological and climate benefits these ecosystems provide. Success will require sustained commitment, adequate 
-                            funding, and effective collaboration among stakeholders.
-                        </p>
+                    <div class="blog-meta-item">
+                        <span class="blog-meta-icon">🌍</span>
+                        <span>Region: ${country.region.charAt(0).toUpperCase() + country.region.slice(1)}</span>
                     </div>
-
-                    <div class="blog-section">
-                        <h2 class="blog-section-title">
-                            <span class="blog-section-icon">📚</span>
-                            Conclusion
-                        </h2>
-                        <p class="blog-text">
-                            ${country.country}'s peatlands represent a critical natural resource with implications for climate, biodiversity, 
-                            and sustainable development. The comprehensive management approach being developed balances conservation priorities 
-                            with economic considerations, providing valuable lessons for peatland stewardship globally.
-                        </p>
-                        <p class="blog-text">
-                            As understanding of peatland ecosystems continues to advance, and as climate change imperatives become more urgent, 
-                            the protection and restoration of these landscapes will remain a key priority for environmental policy and action.
-                        </p>
-                    </div>
-
-                    <div class="blog-footer">
-                        <p class="blog-footer-text">
-                            This report is based on the latest available data from UNFCCC National Inventory Documents, 
-                            national peatland strategies, and peer-reviewed scientific literature. For more information about 
-                            peatland conservation and management, please consult official government resources and academic publications.
-                        </p>
-                        <a href="#" class="blog-cta" onclick="closeBlog(); return false;">Return to Dashboard</a>
+                    <div class="blog-meta-item">
+                        <span class="blog-meta-icon">⏱️</span>
+                        <span>${blogData.metadata.read_time || '8 min read'}</span>
                     </div>
                 </div>
-            `;
 
-            document.getElementById('blogModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+                ${sectionsHTML}
+
+                <div class="blog-footer">
+                    <p class="blog-footer-text">
+                        This blog post is part of our ongoing effort to provide in-depth analysis and insights on peatland coverage across Europe. We hope this information helps raise awareness and supports conservation efforts. For more details and data sources, please refer to the references provided in each section.
+                    </p>
+                    <a href="#" class="blog-cta" onclick="closeBlog(); return false;">Return to Dashboard</a>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('blogModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+    } catch (error) {
+        console.error('Error loading blog:', error);
+        alert('Error loading blog post. Please try again.');
+    }
+}
+
+// Check if blog is available and update button
+async function checkBlogAvailability() {
+    try {
+        const response = await fetch('/api/blog/list');
+        const data = await response.json();
+        window.availableBlogs = data.blogs;
+    } catch (error) {
+        console.error('Error checking blog availability:', error);
+        window.availableBlogs = [];
+    }
+}
+
+// Call on page load
+checkBlogAvailability();
 
         // Close blog
         function closeBlog() {
@@ -2897,7 +2868,7 @@ function showModal(code) {
                 'percentage': 'percentage',
                 'area': 'area',
                 'natural': 'natural',
-                'cutover': 'cutover',
+                'Extraction': 'Extraction',
                 'afforested': 'afforested'
             };
             document.getElementById('sortSelect').value = sortMap[column];
