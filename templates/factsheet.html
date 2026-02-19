@@ -91,9 +91,9 @@
 
         /* Main Container */
         .container {
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px;
+            padding: 20px;
         }
 
         /* Stats Dashboard */
@@ -103,7 +103,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 24px;
         }
 
@@ -1283,11 +1283,7 @@ body {
     line-height: 1.8;
     color: #1b5e20;
 }
-img.emoji {
-    height: 1em;
-    width: 1em;
-    vertical-align: -0.1em;
-  }
+
 
 </style>
     </style>
@@ -1303,11 +1299,7 @@ img.emoji {
                     <p></p>
                 </div>
             </div>
-            <div class="view-switcher">
-                <button class="view-btn active" onclick="switchView('cards')">📊 Cards</button>
-                <button class="view-btn" onclick="switchView('table')">📋 Table</button>
-                <button class="view-btn" onclick="switchView('list')">📝 List</button>
-            </div>
+            
         </div>
     </div>
 
@@ -1464,18 +1456,35 @@ img.emoji {
     </div>
 
     <script>
-        function applyTwemoji() {
-         twemoji.parse(document.body, { folder: 'svg', ext: '.svg' });
-        }
+       
         // Sample data - Converting km² to hectares (1 km² = 100 ha)
         // Updated countries data with all 28 countries from Excel
 // Includes source URLs and dates for each fact type
+// Map EU country codes to ISO codes for flag images
+const euToISO = {
+    'FI': 'fi', 'IE': 'ie', 'EE': 'ee', 'SE': 'se',
+    'LV': 'lv', 'LT': 'lt', 'NL': 'nl', 'PL': 'pl',
+    'DK': 'dk', 'DE': 'de', 'RO': 'ro', 'AT': 'at',
+    'BE': 'be', 'FR': 'fr', 'SI': 'si', 'CZ': 'cz',
+    'HU': 'hu', 'PT': 'pt', 'IT': 'it', 'BG': 'bg',
+    'LU': 'lu', 'SK': 'sk', 'CY': 'cy', 'EL': 'gr',
+    'ES': 'es', 'HR': 'hr', 'MT': 'mt', 'Totals': 'eu'
+};
+
+function getFlagHtml(code, size = 40) {
+    const iso = euToISO[code];
+    if (!iso) return '🏳️';
+    return `<img src="https://flagcdn.com/w${size}/${iso}.png" 
+                 alt="${code} flag" 
+                 style="width:${size}px; height:auto; vertical-align:middle; border-radius:3px;"
+                 onerror="this.style.display='none'">`;
+}
 
 const countriesData = [
     {
         "code": "FI",
         "country": "Finland",
-        "flag": "🇫🇮",
+        "flag": "",
         "region": "nordic",
         "land": 33836300.0,
         "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
@@ -2186,10 +2195,10 @@ const countriesData = [
         // Initialize
         function init() {
             renderCards();
-            renderTable();
-            renderList();
+            //renderTable();
+            //renderList();
             updateStats();
-            applyTwemoji();
+            
         }
 
         // Switch view
@@ -2199,8 +2208,8 @@ const countriesData = [
             event.target.classList.add('active');
 
             document.getElementById('cardsView').style.display = view === 'cards' ? 'block' : 'none';
-            document.getElementById('tableView').classList.toggle('active', view === 'table');
-            document.getElementById('listView').classList.toggle('active', view === 'list');
+            //document.getElementById('tableView').classList.toggle('active', view === 'table');
+            //document.getElementById('listView').classList.toggle('active', view === 'list');
         }
 
         // Render Cards
@@ -2209,7 +2218,7 @@ const countriesData = [
             grid.innerHTML = filteredData.map(country => `
                 <div class="country-card" onclick="showModal('${country.code}')">
                     <div class="card-header">
-                        <div class="card-flag">${country.flag}</div>
+                        <div class="card-flag">${getFlagHtml(country.code, 64)}</div>
                         <div class="card-info">
                             <h3>${country.country}</h3>
                             <div class="card-code">${country.code}</div>
@@ -2217,25 +2226,25 @@ const countriesData = [
                     </div>
                     <div class="card-stats">
                         <div class="card-stat highlight">
-                            <span class="card-stat-label">Coverage</span>
+                            <span class="card-stat-label">Total Peatland Coverage</span>
                             <span class="card-stat-value">${country.percentage.toFixed(2)}%</span>
                         </div>
                         <div class="card-stat">
-                            <span class="card-stat-label">Total Area</span>
+                            <span class="card-stat-label">Total Land Area</span>
                             <span class="card-stat-value">${formatNumber(country.area)} ha</span>
                         </div>
                         <div class="card-stat">
-                            <span class="card-stat-label">Natural</span>
+                            <span class="card-stat-label">Natural Peatlands</span>
                             <span class="card-stat-value">${formatNumber(country.natural)} ha</span>
                         </div>
                         <div class="card-stat">
-                            <span class="card-stat-label">Extraction</span>
-                            <span class="card-stat-value">${formatNumber(country.Extraction)} ha</span>
+                        <span class="card-stat-label">Non-Natural Peatlands</span>
+                        <span class="card-stat-value">${formatNumber((country.Extraction || 0) + (country.afforested || 0) + (country.agricultural || 0))} ha</span>
                         </div>
                     </div>
                 </div>
             `).join('');
-            applyTwemoji();
+            
         }
 
         // Render Table
@@ -2243,15 +2252,16 @@ const countriesData = [
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = filteredData.map(country => `
                 <tr onclick="showModal('${country.code}')">
-                    <td><span class="table-flag">${country.flag}</span><span class="table-country">${country.country}</span></td>
+                    <td><span class="table-flag">${getFlagHtml(country.code, 32)}</span><span class="table-country">${country.country}</span></td>
                     <td><span class="percentage-badge">${country.percentage.toFixed(2)}%</span></td>
                     <td>${formatNumber(country.area)}</td>
                     <td>${formatNumber(country.natural)}</td>
-                    <td>${formatNumber(country.Extraction)}</td>
-                    <td>${formatNumber(country.afforested)}</td>
+                    <td>${formatNumber((country.Extraction || 0) + (country.afforested || 0) + (country.agricultural || 0))}</td>
+
+                  
                 </tr>
             `).join('');
-            applyTwemoji();
+           
         }
 
         // Render List
@@ -2259,27 +2269,24 @@ const countriesData = [
             const container = document.getElementById('listContainer');
             container.innerHTML = filteredData.map(country => `
                 <div class="list-item" onclick="showModal('${country.code}')">
-                    <div class="list-flag">${country.flag}</div>
+                    <div class="list-flag">${getFlagHtml(country.code, 64)}</div>
                     <div class="list-main">
                         <h3>${country.country}</h3>
-                        <div class="list-subtitle">Country Code: ${country.code} • Land Area: ${formatNumber(country.land)} km²</div>
+                        <div class="list-subtitle">Country Code: ${country.code} • Total Land Area: ${formatNumber(country.land)} km²</div>
                         <div class="list-stats">
                             <div>
-                                <div class="list-stat-label">Total Peatlands</div>
+                                <div class="list-stat-label">Total Peatland Coverage</div>
                                 <div class="list-stat-value">${formatNumber(country.area)} ha</div>
                             </div>
                             <div>
-                                <div class="list-stat-label">Natural</div>
+                                <div class="list-stat-label">Natural Peatlands</div>
                                 <div class="list-stat-value">${formatNumber(country.natural)} ha</div>
                             </div>
                             <div>
-                                <div class="list-stat-label">Extraction</div>
-                                <div class="list-stat-value">${formatNumber(country.Extraction)} ha</div>
+                                <div class="list-stat-label">Non-Natural Peatlands</div>
+                                <div class="list-stat-value">${formatNumber((country.Extraction || 0) + (country.afforested || 0) + (country.agricultural || 0))} ha</div>
                             </div>
-                            <div>
-                                <div class="list-stat-label">Afforested</div>
-                                <div class="list-stat-value">${formatNumber(country.afforested)} ha</div>
-                            </div>
+                           
                         </div>
                     </div>
                     <div class="list-action">
@@ -2288,7 +2295,7 @@ const countriesData = [
                     </div>
                 </div>
             `).join('');
-            applyTwemoji();
+            
         }
 
         // Filter data
@@ -2356,8 +2363,8 @@ const countriesData = [
         // Update display
         function updateDisplay() {
             renderCards();
-            renderTable();
-            renderList();
+            //renderTable();
+            //renderList();
             updateStats();
             
             const resultCount = document.getElementById('resultCount');
@@ -2464,7 +2471,7 @@ function showModal(code) {
         <div class="modal-header">
             <button class="modal-close" onclick="closeModal()">&times;</button>
            
-            <div class="modal-flag">${country.flag}</div>
+            <div class="modal-flag">${getFlagHtml(country.code, 80)}</div>
             <div>
                 <div class="modal-title">${country.country}</div>
                 <div class="modal-code">Country Code: ${country.code}</div>
@@ -2676,7 +2683,7 @@ function showModal(code) {
 
     document.getElementById('countryModal').classList.add('active');
     document.body.style.overflow = 'hidden';
-    setTimeout(() => applyTwemoji(), 50);
+    
 }
 
      // Show blog post - now fetches from backend
@@ -2750,7 +2757,7 @@ async function showBlogPost(code) {
         blogContent.innerHTML = `
             <div class="blog-hero" style="${heroStyle}">
                 <div class="blog-hero-content">
-                    <div class="blog-hero-flag">${country.flag}</div>
+                    <div class="blog-hero-flag">${getFlagHtml(country.code, 120)}</div>
                     <div class="blog-hero-title">${blogData.metadata.title || country.country}</div>
                     <div class="blog-hero-subtitle">${blogData.metadata.subtitle || 'Comprehensive Peatland Analysis Report'}</div>
                 </div>
