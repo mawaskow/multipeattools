@@ -367,6 +367,10 @@
 
         .card-flag {
             font-size: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .card-info h3 {
@@ -475,8 +479,10 @@
         }
 
         .table-flag {
-            font-size: 24px;
+            display: inline-flex;
+            align-items: center;
             margin-right: 8px;
+            vertical-align: middle;
         }
 
         .table-country {
@@ -525,6 +531,9 @@
         .list-flag {
             font-size: 56px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .list-main h3 {
@@ -573,7 +582,7 @@
             color: #1b5e20;
         }
 
-        /* Modal - ENHANCED WITH EXPANDABLE SUBCATEGORIES */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -608,14 +617,8 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .modal-close {
@@ -653,7 +656,10 @@
         }
 
         .modal-flag {
-            font-size: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .modal-title {
@@ -669,7 +675,6 @@
             font-weight: 600;
         }
 
-        /* Fact Summary Line */
         .fact-summary {
             background: #e8f5e9;
             border-left: 4px solid #4caf50;
@@ -692,7 +697,6 @@
             margin-bottom: 32px;
         }
 
-        /* Expandable stat card */
         .modal-stat {
             background: #f8f9fa;
             border-radius: 8px;
@@ -717,9 +721,7 @@
             align-items: center;
         }
 
-        .modal-stat-main {
-            flex: 1;
-        }
+        .modal-stat-main { flex: 1; }
 
         .modal-stat-label {
             font-size: 12px;
@@ -753,15 +755,9 @@
             border-left-color: #fff;
         }
 
-        .modal-stat.featured .modal-stat-label {
-            color: rgba(255,255,255,0.9);
-        }
+        .modal-stat.featured .modal-stat-label { color: rgba(255,255,255,0.9); }
+        .modal-stat.featured .modal-stat-value { color: white; }
 
-        .modal-stat.featured .modal-stat-value {
-            color: white;
-        }
-
-        /* Subcategories section */
         .modal-stat-subcategories {
             max-height: 0;
             overflow: hidden;
@@ -774,9 +770,7 @@
             border-top: 1px solid #e0e0e0;
         }
 
-        .subcategories-list {
-            padding: 16px 20px 20px 20px;
-        }
+        .subcategories-list { padding: 16px 20px 20px 20px; }
 
         .subcategory-item {
             display: flex;
@@ -789,9 +783,7 @@
             border-left: 3px solid #4caf50;
         }
 
-        .subcategory-item:last-child {
-            margin-bottom: 0;
-        }
+        .subcategory-item:last-child { margin-bottom: 0; }
 
         .subcategory-label {
             font-size: 13px;
@@ -802,22 +794,9 @@
             gap: 8px;
         }
 
-        .subcategory-icon {
-            font-size: 16px;
-        }
-
-        .subcategory-value {
-            font-size: 14px;
-            color: #1b5e20;
-            font-weight: 700;
-        }
-
-        .subcategory-note {
-            font-size: 11px;
-            color: #999;
-            font-style: italic;
-            padding: 8px 16px 0 16px;
-        }
+        .subcategory-icon { font-size: 16px; }
+        .subcategory-value { font-size: 14px; color: #1b5e20; font-weight: 700; }
+        .subcategory-note { font-size: 11px; color: #999; font-style: italic; padding: 8px 16px 0 16px; }
 
         .modal-info {
             background: #f1f8f4;
@@ -827,27 +806,15 @@
             margin-bottom: 20px;
         }
 
-        .modal-info-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1b5e20;
-            margin-bottom: 8px;
-        }
-
-        .modal-info-text {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
-        }
+        .modal-info-title { font-size: 14px; font-weight: 700; color: #1b5e20; margin-bottom: 8px; }
+        .modal-info-text  { font-size: 13px; color: #666; line-height: 1.6; }
 
         /* Blog Post Modal */
         .blog-modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.7);
             backdrop-filter: blur(4px);
             z-index: 2000;
@@ -855,9 +822,7 @@
             padding: 40px 20px;
         }
 
-        .blog-modal.active {
-            display: block;
-        }
+        .blog-modal.active { display: block; }
 
         .blog-content {
             max-width: 900px;
@@ -873,8 +838,7 @@
             position: fixed;
             top: 60px;
             right: calc(50% - 450px - 60px);
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             border-radius: 50%;
             background: white;
             border: none;
@@ -910,10 +874,7 @@
         .blog-hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 50 Q 25 25, 50 50 T 100 50" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
             opacity: 0.3;
         }
@@ -925,8 +886,10 @@
         }
 
         .blog-hero-flag {
-            font-size: 120px;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
 
@@ -937,14 +900,9 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .blog-hero-subtitle {
-            font-size: 18px;
-            opacity: 0.95;
-        }
+        .blog-hero-subtitle { font-size: 18px; opacity: 0.95; }
 
-        .blog-body {
-            padding: 60px;
-        }
+        .blog-body { padding: 60px; }
 
         .blog-meta {
             display: flex;
@@ -964,13 +922,9 @@
             color: #666;
         }
 
-        .blog-meta-icon {
-            font-size: 18px;
-        }
+        .blog-meta-icon { font-size: 18px; }
 
-        .blog-section {
-            margin-bottom: 48px;
-        }
+        .blog-section { margin-bottom: 48px; }
 
         .blog-section-title {
             font-size: 28px;
@@ -982,9 +936,7 @@
             gap: 12px;
         }
 
-        .blog-section-icon {
-            font-size: 32px;
-        }
+        .blog-section-icon { font-size: 32px; }
 
         .blog-text {
             font-size: 16px;
@@ -1030,29 +982,11 @@
             box-shadow: 0 4px 12px rgba(27, 94, 32, 0.15);
         }
 
-        .blog-stat-icon {
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
+        .blog-stat-icon  { font-size: 36px; margin-bottom: 12px; }
+        .blog-stat-value { font-size: 32px; font-weight: 800; color: #1b5e20; margin-bottom: 8px; }
+        .blog-stat-label { font-size: 13px; color: #666; font-weight: 600; text-transform: uppercase; }
 
-        .blog-stat-value {
-            font-size: 32px;
-            font-weight: 800;
-            color: #1b5e20;
-            margin-bottom: 8px;
-        }
-
-        .blog-stat-label {
-            font-size: 13px;
-            color: #666;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .blog-list {
-            list-style: none;
-            padding: 0;
-        }
+        .blog-list { list-style: none; padding: 0; }
 
         .blog-list li {
             padding: 16px 20px;
@@ -1111,34 +1045,17 @@
             border-radius: 12px;
         }
 
-        .empty-icon {
-            font-size: 64px;
-            opacity: 0.3;
-            margin-bottom: 20px;
-        }
-
-        .empty-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #666;
-            margin-bottom: 12px;
-        }
-
-        .empty-text {
-            font-size: 16px;
-            color: #999;
-        }
+        .empty-icon  { font-size: 64px; opacity: 0.3; margin-bottom: 20px; }
+        .empty-title { font-size: 24px; font-weight: 700; color: #666; margin-bottom: 12px; }
+        .empty-text  { font-size: 16px; color: #999; }
 
         /* Export Menu */
-        .export-dropdown {
-            position: relative;
-        }
+        .export-dropdown { position: relative; }
 
         .export-menu {
             display: none;
             position: absolute;
-            top: 120%;
-            right: 0;
+            top: 120%; right: 0;
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
@@ -1147,9 +1064,7 @@
             z-index: 10;
         }
 
-        .export-menu.active {
-            display: block;
-        }
+        .export-menu.active { display: block; }
 
         .export-item {
             padding: 12px 16px;
@@ -1163,129 +1078,155 @@
             gap: 8px;
         }
 
-        .export-item:hover {
+        .export-item:hover           { background: #f8f9fa; }
+        .export-item:first-child     { border-radius: 6px 6px 0 0; }
+        .export-item:last-child      { border-radius: 0 0 6px 6px; }
+
+        /* Source info */
+        .source-info {
+            margin-top: 8px;
+            padding: 8px 12px;
             background: #f8f9fa;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #666;
         }
 
-        .export-item:first-child {
-            border-radius: 6px 6px 0 0;
+        .source-link {
+            color: #1b5e20;
+            text-decoration: none;
+            word-break: break-all;
         }
 
-        .export-item:last-child {
-            border-radius: 0 0 6px 6px;
+        .source-link:hover  { color: #4caf50; text-decoration: underline; }
+        .source-text        { color: #666; font-style: italic; }
+
+        /* Portal background */
+        body       { background: transparent; }
+        .container { background: transparent; }
+
+        .stat-card,
+        .country-card,
+        .controls-section { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+        .fact-summary-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1b5e20;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        .fact-summary-text {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #1b5e20;
+        }
+
+        /* ===================================================================
+           FLAG DISPLAY — Cross-browser (Windows · Mac · Linux)
+                          Chrome · Firefox · Edge · Safari
+           3-tier CDN fallback:
+             1. flagcdn.com PNG   (primary)
+             2. flagcdn.com 2× PNG (same CDN, wider size bucket)
+             3. lipis/flag-icons SVG via jsDelivr
+             4. Styled text badge with ISO code
+           =================================================================== */
+        .flag-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        .flag-img {
+            display: block;
+            height: auto;
+            border-radius: 3px;
+            object-fit: cover;
+            /* Crisp rendering at any zoom level */
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        /* Text fallback badge — shown only when all image CDNs fail */
+        .flag-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1b5e20, #4caf50);
+            color: white;
+            font-weight: 800;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
+            flex-shrink: 0;
+        }
+
+        /* EU totals badge — blue with yellow border */
+        .eu-badge {
+            background: linear-gradient(135deg, #003399, #0052cc);
+            border: 2px solid #ffcc00;
+        }
+
+        /* ---- Size variants per context ---- */
+        /* Card */
+        .card-flag { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .card-flag .flag-wrap  { width: 64px !important; }
+        .card-flag .flag-img   { width: 64px !important; border-radius: 4px; }
+        .card-flag .flag-badge { width: 64px !important; height: 43px !important; font-size: 22px !important; border-radius: 4px; }
+
+        /* List */
+        .list-flag { display: flex; align-items: center; justify-content: center; }
+        .list-flag .flag-wrap  { width: 56px !important; }
+        .list-flag .flag-img   { width: 56px !important; border-radius: 4px; }
+        .list-flag .flag-badge { width: 56px !important; height: 38px !important; font-size: 18px !important; }
+
+        /* Table */
+        .table-flag { display: inline-flex; align-items: center; margin-right: 8px; vertical-align: middle; }
+        .table-flag .flag-wrap  { width: 32px !important; }
+        .table-flag .flag-img   { width: 32px !important; }
+        .table-flag .flag-badge { width: 32px !important; height: 22px !important; font-size: 11px !important; }
+
+        /* Modal */
+        .modal-flag { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .modal-flag .flag-wrap  { width: 80px !important; }
+        .modal-flag .flag-img   { width: 80px !important; border-radius: 5px; }
+        .modal-flag .flag-badge { width: 80px !important; height: 54px !important; font-size: 26px !important; }
+
+        /* Blog hero */
+        .blog-hero-flag .flag-wrap  { width: 120px !important; }
+        .blog-hero-flag .flag-img   { width: 120px !important; border-radius: 6px; }
+        .blog-hero-flag .flag-badge { width: 120px !important; height: 80px !important; font-size: 36px !important; }
+        /* ===================================================================
+           END FLAG DISPLAY
+           =================================================================== */
 
         /* Responsive */
         @media (max-width: 1200px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .card-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .blog-close {
-                right: 20px;
-            }
-            .blog-stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .stats-grid      { grid-template-columns: repeat(2, 1fr); }
+            .card-grid       { grid-template-columns: repeat(2, 1fr); }
+            .blog-close      { right: 20px; }
+            .blog-stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-            .controls-row {
-                flex-direction: column;
-            }
-            .list-item {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .modal-content {
-                padding: 24px;
-            }
-            .modal-title {
-                font-size: 28px;
-            }
-            .modal-flag {
-                font-size: 56px;
-            }
-            .blog-body {
-                padding: 30px 20px;
-            }
-            .blog-hero-title {
-                font-size: 32px;
-            }
-            .blog-stats-grid {
-                grid-template-columns: 1fr;
-            }
+            .container        { padding: 20px; }
+            .stats-grid       { grid-template-columns: 1fr; }
+            .card-grid        { grid-template-columns: 1fr; }
+            .controls-row     { flex-direction: column; }
+            .list-item        { grid-template-columns: 1fr; text-align: center; }
+            .modal-content    { padding: 24px; }
+            .modal-title      { font-size: 28px; }
+            .blog-body        { padding: 30px 20px; }
+            .blog-hero-title  { font-size: 32px; }
+            .blog-stats-grid  { grid-template-columns: 1fr; }
         }
-        .source-info {
-    margin-top: 8px;
-    padding: 8px 12px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    font-size: 11px;
-    color: #666;
-}
-
-.source-link {
-    color: #1b5e20;
-    text-decoration: none;
-    word-break: break-all;
-}
-
-.source-link:hover {
-    color: #4caf50;
-    text-decoration: underline;
-}
-
-.source-text {
-    color: #666;
-    font-style: italic;
-}
-/* Make backgrounds blend with portal */
-body {
-    background: transparent;
-}
-
-.container {
-    background: transparent;
-}
-
-/* Add shadows for depth */
-.stat-card,
-.country-card,
-.controls-section {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.fact-summary-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: #1b5e20;
-    margin-bottom: 12px;
-    border-bottom: 2px solid #4caf50;
-    padding-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.fact-summary-text {
-    font-size: 14px;
-    line-height: 1.8;
-    color: #1b5e20;
-}
-
-
-</style>
     </style>
 </head>
 <body>
@@ -1299,7 +1240,6 @@ body {
                     <p></p>
                 </div>
             </div>
-            
         </div>
     </div>
 
@@ -1307,11 +1247,10 @@ body {
         <!-- Stats Section -->
         <div class="stats-section">
             <div class="stats-grid">
-                
                 <div class="stat-card">
                     <div class="stat-icon">📊</div>
                     <div class="stat-value" id="totalArea">9M</div>
-                    <div class="stat-label"> Total EU PeatLand (HA)</div>
+                    <div class="stat-label">Total EU PeatLand (HA)</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🌱</div>
@@ -1323,12 +1262,12 @@ body {
                     <div class="stat-value" id="totalExtraction">798K</div>
                     <div class="stat-label">Extraction (ha)</div>
                 </div>
-                 <div class="stat-card">
+                <div class="stat-card">
                     <div class="stat-icon">🏭</div>
                     <div class="stat-value" id="totalAfforested">2.9M</div>
                     <div class="stat-label">Afforested Peatlands (ha)</div>
                 </div>
-                 <div class="stat-card">
+                <div class="stat-card">
                     <div class="stat-icon">🏭</div>
                     <div class="stat-value" id="totalAgricultural">3.4M</div>
                     <div class="stat-label">Agricultural Peatlands (ha)</div>
@@ -1340,11 +1279,10 @@ body {
         <div class="controls-section">
             <div class="controls-row">
                 <div class="search-box">
-                   
                     <label class="filter-label">Search</label>
                     <input type="text" class="search-input" id="searchInput" placeholder="Search countries..." onkeyup="filterData()">
                 </div>
-                
+
                 <div class="filter-group">
                     <label class="filter-label">Sort By</label>
                     <select class="filter-select" id="sortSelect" onchange="filterData()">
@@ -1378,9 +1316,7 @@ body {
 
             <div class="controls-row">
                 <div class="action-buttons">
-                   
                     <button class="btn btn-secondary" onclick="clearFilters()">Reset</button>
-                    
                 </div>
             </div>
         </div>
@@ -1390,14 +1326,11 @@ body {
             <div class="results-count">
                 Showing <strong id="resultCount">27</strong> of <strong>27</strong> countries
             </div>
-            
         </div>
 
         <!-- Card Grid View -->
         <div id="cardsView" class="cards-view active">
-            <div class="card-grid" id="cardGrid">
-                <!-- Cards will be populated by JavaScript -->
-            </div>
+            <div class="card-grid" id="cardGrid"></div>
         </div>
 
         <!-- Table View -->
@@ -1414,18 +1347,14 @@ body {
                             <th onclick="sortTable('afforested')">Afforested (ha) ↕</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody">
-                        <!-- Rows will be populated by JavaScript -->
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                 </table>
             </div>
         </div>
 
         <!-- List View -->
         <div id="listView" class="list-view">
-            <div id="listContainer">
-                <!-- List items will be populated by JavaScript -->
-            </div>
+            <div id="listContainer"></div>
         </div>
 
         <!-- Empty State -->
@@ -1436,783 +1365,373 @@ body {
         </div>
     </div>
 
-    <!-- Modal with Expandable Subcategories -->
+    <!-- Country Detail Modal -->
     <div class="modal" id="countryModal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div id="modalBody">
-                <!-- Modal content will be populated by JavaScript -->
-            </div>
+            <div id="modalBody"></div>
         </div>
     </div>
-
 
     <!-- Blog Post Modal -->
     <div class="blog-modal" id="blogModal">
         <button class="blog-close" onclick="closeBlog()">&times;</button>
-        <div class="blog-content" id="blogContent">
-            <!-- Blog content will be populated by JavaScript -->
-        </div>
+        <div class="blog-content" id="blogContent"></div>
     </div>
 
     <script>
-       
-        // Sample data - Converting km² to hectares (1 km² = 100 ha)
-        // Updated countries data with all 28 countries from Excel
-// Includes source URLs and dates for each fact type
-// Map EU country codes to ISO codes for flag images
-const euToISO = {
-    'FI': 'fi', 'IE': 'ie', 'EE': 'ee', 'SE': 'se',
-    'LV': 'lv', 'LT': 'lt', 'NL': 'nl', 'PL': 'pl',
-    'DK': 'dk', 'DE': 'de', 'RO': 'ro', 'AT': 'at',
-    'BE': 'be', 'FR': 'fr', 'SI': 'si', 'CZ': 'cz',
-    'HU': 'hu', 'PT': 'pt', 'IT': 'it', 'BG': 'bg',
-    'LU': 'lu', 'SK': 'sk', 'CY': 'cy', 'EL': 'gr',
-    'ES': 'es', 'HR': 'hr', 'MT': 'mt', 'Totals': 'eu'
-};
+        /* =================================================================
+           FLAG RENDERING
+           Cross-browser · Works on Windows / Mac / Linux
+                          Chrome · Firefox · Edge · Safari
+           3-tier CDN fallback + text badge safety net
+           ================================================================= */
 
-function getFlagHtml(code, size = 40) {
-    const iso = euToISO[code];
-    if (!iso) return '🏳️';
-    return `<img src="https://flagcdn.com/w${size}/${iso}.png" 
-                 alt="${code} flag" 
-                 style="width:${size}px; height:auto; vertical-align:middle; border-radius:3px;"
-                 onerror="this.style.display='none'">`;
-}
+        const euToISO = {
+            'FI': 'fi', 'IE': 'ie', 'EE': 'ee', 'SE': 'se',
+            'LV': 'lv', 'LT': 'lt', 'NL': 'nl', 'PL': 'pl',
+            'DK': 'dk', 'DE': 'de', 'RO': 'ro', 'AT': 'at',
+            'BE': 'be', 'FR': 'fr', 'SI': 'si', 'CZ': 'cz',
+            'HU': 'hu', 'PT': 'pt', 'IT': 'it', 'BG': 'bg',
+            'LU': 'lu', 'SK': 'sk', 'CY': 'cy', 'EL': 'gr',
+            'ES': 'es', 'HR': 'hr', 'MT': 'mt', 'Totals': 'eu'
+        };
 
-const countriesData = [
-    {
-        "code": "FI",
-        "country": "Finland",
-        "flag": "",
-        "region": "nordic",
-        "land": 33836300.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 26.59865293,
-        "area": 9000000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65487",
-        "areaDate": 2018,
-        "natural": 3500000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 95200.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf (2023)",
-        "ExtractionDate": null,
-        "afforested": 589900.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf",
-        "afforestedDate": null,
-        "agricultural": 427329.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "IE",
-        "country": "Ireland",
-        "flag": "🇮🇪",
-        "region": "western",
-        "land": 6994700.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 20.96587416,
-        "area": 1466500.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65488",
-        "areaDate": 2018,
-        "natural": 269270.0,
-        "naturalSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf",
-        "naturalDate": null,
-        "Extraction": 612380.0,
-        "ExtractionSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf",
-        "ExtractionDate": null,
-        "afforested": 300000.0,
-        "afforestedSource": null,
-        "afforestedDate": null,
-        "agricultural": 0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "EE",
-        "country": "Estonia",
-        "flag": "🇪🇪",
-        "region": "nordic",
-        "land": 4533600.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 20.18263632,
-        "area": 915000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65489",
-        "areaDate": 2018,
-        "natural": 325000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 27170.0,
-        "ExtractionSource": "https://www.researchgate.net/profile/Hans-Joosten/publication/277272165/figure/tbl3/AS:614335726497793@1523480459662/Area-drainage-status-and-emissions-of-peatland-6-types-in-Estonia-our-GIS-overlay.png",
-        "ExtractionDate": null,
-        "afforested": 6920.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_EST_1990-2023_15.04.pdf (2023)",
-        "afforestedDate": null,
-        "agricultural": 157008.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "SE",
-        "country": "Sweden",
-        "flag": "🇸🇪",
-        "region": "nordic",
-        "land": 44742400.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 14.85168431,
-        "area": 6645000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65490",
-        "areaDate": 2018,
-        "natural": 5230000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 10000.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf",
-        "ExtractionDate": null,
-        "afforested": 2027000.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf (2023)",
-        "afforestedDate": null,
-        "agricultural": 290312.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "LV",
-        "country": "Latvia",
-        "flag": "🇱🇻",
-        "region": "nordic",
-        "land": 6459400.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 11.64,
-        "area": 751400.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65491",
-        "areaDate": 2018,
-        "natural": 316500.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 30580.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf",
-        "ExtractionDate": null,
-        "afforested": 5220.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf",
-        "afforestedDate": null,
-        "agricultural": 144053.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "LT",
-        "country": "Lithuania",
-        "flag": "🇱🇹",
-        "region": "nordic",
-        "land": 6528400.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 9.89,
-        "area": 646000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65492",
-        "areaDate": 2018,
-        "natural": 178100.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 3854.0,
-        "ExtractionSource": "https://www.researchgate.net/publication/399259955/figure/tbl1/AS:11431281826093728@1767224077767/Overview-of-the-peatland-characteristic-of-the-33-extracted-quarries-in-Lithuania.png",
-        "ExtractionDate": 2020,
-        "afforested": 21160.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_2025.pdf",
-        "afforestedDate": null,
-        "agricultural": 295745.0,
-        "agriculturalSource": "https://europe.wetlands.org/wp-content/uploads/sites/6/2025/07/Lithuania.pdf",
-        "agriculturalDate": 2025
-    },
-    {
-        "code": "NL",
-        "country": "Netherlands",
-        "flag": "🇳🇱",
-        "region": "western",
-        "land": 3739100.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 7.32,
-        "area": 273300.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65493",
-        "areaDate": 2018,
-        "natural": 15000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 301.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025%20%28RIVM%29%20National%20Inventory%20Document%20%28NID%29%201990-2023.pdf",
-        "afforestedDate": null,
-        "agricultural": 223300.0,
-        "agriculturalSource": "https://bg.copernicus.org/articles/21/4099/2024/",
-        "agriculturalDate": 2021
-    },
-    {
-        "code": "PL",
-        "country": "Poland",
-        "flag": "🇵🇱",
-        "region": "eastern",
-        "land": 31192800.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 4.79,
-        "area": 1495000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65494",
-        "areaDate": 2018,
-        "natural": 239000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 3226.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf",
-        "ExtractionDate": null,
-        "afforested": 26119.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf",
-        "afforestedDate": null,
-        "agricultural": 774834.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "DK",
-        "country": "Denmark",
-        "flag": "🇩🇰",
-        "region": "nordic",
-        "land": 4292500.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 4.71,
-        "area": 202900.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65495",
-        "areaDate": 2018,
-        "natural": 13700.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 11790.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf",
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf",
-        "afforestedDate": null,
-        "agricultural": 69726.0,
-        "agriculturalSource": "https://www.fao.org/faostat/en/#data/GV",
-        "agriculturalDate": null
-    },
-    {
-        "code": "DE",
-        "country": "Germany",
-        "flag": "🇩🇪",
-        "region": "western",
-        "land": 35756900.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 3.58,
-        "area": 1280000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65496",
-        "areaDate": 2018,
-        "natural": 25000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 10544.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf",
-        "ExtractionDate": null,
-        "afforested": 59.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf",
-        "afforestedDate": null,
-        "agricultural": 557208.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "RO",
-        "country": "Romania",
-        "flag": "🇷🇴",
-        "region": "eastern",
-        "land": 23839800.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 3.23,
-        "area": 769000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65497",
-        "areaDate": 2018,
-        "natural": 142770.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0,
-        "afforestedSource": null,
-        "afforestedDate": null,
-        "agricultural": 16704.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "AT",
-        "country": "Austria",
-        "flag": "🇦🇹",
-        "region": "western",
-        "land": 8388200.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 1.43,
-        "area": 120000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65498",
-        "areaDate": 2018,
-        "natural": 17500.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 8000.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/AT_NID-2025.pdf",
-        "afforestedDate": null,
-        "agricultural": 3472.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "BE",
-        "country": "Belgium",
-        "flag": "🇧🇪",
-        "region": "western",
-        "land": 3066700.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.81,
-        "area": 24800.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65499",
-        "areaDate": 2018,
-        "natural": 6000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%20Belgium%20sub2025_15042025.pdf",
-        "ExtractionDate": null,
-        "afforested": 0,
-        "afforestedSource": null,
-        "afforestedDate": null,
-        "agricultural": 5176.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "FR",
-        "country": "France",
-        "flag": "🇫🇷",
-        "region": "western",
-        "land": 63847500.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.52,
-        "area": 287500.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65500",
-        "areaDate": 2018,
-        "natural": 87500.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0,
-        "afforestedSource": null,
-        "afforestedDate": null,
-        "agricultural": 163963.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "SI",
-        "country": "Slovenia",
-        "flag": "🇸🇮",
-        "region": "eastern",
-        "land": 2027300.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.41,
-        "area": 8400.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65501",
-        "areaDate": 2018,
-        "natural": 430.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf",
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf",
-        "afforestedDate": null,
-        "agricultural": 4547.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "CZ",
-        "country": "Czechia",
-        "flag": "🇨🇿",
-        "region": "eastern",
-        "land": 7887100.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.36,
-        "area": 28500.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65502",
-        "areaDate": 2018,
-        "natural": 15000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/CZE_NID_2025-2023.pdf",
-        "afforestedDate": null,
-        "agricultural": 7006.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "HU",
-        "country": "Hungary",
-        "flag": "🇭🇺",
-        "region": "eastern",
-        "land": 9301200.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.32,
-        "area": 30000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65503",
-        "areaDate": 2018,
-        "natural": 7500.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 11.5,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/HUN_NID_2023.pdf",
-        "ExtractionDate": null,
-        "afforested": 0,
-        "afforestedSource": null,
-        "afforestedDate": null,
-        "agricultural": 179368.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "PT",
-        "country": "Portugal",
-        "flag": "🇵🇹",
-        "region": "southern",
-        "land": 9222600.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.29,
-        "area": 27100.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65504",
-        "areaDate": 2018,
-        "natural": 1000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID2025_UNFCCC_PDF.pdf",
-        "afforestedDate": null,
-        "agricultural": 7158.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "IT",
-        "country": "Italy",
-        "flag": "🇮🇹",
-        "region": "southern",
-        "land": 30207300.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.25,
-        "area": 75000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65505",
-        "areaDate": 2018,
-        "natural": 12000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID2025_Italy_stampa.pdf",
-        "ExtractionDate": null,
-        "afforested": 0,
-        "afforestedSource": null,
-        "afforestedDate": null,
-        "agricultural": 0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "BG",
-        "country": "Bulgaria",
-        "flag": "🇧🇬",
-        "region": "eastern",
-        "land": 11099600.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.19,
-        "area": 20800.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65506",
-        "areaDate": 2018,
-        "natural": 5400.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/BG_NID_April_2025.pdf",
-        "afforestedDate": null,
-        "agricultural": 35481.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "LU",
-        "country": "Luxembourg",
-        "flag": "🏳️",
-        "region": "other",
-        "land": 259500.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.14,
-        "area": 400.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65507",
-        "areaDate": 2018,
-        "natural": 10.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 10.3,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/LU-NID_2025_FINAL_250415.pdf",
-        "afforestedDate": null,
-        "agricultural": 89.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "SK",
-        "country": "Slovakia",
-        "flag": "🇸🇰",
-        "region": "eastern",
-        "land": 4903500.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.12,
-        "area": 6000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65508",
-        "areaDate": 2018,
-        "natural": 3060.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVK%20NID%202025.pdf",
-        "afforestedDate": null,
-        "agricultural": 1902.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "CY",
-        "country": "Cyprus",
-        "flag": "🏳️",
-        "region": "other",
-        "land": 925300.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.1,
-        "area": 100.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65509",
-        "areaDate": 2018,
-        "natural": 0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0.0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf",
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf",
-        "afforestedDate": null,
-        "agricultural": 0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "EL",
-        "country": "Greece",
-        "flag": "🏳️",
-        "region": "other",
-        "land": 13169400.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.08,
-        "area": 10300.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65510",
-        "areaDate": 2018,
-        "natural": 4500.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025_NIR_Greece.pdf",
-        "afforestedDate": null,
-        "agricultural": 39880.0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "ES",
-        "country": "Spain",
-        "flag": "🇪🇸",
-        "region": "southern",
-        "land": 50598300.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.07,
-        "area": 35000.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65511",
-        "areaDate": 2018,
-        "natural": 20000.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf",
-        "ExtractionDate": null,
-        "afforested": 83.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf",
-        "afforestedDate": null,
-        "agricultural": 0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "HR",
-        "country": "Croatia",
-        "flag": "🇭🇷",
-        "region": "eastern",
-        "land": 5659400.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.06,
-        "area": 3300.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65512",
-        "areaDate": 2018,
-        "natural": 30.0,
-        "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/",
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "https://unfccc.int/sites/default/files/resource/Croatian%20NID%202025.pdf",
-        "afforestedDate": null,
-        "agricultural": 0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "MT",
-        "country": "Malta",
-        "flag": "🏳️",
-        "region": "other",
-        "land": 31600.0,
-        "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298",
-        "landDate": 2025,
-        "percentage": 0.0,
-        "area": 0.0,
-        "areaSource": "https://ibn.idsi.md/vizualizare_articol/65513",
-        "areaDate": 2018,
-        "natural": 0.0,
-        "naturalSource": "X",
-        "naturalDate": null,
-        "Extraction": 0.0,
-        "ExtractionSource": "X",
-        "ExtractionDate": null,
-        "afforested": 0.0,
-        "afforestedSource": "X",
-        "afforestedDate": null,
-        "agricultural": 0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    },
-    {
-        "code": "Totals",
-        "country": "EU",
-        "flag": "🏳️",
-        "region": "other",
-        "land": 422510400.0,
-        "landSource": null,
-        "landDate": null,
-        "percentage": 5.709042902,
-        "area": 24121300.0,
-        "areaSource": null,
-        "areaDate": null,
-        "natural": 10434270.0,
-        "naturalSource": null,
-        "naturalDate": null,
-        "Extraction": 0,
-        "ExtractionSource": null,
-        "ExtractionDate": null,
-        "afforested": 0,
-        "afforestedSource": null,
-        "afforestedDate": null,
-        "agricultural": 0,
-        "agriculturalSource": null,
-        "agriculturalDate": null
-    }
-];
+        function getFlagHtml(code, size) {
+            size = size || 40;
+            var iso   = euToISO[code];
+            var label = code === 'Totals' ? 'EU' : (code || '?');
+            var bH    = Math.round(size * 0.67);
+            var bF    = Math.round(size * 0.35);
+
+            /* Unknown code → text badge */
+            if (!iso) {
+                return '<span class="flag-badge" style="width:' + size + 'px;height:' + bH + 'px;font-size:' + bF + 'px;">' + label + '</span>';
+            }
+
+            /* EU totals row → styled EU badge */
+            if (iso === 'eu') {
+                return '<span class="flag-badge eu-badge" style="width:' + size + 'px;height:' + bH + 'px;font-size:' + Math.round(size * 0.28) + 'px;">EU</span>';
+            }
+
+            /*
+             *  CDN Tier 1 — flagcdn.com  PNG  (primary, global CDN, no auth)
+             *  CDN Tier 2 — flagcdn.com  2× PNG  (wider size bucket, same CDN)
+             *  CDN Tier 3 — lipis/flag-icons SVG  via jsDelivr  (very reliable)
+             *  Tier  4   — styled text badge  (absolute last resort)
+             */
+            var s1 = 'https://flagcdn.com/w' + size + '/' + iso + '.png';
+            var s2 = 'https://flagcdn.com/w' + Math.min(size * 2, 160) + '/' + iso + '.png';
+            var s3 = 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/' + iso + '.svg';
+
+            /*
+             *  The onerror chain uses data attributes to track which fallback
+             *  has already been tried so we never loop. All string building is
+             *  done with concatenation to avoid template-literal parse issues
+             *  in older Jinja2 / Django template engines.
+             */
+            var onerr =
+                'if(!this.dataset.e1){' +
+                    'this.dataset.e1=1;this.src=\'' + s2 + '\';' +
+                '}else if(!this.dataset.e2){' +
+                    'this.dataset.e2=1;this.src=\'' + s3 + '\';this.style.borderRadius=\'4px\';' +
+                '}else{' +
+                    'this.style.display=\'none\';' +
+                    'var b=this.nextElementSibling;if(b)b.style.display=\'flex\';' +
+                '}';
+
+            return '<span class="flag-wrap" style="width:' + size + 'px;">' +
+                '<img' +
+                    ' src="'    + s1  + '"' +
+                    ' alt="'    + label + ' flag"' +
+                    ' class="flag-img"' +
+                    ' style="width:' + size + 'px;"' +
+                    ' onerror="' + onerr + '"' +
+                '>' +
+                '<span class="flag-badge" style="display:none;width:' + size + 'px;height:' + bH + 'px;font-size:' + bF + 'px;">' +
+                    iso.toUpperCase() +
+                '</span>' +
+                '</span>';
+        }
+
+        /* ================================================================= */
+
+        const countriesData = [
+            {
+                "code": "FI", "country": "Finland", "flag": "", "region": "nordic",
+                "land": 33836300.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 26.59865293, "area": 9000000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65487", "areaDate": 2018,
+                "natural": 3500000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 95200.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf (2023)", "ExtractionDate": null,
+                "afforested": 589900.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf", "afforestedDate": null,
+                "agricultural": 427329.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "IE", "country": "Ireland", "flag": "🇮🇪", "region": "western",
+                "land": 6994700.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 20.96587416, "area": 1466500.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65488", "areaDate": 2018,
+                "natural": 269270.0, "naturalSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf", "naturalDate": null,
+                "Extraction": 612380.0, "ExtractionSource": "https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf", "ExtractionDate": null,
+                "afforested": 300000.0, "afforestedSource": null, "afforestedDate": null,
+                "agricultural": 0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "EE", "country": "Estonia", "flag": "🇪🇪", "region": "nordic",
+                "land": 4533600.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 20.18263632, "area": 915000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65489", "areaDate": 2018,
+                "natural": 325000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 27170.0, "ExtractionSource": "https://www.researchgate.net/profile/Hans-Joosten/publication/277272165/figure/tbl3/AS:614335726497793@1523480459662/Area-drainage-status-and-emissions-of-peatland-6-types-in-Estonia-our-GIS-overlay.png", "ExtractionDate": null,
+                "afforested": 6920.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_EST_1990-2023_15.04.pdf (2023)", "afforestedDate": null,
+                "agricultural": 157008.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "SE", "country": "Sweden", "flag": "🇸🇪", "region": "nordic",
+                "land": 44742400.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 14.85168431, "area": 6645000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65490", "areaDate": 2018,
+                "natural": 5230000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 10000.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf", "ExtractionDate": null,
+                "afforested": 2027000.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf (2023)", "afforestedDate": null,
+                "agricultural": 290312.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "LV", "country": "Latvia", "flag": "🇱🇻", "region": "nordic",
+                "land": 6459400.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 11.64, "area": 751400.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65491", "areaDate": 2018,
+                "natural": 316500.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 30580.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf", "ExtractionDate": null,
+                "afforested": 5220.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf", "afforestedDate": null,
+                "agricultural": 144053.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "LT", "country": "Lithuania", "flag": "🇱🇹", "region": "nordic",
+                "land": 6528400.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 9.89, "area": 646000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65492", "areaDate": 2018,
+                "natural": 178100.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 3854.0, "ExtractionSource": "https://www.researchgate.net/publication/399259955/figure/tbl1/AS:11431281826093728@1767224077767/Overview-of-the-peatland-characteristic-of-the-33-extracted-quarries-in-Lithuania.png", "ExtractionDate": 2020,
+                "afforested": 21160.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_2025.pdf", "afforestedDate": null,
+                "agricultural": 295745.0, "agriculturalSource": "https://europe.wetlands.org/wp-content/uploads/sites/6/2025/07/Lithuania.pdf", "agriculturalDate": 2025
+            },
+            {
+                "code": "NL", "country": "Netherlands", "flag": "🇳🇱", "region": "western",
+                "land": 3739100.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 7.32, "area": 273300.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65493", "areaDate": 2018,
+                "natural": 15000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 301.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025%20%28RIVM%29%20National%20Inventory%20Document%20%28NID%29%201990-2023.pdf", "afforestedDate": null,
+                "agricultural": 223300.0, "agriculturalSource": "https://bg.copernicus.org/articles/21/4099/2024/", "agriculturalDate": 2021
+            },
+            {
+                "code": "PL", "country": "Poland", "flag": "🇵🇱", "region": "eastern",
+                "land": 31192800.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 4.79, "area": 1495000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65494", "areaDate": 2018,
+                "natural": 239000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 3226.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf", "ExtractionDate": null,
+                "afforested": 26119.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf", "afforestedDate": null,
+                "agricultural": 774834.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "DK", "country": "Denmark", "flag": "🇩🇰", "region": "nordic",
+                "land": 4292500.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 4.71, "area": 202900.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65495", "areaDate": 2018,
+                "natural": 13700.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 11790.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf", "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf", "afforestedDate": null,
+                "agricultural": 69726.0, "agriculturalSource": "https://www.fao.org/faostat/en/#data/GV", "agriculturalDate": null
+            },
+            {
+                "code": "DE", "country": "Germany", "flag": "🇩🇪", "region": "western",
+                "land": 35756900.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 3.58, "area": 1280000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65496", "areaDate": 2018,
+                "natural": 25000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 10544.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf", "ExtractionDate": null,
+                "afforested": 59.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf", "afforestedDate": null,
+                "agricultural": 557208.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "RO", "country": "Romania", "flag": "🇷🇴", "region": "eastern",
+                "land": 23839800.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 3.23, "area": 769000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65497", "areaDate": 2018,
+                "natural": 142770.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0, "afforestedSource": null, "afforestedDate": null,
+                "agricultural": 16704.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "AT", "country": "Austria", "flag": "🇦🇹", "region": "western",
+                "land": 8388200.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 1.43, "area": 120000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65498", "areaDate": 2018,
+                "natural": 17500.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 8000.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/AT_NID-2025.pdf", "afforestedDate": null,
+                "agricultural": 3472.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "BE", "country": "Belgium", "flag": "🇧🇪", "region": "western",
+                "land": 3066700.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.81, "area": 24800.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65499", "areaDate": 2018,
+                "natural": 6000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID%20Belgium%20sub2025_15042025.pdf", "ExtractionDate": null,
+                "afforested": 0, "afforestedSource": null, "afforestedDate": null,
+                "agricultural": 5176.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "FR", "country": "France", "flag": "🇫🇷", "region": "western",
+                "land": 63847500.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.52, "area": 287500.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65500", "areaDate": 2018,
+                "natural": 87500.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0, "afforestedSource": null, "afforestedDate": null,
+                "agricultural": 163963.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "SI", "country": "Slovenia", "flag": "🇸🇮", "region": "eastern",
+                "land": 2027300.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.41, "area": 8400.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65501", "areaDate": 2018,
+                "natural": 430.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf", "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf", "afforestedDate": null,
+                "agricultural": 4547.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "CZ", "country": "Czechia", "flag": "🇨🇿", "region": "eastern",
+                "land": 7887100.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.36, "area": 28500.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65502", "areaDate": 2018,
+                "natural": 15000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/CZE_NID_2025-2023.pdf", "afforestedDate": null,
+                "agricultural": 7006.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "HU", "country": "Hungary", "flag": "🇭🇺", "region": "eastern",
+                "land": 9301200.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.32, "area": 30000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65503", "areaDate": 2018,
+                "natural": 7500.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 11.5, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/HUN_NID_2023.pdf", "ExtractionDate": null,
+                "afforested": 0, "afforestedSource": null, "afforestedDate": null,
+                "agricultural": 179368.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "PT", "country": "Portugal", "flag": "🇵🇹", "region": "southern",
+                "land": 9222600.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.29, "area": 27100.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65504", "areaDate": 2018,
+                "natural": 1000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/NID2025_UNFCCC_PDF.pdf", "afforestedDate": null,
+                "agricultural": 7158.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "IT", "country": "Italy", "flag": "🇮🇹", "region": "southern",
+                "land": 30207300.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.25, "area": 75000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65505", "areaDate": 2018,
+                "natural": 12000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/NID2025_Italy_stampa.pdf", "ExtractionDate": null,
+                "afforested": 0, "afforestedSource": null, "afforestedDate": null,
+                "agricultural": 0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "BG", "country": "Bulgaria", "flag": "🇧🇬", "region": "eastern",
+                "land": 11099600.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.19, "area": 20800.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65506", "areaDate": 2018,
+                "natural": 5400.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/BG_NID_April_2025.pdf", "afforestedDate": null,
+                "agricultural": 35481.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "LU", "country": "Luxembourg", "flag": "🏳️", "region": "other",
+                "land": 259500.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.14, "area": 400.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65507", "areaDate": 2018,
+                "natural": 10.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 10.3, "afforestedSource": "https://unfccc.int/sites/default/files/resource/LU-NID_2025_FINAL_250415.pdf", "afforestedDate": null,
+                "agricultural": 89.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "SK", "country": "Slovakia", "flag": "🇸🇰", "region": "eastern",
+                "land": 4903500.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.12, "area": 6000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65508", "areaDate": 2018,
+                "natural": 3060.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/SVK%20NID%202025.pdf", "afforestedDate": null,
+                "agricultural": 1902.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "CY", "country": "Cyprus", "flag": "🏳️", "region": "other",
+                "land": 925300.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.1, "area": 100.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65509", "areaDate": 2018,
+                "natural": 0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0.0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf", "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf", "afforestedDate": null,
+                "agricultural": 0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "EL", "country": "Greece", "flag": "🏳️", "region": "other",
+                "land": 13169400.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.08, "area": 10300.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65510", "areaDate": 2018,
+                "natural": 4500.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/2025_NIR_Greece.pdf", "afforestedDate": null,
+                "agricultural": 39880.0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "ES", "country": "Spain", "flag": "🇪🇸", "region": "southern",
+                "land": 50598300.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.07, "area": 35000.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65511", "areaDate": 2018,
+                "natural": 20000.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf", "ExtractionDate": null,
+                "afforested": 83.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf", "afforestedDate": null,
+                "agricultural": 0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "HR", "country": "Croatia", "flag": "🇭🇷", "region": "eastern",
+                "land": 5659400.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.06, "area": 3300.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65512", "areaDate": 2018,
+                "natural": 30.0, "naturalSource": "Mires and Peat, Volume 19 (2017), Article 22, 1–17, http://www.mires-and-peat.net/", "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "https://unfccc.int/sites/default/files/resource/Croatian%20NID%202025.pdf", "afforestedDate": null,
+                "agricultural": 0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "MT", "country": "Malta", "flag": "🏳️", "region": "other",
+                "land": 31600.0, "landSource": "https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298", "landDate": 2025,
+                "percentage": 0.0, "area": 0.0, "areaSource": "https://ibn.idsi.md/vizualizare_articol/65513", "areaDate": 2018,
+                "natural": 0.0, "naturalSource": "X", "naturalDate": null,
+                "Extraction": 0.0, "ExtractionSource": "X", "ExtractionDate": null,
+                "afforested": 0.0, "afforestedSource": "X", "afforestedDate": null,
+                "agricultural": 0, "agriculturalSource": null, "agriculturalDate": null
+            },
+            {
+                "code": "Totals", "country": "EU", "flag": "🏳️", "region": "other",
+                "land": 422510400.0, "landSource": null, "landDate": null,
+                "percentage": 5.709042902, "area": 24121300.0, "areaSource": null, "areaDate": null,
+                "natural": 10434270.0, "naturalSource": null, "naturalDate": null,
+                "Extraction": 0, "ExtractionSource": null, "ExtractionDate": null,
+                "afforested": 0, "afforestedSource": null, "afforestedDate": null,
+                "agricultural": 0, "agriculturalSource": null, "agriculturalDate": null
+            }
+        ];
 
         let filteredData = [...countriesData];
         let currentView = 'cards';
 
-        // Format numbers
         function formatNumber(num) {
-            if (!num) return 'N/A';
+            if (!num && num !== 0) return 'N/A';
+            if (num === 0) return '0';
             return num.toLocaleString('en-US');
         }
 
-        // Initialize
         function init() {
             renderCards();
-            //renderTable();
-            //renderList();
             updateStats();
-            
         }
 
-        // Switch view
         function switchView(view) {
             currentView = view;
             document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-
             document.getElementById('cardsView').style.display = view === 'cards' ? 'block' : 'none';
-            //document.getElementById('tableView').classList.toggle('active', view === 'table');
-            //document.getElementById('listView').classList.toggle('active', view === 'list');
         }
 
-        // Render Cards
         function renderCards() {
             const grid = document.getElementById('cardGrid');
             grid.innerHTML = filteredData.map(country => `
@@ -2230,7 +1749,7 @@ const countriesData = [
                             <span class="card-stat-value">${country.percentage.toFixed(2)}%</span>
                         </div>
                         <div class="card-stat">
-                            <span class="card-stat-label">Total Land Area</span>
+                            <span class="card-stat-label">Total Peatland Area</span>
                             <span class="card-stat-value">${formatNumber(country.area)} ha</span>
                         </div>
                         <div class="card-stat">
@@ -2238,41 +1757,38 @@ const countriesData = [
                             <span class="card-stat-value">${formatNumber(country.natural)} ha</span>
                         </div>
                         <div class="card-stat">
-                        <span class="card-stat-label">Non-Natural Peatlands</span>
-                        <span class="card-stat-value">${formatNumber((country.Extraction || 0) + (country.afforested || 0) + (country.agricultural || 0))} ha</span>
+                            <span class="card-stat-label">Non-Natural Peatlands</span>
+                            <span class="card-stat-value">${formatNumber(country.area - ((country.Extraction || 0) + (country.afforested || 0) + (country.agricultural || 0)))} ha</span>
                         </div>
                     </div>
                 </div>
             `).join('');
-            
         }
 
-        // Render Table
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = filteredData.map(country => `
                 <tr onclick="showModal('${country.code}')">
-                    <td><span class="table-flag">${getFlagHtml(country.code, 32)}</span><span class="table-country">${country.country}</span></td>
+                    <td>
+                        <span class="table-flag">${getFlagHtml(country.code, 32)}</span>
+                        <span class="table-country">${country.country}</span>
+                    </td>
                     <td><span class="percentage-badge">${country.percentage.toFixed(2)}%</span></td>
                     <td>${formatNumber(country.area)}</td>
                     <td>${formatNumber(country.natural)}</td>
                     <td>${formatNumber((country.Extraction || 0) + (country.afforested || 0) + (country.agricultural || 0))}</td>
-
-                  
                 </tr>
             `).join('');
-           
         }
 
-        // Render List
         function renderList() {
             const container = document.getElementById('listContainer');
             container.innerHTML = filteredData.map(country => `
                 <div class="list-item" onclick="showModal('${country.code}')">
-                    <div class="list-flag">${getFlagHtml(country.code, 64)}</div>
+                    <div class="list-flag">${getFlagHtml(country.code, 56)}</div>
                     <div class="list-main">
                         <h3>${country.country}</h3>
-                        <div class="list-subtitle">Country Code: ${country.code} • Total Land Area: ${formatNumber(country.land)} km²</div>
+                        <div class="list-subtitle">Country Code: ${country.code} • Total Land Area: ${formatNumber(country.land)} ha</div>
                         <div class="list-stats">
                             <div>
                                 <div class="list-stat-label">Total Peatland Coverage</div>
@@ -2286,7 +1802,6 @@ const countriesData = [
                                 <div class="list-stat-label">Non-Natural Peatlands</div>
                                 <div class="list-stat-value">${formatNumber((country.Extraction || 0) + (country.afforested || 0) + (country.agricultural || 0))} ha</div>
                             </div>
-                           
                         </div>
                     </div>
                     <div class="list-action">
@@ -2295,603 +1810,339 @@ const countriesData = [
                     </div>
                 </div>
             `).join('');
-            
         }
 
-        // Filter data
         function filterData() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            const sort = document.getElementById('sortSelect').value;
+            const search   = document.getElementById('searchInput').value.toLowerCase();
+            const sort     = document.getElementById('sortSelect').value;
             const minRange = parseFloat(document.getElementById('minRange').value) || 0;
             const maxRange = parseFloat(document.getElementById('maxRange').value) || 100;
 
-            // Filter
             filteredData = countriesData.filter(country => {
-                const matchesSearch = country.country.toLowerCase().includes(search) || 
-                                    country.code.toLowerCase().includes(search);
-                const matchesRange = country.percentage >= minRange && country.percentage <= maxRange;
+                const matchesSearch = country.country.toLowerCase().includes(search) ||
+                                      country.code.toLowerCase().includes(search);
+                const matchesRange  = country.percentage >= minRange && country.percentage <= maxRange;
                 return matchesSearch && matchesRange;
             });
 
-            // Sort
             filteredData.sort((a, b) => {
-                switch(sort) {
-                    case 'name': return a.country.localeCompare(b.country);
+                switch (sort) {
+                    case 'name':       return a.country.localeCompare(b.country);
                     case 'percentage': return b.percentage - a.percentage;
-                    case 'area': return b.area - a.area;
-                    case 'natural': return b.natural - a.natural;
-                    default: return 0;
+                    case 'area':       return b.area - a.area;
+                    case 'natural':    return b.natural - a.natural;
+                    default:           return 0;
                 }
             });
 
             updateDisplay();
         }
 
-        // Quick filter
         function quickFilter(type) {
-            // Update active tag
             document.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
             event.target.classList.add('active');
-
-            // Clear other filters
             document.getElementById('searchInput').value = '';
             document.getElementById('minRange').value = '';
             document.getElementById('maxRange').value = '';
 
-            // Apply filter
-            switch(type) {
-                case 'all':
-                    filteredData = [...countriesData];
-                    break;
-                case 'high':
-                    filteredData = countriesData.filter(c => c.percentage > 20);
-                    break;
-                case 'medium':
-                    filteredData = countriesData.filter(c => c.percentage >= 10 && c.percentage <= 20);
-                    break;
-                case 'low':
-                    filteredData = countriesData.filter(c => c.percentage < 10);
-                    break;
-                case 'nordic':
-                    filteredData = countriesData.filter(c => c.region === 'nordic');
-                    break;
+            switch (type) {
+                case 'all':    filteredData = [...countriesData]; break;
+                case 'high':   filteredData = countriesData.filter(c => c.percentage > 20); break;
+                case 'medium': filteredData = countriesData.filter(c => c.percentage >= 10 && c.percentage <= 20); break;
+                case 'low':    filteredData = countriesData.filter(c => c.percentage < 10); break;
+                case 'nordic': filteredData = countriesData.filter(c => c.region === 'nordic'); break;
             }
-
             updateDisplay();
         }
 
-        // Update display
         function updateDisplay() {
             renderCards();
-            //renderTable();
-            //renderList();
             updateStats();
-            
-            const resultCount = document.getElementById('resultCount');
-            resultCount.textContent = filteredData.length;
+            document.getElementById('resultCount').textContent = filteredData.length;
 
             const emptyState = document.getElementById('emptyState');
-            const cardsView = document.getElementById('cardsView');
-            const tableView = document.getElementById('tableView');
-            const listView = document.getElementById('listView');
+            const cardsView  = document.getElementById('cardsView');
 
             if (filteredData.length === 0) {
                 emptyState.style.display = 'block';
-                cardsView.style.display = 'none';
-                tableView.style.display = 'none';
-                listView.style.display = 'none';
+                cardsView.style.display  = 'none';
             } else {
                 emptyState.style.display = 'none';
                 if (currentView === 'cards') cardsView.style.display = 'block';
-                if (currentView === 'table') tableView.classList.add('active');
-                if (currentView === 'list') listView.classList.add('active');
             }
         }
 
-        // Update stats
         function updateStats() {
-            document.getElementById('totalCountries').textContent = filteredData.length;
-            const totalArea = filteredData.reduce((sum, c) => sum + c.area, 0);
-            document.getElementById('totalArea').textContent = (totalArea / 1000000).toFixed(1) + 'M';
-            const totalNatural = filteredData.reduce((sum, c) => sum + c.natural, 0);
-            document.getElementById('totalNatural').textContent = (totalNatural / 1000000).toFixed(1) + 'M';
-            const totalExtraction = filteredData.reduce((sum, c) => sum + c.Extraction, 0);
-            document.getElementById('totalExtraction').textContent = (totalExtraction / 1000).toFixed(0) + 'K';
+            const totalArea       = filteredData.reduce((sum, c) => sum + (c.area       || 0), 0);
+            const totalNatural    = filteredData.reduce((sum, c) => sum + (c.natural    || 0), 0);
+            const totalExtraction = filteredData.reduce((sum, c) => sum + (c.Extraction || 0), 0);
+
+            document.getElementById('totalArea').textContent       = (totalArea       / 1000000).toFixed(1) + 'M';
+            document.getElementById('totalNatural').textContent    = (totalNatural    / 1000000).toFixed(1) + 'M';
+            document.getElementById('totalExtraction').textContent = (totalExtraction / 1000).toFixed(0)    + 'K';
         }
 
-        // Clear filters
         function clearFilters() {
             document.getElementById('searchInput').value = '';
             document.getElementById('sortSelect').value = 'name';
             document.getElementById('minRange').value = '';
             document.getElementById('maxRange').value = '';
-            document.querySelectorAll('.tag').forEach((tag, i) => {
-                tag.classList.toggle('active', i === 0);
-            });
+            document.querySelectorAll('.tag').forEach((tag, i) => tag.classList.toggle('active', i === 0));
             filteredData = [...countriesData];
             updateDisplay();
         }
 
-        // Refresh data
-        function refreshData() {
-            const btn = event.target;
-            btn.textContent = '🔄 Refreshing...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                btn.textContent = '✓ Data Refreshed';
-                setTimeout(() => {
-                    btn.textContent = '🔄 Refresh Data';
-                    btn.disabled = false;
-                }, 1000);
-            }, 1000);
-        }
-        // Helper function to format source information
         function formatSource(source, date) {
-        if (!source) return '<span style="color: #999; font-style: italic;">No source available</span>';
-    
-        const dateStr = date ? ` (${date})` : '';
-    
-        // Check if it's a URL
-        if (source.startsWith('http')) {
-        // Truncate long URLs for display
-        const displayUrl = source.length > 60 ? source.substring(0, 57) + '...' : source;
-        return `<a href="${source}" target="_blank" class="source-link" title="${source}">${displayUrl}</a>${dateStr}`;
-        }   
-        else {
-        // It's a text reference
-        return `<span class="source-text">${source}</span>${dateStr}`;
-         }
-    }
-
-// Helper function to create source info HTML
-function createSourceInfo(label, source, date) {
-    if (!source) return '';
-    
-    return `
-        <div class="source-info">
-            <strong>${label} Source:</strong> ${formatSource(source, date)}
-        </div>
-    `;
-}
-
-        // Show modal with EXPANDABLE SUBCATEGORIES and FACT SUMMARY
-     // Updated showModal function with source display
-// Updated showModal function with blog button
-function showModal(code) {
-    const country = countriesData.find(c => c.code === code);
-    if (!country) return;
-
-    const modalBody = document.getElementById('modalBody');
-    
-    // Check if blog is available for this country
-    const hasBlog = window.availableBlogs && window.availableBlogs.includes(code);
-    
-    modalBody.innerHTML = `
-        <div class="modal-header">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-           
-            <div class="modal-flag">${getFlagHtml(country.code, 80)}</div>
-            <div>
-                <div class="modal-title">${country.country}</div>
-                <div class="modal-code">Country Code: ${country.code}</div>
-            </div>
-        </div>
-
-        <div class="modal-stats-grid">
-            <!-- Land Area -->
-            <div class="modal-stat">
-                <div class="modal-stat-header">
-                    <div class="modal-stat-main">
-                        <div class="modal-stat-label">Land Area</div>
-                        <div class="modal-stat-value">${formatNumber(country.land)} ha</div>
-                    </div>
-                </div>
-                ${createSourceInfo('Land Area', country.landSource, country.landDate)}
-            </div>
-
-            <!-- Peatland Coverage -->
-            <div class="modal-stat featured">
-                <div class="modal-stat-header">
-                    <div class="modal-stat-main">
-                        <div class="modal-stat-label">Peatland Coverage</div>
-                        <div class="modal-stat-value">${country.percentage.toFixed(2)}%</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Total Peatlands with expandable -->
-            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
-                <div class="modal-stat-header">
-                    <div class="modal-stat-main">
-                        <div class="modal-stat-label">
-                            Total Peatlands
-                            <span class="expand-indicator">▼</span>
-                        </div>
-                        <div class="modal-stat-value">${formatNumber(country.area)} ha</div>
-                    </div>
-                </div>
-                ${createSourceInfo('Total Peatlands', country.areaSource, country.areaDate)}
-                <div class="modal-stat-subcategories">
-                    <div class="subcategories-list">
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🌾</span>
-                                Raised Bogs
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.area * 0.4))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">💧</span>
-                                Blanket Bogs
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.area * 0.45))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🌿</span>
-                                Fen Peatlands
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.area * 0.15))} ha</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Natural Peatlands -->
-            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
-                <div class="modal-stat-header">
-                    <div class="modal-stat-main">
-                        <div class="modal-stat-label">
-                            Natural Peatlands
-                            <span class="expand-indicator">▼</span>
-                        </div>
-                        <div class="modal-stat-value">${formatNumber(country.natural)} ha</div>
-                    </div>
-                </div>
-                ${createSourceInfo('Natural Peatlands', country.naturalSource, country.naturalDate)}
-                <div class="modal-stat-subcategories">
-                    <div class="subcategories-list">
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🏞️</span>
-                                Protected Natural Bogs
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.33))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🌲</span>
-                                Intact Peatland Forest
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.16))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🦅</span>
-                                Active Natural Peatlands
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.51))} ha</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Extraction Peatlands -->
-            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
-                <div class="modal-stat-header">
-                    <div class="modal-stat-main">
-                        <div class="modal-stat-label">
-                            Extraction Peatlands
-                            <span class="expand-indicator">▼</span>
-                        </div>
-                        <div class="modal-stat-value">${formatNumber(country.Extraction)} ha</div>
-                    </div>
-                </div>
-                ${createSourceInfo('Extraction Peatlands', country.ExtractionSource, country.ExtractionDate)}
-                <div class="modal-stat-subcategories">
-                    <div class="subcategories-list">
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🏭</span>
-                                Industrial Peat Extraction
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.75))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🏠</span>
-                                Domestic Turf Cutting
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.20))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">⚡</span>
-                                Energy Production Sites
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.05))} ha</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Afforested Peatlands -->
-            <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
-                <div class="modal-stat-header">
-                    <div class="modal-stat-main">
-                        <div class="modal-stat-label">
-                            Afforested Peatlands
-                            <span class="expand-indicator">▼</span>
-                        </div>
-                        <div class="modal-stat-value">${formatNumber(country.afforested)} ha</div>
-                    </div>
-                </div>
-                ${createSourceInfo('Afforested Peatlands', country.afforestedSource, country.afforestedDate)}
-                <div class="modal-stat-subcategories">
-                    <div class="subcategories-list">
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🌲</span>
-                                Coniferous Plantations
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.75))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🍃</span>
-                                Broadleaf Plantations
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.15))} ha</span>
-                        </div>
-                        <div class="subcategory-item">
-                            <span class="subcategory-label">
-                                <span class="subcategory-icon">🌳</span>
-                                Mixed Forest on Peat
-                            </span>
-                            <span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.10))} ha</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Agricultural Peatlands -->
-            <div class="modal-stat">
-                <div class="modal-stat-header">
-                    <div class="modal-stat-main">
-                        <div class="modal-stat-label">Agricultural Peatlands</div>
-                        <div class="modal-stat-value">${formatNumber(country.agricultural)} ha</div>
-                    </div>
-                </div>
-                ${createSourceInfo('Agricultural Peatlands', country.agriculturalSource, country.agriculturalDate)}
-            </div>
-        </div>
-            <div class="fact-summary">
-            <div class="fact-summary-title">
-            ${country.country} Peatland Profile
-            </div>
-            <div class="fact-summary-text">
-            <strong>${country.country}</strong> is a member state of the European Union. The total land area of ${country.country} is <strong>${formatNumber(country.land)} hectares</strong>. Of this, <strong>${country.percentage.toFixed(2)}%</strong> is peatlands covering <strong>${formatNumber(country.area)} hectares</strong>. This is broken down into a number of categories. The total area of peatlands used for agriculture is <strong>${formatNumber(country.agricultural)} ha</strong>. Afforested peatlands account for <strong>${formatNumber(country.afforested)} hectares</strong>. Natural peatlands cover <strong>${formatNumber(country.natural)} hectares</strong> and finally peatland extraction sites cover <strong>${formatNumber(country.Extraction)} hectares</strong>.
-            </div>
-            </div>
-                ${hasBlog ? 
-                `<button class="btn btn-primary" style="position: absolute; down: 20px; right: 70px; padding: 8px 16px; font-size: 14px; z-index: 10;" onclick="event.stopPropagation(); closeModal(); setTimeout(() => showBlogPost('${code}'), 300);">
-                    📖 Read More
-                </button>` : ''}
-    `;
-
-    document.getElementById('countryModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    
-}
-
-     // Show blog post - now fetches from backend
-async function showBlogPost(code) {
-    const country = countriesData.find(c => c.code === code);
-    if (!country) return;
-
-    try {
-        const response = await fetch(`/api/blog/${code}`);
-        
-        if (!response.ok) {
-            alert('Blog post not available for this country yet.');
-            return;
+            if (!source) return '<span style="color:#999;font-style:italic;">No source available</span>';
+            var dateStr = date ? ' (' + date + ')' : '';
+            if (source.startsWith('http')) {
+                var display = source.length > 60 ? source.substring(0, 57) + '...' : source;
+                return '<a href="' + source + '" target="_blank" class="source-link" title="' + source + '">' + display + '</a>' + dateStr;
+            }
+            return '<span class="source-text">' + source + '</span>' + dateStr;
         }
-        
-        const blogData = await response.json();
-        
-        const blogContent = document.getElementById('blogContent');
-        
-        // Build sections HTML
-        let sectionsHTML = '';
-        
-        for (const section of blogData.sections) {
-            if (section.type === 'section') {
-                sectionsHTML += `
-                    <div class="blog-section">
-                        <h2 class="blog-section-title">
-                            <span class="blog-section-icon">${section.icon}</span>
-                            ${section.title}
-                        </h2>
-                        <p class="blog-text">${section.content.replace(/\n\n/g, '</p><p class="blog-text">')}</p>
-                        ${section.image ? `
-                            <div style="text-align: center; margin: 20px 0;">
-                                <img src="/blog/images/${code}/${section.image}" alt="${section.caption || ''}" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                                ${section.caption ? `<p style="font-size: 14px; color: #666; margin-top: 8px; font-style: italic;">${section.caption}</p>` : ''}
+
+        function createSourceInfo(label, source, date) {
+            if (!source) return '';
+            return '<div class="source-info"><strong>' + label + ' Source:</strong> ' + formatSource(source, date) + '</div>';
+        }
+
+        function showModal(code) {
+            const country = countriesData.find(c => c.code === code);
+            if (!country) return;
+
+            const hasBlog = window.availableBlogs && window.availableBlogs.includes(code);
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="modal-header">
+                    <div class="modal-flag">${getFlagHtml(country.code, 80)}</div>
+                    <div>
+                        <div class="modal-title">${country.country}</div>
+                        <div class="modal-code">Country Code: ${country.code}</div>
+                    </div>
+                </div>
+
+                <div class="modal-stats-grid">
+                    <div class="modal-stat">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Land Area</div>
+                                <div class="modal-stat-value">${formatNumber(country.land)} ha</div>
                             </div>
-                        ` : ''}
+                        </div>
+                        ${createSourceInfo('Land Area', country.landSource, country.landDate)}
                     </div>
-                `;
-            } else if (section.type === 'highlight') {
-                sectionsHTML += `
-                    <div class="blog-highlight">
-                        <h3 class="blog-highlight-title">${section.title}</h3>
-                        <p class="blog-text" style="margin: 0;">${section.content}</p>
+
+                    <div class="modal-stat featured">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Peatland Coverage</div>
+                                <div class="modal-stat-value">${country.percentage.toFixed(2)}%</div>
+                            </div>
+                        </div>
                     </div>
-                `;
-            } else if (section.type === 'list') {
-                sectionsHTML += `
-                    <div class="blog-section">
-                        <h2 class="blog-section-title">
-                            <span class="blog-section-icon">⚠️</span>
-                            ${section.title}
-                        </h2>
-                        <ul class="blog-list">
-                            ${section.items.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
+
+                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Total Peatlands <span class="expand-indicator">▼</span></div>
+                                <div class="modal-stat-value">${formatNumber(country.area)} ha</div>
+                            </div>
+                        </div>
+                        ${createSourceInfo('Total Peatlands', country.areaSource, country.areaDate)}
+                        <div class="modal-stat-subcategories">
+                            <div class="subcategories-list">
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌾</span>Raised Bogs</span><span class="subcategory-value">${formatNumber(Math.round(country.area * 0.4))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">💧</span>Blanket Bogs</span><span class="subcategory-value">${formatNumber(Math.round(country.area * 0.45))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌿</span>Fen Peatlands</span><span class="subcategory-value">${formatNumber(Math.round(country.area * 0.15))} ha</span></div>
+                            </div>
+                        </div>
                     </div>
-                `;
+
+                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Natural Peatlands <span class="expand-indicator">▼</span></div>
+                                <div class="modal-stat-value">${formatNumber(country.natural)} ha</div>
+                            </div>
+                        </div>
+                        ${createSourceInfo('Natural Peatlands', country.naturalSource, country.naturalDate)}
+                        <div class="modal-stat-subcategories">
+                            <div class="subcategories-list">
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🏞️</span>Protected Natural Bogs</span><span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.33))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌲</span>Intact Peatland Forest</span><span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.16))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🦅</span>Active Natural Peatlands</span><span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.51))} ha</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Extraction Peatlands <span class="expand-indicator">▼</span></div>
+                                <div class="modal-stat-value">${formatNumber(country.Extraction)} ha</div>
+                            </div>
+                        </div>
+                        ${createSourceInfo('Extraction Peatlands', country.ExtractionSource, country.ExtractionDate)}
+                        <div class="modal-stat-subcategories">
+                            <div class="subcategories-list">
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🏭</span>Industrial Peat Extraction</span><span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.75))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🏠</span>Domestic Turf Cutting</span><span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.20))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">⚡</span>Energy Production Sites</span><span class="subcategory-value">${formatNumber(Math.round(country.Extraction * 0.05))} ha</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Afforested Peatlands <span class="expand-indicator">▼</span></div>
+                                <div class="modal-stat-value">${formatNumber(country.afforested)} ha</div>
+                            </div>
+                        </div>
+                        ${createSourceInfo('Afforested Peatlands', country.afforestedSource, country.afforestedDate)}
+                        <div class="modal-stat-subcategories">
+                            <div class="subcategories-list">
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌲</span>Coniferous Plantations</span><span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.75))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🍃</span>Broadleaf Plantations</span><span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.15))} ha</span></div>
+                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌳</span>Mixed Forest on Peat</span><span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.10))} ha</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-stat">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Agricultural Peatlands</div>
+                                <div class="modal-stat-value">${formatNumber(country.agricultural)} ha</div>
+                            </div>
+                        </div>
+                        ${createSourceInfo('Agricultural Peatlands', country.agriculturalSource, country.agriculturalDate)}
+                    </div>
+                </div>
+
+                <div class="fact-summary">
+                    <div class="fact-summary-title">${country.country} Peatland Profile</div>
+                    <div class="fact-summary-text">
+                        <strong>${country.country}</strong> is a member state of the European Union.
+                        The total land area is <strong>${formatNumber(country.land)} hectares</strong>.
+                        Of this, <strong>${country.percentage.toFixed(2)}%</strong> is peatlands covering
+                        <strong>${formatNumber(country.area)} hectares</strong>.
+                        Agricultural peatlands account for <strong>${formatNumber(country.agricultural)} ha</strong>,
+                        afforested peatlands for <strong>${formatNumber(country.afforested)} ha</strong>,
+                        natural peatlands for <strong>${formatNumber(country.natural)} ha</strong>,
+                        and extraction sites for <strong>${formatNumber(country.Extraction)} ha</strong>.
+                    </div>
+                </div>
+
+                ${hasBlog ? `<button class="btn btn-primary" style="margin-top:12px;" onclick="event.stopPropagation(); closeModal(); setTimeout(() => showBlogPost('${code}'), 300);">📖 Read More</button>` : ''}
+            `;
+
+            document.getElementById('countryModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        async function showBlogPost(code) {
+            const country = countriesData.find(c => c.code === code);
+            if (!country) return;
+
+            try {
+                const response = await fetch('/api/blog/' + code);
+                if (!response.ok) { alert('Blog post not available for this country yet.'); return; }
+
+                const blogData   = await response.json();
+                const blogContent = document.getElementById('blogContent');
+                let sectionsHTML = '';
+
+                for (const section of blogData.sections) {
+                    if (section.type === 'section') {
+                        sectionsHTML += `
+                            <div class="blog-section">
+                                <h2 class="blog-section-title"><span class="blog-section-icon">${section.icon}</span>${section.title}</h2>
+                                <p class="blog-text">${section.content.replace(/\n\n/g, '</p><p class="blog-text">')}</p>
+                                ${section.image ? `<div style="text-align:center;margin:20px 0;"><img src="/blog/images/${code}/${section.image}" alt="${section.caption || ''}" style="max-width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">${section.caption ? `<p style="font-size:14px;color:#666;margin-top:8px;font-style:italic;">${section.caption}</p>` : ''}</div>` : ''}
+                            </div>`;
+                    } else if (section.type === 'highlight') {
+                        sectionsHTML += `<div class="blog-highlight"><h3 class="blog-highlight-title">${section.title}</h3><p class="blog-text" style="margin:0;">${section.content}</p></div>`;
+                    } else if (section.type === 'list') {
+                        sectionsHTML += `<div class="blog-section"><h2 class="blog-section-title"><span class="blog-section-icon">⚠️</span>${section.title}</h2><ul class="blog-list">${section.items.map(item => '<li>' + item + '</li>').join('')}</ul></div>`;
+                    }
+                }
+
+                const heroImage = blogData.metadata.hero_image ? '/blog/images/' + code + '/' + blogData.metadata.hero_image : '';
+                const heroStyle = heroImage
+                    ? 'background: linear-gradient(rgba(27,94,32,0.8), rgba(27,94,32,0.8)), url(\'' + heroImage + '\') center/cover;'
+                    : 'background: linear-gradient(135deg, #1b5e20 0%, #4caf50 100%);';
+
+                blogContent.innerHTML = `
+                    <div class="blog-hero" style="${heroStyle}">
+                        <div class="blog-hero-content">
+                            <div class="blog-hero-flag">${getFlagHtml(country.code, 120)}</div>
+                            <div class="blog-hero-title">${blogData.metadata.title || country.country}</div>
+                            <div class="blog-hero-subtitle">${blogData.metadata.subtitle || 'Comprehensive Peatland Analysis Report'}</div>
+                        </div>
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <div class="blog-meta-item"><span class="blog-meta-icon">📅</span><span>${blogData.metadata.date || 'February 2026'}</span></div>
+                            <div class="blog-meta-item"><span class="blog-meta-icon">✍️</span><span>${blogData.metadata.author || 'Research Team'}</span></div>
+                            <div class="blog-meta-item"><span class="blog-meta-icon">🌍</span><span>Region: ${country.region.charAt(0).toUpperCase() + country.region.slice(1)}</span></div>
+                            <div class="blog-meta-item"><span class="blog-meta-icon">⏱️</span><span>${blogData.metadata.read_time || '8 min read'}</span></div>
+                        </div>
+                        ${sectionsHTML}
+                        <div class="blog-footer">
+                            <p class="blog-footer-text">This blog post is part of our ongoing effort to provide in-depth analysis and insights on peatland coverage across Europe.</p>
+                            <a href="#" class="blog-cta" onclick="closeBlog(); return false;">Return to Dashboard</a>
+                        </div>
+                    </div>`;
+
+                document.getElementById('blogModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } catch (error) {
+                console.error('Error loading blog:', error);
+                alert('Error loading blog post. Please try again.');
             }
         }
-        
-        // Get hero image or use default
-        const heroImage = blogData.metadata.hero_image 
-            ? `/blog/images/${code}/${blogData.metadata.hero_image}` 
-            : '';
-        
-        const heroStyle = heroImage 
-            ? `background: linear-gradient(rgba(27, 94, 32, 0.8), rgba(27, 94, 32, 0.8)), url('${heroImage}') center/cover;`
-            : `background: linear-gradient(135deg, #1b5e20 0%, #4caf50 100%);`;
-        
-        blogContent.innerHTML = `
-            <div class="blog-hero" style="${heroStyle}">
-                <div class="blog-hero-content">
-                    <div class="blog-hero-flag">${getFlagHtml(country.code, 120)}</div>
-                    <div class="blog-hero-title">${blogData.metadata.title || country.country}</div>
-                    <div class="blog-hero-subtitle">${blogData.metadata.subtitle || 'Comprehensive Peatland Analysis Report'}</div>
-                </div>
-            </div>
 
-            <div class="blog-body">
-                <div class="blog-meta">
-                    <div class="blog-meta-item">
-                        <span class="blog-meta-icon">📅</span>
-                        <span>${blogData.metadata.date || 'February 2026'}</span>
-                    </div>
-                    <div class="blog-meta-item">
-                        <span class="blog-meta-icon">✍️</span>
-                        <span>${blogData.metadata.author || 'Research Team'}</span>
-                    </div>
-                    <div class="blog-meta-item">
-                        <span class="blog-meta-icon">🌍</span>
-                        <span>Region: ${country.region.charAt(0).toUpperCase() + country.region.slice(1)}</span>
-                    </div>
-                    <div class="blog-meta-item">
-                        <span class="blog-meta-icon">⏱️</span>
-                        <span>${blogData.metadata.read_time || '8 min read'}</span>
-                    </div>
-                </div>
+        async function checkBlogAvailability() {
+            try {
+                const response = await fetch('/api/blog/list');
+                const data = await response.json();
+                window.availableBlogs = data.blogs;
+            } catch (error) {
+                window.availableBlogs = [];
+            }
+        }
 
-                ${sectionsHTML}
+        checkBlogAvailability();
 
-                <div class="blog-footer">
-                    <p class="blog-footer-text">
-                        This blog post is part of our ongoing effort to provide in-depth analysis and insights on peatland coverage across Europe. We hope this information helps raise awareness and supports conservation efforts. For more details and data sources, please refer to the references provided in each section.
-                    </p>
-                    <a href="#" class="blog-cta" onclick="closeBlog(); return false;">Return to Dashboard</a>
-                </div>
-            </div>
-        `;
-
-        document.getElementById('blogModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-    } catch (error) {
-        console.error('Error loading blog:', error);
-        alert('Error loading blog post. Please try again.');
-    }
-}
-
-// Check if blog is available and update button
-async function checkBlogAvailability() {
-    try {
-        const response = await fetch('/api/blog/list');
-        const data = await response.json();
-        window.availableBlogs = data.blogs;
-    } catch (error) {
-        console.error('Error checking blog availability:', error);
-        window.availableBlogs = [];
-    }
-}
-
-// Call on page load
-checkBlogAvailability();
-
-        // Close blog
         function closeBlog() {
             document.getElementById('blogModal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
-        // Toggle subcategories expansion
         function toggleSubcategories(element) {
             element.classList.toggle('expanded');
         }
 
-        // Close modal
         function closeModal(event) {
             if (!event || event.target.id === 'countryModal' || event.target.classList.contains('modal-close')) {
                 document.getElementById('countryModal').classList.remove('active');
                 document.body.style.overflow = '';
-                
-                // Close all expanded subcategories
-                document.querySelectorAll('.modal-stat.expanded').forEach(stat => {
-                    stat.classList.remove('expanded');
-                });
+                document.querySelectorAll('.modal-stat.expanded').forEach(stat => stat.classList.remove('expanded'));
             }
         }
 
-        // Close modal on ESC key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
-                closeBlog();
-            }
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') { closeModal(); closeBlog(); }
         });
 
-        // Toggle export menu
-        function toggleExport() {
-            const menu = document.getElementById('exportMenu');
-            menu.classList.toggle('active');
-        }
-
-        // Export data
-        function exportData(format) {
-            const menu = document.getElementById('exportMenu');
-            menu.classList.remove('active');
-            alert(`Exporting data as ${format.toUpperCase()}...\n\n${filteredData.length} countries will be exported.`);
-        }
-
-        // Compare selected
-        function compareSelected() {
-            alert('Compare feature: Select countries to compare side-by-side.\n\nThis will show detailed comparisons of peatland statistics.');
-        }
-
-        // Sort table
         function sortTable(column) {
-            const sortMap = {
-                'country': 'name',
-                'percentage': 'percentage',
-                'area': 'area',
-                'natural': 'natural',
-                'Extraction': 'Extraction',
-                'afforested': 'afforested'
-            };
-            document.getElementById('sortSelect').value = sortMap[column];
+            const map = { country: 'name', percentage: 'percentage', area: 'area', natural: 'natural', Extraction: 'Extraction', afforested: 'afforested' };
+            document.getElementById('sortSelect').value = map[column];
             filterData();
         }
 
-        // Close export menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const dropdown = document.querySelector('.export-dropdown');
-            const menu = document.getElementById('exportMenu');
-            if (dropdown && !dropdown.contains(event.target)) {
-                menu.classList.remove('active');
-            }
-        });
-
-        // Initialize on load
         init();
     </script>
 </body>
