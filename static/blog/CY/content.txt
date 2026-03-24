@@ -1,0 +1,28 @@
+TITLE: CY Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Cyprus_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Cyprus_Peatland.jpg
+Peatlands are estimated to cover less than 10 hectares of Cyprus, with some studies reporting that no histosols exist on the island. The small mires which exist are only upland fens within the Cypriote Troodos Mountains, or Phragmites wetlands with saline peat. The Troodos peatlands contain tall grass meadows of Calamagrostis epigejos and Juncus littoralis which both only occur in this habitat in Cyprus. They are inundated from October-July and remain wet throughout the year.
+
+SECTION: Key Statistics
+ICON: 📊
+No accurate statistics available for now.
+
+HIGHLIGHT: Important Note
+None.
+
+LIST: Key Points
+- 
+- 
+- 
+
+SECTION: Conclusion
+ICON: 📚
+END.
+IMAGE: CY_Map.png

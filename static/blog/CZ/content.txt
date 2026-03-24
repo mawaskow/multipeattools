@@ -1,0 +1,31 @@
+TITLE: CZ Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Czechia_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Czechia_Peatland.jpg
+Around 28,540 hectares of peatlands are present in Czechia, consisting of both bogs and fens.
+
+SECTION: Key Statistics
+ICON: 📊
+Around 28,540 hectares of peatlands are present in Czechia, representing 0.36% of the national area. These consist of both bogs and fens, with bogs in particular representing 15,000 hectares of area. 
+
+
+HIGHLIGHT: Important Note
+Peatlands in Czechia have been heavily degraded by peat extraction and drainage for several centuries and are today considered an endangered habitat. Around 27% of peatlands were converted to agriculture in the second half of the 20th century alone, and 1,000 hectares of bogs industrially extracted in the last 70 years.
+Eventually, drainage has impacted 70% of the Šumava peatlands, leading to severe habitat loss and hydrological damage. today the peatlands of the Šumava Forest are expanding.  Passive restoration has also been used on many old Croatian peat extraction sites; however, this has not yet resulted in the return to characteristic communities. 
+
+
+LIST: Key Points
+- Today the peatlands of the Šumava Forest are expanding.  Passive restoration has also been used on many old Croatian peat extraction sites
+- A particular peatland hotspot in thecountry exists at located at the southwestern German border, estimated to contain 6,000hectares of peatlands between   700-1,200 metres of altitude.
+- Many other previously extracted peatlands are being afforested into monocultures of Scots pine (Pinus sylvestris) or Norway spruce (Pice abies)
+
+SECTION: Conclusion
+ICON: 📚
+Projects with LIFE for MIRES are focusing on 2,059 hectares of peatlands, and halfway through their project already returned 720 hectares to pristine conditions. These improvements are primarily being achieved through the blocking of 80km of drains and the restoration of waterways, or through non-intervention management.
+IMAGE: CZ_Map.png

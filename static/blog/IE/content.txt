@@ -1,0 +1,33 @@
+TITLE: IE Peatland Profile
+SUBTITLE: Ireland Peatland 
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME:  10
+HERO_IMAGE: ireland-peatland.jpg
+
+SECTION: Executive Summary for ireland
+ICON: 🌿
+IMAGE: ireland-peatland.jpg
+Blanketkkk are the most celebrated of Ireland’s peatlands. The habitat is very well developed in the country. We have two types of blanket bogs – Atlantic Blanket Bog and Mountain Blanket Bog.
+
+SECTION: Key Statistics
+ICON: 📊
+IMAGE: blanketutilisationchart.jpg
+Atlantic blanket bogs cover the landscape of the west coast from sea level to an altitude of 200m. Here, rainfall is 1,200mm per year and the acid peat substrate ranges from 2 to 7m deep. Atlantic blanket bog vegetation has a characteristic grassy appearance due to the occurrence of purple moor grass (Molinia caerulea) and black bog rush (Schoenus nigricans). Patterned surfaces of pools, flat and sloped areas, flushes and swallow holes are important features of blanket bogs.
+
+
+HIGHLIGHT: Important Note
+Mountain blanket bogs occur on relatively flat terrain in the mountain ranges above 200m altitude. Here rainfall is high and evaporation is low. Mountain blanket bogs are rain fed and their peat is acidic. The vegetation is characterised by the presence of ericoid shrubs and in particular ling heather (Calluna vulgaris), crowberry (Empetrum nigrum) and bilberry (Vaccinium myrtillus). Natural drains, lakes and flushes are features of mountain blanket bogs.
+
+
+LIST: Key Points
+- Only a small amount of blanket bog exists in the world. Ireland possesses 8% of the world’s blanket bog and is the most important country in Europe for this type of habitat.
+- Blanket bog landscapes provide a refuge for a rich biodiversity of species including several rare plants, birds and invertebrate species.
+- Blanket bogs are commonly used as rough grazing land for sheep and cattle, grouse shooting, deer stalking and fishing.
+- Blanket bogs preserve prehistoric farming landscapes beneath the peat as well as a diverse range of artefacts within the peat mass.
+
+
+SECTION: Conclusion
+ICON: 📚
+In 2016 IPCC mounted a two year campaign to shift the national focus to blanket bogs and bridge the significant policy gap that exist in relation to their protection.
+IMAGE: ireland-peatland2.png

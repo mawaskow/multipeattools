@@ -1,0 +1,28 @@
+TITLE: IT Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Italy_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Italy_Peatland.jpg
+Due to the regional climate, the peatlands in northern Italy are all fens, with no ombrotrophic conditions identified.
+
+SECTION: Key Statistics
+ICON: 📊
+Italian peatlands are estimated to cover 30,000-120,000 hectares of land, mostly in the northern Alpine region of the country. In total these cover only up to 0.25% of the country’s total area. Especially, peat smouldering in northern Italy releases the equivalent of 580 kg of CO2 per cubic metre, or 725g CO2/kg.
+
+HIGHLIGHT: Important Note
+Peat extraction has occurred for centuries in italian peat soil. While this is no longer widespread, one of the main threats to Italian peatlands today is the burning of peat soils, and by extension the climatic conditions which fuel it. Peatlands are thereby threatened by increasing temperatures and precipitation changes, which encourages the encroachment of drier, non-characteristic plants. Unfortunately, the low economic value and relative scarcity of peatlands in Italy forgo the emplacement of large-scale peatland strategies for national environmental targets. 
+
+LIST: Key Points
+- 580 kg of CO per cubic metre release from peat smouldering in northern Italy 
+- Northern Italian peatlands are likely glacial relics, formed during the late Pleistocene to Holocene period.
+- Due to increasing temperatures and precipitation changes, there is an increase fire risk, which damages their local biodiversity as Sphagnum mosses are giving way to vascular plants.
+
+SECTION: Conclusion
+ICON: 📚
+Some natural reserves protect peatland ecosystems, such as the Torbiere del Sebino reserve, covering 360 hectares of marshland, or the Adamello-Brenta Nature Park which contains 177 hectares of mires.
+IMAGE: IT_Map.jpg

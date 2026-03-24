@@ -1,0 +1,28 @@
+TITLE: LV Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Latvia_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Latvia_Peatland.jpg
+Latvian peatlands started forming in the early-Holocene 11,700 years ago in low-lying areas. Latvian fens are often dominated by sedge grasses, with calcareous fens  occurring at coastal lagoons, and alkaline fens generally more in the western parts of the country.
+
+SECTION: Key Statistics
+ICON: 📊
+Today, the country is estimated to contain between 600,000-900,000 hectares of peatlands, covering up to 14% of the land area. This entails roughly 1.7 billion tons of peat material, hence about 0.4% of the world’s peat resources. Latvia counts 5,799 separate peatland sites larger than 1 hectare, including 7 which are more than 5,000 hectares large. Some estimates claim 253,000 hectares of bog, 57,500 hectares of transition mires, and 283,300 hectares of fens in the country.
+
+HIGHLIGHT: Important Note
+Latvian fens are often dominated by sedge grasses, with calcareous fens  occurring at coastal lagoons, and alkaline fens generally more in the western parts of the country. Widespread drainage took place for afforestation and agriculture, primarily between the 1960s-80s and declining post-Soviet Union collapse. Today, peat extraction still takes place in Latvia, with 25,739 hectares in 127 separate extraction sites active as of 2024. 
+
+LIST: Key Points
+- Latvian peatland makes the 5th highest emitter of drained peatland related emissions in Europe.
+- Out of the extracted peat in latvia, 97% is meant for horticulture, and 1.6% for energy.
+- Latvian mires are important habitats for various threatened birds, for instance the Black Grouse (Tetrao terix), the European Golden Plover (Pluvialis apricaria), and the Wood Sandpiper (Tringa glareola), alongside a multitude of rare invertebrate species.
+
+SECTION: Conclusion
+ICON: 📚
+The EU Just Transition Fund plan for Latvia delineates 13,600 hectares of peatlands for recultivation, which would save the equivalent of 134.6 thousand tons of CO2 annually. Simultaneously, 258,040 hectares of Latvian peatlands are already in protected nature sites as of  2024, such as in the Augstroze  Nature  Reserve.
+IMAGE: LV_Map.png

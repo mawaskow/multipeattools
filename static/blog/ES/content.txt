@@ -1,0 +1,29 @@
+TITLE: ES Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Spain_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Spain_Peatland.jpg
+Peatlands in Spain are primarily distributed across mountainous regions. Notable peatland concentrations are found in the Cantabrian Mountains in northern Spain and the Toledo Mountains in central Spain. The Cantabrian Mountains host Europe’s southernmost blanket bogs, which form extensive, continuous peat layers across upland landscapes.
+
+SECTION: Key Statistics
+ICON: 📊
+Spain’s peatlands cover approximately 35,000 hectares, representing around 0.07% of the national territory. About 20,0000 hectares are classified as mires, accounting for 57.14% of the total peatland area. 
+
+HIGHLIGHT: Important Note
+The Serras Setentrionais of Galicia gather Europe’s largest are of blanket bogs. They feature extensive, continuous peat layers across uplands. Toledo Mountains, also called “bonales”, retain permanent soil moisture, support Atlantic and boreal species, and act as refuges with Central European climate traits.
+
+
+LIST: Key Points
+- Spanish peatlands have been subject to various anthropogenic pressures leading to degradation. Livestock grazing is a major factor, compacting peat and damaging sensitive vegetation.
+- Agricultural expansion, including the use of fertilizers has introduced eutrophication, while water drainage for land conversion leads to soil mineralization and peat oxidation.
+- Furthermore, commercial peat extraction and infrastructure development, including wind farm construction, have led to physical disturbance and hydrological alteration of peatland ecosystems. 
+
+SECTION: Conclusion
+ICON: 📚
+At the national level, Spain has integrated peatland protection into its Common Agricultural Policy (CAP) Strategic Plan, which includes measures to prevent drainage, peat extraction, and burning and banned the conversion of peatlands to agricultural land. Restoration efforts are ongoing, with notable projects targeting key sites. The Sustainable Ordunte LIFE+ Project in northern Spain aims to conserve high-value peatland ecosystems. The project includes the restoration of blanket bogs in the Zalama area and the protection of sphagnum-rich mires in Salduero and Pozonegro. These initiatives focus on hydrological recovery and habitat integrity to enhance long-term peatland resilience.
+IMAGE: ES_Map.png

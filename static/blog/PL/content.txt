@@ -1,0 +1,29 @@
+TITLE: PL Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Poland_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Poland_Peatland.jpg
+Poland's peatlands occur both within alpine and continental biogeographic zones, but with a higher presence in the north of the country.
+
+SECTION: Key Statistics
+ICON: 📊
+Within Poland, peatlands cover 1,495,000 hectares (4.79%) of the territory. Most peatland sites found in Poland are relatively small (<15 hectares), but peatlands larger than 100 hectares still make up 32% of peatlands. Of these sites, about 92% are fens, particularly in central lowland regions of Poland.  Today, 84% of Polish peatlands are considered degraded, with only 16% capable of peat formation. The biggest culprit is agriculture, with 70% of peatlands used as hay meadows or pastures. Another 13.8% of peatlands are considered “wastelands”, 11.7% are used for forestry, 4.4% for peat extraction, and 0.27% for crops.  
+
+
+HIGHLIGHT: Important Note
+Slowinski National Park is home to significant transition mires and bog areas. Common peatland habitats include Sphagnum acid bogs, calcareous fens, alkaline fens, and bog woodlands. Polish peatland projects aim to conserve key bird species like the Aquatic Warbler (Acrocephalus paludicola), which has 25% of its global population in Eastern Polish fens, particularly in Biebrza National Park. 
+
+LIST: Key Points
+- Annual emissions from Polish peatlands are estimated to be equivalent to 33.9 million tons of CO2 per year.
+- Similarly, erosion and compaction is causing annual peatland subsidence rates of 3-30mm. 
+- It is estimated that in the 20th century, over 80% of undisturbed Polish mires have been lost.
+
+SECTION: Conclusion
+ICON: 📚
+As of 2020, more than 1,300 separate peatland sites totalling 237,700 hectares of mostly bog woodlands were already within conservation areas. Several restoration projects are also already underway within Poland. For instance, at the Slowinski Park Narodowy peatland, 1,350 hectares of bog forest, active raised bog, and degraded raised bogs are being restored. This is primarily done through dam establishment, with the aim of preventing the emissions of 37 million tons of CO2.
+IMAGE: PL_Map.png

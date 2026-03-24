@@ -1,0 +1,28 @@
+TITLE: LU Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Luxembourg_Peatland.png
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Luxembourg_Peatland.png
+Luxembourg's peatland are typically acidic, and mainly small remnants of fen landscapes with sedge-dominated vegetation. 
+
+SECTION: Key Statistics
+ICON: 📊
+Peatland extent in Luxembourg is though to be only about 300-400 hectares. 
+
+HIGHLIGHT: Important Note
+Luxembourg’s Rouer peatland (1 hectare) is considered an important site for climate archives, base cation supply, and several endangered species such as Triglochin palustre. 
+
+LIST: Key Points
+- Peatlands exist as part of complex, forested wetlands, often in the northern Ardennes (Eislek) region.
+- The Kaleburn area is known as a hotspot for peat bogs and glacial relicts.
+- Studies from areas like the Rouer peatland in the southern Gutland region indicate peat accumulation began approximately 13,800 years ago, providing long-term records of environmental change.
+
+SECTION: Conclusion
+ICON: 📚
+Luxembourg has set in place restrictions on drainage, ploughing, extraction, reseeding, species introduction, pollutant discharge, and waste disposal. With the very small extent of peatlands, they are considered particularly important to protect and restore.The Rouer peatland is undergoing restoration through the LIFE-Grassland project, with drainage ditch sealing, topsoil removal, and species reintroductions and transfers.
+IMAGE: LU_Map.jpg

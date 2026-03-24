@@ -1,0 +1,28 @@
+TITLE: NL Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Netherlands_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Netherlands_Peatland.jpg
+Dutch peatlands are mostly located in the north and central-west areas of the country. These two peat regions are also distinguishable in terms of peat classification, as the northern “hoogveen” are more similar to raised bog landscapes, and the western “laagveen” are fens.
+
+SECTION: Key Statistics
+ICON: 📊
+Peatland estimates of the Netherlands place the total land cover between 273,300-290,000 hectares, hence close to 10% of the country’s total area. As of today, no Dutch peatland has remained unimpacted by degradation, and it is estimated that only 5.5% are still actively accreting peat. Agriculture is most dominant, with 80% of the Netherlands’ peatlands used for dairy pastures, causing peat oxidation worth up to 3% of national CO2 emissions, and 34% of agricultural emissions. In total, peatland-related CO2 emissions amount to 18-27 tons/hectare annually, hence 4.25 million tons of CO2 per year, and the additional equivalent of 0.5 million tons CO2 worth of N2O. In the meantime, peatland usage in the past 1,000 years has created severe land subsidence and CO2 emissions, increasing risks and costs of flooding, salinisation, biodiversity loss, groundwater depletion, and infrastructure damage. This subsidence rate is typically 8-12 mm/year, and in extreme cases up to 20-30 mm/year.
+
+HIGHLIGHT: Important Note
+The two peat regions are also distinguishable in terms of peat classification, as the northern “hoogveen” are more similar to raised bog landscapes, and the western “laagveen” are fens. Pristine raised bog landscapes such as the Fochteloërveen in the north are habitats for 300+ vulnerable animal and plant species.
+
+LIST: Key Points
+- 80% of peatlands are used for dairy pastures.
+- Around 4.25 million tons of CO annually, related to peatland.
+- Subsidence rates are typically 8-12 mm/year, reaching 20-30 mm/year in extreme cases.
+
+SECTION: Conclusion
+ICON: 📚
+Major peatland restoration activities started most notably with the Bargerveen at the Dutch-German border. This was a heavily degraded peatland area damaged by milling, wherein only a single bog pool remained with 100 hectares of peat by 1980. With the infilling of drainage canals and re-establishment of Sphagnum mosses and rushes, the project restored 2,100 hectares of peatland. A past project at the Drentsche Aa has also managed to rewet 500 hectares of peatland, preventing emissions equivalent to 400 tons of CO2 per year. Since then, other projects such as in the Fochteloërveen peatland are being implemented.
+IMAGE: NL_Map.png

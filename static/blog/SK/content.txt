@@ -1,0 +1,28 @@
+TITLE: SK Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Slovakia_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Slovakia_Peatland.jpg
+Peatlands are distributed across diverse geographic and climatic regions, with more present in the northern and northeastern parts of the country. Three types of peatlands can be distinguished in Slovakia: raised bogs, transitional mires, and poor or rich fens.
+
+SECTION: Key Statistics
+ICON: 📊
+Within Slovakia, peatlands cover approximately 60 km² (0.12%) of the national territory, with mire ecosystems accounting for an estimated 30.6 km², 11.77% of this area. The largest spring-fed fen of northwestern Europe is in nature reservation Belianske Lúky, located in the High Tatras region in Polish-Slovak Borderland, and contains peat deposits up to 2.8 meters deep.
+
+HIGHLIGHT: Important Note
+Overall, it is estimated that approximately 90% of all peatlands in the Slovak Republic have been lost. Monitoring data indicates that only 48% of mountain wetland habitats in Slovakia are in favourable condition, while 34% are unfavourable–inadequate and 18% unfavourable–bad. The primary threats to these ecosystems include alterations in hydrological conditions due to drainage, water abstraction, and hydropower development, erosion and sedimentation, intensive agriculture and forestry practices, infrastructure development, unsustainable tourism and recreation, pollution, and the spread of invasive species. Slovakia's environmental policy strategy for 2030 outlines a target to restore at least 15% of degraded ecosystems, including salt marshes, wetlands, and peat bogs, by 2030. In parallel, their low-carbon strategies emphasizes the need to protect and restore peatlands and wetlands. It specifically mentions restoring degraded wetlands as a key action in the Agriculture and LULUCF (Land Use, Land-Use Change and Forestry) sectors. The Ecohydrological Restoration of Peatlands in the Carpathians project (ECORESP-C) improved the environmental status of 11 Slovak peatlands, restoring an area of approximately 294 hectares.
+
+
+LIST: Key Points
+- Point 1
+- Point 2
+- Point 3
+
+SECTION: Conclusion
+ICON: 📚
+IMAGE: SK_Map.png

@@ -1,0 +1,29 @@
+TITLE: RO Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Romania_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Romania_Peatland.jpg
+Significant peatland areas are found in the Apuseni Mountains, Dornelor and Sucevei Basins, Ţara Oaşului and Maramureşului, Călimani Mountains, Semenic Mountains, and the upper basin of the Sebeş River.
+
+SECTION: Key Statistics
+ICON: 📊
+Romania's peatlands encompass approximately 7,690 hectares, constituting about 0.03% of the country's total area. These peatlands are distributed across 436 deposits, with a total peat volume exceeding 82.5 million cubic metres. Romania has an estimated 1,428 km² of mire area, which accounts for 18.57% of the country’s total peatland area. 
+
+
+HIGHLIGHT: Important Note
+Under the EU Habitats Directive, Romanian peatlands include four types of acid peatlands (7110, 7120, 7140, 7150) and four types of alkaline bogs (7210, 7220, 7230, 7240). These habitats support unique biodiversity, including relict species from the last ice age. Tinovul Mohoș is located in an ancient volcanic crater in Romania's Eastern Carpathians, part of the unique twin-crater system of Ciomadul volcano. This formation includes the older Mohoș crater, a peat bog, and the younger Sfânta Ana crater, home to Romania's only volcanic lake.
+
+LIST: Key Points
+- More than 80% of Romania's peatlands are degraded, with their coverage significantly reduced to approximately 4,000 hectares due to drainage and agricultural conversion, especially after the 1980s.
+- Specifically, in the Mohoș peatland, vehicle emissions, camping activities, and mining operations in the Bălan district have been recognized as significant sources of zinc and lead contamination. 
+- Minerals such as hematite, lepidocrocite, rutile, and manganese-rich ilmenite further confirm the presence of human-induced contamination
+
+SECTION: Conclusion
+ICON: 📚
+The “PeatRO” project focuses on the restoration of deteriorated peatland habitats, aiming to stop the ongoing degradation and restore ecological functionality. Under the PEAT RO2 phase, twelve wetlands and peatlands in the northeastern region of Romania were restored, covering a total area of 720.76 hectares (7.19 km2). In the northwestern region, the PEAT RO4 project restored three peatlands with a combined area of 8 hectares (0.089 km2), targeting the reduction of human-induced pressures and enhancing resilience to climate change. In parallel, the RePeat project has been working across thirteen bogs.
+IMAGE: RO_Map.png

@@ -1,0 +1,28 @@
+TITLE: BG Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Bulgaria_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Bulgaria_Peatland.jpg
+Mapping efforts estimate that Bulgaria maintains 769,000 hectares of peatlands, covering about 0.29% of the land area. Most of these are located in the higher mountainous areas, such as the Rhodope and Rila mountains. Both bogs and fens occur in Bulgaria, including bog forests. 
+
+SECTION: Key Statistics
+ICON: 📊
+Less than 20% of the peatland area of Bulgaria can be classified as mires, which are estimated to cover 142,800 hectares. In fact, most peatlands in the country’s mountain areas have been destroyed owing to reservoir construction in the 1950s.
+
+HIGHLIGHT: Important Note
+Bulgarian bog sites are typically dominated by Sphagnum spp alongside Carex spp. As a result of direct and indirect threats, key peatland sites such as Charite Lakes are today experiencing hydrological changes and vegetation encroachment damaging to their functioning. 
+
+LIST: Key Points
+- Reservoir Construction from the 1950's destroyed most peatlands in the country’s mountain areas. 
+- Today, 95% of Bulgarian natural peatlands are located within protected areas. 
+- Some peat extraction also takes place in Bulgaria, with €289,000 of peat exported in 2023.
+
+SECTION: Conclusion
+ICON: 📚
+Some projects are working on furthering conservation and restoration of peatland sites, such as at Charite Lakes through the Bulgarian Biodiversity Foundation which maintain and restore protected lands.
+IMAGE: BL_Map.png

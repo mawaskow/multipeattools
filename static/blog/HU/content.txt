@@ -1,0 +1,28 @@
+TITLE: HU Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: .jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+Hungarian peatland estimates vary widely, often cited between 30,000-62,344 hectares depending on the source of information. Peat inventories from 1980 estimate that the country contains about 400 million cubic metres of peat resources, with 95% of this located in the Transdanubian regions west of Budapest .
+
+SECTION: Key Statistics
+ICON: 📊
+200 years of continued drainage has degraded 97% of Hungary's peat soils.Today the national peatland area has been reduced by two-thirds, and degradation is emitting the equivalent of 4.88 million tons of CO2 per year. Most peatlands in Hungary are now used for agriculture and peat mining. As of 2024, 24 separate mining sites existed, extracting peat for various products on 1,876 hectares of land.
+
+HIGHLIGHT: Important Note
+As of 2024, 24 separate mining sites existed, extracting peat for various products on 1,876 hectares of land. However, these can no longer be established on ecological network areas and cannot be expanded in land area.
+
+LIST: Key Points
+- Around 97% of its peat soils are degraded.
+- The degradation of peatlands emits 4.88 million tons of CO₂ annually.
+- 2/3 of the national peatland area has been lost to reduction over time.
+
+
+SECTION: Conclusion
+ICON: 📚
+Approximately 21,000 hectares of peatlands are within nature conservation zones. Further conservation and restoration activities exist through the Environment and Energy Efficiency Programme, which between 2014-2020 included 56 separate projects on seven different mire habitat types. These achieved positive results for included mires and is continuing until 2027.
+IMAGE: HU_Map.png

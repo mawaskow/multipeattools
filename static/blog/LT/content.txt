@@ -1,0 +1,30 @@
+TITLE: LT Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Lithuania_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Lithuania_Peatland.jpg
+The most significant peatland areas of Lithuania are located in the southeastern and western Lithuanian highlands, and notably in the western Nemunas delta region. Estimates of Lithuanian peatland cover vary between 646,000-878,900 hectares, thereby covering more than 10% of the country’s land area. 
+
+SECTION: Key Statistics
+ICON: 📊
+Most peatlands (78%) within Lithuania can be characterised as fens, covering 512,626 hectares and typically located at lake edges or in valleys. About 14% of Lithuanian peatlands are transition mires, covering 89,359 hectares, while only 8% (52,027 hectares) are bogs. Between 1900-2018, the national peatland area shrunk by 72%. Today, 68% of Lithuania’s peatlands are considered degraded, equivalent to about 434,000 hectares. As a result, annual emissions from peatlands amount to the equivalent of 9,78 million tons of CO2, hence 40% of national emissions when excluding the land use change sector. 
+
+
+HIGHLIGHT: Important Note
+With Lithuania’s degraded peatlands comes other issues separate from greenhouse emissions. For instance, Damaged nutrient regulation leads to increased nitrogen and phosphorus export into the Baltic Sea, thereby causing marine dead zones and algal blooms. Furthermore, apart from agriculture and extraction, Lithuanian peatlands and their services continue to be threatened through climate change, fires, hunting, and intensive recreation. 
+
+
+LIST: Key Points
+- It has been estimated that the carbon stock and water retention loss from peatland degradation in the country costs Lithuania 308.9 million euros annually, hence 6.6% of its GDP. 
+- Many emissions can be attributed to agricultural use, which covers 45% of Lithuania’s peatlands.
+- Recent studies estimated that 262,689 hectares of Lithuania’s peatlands are considered suitable for paludiculture, opening up considerable future possibilities for sustainable land-use.
+
+SECTION: Conclusion
+ICON: 📚
+As of 2021 €16 million were set aside to restore 8,000 hectares of degraded peatlands through the Recovery and Resilience Plan. Projects such as LIFE Peat Restore’s rewetting of 465 hectares of degraded raised bogs, bog forests, and quaking bogs are now underway in the country. This project aims to build dams, remove non-native vegetation, re-establish Sphagnum communities, and fill drainage ditches in the Amalvas, Plinkšiai, Sachara, Aukštumala, and Puščia peatlands.
+IMAGE: LT_Map.png

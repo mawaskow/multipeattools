@@ -1,0 +1,28 @@
+TITLE: DK Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Denmark_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Denmark_Peatland.jpg
+Current estimates of Danish peatland cover range between 173,000 – 202,900 hectares. Located in the Atlantic bog region, these are particularly present in the northern region of Denmark. Of the Danish peatlands, one of the largest intact sites is the Lille Vildmose raised bog, which supports important fauna such as golden eagles, wild boars, cranes, stags, otters, and the European moose. Apart from this site however, most raised bogs are relatively small.
+
+SECTION: Key Statistics
+ICON: 📊
+Currently, only about 13,700 hectares of peatlands in Denmark can be considered mires. It is estimated that 90% of past active raised bogs have disappeared in the country, with a 35% reduction between 1975-2010 alone. Most reductions are related to drainage for agriculture or for peat extraction. Despite constituting only 7% of the total Danish agricultural area, peatlands constitute a yearly emission level equivalent to 5.4 million tons of CO2. This makes them the largest emission source of the agricultural sector.
+
+HIGHLIGHT: Important Note
+Lille Vildmose raised bog supports important fauna such as golden eagles, wild boars, cranes, stags, otters, and the European moose. Located in the Atlantic bog region, most Danish raised bogs are present in the north of the country.
+
+LIST: Key Points
+- 90% of past active raised bogs have disappeared in the country.
+- By constituting only 7% of the total Danish agricultural area, peatlands release a yearly emission level equivalent to 5.4 million tons of CO2; the largest emission source of the agricultural sector.
+- Today, the remaining mires in Denmark are threatened by tree encroachment, nutrient deposition from surrounding agriculture, and desiccation.
+
+SECTION: Conclusion
+ICON: 📚
+Peatland conservation and restoration initiatives also persist through LIFE projects. Of these, seven notable sites underwent restoration from 2005-2011 through various restoration measures, rewetting 384 hectares of peatlands. In Lille Vildmose, consistent management and protection allowed for the reintroduction of many native fauna and flora, and the presence of a 7,600-hectare continuous active raised bog habitat.
+IMAGE: DK_Map.png

@@ -1,0 +1,28 @@
+TITLE: AT Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: AT_Peatland_2.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: AT_Peatland_2.jpg
+Much of Austria’s mire distribution occurs in the westernmost alpine regions of the country, or in its central/upper alpine regions. A significant mire area also exists at the edges of Lake Neusiedl, an endorheic waterbody known for its significant water-level fluctuations, located in eastern Austria’s lowlands.
+
+SECTION: Key Statistics
+ICON: 📊
+Austria is thought to have about 120,000 hectares of peat soils, covering about 1.4% of its total land area. Of this, likely only 15,000-30,000 hectares can still be classified as mires. Based on the Austrian mire conservation database, it is estimated that about 70% are fens, with the rest being bogs or transition mires. Over 90% of all of Austria’s original peatlands have been drained for agriculture or forestry. It is assumed that 100,000 hectares of agriculture has peat soils in Austria. Of these, 30% are meadows, 10% are pastures, and 60% are peat soils used as arable lands.
+
+HIGHLIGHT: Important Note
+Peatlands currently still classified as mires are also heavily affected by human activities in Austria, with 80% considered endangered. Those in protected areas are still considered to be at risk of groundwater recession and eutrophication (among others), and measurements have found noticeable increases in their emission level. If the entirety of Austria’s peatlands were rewetted today, this would have the potential to reduce CO2 emissions by 0.55 – 4.5 million tons per year.
+
+LIST: Key Points
+- About 90% of peatlands in Austria had been drained for agriculture or forestry.
+- Human activity endangers 80% of the mires, notably tourism, invasive species & climate change.
+- Over 100,000 hectares of agriculture occurs on peat soil.
+
+SECTION: Conclusion
+ICON: 📚
+In regions such as Austria’s Lower Waldviertel, most peatlands are part of nature management networks such as Natura 2000. As part of the 2030+ goals, the MOIST project is one initiative which aims to assess the extent and degradation of Austrian peat soils.
+IMAGE: AT map.png

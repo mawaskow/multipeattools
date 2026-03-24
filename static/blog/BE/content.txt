@@ -1,0 +1,29 @@
+TITLE: BE Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: BE_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: BE_Peatland.jpg
+Belgian peatlands are estimated to cover less than 1% of the country’s surface area of which, it is estimated to have 6,000 hectares of mires.
+
+SECTION: Key Statistics
+ICON: 📊
+Belgian peatlands are estimated to cover less than 1% of the country’s surface area, with estimates ranging between 13,000 - 24,780 hectares of peat soils. These are mostly located in the country’s eastern higher-altitude Ardennes region, notably in the Hautes Fagnes region, where the Zwarte Beek valley contains about 4,000 hectares of peatlands alone.
+
+HIGHLIGHT: Important Note
+Over 60% terrestrialising peat in Belgium is dominated by Sphagnum spp., and its mires support other important vegetation including Eriophorum spp., cranberries (Vaccinium oxycoccos), and andromeda (Andromeda polifolia).
+
+LIST: Key Points
+- About 90% of active raised bogs are considered to have disappeared since the 15th century.
+- Nitrogen pollution & tourism led to the loss of ¼ peatlands in the Hautes Fagnes and Plateau des Tailles since 1957.
+- Purple moor grass (Molinia caerulea) dominates peatlands, preventing other native
+  wildlife from growing.
+
+SECTION: Conclusion
+ICON: 📚
+Several projects for the protection and rewetting of Belgium’s peatlands have been taking place, particularly in the Hautes-Fagnes region. the Zwarte Beek valley is undergoing a project to restore 100 hectares of peatland which is estimated to reduce 2,500 tons of CO2 per year over 50 years.
+IMAGE: con_reg_wrb.png

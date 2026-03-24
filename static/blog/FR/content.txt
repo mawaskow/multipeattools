@@ -1,0 +1,28 @@
+TITLE: FR Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: France_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: France_Peatland.jpg
+French peatlands are estimated to cover between 275,000–300,000 hectares of its land, making it a comparatively rare landscape. The country straddles several mire regions, but primarily houses bogs and transition mires.
+
+SECTION: Key Statistics
+ICON: 📊
+France counts 12,144 hectares of active raised bogs, 5,819 hectares of degraded raised bogs still capable of regeneration, 9,127 hectares of transition mires, and 11,054 hectares of depressions on peat substrates of the Rhynchosporion. Fens in France count individual sites totalling 21,297 hectares, of which 8,237 are calcareous fens, 12,007 are alkaline fens, and 1,053 hectares are alkaline pioneer formations.
+
+HIGHLIGHT: Important Note
+Lac des Mortes, in the Bassin du Drugeon of the French Jura mountain region known for its wetlands and peatlands. Over the past centuries, French mires have been degraded due to anthropogenic factors. 
+
+LIST: Key Points
+- Today, an estimated 70% of peatlands are no longer capable of natural peat formation.
+- While the relative degradation level for agriculture is lower than for other European countries, restoration is still highly required.
+- Degradation trends continue today. In the southwest of France, afforestation measures are likely to continue on drained peatland landscapes despite calls for restoration.
+
+SECTION: Conclusion
+ICON: 📚
+French national nature reserves help conserve 1,511 hectares of mires, while regional reserves protect another 2,273 hectares, which remains a relatively small fraction of total mire area.
+IMAGE: FR_Map.png

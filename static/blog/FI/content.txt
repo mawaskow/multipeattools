@@ -1,0 +1,29 @@
+TITLE: FI Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Finland_Peatland.png
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Finland_Peatland.png
+Finland is one of the most peatland-rich countries in the world, having an estimated 9 million hectares of peatlands covering nearly a third of the national area. Of these, only about 27% can be classified as mires.
+
+SECTION: Key Statistics
+ICON: 📊
+By 1945, large-scale forest felling for pulp and paper took place, and since the 1940s, industrial forest and peat mining has led to the ditching and degradation of 5 million hectares of peatlands in Finland. Today, 55% of Finnish peatlands are drained, which primarily occurred between 1960-1980, with the vast majority (93%) being for forestry purposes. Despite this, Finnish peatlands remain a net sink of 0.2 Mt of CO2 due to high sink capacity from northern mires and the large-scale carbon stock from trees. As of 2021, at least 35,000 hectares of peatlands were undergoing restoration, and 1.2 million hectares in protected areas within 41 different national parks. Within these sites, a further 50,000 hectares were degraded prior to protection, and thereby earmarked for restoration.
+
+HIGHLIGHT: Important Note
+While southern Finland is classified as a typical raised bog region, where active raised bogs are primarily present, central-north Finland is better known for its aapa mires, and the northernmost regions for their palsa mire formations. Finnish raised bogs are primarily dominated by Sphagnum moss, while aapa mires are mostly dominated by Carex grasses.
+
+LIST: Key Points
+- Industrial forest and peat mining led to the ditching and degradation of 5 million hectares of peatlands since the 1940's.
+- Drainage targets today 55% of Finnish peatlands, with the vast majority (93%) being for forestry.
+- Despite this, Finnish peatlands remain a net sink of 0.2 Mt of CO2 due to high sink capacity from northern mires & the large-scale carbon stock
+from trees.
+
+SECTION: Conclusion
+ICON: 📚
+Monitoring of restoration projects has shown positive impacts on hydrology and biodiversity, including high Sphagnum growth, but more measures should be implemented to achieve conservation goals.
+IMAGE:FI_Map.png

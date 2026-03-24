@@ -1,0 +1,28 @@
+TITLE: SE Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Sweden_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Sweden_Peatland.jpg
+Generally, peatlands can be found at all latitudes in Sweden, as they are widespread throughout non-coastal regions. 
+
+SECTION: Key Statistics
+ICON: 📊
+Sweden contains anywhere from 6.37-9.4 million hectares of peatlands across its territory, covering up to 25% of its land area. It is estimated that the majority (78.71%) of peatlands in Sweden can still be classified as mires accruing peat soil. While the most widespread peatland type are fens, most are poor fens, with only 2-3% of the peatland area being rich fens, mainly in the north. Aapa and palsa mires are prominent in northern Swedish regions, with about 13,700 hectares of palsa mires having been identifie. As of today, such trends have led to 2.6 million hectares of Sweden’s peatlands being drained. A variety of land uses occupy current peat areas, with 2.1 million hectares for forestry, and 300,000 hectares for farming. Currently, drained forested peatlands are emitting over 5.5 million tons of CO2, with an additional 3 million tons from drained croplands.   
+
+HIGHLIGHT: Important Note
+Generally, peatlands can be found at all latitudes in Sweden, as they are widespread throughout noncoastal regions. Fens are the most widespread peatland type, which are mostly poor, with only 2-3% of rich fens.
+
+LIST: Key Points
+- Peatlands in Sweden are still actively mined for fuel, with 6,000 hectares of peat extraction in 2020.
+- Already, 60-year trends have shown a 54% reduction in palsa mire extent in certain locations.
+- Moreover, subsidence rates in summer thaw periods have reached up to 25 cm.
+
+SECTION: Conclusion
+ICON: 📚
+the Swedish government has committed more than €30 million to wetland restoration initiatives, including peatlands. Several rewetting and conservation initiatives have already taken place in Sweden. For instance, LIFE to Ad(d)mire Sweden’s project aimed to restore 3,000 hectares of rich fens between 2010-2050. This took place over 35 different Natura 2000 sites, using ditch filling and vegetation removal across 11 different types of habitat. In total, a report analysing national rewetting programmes found that 1,500 hectares of peatlands were rewetted across 588 projects in 2023. This was estimated to reduce emissions by the equivalent of 6,100 tons of CO2.
+IMAGE: SE_Map.png

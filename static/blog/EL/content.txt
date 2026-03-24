@@ -1,0 +1,28 @@
+TITLE: EL Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Greece_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Greece_Peatland.jpg
+In Greece, peatlands cover about 10,100-10,300 hectares of land. These are primarily fen landscapes located in intermontane basins or the coast, although small transitional mires also exist in northern mountainous regions of Greece.
+
+SECTION: Key Statistics
+ICON: 📊
+Of the Greek intermontane fens, one dominates in terms of size and depth: the Philippi peatland, located in the Drama Basin of Eastern Macedonia, in northern Greece. Spanning 5,500 hectares, this peatland is famous for having the deepest peat recorded been accumulating peat for 0.7-1.35 million years, with peat reserves estimated at about 4.3 billion cubic metres reaching 190 meter. The Philippi  peatland  has been accumulating peat for 0.7-1.35 million years, with peat reserves estimated at about 4.3 billion cubic metres.
+
+HIGHLIGHT: Important Note
+The drainage and cultivation of peatlands across the past several centuries in Greece now translates into a very dire situation for Greek peatlands. While there is no accurate data about the drainage extent in Greece today, it is estimated that 90% of all Greek organic soils are now cultivated. In the present day, the Philippi peatland is nearly entirely used for agriculture. Subsidence has continued, with central areas of the peatland subsiding by up to 7 metres, worsened by continued cultivation and ploughing activity exposing bare peat to the atmosphere. 
+
+LIST: Key Points
+- 92-95% of peat soils are drained.
+- 90% of all Greek organic soils are estimated to be cultivated in present. 
+- Central areas have subsided by up to 7 meters due to ongoing cultivation & ploughing.
+
+SECTION: Conclusion
+ICON: 📚
+Little information exists on Greek peatland restoration and conservation projects. Some notable pristine peatlands do exist however, such as the Small Prespa fen of 400 hectares, located in the northwestern Macedonia region. This site became a National Park in 1974, and is protected by the Ramsar convention, although still being impacted by eutrophication from surrounding agriculture.
+IMAGE: EL_Map.png

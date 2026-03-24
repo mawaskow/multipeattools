@@ -1,0 +1,28 @@
+TITLE: EE Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Estonia_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Estonia_Peatland.jpg
+Estonia counts 915,000 hectares of peat soils, of which around 325,000 hectares are mires. This makes it one of the most peat-rich nations in the world, with about 20% of its land area covered in peatlands. Estonia is located in a typical raised bog and nemoral-sub-meridional fen region .
+
+SECTION: Key Statistics
+ICON: 📊
+Of the functioning mires, most (151,200 hectares) are therefore bogs, while 40,000 hectares are intact transitional mires, and 42,300 hectares are fen landscapes. Among Estonian peatlands, peat depth can reach up to 18 meters, although average depths are typically around 3-5 meters. Peat formation rates in the country vary between 0.92-1.42 million tons/year, with total national deposits estimated at 2.37 billion tons.   
+
+HIGHLIGHT: Important Note
+Estonian mires are crucial landscapes for several important fauna and flora, such as the capercaillie (Tetrao urogallus), common crane (Grus grus), and carnivorous sundew (Drosera).Today, agriculture, forestry, and peat extraction are the main land uses for peatlands in Estonia. By 1992, 560,000 hectares of peatland forest was drained.
+
+LIST: Key Points
+- Estonia is one of the world’s most peat-rich country.
+- As of 2024, 128 extraction sites exist throughout Estonia, mining 400,000 – 900,000 tons of peat per year.
+- Roughly 65-70% of mires have been degraded for economic reclamation, causing 7.7-10.14 million tons of CO2-eq emitted annually.
+
+SECTION: Conclusion
+ICON: 📚
+Estonia is relatively well-involved with peatland protection and restoration. Its national Action Plan for Protected Mires (2016-2023) aimed to restore 10,000 hectares of peatlands by 2020, while protecting a further 190,000 hectares. As of 2024, these targets have been widely exceeded, with over 17,000 hectares restored by the State Forest Management Centre.
+IMAGE: EE_Map.png

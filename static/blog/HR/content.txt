@@ -1,0 +1,28 @@
+TITLE: HR Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Croacia_ Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Croacia_ Peatland.jpg
+Croatian peatlands are thereby relatively quite rare, covering less than 0.1% of the area, with most being small, scattered, and isolated. Both acidic bog and basic fen landscapes occur in Croatia. Notably, the Ðon Močvar bog of central Croatia is the oldest and largest peat bog in the country, spanning 10 hectares and support Sphagnum hummocks, as well as Phragmites, Alnus, and Salix species.
+
+SECTION: Key Statistics
+ICON: 📊
+While there may be more unregistered sites, total peatland area in Croatia is estimated at 15,000-51,200 hectares.
+
+HIGHLIGHT: Important Note
+Croatian peatlands are severely degraded, with peatland extent massively decreasing throughout the 20th century primarily due to water level changes and vegetation succession. Drainage of bog sites for spruce forestry, abandoned management, and agriculture are the primary culprits, alongside climatic changes driving vegetation succession and droughts.  
+
+LIST: Key Points
+- Fens and bogs are recognised as being the most endangered habitat of Croatia, with peatlands such as the Ðon Močvar bog protected as a botanical reserve.
+- Fens such as the 0.24 hectares Jarak fen in the western Croatian mountains support vegetation of the Eriophoro latifolio-Caricetum panicae association.
+- Fens have been seeing Phragmites australis encroachment, several peatland plant species have become regionally extinct, and Sphagnum, Eriophorum vaginatum, sundews, and mire mushroom cover has been dramatically reduced.
+
+SECTION: Conclusion
+ICON: 📚
+Little up-to-date information exists concerning mire conservation and restoration in the country, and mire maintenance attempts have been relatively unsuccessful
+IMAGE: HR_Map.jpg

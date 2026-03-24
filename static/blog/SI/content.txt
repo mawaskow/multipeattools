@@ -1,0 +1,28 @@
+TITLE: SI Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Slovenia_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Slovenia_Peatland.jpg
+Peatlands in Slovenia are scattered and fragmented, primarily located in mountainous and lowland wetland regions. One of the most prominent peatland areas is the Ljubljansko Barje (Ljubljana Marshes), the largest wetland in Slovenia. This area includes both peat bogs and marshes and is renowned for its ecological richness and archaeological value, particularly the prehistoric pile dwellings recognized as a UNESCO World Heritage Site.
+
+SECTION: Key Statistics
+ICON: 📊
+Slovenia has a relatively small peatland footprint, with an estimated peatland area of 8,390 hectares, which accounts for just 0.41% of the national territory. Only 430 hectares, approximately 5.07% of the peatland area is classified as mire. Slovenia is among the European countries with very high peatland degradation, with over 91% of its peatlands currently considered degraded. 
+
+HIGHLIGHT: Important Note
+Since the 15th century, the area has undergone significant land use changes. In the 19th century, agricultural expansion and industrial activities such as ironworks  and charcoal production, deforestation and a more open landscape. After 1818, population growth, agrarian reforms, and the introduction of new crops increased land pressure. Recent studies with groundpenetrating radar (GPR) and electrical resistivity tomography (ERT) reveal that the bog originated from an ancient lake with four deep basins, which merged over time to form the current peatland. One of the most prominent peatland areas is the Ljubljansko Barje (Ljubljana Marshes), the largest wetland in Slovenia. This area includes both peat bogs and marshes and is renowned for its ecological richness and archaeological value, particularly the prehistoric pile dwellings recognized as a UNESCO World Heritage Site.
+
+LIST: Key Points
+- Slovenia is among the European countries with very high peatland degradation, with over 91% of its peatlands currently considered degraded 
+- Although industrial forest use declined by the late 19th century, agriculture continued into the 20th century. Later, reduced grazing, land fragmentation, and mechanization allowed forest regeneration.
+- Slovenia's Šijec bog is a geological time capsule.
+
+SECTION: Conclusion
+ICON: 📚
+At the policy level, Slovenia supports the EU Nature Restoration Law and has introduced measures aimed at restoring a variety of habitat types over an area of approximately 14,000 to 15,850 hectares, roughly 0.8% of the national territory. Several conservation projects have supported these efforts. For instance the LJUBA project focused on improving habitat conditions in the Ljubljana Marsh, targeting lowland bogs and promoting cooperation with farmers to support biodiversity.
+IMAGE: SI_Map.png

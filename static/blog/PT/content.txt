@@ -1,0 +1,28 @@
+TITLE: PT Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Portugal_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Portugal_Peatland.jpg
+In mainland Portugal, peatlands are primarily found in the northern and central high-altitude regions, particularly in the Castro Laboreiro Plateau. This area hosts ecologically valuable peatland sites such as Corga do Carneiro and Corga dos Portos, which are known for their minerotrophic bogs. In the Azores Archipelago, the islands of Terceira and Flores contain significant peatland areas. 
+
+SECTION: Key Statistics
+ICON: 📊
+Portugal contains approximately 271 km² of peatlands, which represents about 0.29% of the country’s territory. Within this total, an estimated 10 km² are classified as mires, accounting for around 3.69% of the peatland area. Terceira holds approximately 7% (2,766 hectares) and Flores about 17% (2,414 hectares) of peatlands.
+
+HIGHLIGHT: Important Note
+Corga do Carneiro and Corga dos Portos areas are known for their minerotrophic bogs. The Paul da Gouxa peatland of Central Portugal contains the largest population of endemic Sorraia horses, a very rare wild horse breed.   
+
+LIST: Key Points
+- Portugal has one of the highest rates of peatland degradation in Europe, with 91-100% affected.
+- In the Azores, much of the original peatland has been converted to pasture, leaving less than 30% intact, over half of which remains under pressure.
+- Across the Iberian Peninsula, land use changes such as drainage for agriculture, afforestation, and other land development activities have been major drivers of peatland degradation.
+
+SECTION: Conclusion
+ICON: 📚
+Portugal has banned peatland drainage, peat extraction, and changes in land use to protect these sensitive ecosystems. As part of its restoration efforts, the REWET project is underway in Paul da Gouxa, a 140-hectare lowland peatland. An Eddy Covariance tower has been installed to monitor carbon sequestration, and the project also explores ecosystem services such as biodiversity conservation, rice cultivation, and biomass production.
+IMAGE: PT_Map.jpg

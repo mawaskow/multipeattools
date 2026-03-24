@@ -1,0 +1,29 @@
+TITLE: DE Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: Germany_Peatland.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+IMAGE: Germany_Peatland.jpg
+German peatlands are primarily fen landscapes fed by groundwater, but bogs do still occur in the southern Alps region, and in northwestern parts of the country.
+
+SECTION: Key Statistics
+ICON: 📊
+German peatlands cover about 3.5-5% of German land area, with estimates around 1.28-1.8 million hectares of peatlands. These peatlands are mostly located in the north of the country, or in the southern Alps. Of the country’s peatlands, only about 2% can be classified as mires where peat is actively forming. Today, about 92-95% of peat soils are drained. Of all peatlands, 52% are grasslands, 19% croplands, 15% forested lands, and 5% settlements, leaving only 6% as natural wetlands. As a result, German peatlands emit the equivalent of 45-51.2 million tons of CO2 annually. These amount to 5.4% of all national anthropogenic greenhouse gas emissions. While the land use sector remains a net carbon sink as of 2024 owing to forests, it is estimated that by 2025 the sector will become a net source of CO2 equivalent emissions.
+
+
+HIGHLIGHT: Important Note
+Peatlands have been used for fuel in Germany since the Bronze Age, but since the 18th century such exploitation took off due to wood scarcity [5]. The post-WW2 era saw increased ditching to make space for agriculture, continuing particularly throughout the 1960s.
+
+LIST: Key Points
+- Around 92-95% of peat soils are drained.
+- Of all peatlands, 52% are grasslands, 19% croplands, 15% forested lands, and 5% settlements, leaving only 6% as natural wetlands.
+- German peatlands emit the equivalent of 45-51.2 million tons of CO2 annually. These amount to 5.4% of all national anthropogenic greenhouse gas emissions.
+
+SECTION: Conclusion
+ICON: 📚
+Eventually, by 2045 Germany aims for an annual carbon sink from the land use sector equivalent to -40 million tons of CO2. To achieve such goals, federal estimations are that 226,260 hectares of peat soil grasslands need to be extensified with higher water tables, and 80,600 hectares need to be completely waterlogged. In total, rewetting all drained agricultural peatlands in Germany would reduce emissions by 30 million tons of CO2 per year. Such policies have facilitated restoration and conservation activities, and the country is now considered one of the frontrunners for paludiculture projects and research.
+IMAGE: DE_map.png

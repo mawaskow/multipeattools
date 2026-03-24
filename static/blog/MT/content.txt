@@ -1,0 +1,26 @@
+TITLE: MT Peatland Conservation Strategy
+SUBTITLE: A Comprehensive Analysis
+AUTHOR: Environmental Research Team
+DATE: February 2026
+READ_TIME: 8 min
+HERO_IMAGE: hero.jpg
+
+SECTION: Executive Summary
+ICON: 🌿
+Out of all the countries in the EU, Malta is the only one with no peatlands known to exist.
+
+SECTION: Key Statistics
+ICON: 📊
+So far no reports of peatland statistics.
+
+HIGHLIGHT: Important Note
+
+
+LIST: Key Points
+- 
+- 
+- 
+
+SECTION: Conclusion
+ICON: 📚
+
