@@ -1,55 +1,31 @@
 # Peatland Policy Portal
 
-## Directories:
-### Inputs
-For populating the FFP and SET tool forms/pages before JS invoked
+This is the code repository for the EU LIFE Multi Peat project's [European Peatland Policy Portal](https://peatlandpolicyportal.eu/).
 
-Inlcudes both form inputs and results for each tool
-### Mvenv
-Virutal environment for gunicorn instance
-### Static
-Where scripts, styles and icons are stored
-### Scripts
-#### calc_ffp
-Handles calculation using FFP tool on FFP page
-#### calc_set
-Handles calculation using SET tool on SET page
-#### customFunctions
-Accesses map layers by name or display quality
-#### Identify
-Map popup on click
-#### Layers
-Map layers list-- toggles visibility based on selection
-#### Map
-Connects to geoserver, selects layers, and creates map
-#### Offcanv
-Popup on side after map click-- displays policy information
-#### Search
-Search capabilities/ searchbar, currently not in use
-#### toggle_display
-Closing and opening divs based on buttons or icons
+## Repository Content
 
-### Templates
-All html templates for each page
+- inputs
+  - static data used in the FFP and SET tools
+- mvenv
+  - virtual environment for repository
+- static
+  - images
+    - pictures used throughout the portal
+  - scripts
+    - JavaScript files to make pages and tools dynamic
+  - additional auxiliary icons and images (mainly SVGs and logos)
+  - style.css
+- templates
+  - HTML templates for all web pages
+- [base directory]
+  - run.py starts flask instance and manages site routes
+  - wsgi.py is for web deployment
+  - modules.py contains some python modules for run.py
 
-base is the base html page.
+## Local Use:
 
-### Miscellaneous
-run.py starts flask instance
-
-wsgi.py is for web deployment
-
-modules.py is for some python modules for run.py
-
-## To run:
-Clone repository
-
-Install dependencies
-
-Open terminal and cd to directory
-
-`powershell: $env:FLASK_APP = "run"`
-
-`bash: export FLASK_APP=run`
-
-`flask run`
+- Clone repository
+- Install dependencies
+- Open terminal and cd to directory
+- `=$env:FLASK_APP = "run"` if powershell or `export FLASK_APP=run` if bash
+- `flask run`
