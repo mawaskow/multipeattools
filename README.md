@@ -27,5 +27,5 @@ This is the code repository for the EU LIFE Multi Peat project's [European Peatl
 - Clone repository
 - Install dependencies
 - Open terminal and cd to directory
-- `=$env:FLASK_APP = "run"` if powershell or `export FLASK_APP=run` if bash
+- `$env:FLASK_APP = "run"` if powershell or `export FLASK_APP=run` if bash
 - `flask run`
