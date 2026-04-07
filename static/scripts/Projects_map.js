@@ -1,15 +1,13 @@
-import Map from 'https://cdn.skypack.dev/ol/Map.js';
-import View from 'https://cdn.skypack.dev/ol/View.js';
-import TileLayer from 'https://cdn.skypack.dev/ol/layer/Tile.js';
-import OSM from 'https://cdn.skypack.dev/ol/source/OSM.js';
-import VectorLayer from 'https://cdn.skypack.dev/ol/layer/Vector.js';
-import VectorSource from 'https://cdn.skypack.dev/ol/source/Vector.js';
-import Projection from 'https://cdn.skypack.dev/ol/proj/Projection.js';
-import Feature from 'https://cdn.skypack.dev/ol/Feature.js';
-import Point from 'https://cdn.skypack.dev/ol/geom/Point.js';
-import {Icon, Style} from 'https://cdn.skypack.dev/ol/style.js';
-import {fromLonLat} from 'https://cdn.skypack.dev/ol/proj.js';
-import GeoJSON from 'https://cdn.skypack.dev/ol/format/GeoJSON.js';
+const Map = ol.Map;
+const View = ol.View;
+const TileLayer = ol.layer.Tile;
+const OSM = ol.source.OSM;
+const VectorLayer = ol.layer.Vector;
+const VectorSource = ol.source.Vector;
+const Projection = ol.proj.Projection;
+const Style = ol.style.Style;
+const Icon = ol.style.Icon;
+const GeoJSON = ol.format.GeoJSON;
 
 //////////////////
 //              //

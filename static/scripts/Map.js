@@ -1,12 +1,9 @@
-import Map from 'https://cdn.skypack.dev/ol/Map.js';
-import View from 'https://cdn.skypack.dev/ol/View.js';
-//import TileLayer from 'https://cdn.skypack.dev/ol/layer/Tile.js';
-import TileLayer from 'https://esm.sh/ol@latest/layer/Tile';
-import OSM from 'https://cdn.skypack.dev/ol/source/OSM.js';
-import TileWMS from 'https://cdn.skypack.dev/ol/source/TileWMS.js';
-import Projection from 'https://cdn.skypack.dev/ol/proj/Projection.js';
-import ImageLayer from 'https://cdn.skypack.dev/ol/layer/Image.js';
-import ImageWMS from 'https://cdn.skypack.dev/ol/source/TileWMS.js';
+const Map = ol.Map;
+const View = ol.View;
+const TileLayer = ol.layer.Tile;
+const OSM = ol.source.OSM;
+const TileWMS = ol.source.TileWMS;
+const Projection = ol.proj.Projection;
 
 ////////////////////
 //                //

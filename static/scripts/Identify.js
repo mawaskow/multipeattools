@@ -1,6 +1,6 @@
-import Overlay from 'https://cdn.skypack.dev/ol/Overlay.js';
-import {toLonLat} from 'https://cdn.skypack.dev/ol/proj.js';
-import {toStringHDMS} from 'https://cdn.skypack.dev/ol/coordinate.js';
+const Overlay = ol.Overlay;
+const toLonLat = ol.proj.toLonLat;
+const toStringHDMS = ol.coordinate.toStringHDMS;
 import {getLayerByName} from './customFunctions.js'
 //import { get } from 'jquery';
 

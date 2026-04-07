@@ -1,16 +1,10 @@
-import WFS from 'https://cdn.skypack.dev/ol/format/WFS.js';
-import OWS from 'https://cdn.skypack.dev/ol/format/OWS.js';
-import WMSCapabilities from 'https://cdn.skypack.dev/ol/format/WMSCapabilities.js';
-import WMSGetFeatureInfo from 'https://cdn.skypack.dev/ol/format/WMSGetFeatureInfo.js';
-import JSONFeature from 'https://cdn.skypack.dev/ol/format/JSONFeature.js';
-import GeoJSON from 'https://cdn.skypack.dev/ol/format/GeoJSON.js';
-import And from 'https://cdn.skypack.dev/ol/format/filter/And.js';
-import IsLike from 'https://cdn.skypack.dev/ol/format/filter/IsLike.js';
-import EqualTo from 'https://cdn.skypack.dev/ol/format/filter/EqualTo.js';
-import Vector from 'https://cdn.skypack.dev/ol/layer/Vector.js';
-import VectorSource from 'https://cdn.skypack.dev/ol/source/Vector.js';
-import Stroke from 'https://cdn.skypack.dev/ol/style/Stroke.js';
-import Style from 'https://cdn.skypack.dev/ol/style/Style.js';
+const WFS = ol.format.WFS;
+const GeoJSON = ol.format.GeoJSON;
+const IsLike = ol.format.filter.isLike;
+const Vector = ol.layer.Vector;
+const VectorSource = ol.source.Vector;
+const Stroke = ol.style.Stroke;
+const Style = ol.style.Style;
 
 const map=$('#map').data('map');
 
