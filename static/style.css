@@ -6,23 +6,44 @@ h4, h5, p{
 }
 
 p.poltxt{
-    font-family: Helvetica, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    /*font-family: Helvetica, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;*/
     line-height: 1.35;
 }
 
 div.abst-collapse.collapse:not(.show){
     display: block;
-    height: 2.5rem;
+    height: 3rem;
     overflow: hidden;
 }
 div.abst-collapse.collapsing{
-    height: 2.5rem;
+    height: 3rem;
 }
 .abst-div > a.collapsed:after {
     content: 'Show More';
 }
 .abst-div > a:not(.collapsed):after {
     content: 'Show Less';
+}
+
+.abst-div {
+    position: relative; 
+}
+
+.abst-collapse.collapse:not(.show) {
+    display: block; 
+    max-height: 100px; 
+    overflow: hidden;
+}
+
+.abst-collapse.collapse:not(.show)::after {
+    content: '';
+    position: absolute;
+    bottom: 20px; 
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(248, 249, 250, 0) 0%, rgba(248, 249, 250, 1) 100%);
+    pointer-events: none; 
 }
 
 div.exc-collapse.collapse:not(.show){
@@ -113,11 +134,11 @@ nav.navbar.bg-body-tertiary{
     background-color: white;
 }
 
-.navbar{
+nav.navbar{
     padding: 0px;
 }
 
-.navbar > .container-fluid > a{
+nav.navbar > .container-fluid > a{
     padding-left: 5px;
 }
 
@@ -449,6 +470,7 @@ border-width: 11px;
 left: 48px;
 margin-left: -11px;
 }
+/*
 .ol-popup-closer {
 text-decoration: none;
 position: absolute;
@@ -458,6 +480,7 @@ right: 8px;
 .ol-popup-closer:after {
 content: "✖";
 }
+*/
 #popup a:link{
 text-decoration: none;
 }
@@ -891,24 +914,14 @@ p.lyr-reg-txt{
     width: 30px;
 }
 
-input[type="checkbox"]:checked + #locauth-fltr-svg {
-    fill:#72CAC3;
+#lvl-filter-div svg {
+    fill: #949494 !important;
+    transition: fill 0.2s ease;
+    cursor: pointer;
 }
 
-input[type="checkbox"]:checked + #reg-fltr-svg {
-    fill:#72CAC3;
-}
-
-input[type="checkbox"]:checked + #ntl-fltr-svg {
-    fill:#72CAC3;
-}
-
-input[type="checkbox"]:checked + #eu-fltr-svg {
-    fill:#72CAC3;
-}
-
-input[type="checkbox"]:checked + #glb-fltr-svg {
-    fill:#72CAC3;
+#lvl-filter-div input[type="checkbox"]:checked ~ svg {
+    fill: #3e8f88 !important; 
 }
 
 /*Policy class check box*/
@@ -1523,6 +1536,9 @@ ul {
 }
 
 .menu-img {
+  width: 100%;
   max-width: 240px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: auto;
+  object-fit: contain;
 }

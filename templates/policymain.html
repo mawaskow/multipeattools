@@ -3,127 +3,139 @@
 {% block title %}Policy Collection{% endblock %}
 
 {% block content %}
-<div class="container" style="min-height: 760px;">
-    <div class="row justify-content-center">
+<div class="container my-3" style="min-height: 90vh;">
+    <div class="row justify-content-center mb-5">
         <div class="col-lg-10">
-            <h4 class="text-center" style="padding:10px; padding-top: 20px;">POLICY COLLECTION</h4>
-            <p class="text-descr" style="padding-bottom:10px">
-                On this page you can explore our collection of peatland-related policies. 
-                At the moment, you can filter the policies by country, governance level, and category.
-                We will be adding further polices and querying methods as we grow our portal.
-            </p>
-            
-            <!-- Search Bar -->
-            <div class="row justify-content-center mb-3">
-                <div class="col-8">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="policy-search-input" placeholder="Search policies by title, description, or keywords..." onkeyup="searchPolicies()">
-                        <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
-                            <i class="fas fa-times"></i> Clear
-                        </button>
-                    </div>
+            <div class="card border-0 bg-light p-3 p-md-4 shadow-sm" style="transform: none;">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3 text-center">Policy Collection</h3>
+                    <p class="lead text-secondary mx-auto mb-3 text-center" style="max-width: 800px;">
+                        On this page you can explore our collection of peatland-related policies. 
+                        At the moment, you can filter the policies by country, governance level, and category.
+                        Additionally, on each entry's Policy Profile page you can access the <a class="textab" href="{{url_for('ai_about')}}" target="_blank">Key Metric Analyser</a> to view the extracted sentences for that policy. 
+                    </p>
+                    <div class="card border-0 bg-white p-4 shadow-sm mb-4">
+                        <div class="row justify-content-center mb-4">
+                            <div class="col-md-10 col-lg-8">
+                                <div class="row g-0 align-items-center bg-white border" style="border-radius: 0.375rem; min-height: 42px;">
+                                    <div class="col-auto d-flex align-items-center justify-content-center px-3 border-end" style="font-size: 1.1rem; user-select: none;">
+                                        🔍
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control border-0 bg-white" id="policy-search-input" placeholder="Search policies by title, description, or keywords..." onkeyup="searchPolicies()" style="box-shadow: none !important;">
+                                    </div>
+                                    <div class="col-auto p-1">
+                                        <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center px-3" type="button" onclick="clearSearch()" style="height: 32px;">
+                                            Clear
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2 justify-content-center">
+                            <!--Countries-->
+                            <div class="col-12 col-sm-4">
+                                <div class="dropdown">
+                                    <button class="btn btn-success dropdown-toggle w-100 fw-semibold text-truncate px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-globe-europe me-1"></i> Countries
+                                    </button>
+                                    <ul class="dropdown-menu overflow-auto w-100 shadow-sm" id="pol-ctry-select" style="max-height: 400px;">
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Levels-->
+                            <div class="col-12 col-sm-4">
+                                <div class="dropdown">
+                                    <button class="btn btn-success dropdown-toggle w-100 fw-semibold text-truncate px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-layer-group me-2"></i> Governance Level
+                                    </button>
+                                    <ul class="dropdown-menu p-3 w-100 shadow-sm">
+                                        <li class="mb-2">
+                                            <input class="form-check-input stk-chk" type="checkbox" value="Global" id="pol-chk-lvl-gb" onchange="filterPolicies()" checked>
+                                            <label class="form-check-label ms-1" for="pol-chk-lvl-gb">Global</label>
+                                        </li>
+                                        <li class="mb-2">
+                                            <input class="form-check-input stk-chk" type="checkbox" value="European" id="pol-chk-lvl-eu" onchange="filterPolicies()" checked>
+                                            <label class="form-check-label ms-1" for="pol-chk-lvl-eu">European</label>
+                                        </li>
+                                        <li class="mb-2">
+                                            <input class="form-check-input stk-chk" type="checkbox" value="National" id="pol-chk-lvl-nt" onchange="filterPolicies()" checked>
+                                            <label class="form-check-label ms-1" for="pol-chk-lvl-nt">National</label>
+                                        </li>
+                                        <li class="mb-2">
+                                            <input class="form-check-input stk-chk" type="checkbox" value="Regional" id="pol-chk-lvl-rg" onchange="filterPolicies()" checked>
+                                            <label class="form-check-label ms-1" for="pol-chk-lvl-rg">Regional</label>
+                                        </li>
+                                        <li class="mb-0">
+                                            <input class="form-check-input stk-chk" type="checkbox" value="Local" id="pol-chk-lvl-lc" onchange="filterPolicies()" checked>
+                                            <label class="form-check-label ms-1" for="pol-chk-lvl-lc">Local</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Categories-->
+                            <div class="col-12 col-sm-4">
+                                <div class="dropdown">
+                                    <button class="btn btn-success dropdown-toggle w-100 fw-semibold text-truncate px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-tags me-1"></i> Policy Category
+                                    </button>
+                                    <ul class="dropdown-menu p-2 w-100 shadow-sm" style="min-width: 220px;">
+                                        <li class="p-1">
+                                            <div class="bio-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-bio" class="form-check-input stk-chk" value="Biodiversity" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-bio">Biodiversity</label>
+                                            </div>
+                                        </li>
+                                        <li class="p-1">
+                                            <div class="clm-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-clm" class="form-check-input stk-chk" value="Climate Action" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-clm">Climate Action</label>
+                                            </div>
+                                        </li>
+                                        <li class="p-1">
+                                            <div class="comm-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-comm" class="form-check-input stk-chk" value="Community and Culture" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-comm">Culture</label>
+                                            </div>
+                                        </li>
+                                        <li class="p-1">
+                                            <div class="econ-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-econ" class="form-check-input stk-chk" value="Economy" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-econ">Economy</label>
+                                            </div>
+                                        </li>
+                                        <li class="p-1">
+                                            <div class="enr-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-enr" class="form-check-input stk-chk" value="Energy" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-enr">Energy</label>
+                                            </div>
+                                        </li>
+                                        <li class="p-1">
+                                            <div class="env-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-env" class="form-check-input stk-chk" value="Environment Quality" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-env">Env. Quality</label>
+                                            </div>
+                                        </li>
+                                        <li class="p-1">
+                                            <div class="land-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-land" class="form-check-input stk-chk" value="Land Use / Agriculture" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-land">Land Use</label>
+                                            </div>
+                                        </li>
+                                        <li class="p-1">
+                                            <div class="res-cls-clr px-2 py-1 rounded">
+                                                <input type="checkbox" id="pol-chk-cat-res" class="form-check-input stk-chk" value="Research and Applied Sciences" onchange="filterPolicies()" checked>
+                                                <label class="form-check-label ms-1" for="pol-chk-cat-res">Research</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div id="policyliststore" value="{{ [] }}" style="display:none"></div>
+                    <div class="accordion pol-coll-div mt-4" id="pol-coll-div"></div>
                 </div>
-            </div>
-            
-            <div class="row justify-content-center">
-                <div class="col-3">
-                    <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Countries
-                        </button>
-                        <ul class="dropdown-menu overflow-auto" id="pol-ctry-select" style="max-height: 400px;">
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" style="width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Governance Level
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <input class="form-check-input stk-chk" type="checkbox" value="Global" id="pol-chk-lvl-gb" onchange="filterPolicies()" checked>
-                                <label class="form-check-label" for="flexCheckDefault">Global</label>
-                            </li>
-                            <li>
-                                <input class="form-check-input stk-chk" type="checkbox" value="European" id="pol-chk-lvl-eu" onchange="filterPolicies()" checked>
-                                <label class="form-check-label" for="flexCheckDefault">European</label>
-                            </li>
-                            <li>
-                                <input class="form-check-input stk-chk" type="checkbox" value="National" id="pol-chk-lvl-nt" onchange="filterPolicies()" checked>
-                                <label class="form-check-label" for="flexCheckDefault">National</label>
-                            </li>
-                            <li>
-                                <input class="form-check-input stk-chk" type="checkbox" value="Regional" id="pol-chk-lvl-rg" onchange="filterPolicies()" checked>
-                                <label class="form-check-label" for="flexCheckDefault">Regional</label>
-                            </li>
-                            <li>
-                                <input class="form-check-input stk-chk" type="checkbox" value="Local" id="pol-chk-lvl-lc" onchange="filterPolicies()" checked>
-                                <label class="form-check-label" for="flexCheckDefault">Local</label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" style="width: 100%" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Policy Category
-                        </button>
-                        <ul class="dropdown-menu" style="padding:0px;">
-                            <li>
-                                <div class="bio-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-bio" class="form-check-input stk-chk" value="Biodiversity" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-bio">Biodiversity</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clm-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-clm" class="form-check-input stk-chk" value="Climate Action" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-clm">Climate Action</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="comm-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-comm" class="form-check-input stk-chk" value="Community and Culture" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-comm">Culture</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="econ-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-econ" class="form-check-input stk-chk" value="Economy" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-econ">Economy</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="enr-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-enr" class="form-check-input stk-chk" value="Energy" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-enr">Energy</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="env-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-env" class="form-check-input stk-chk" value="Environment Quality" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-env">Env. Quality</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="land-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-land" class="form-check-input stk-chk" value="Land Use / Agriculture" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-land">Land Use</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="res-cls-clr">
-                                    <input type="checkbox" id="pol-chk-cat-res" class="form-check-input stk-chk" value="Research and Applied Sciences" onchange="filterPolicies()" checked>
-                                    <label class="form-check-label" for="pol-chk-cat-res">Research</label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="policyliststore" value="{{ [] }}" style="display:none"></div>
-            <div class="accordion pol-coll-div" id="pol-coll-div" style="margin-bottom: 10px; margin-top:10px;">
             </div>
         </div>
     </div>
@@ -162,6 +174,7 @@
         'Environment Quality':`Environmental Quality`,
         };
     //https://www.alt-codes.net/flags
+    // at some point connect to https://flagcdn.com/w40/{country code}.png to workaround windows chrome flag emoji display issue
     const flagmojis = {
         "Global":"🌐",
         "European":"🇪🇺",
@@ -237,17 +250,17 @@
     const ctry_sel_hl = $("#pol-ctry-select");
     ctry_sel_hl.html('');
     ctry_sel_hl.append(`
-        <li>
+        <li class="px-3 py-1">
             <input class="form-check-input stk-chk" type="checkbox" value="Toggle all" id="pol-chk-nat-all" onchange="toggle_countries()" checked>
-            <label class="form-check-label">Toggle all</label>
+            <label class="form-check-label ms-1 fw-bold">Toggle all</label>
         </li>
         <li><hr class="dropdown-divider"></li>
     `);
     for(let key in country_select){
         ctry_sel_hl.append(`
-            <li>
+            <li class="px-3 py-1">
                 <input class="form-check-input stk-chk" type="checkbox" value="${key}" id="pol-chk-nat-${country_select[key]}" onchange="filterPolicies()" checked>
-                <label class="form-check-label">${key}</label>
+                <label class="form-check-label ms-1">${key}</label>
             </li>
         `);
     }
@@ -405,19 +418,19 @@
         console.log(polLst[0]);
         const polPop = $('#pol-coll-div');
         polPop.html('');
-        polPop.append(`<h4 id="pol-res-he" class="text-center" style="padding-bottom:10px">Policies</h4>`);
-        polPop.append(`<p id="pol-count" style="padding:5px">${polLst.length} results</p>`)
+        //polPop.append(`<h4 id="pol-res-he" class="text-center fw-semibold mb-3">Policies</h4>`);
+        polPop.append(`<p id="pol-count" class="text-center mb-3">${polLst.length} results found</p>`)
         for (let i = 0; i < polLst.length; i++) {
             var policy = polLst[i];
             // categories html, gets all categories in their pill form
-            var categ_coll = [`<p class="badge rounded-pill ${ pillDct[policy["primary_category"]] }">${ pillNames[policy["primary_category"]] }</p>`];
+            var categ_coll = [`<p class="badge rounded-pill ${ pillDct[policy["primary_category"]] } mt-1 mx-1">${ pillNames[policy["primary_category"]] }</p>`];
             var categ_lst = policy["category"].sort();
             if(categ_lst.length > 1){
                 categ_coll.push(`|`);
             }
             for (let c=0; c < categ_lst.length; c++){
                 if(categ_lst[c] != policy["primary_category"]){
-                    categ_coll.push(`<p class="badge rounded-pill ${ pillDct[categ_lst[c]] }">${ pillNames[categ_lst[c]] }</p>`);
+                    categ_coll.push(`<p class="badge rounded-pill ${ pillDct[categ_lst[c]] } mt-1 mx-1">${ pillNames[categ_lst[c]] }</p>`);
                 }
             }
             var categs_html = categ_coll.join(" ");
@@ -459,8 +472,8 @@
                     abst_ps.push(`<p class="poltxt">${ sentence }</p>`)
                 );
                 abst_html = abst_ps.join(`<p style="margin-bottom:5px;"></p>`);
-                abst_html_section = `<div class="abst-div">
-                                            <p>Summary</p>
+                abst_html_section = `<div class="abst-div mb-3">
+                                            <p class="fw-bold mb-1">Overview</p>
                                             <div class="collapse abst-collapse" id="abscoll${i}">
                                                 ${ abst_html }
                                             </div>
@@ -478,8 +491,8 @@
                     toc_ps.push(`<p class="poltxt">${ line }</p>`)
                 );
                 toc_html = toc_ps.join(`<p style="margin-bottom:5px;"></p>`);
-                toc_html_section = `<div class="abst-div">
-                                        <p>Table of Contents</p>
+                toc_html_section = `<div class="abst-div mb-3">
+                                        <p class="fw-bold mb-1">Table of Contents</p>
                                         <div class="collapse abst-collapse" id="toccoll${i}">
                                             ${ toc_html }
                                         </div>
@@ -492,28 +505,30 @@
             //var title_html = `<a href="/policy/${policy['id']}" target="_blank" style="text-decoration:none;color:black;">${ policy['name'] }</a>`;
             // links
             var links_html = `<div style="margin-top:10px;margin-bottom:10px;" class="d-flex justify-content-start">
-                            <a href="https://peatlandpolicyportal.eu/policy/${policy["id"]}" class="polcol-lnk d-inline" style="font-weight:600;" target="_blank">
-                                Policy Profile ↗
-                            </a>
+                                <button class="btn btn-success btn-sm">
+                                    <a href="/policy/${policy["id"]}" class="d-inline text-decoration-none" style="font-weight:600; color:white;" target="_blank">
+                                        View Full Policy Profile ↗
+                                    </a>
+                                </button>
                             </div>`;
-            var element = `<div class="accordion-item polcol-acc-itm" style="margin-bottom:5px;">
-                                <div class="accordion-header polcol-acc-hdr">
-                                    <button class="accordion-button collapsed polcol-acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
-                                        <div class="container">
-                                            <p style="font-weight:bold;">${ title_html }</p>
-                                            ${ lvl_area_html }
+            var element = `<div class="accordion-item border shadow-sm mb-2 rounded">
+                                <div class="accordion-header">
+                                    <button class="accordion-button collapsed bg-white text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+                                        <div class="w-100">
+                                            <p class="mb-1 text-dark fw-bold">${ title_html }</p>
+                                            <small class="text-secondary">${ lvl_area_html }</small>
                                         </div>
                                     </button>
                                 </div>
-                                <div id="collapse${i}" class="accordion-collapse collapse polcol-acc-coll">
-                                    <div class="accordion-body polcol-acc-bdy">
-                                        <div style="line-height: 1; margin-bottom:15px;">
-                                            <p class="d-inline"> ${ duratn_html } | </p><p class="d-inline" style="font-size:14px">👤</p> ${ publs_html }
+                                <div id="collapse${i}" class="accordion-collapse collapse">
+                                    <div class="accordion-body bg-light">
+                                        <div class="text-muted small mb-3">
+                                            <span class="me-2"><i class="far fa-calendar-alt"></i> ${ duratn_html }</span> | <span class="ms-2"><i class="far fa-user"></i> ${ publs_html }</span>
                                         </div>
                                         ${ abst_html_section }
                                         ${ toc_html_section }
                                         ${ links_html }
-                                        <div>
+                                        <div class="d-flex flex-wrap mt-2">
                                             ${ categs_html }
                                         </div>
                                     </div>
@@ -522,7 +537,7 @@
             polPop.append(element);
         };
         if(!polLst || polLst.length === 0){
-            polPop.append(`<p class="text-center" style="color:black;">No policies found. Please try other filter combinations or search terms.</p>`);
+            polPop.append(`<p class="text-center text-muted my-4">No policies found. Please try other filter combinations or search terms.</p>`);
         }
     }
     

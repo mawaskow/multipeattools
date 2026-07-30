@@ -3,7 +3,7 @@
 {% block title %}Feedback{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container my-5" style="min-height: 90vh;">
   <div class="card border-0 shadow-sm">
     <div class="card-body">
       <h2 class="card-title text-center fw-bold mb-4">Feedback</h2>
@@ -16,11 +16,11 @@
             <div class="card-body">
               <a href="{{ url_for('sub_policy') }}">
                 <img src="{{url_for('static', filename='images/feedback_vis.png')}}"
-                     alt="Project Collection" class="img-fluid rounded mb-3 menu-img">
+                     alt="Suggest a Policy" class="img-fluid rounded mb-3 menu-img">
               </a>
-              <h5 class="fw-semibold">Policy Suggestion/Correction</h5>
+              <h5 class="fw-semibold">Policy Suggestion / Correction</h5>
               <p class="text-muted small">
-                If we are missing a policy or have correct information displayed, please let us know.
+                If we are missing a policy or have incorrect information displayed, please let us know.
               </p>
             </div>
           </div>
@@ -28,9 +28,9 @@
         <div class="col">
           <div class="card h-100 text-center border-0 bg-light shadow-sm">
             <div class="card-body">
-              <a href="{{ url_for('sub_policy') }}">
+              <a href="https://forms.office.com/e/6xqrWGxPPr">
                 <img src="{{url_for('static', filename='images/projects_vis.png')}}"
-                     alt="Project Map" class="img-fluid rounded mb-3 menu-img">
+                     alt="Feedback Form" class="img-fluid rounded mb-3 menu-img">
               </a>
               <h5 class="fw-semibold">General Feedback</h5>
               <p class="text-muted small">
@@ -44,7 +44,7 @@
             <div class="card-body">
               <a href="https://multipeat.org/en/contact-0"> <!--"{{ url_for('contact') }}"-->
                 <img src="{{ url_for('static', filename='multipeat_logo.png') }}"
-                    alt="Best Practise" class="img-fluid rounded mb-3 menu-img">
+                    alt="Contact" class="img-fluid rounded mb-3 menu-img">
               </a>
                 <h5 class="fw-semibold">Contact Us</h5>
               <p class="text-muted small">

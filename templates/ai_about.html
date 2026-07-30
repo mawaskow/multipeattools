@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}About the AI{% endblock %}
+
+{% block content %}
+<div class="container my-3" style="min-height: 700px;">
+  <div class="card border-0 shadow-sm p-3 p-md-4">
+    <div class="card-body">
+      <h3 class="card-title text-center fw-bold mb-3">About Our AI Tools</h3>
+      <p class="text-center text-muted mb-4">
+        The Peatland Policy Portal includes two AI tools, our Policy RAG Tool and our Key Metric Analyser.
+      </p>
+      <div class="row g-6">
+        <!-- RAG Tool -->
+        <div class="col-lg-6 mb-3">
+            <div class="card h-100 border-0 bg-light">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3 text-center">Policy RAG Tool</h5>
+                    <div class="bp-res p-2">
+                       <p class="text-muted mb-3">
+                        The <a class="textab" href="{{ url_for('qa_tool') }}" target ="_blank">Policy RAG Tool</a> is a generative question-answering tool which prompts users to ask a question about peatland policy then generates an answer grounded in evidence from our multilingual <a class="textab" href="{{ url_for('policy') }}" target ="_blank">Policy Collection</a>. 
+                        'RAG' stands for 'Retrieval-Augmented Generation,' which in our case can be understood as improving text generation by first 'retrieving' evidence (text chunks from our policy dataset), then generating the final answer based on that evidence text. 
+                        This methodology not only helps to reduce hallucinations in GenAI, but further allows users to see the exact documents used as evidence in the response, functioning indirectly as a search tool as well.
+                       </p>
+                       <p class="text-muted mb-3">
+                        As the sentences from the policies are encoded in a machine-readable format, sentences can be retrieved based on their meaning instead of their explicit text-- this means that regardless of the language used to input a question, answers can come from policy documents in any language. This capability addresses a longstanding barrier to policy analysis across languages.
+                       </p>
+                       <p class="text-muted mb-3">
+                        If users would like to restrict the pool of policies used to answer a question, however, they are able to filter by governance level, policy language, and country of origin to ensure, facilitating analysis of specific jurisdictions and contexts.
+                       </p>
+                       <div class="d-flex justify-content-center">
+                        <button class="btn btn-success btn-sm">
+                            <a href="{{ url_for('qa_tool') }}" class="d-inline text-decoration-none" style="font-weight:600; color:white;" target="_blank">
+                                Try Our Policy RAG Tool
+                            </a>
+                          </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KMA -->
+        <div class="col-lg-6">
+          <div class="card h-100 border-0 bg-light">
+            <div class="card-body">
+                <h5 class="fw-semibold mb-3 text-center">Key Metric Analyser</h5>
+                <div class="bp-res p-2">
+                  <p class="text-muted mb-3">
+                    The Key Metric Analyser is an analytical AI tool developed to extract peatland-relevant metrics from our <a class="textab" href="{{ url_for('policy') }}" target ="_blank">Policy Collection</a>. 
+                    While the Policy RAG Tool's AI has a public interface and runs when prompted by users, the Key Metric Analyser's AI only needs to be run once per policy, then provides a public interface for users to explore the results.
+                  </p>
+                  <p class="text-muted mb-3">
+                    "Key Metrics" in this context are metrics mentioned in a policy which A) relate to peatlands in some way and B) could be used to evaluate the delivery or impact of a policy. 
+                    These sorts of metrics are useful to understand the policy landscape in a given region, to evaluate a policy and its design, or to get an idea of reasonable goals when drafting instruments or actions in a policy.
+                  </p>
+                  <p class="text-muted mb-3">
+                    This analyser extracts key metrics and then classifies them according to two sets of labels:
+                  </p>
+                  <p class="text-muted mb-3">
+                    Key Metric Levels
+                  </p>
+                  <ul class="text-muted mb-3">
+                    <li><b>Policy Actions (Operational Measurements)</b>: The delivery of a policy's actions</li>
+                    <li><b>Policy Outcomes (Strategic Impact Measurements)</b>: The effects of a policy's actions</li>
+                    <li><b>Miscellaneous</b>: Unclear/Other metric level</li>
+                  </ul>
+                  <p class="text-muted mb-3">
+                    Key Metric Classes
+                  </p>
+                  <ul class="text-muted mb-3">
+                    <li><b>Area</b>: The management of peatland areas</li>
+                    <li><b>Emissions</b>: The emissions and emissions reductions of degraded and restored peatlands</li>
+                    <li><b>Site Status</b>: The designation of peatland and organic soil sites as protected areas</li>
+                    <li><b>Spending</b>: How much funding is supposed to be allocated to policy actions, such as the budget of schemes and restoration activities</li>
+                    <li><b>Policy Action</b>: The creation of policy actions to support peatlands (this may be the creation of funding schemes for restoration or laws prohibiting degradation activities)</li>
+                    <li><b>Knowledge Resource</b>: The creation of knowledge resources relating to peatlands (these may include things like analyses, guides, or reports meant to inform either experts or the public)</li>
+                    <li><b>Practical Resource</b>: The delivery of material resources for the restoration or rewetting of peatlands (e.g. supplies, equipment, restoration materials)</li>
+                    <li><b>Environment Quality</b>: The evaluation of health and quality of a peatland (e.g. water level, biodiversity, vegetation types, indicators of soil or ecosystem health)</li>
+                    <li><b>Miscellaneous</b>: Whatever metrics do not fit into the previous categories</li>
+                  </ul>
+                  <p class="text-muted mb-3">
+                    Results of the Key Metric Analyser for a given policy can be accessed through the <a class="textab" href="{{ url_for('policy') }}" target ="_blank">Policy Collection</a> and Policy Profile pages.
+                  </p>
+                  <div class="d-flex justify-content-center">
+                    <button class="btn btn-success btn-sm">
+                      <a href="{{ url_for('kma_viewer', policy_id=246) }}" class="d-inline text-decoration-none" style="font-weight:600; color:white;" target="_blank">
+                          Example KMA Results Page
+                      </a>
+                    </button>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

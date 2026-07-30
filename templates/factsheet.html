@@ -103,23 +103,23 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 24px;
         }
 
         .stat-card {
             background: white;
-            padding: 32px 24px;
+            padding: 28px 21px;
             border-radius: 12px;
             text-align: center;
             border: 2px solid #e0e0e0;
-            transition: all 0.3s;
+            transition: all 0.25s;
         }
 
         .stat-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(27, 94, 32, 0.15);
-            border-color: #4caf50;
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.7);
+            border-color: #e0e0e0;
         }
 
         .stat-icon {
@@ -128,14 +128,14 @@
         }
 
         .stat-value {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 800;
             color: #1b5e20;
             margin-bottom: 8px;
         }
 
         .stat-label {
-            font-size: 13px;
+            font-size: 12px;
             color: #666;
             font-weight: 600;
             text-transform: uppercase;
@@ -308,7 +308,9 @@
         }
 
         .btn-secondary:hover {
-            background: #f1f8f4;
+            background: #1b5e20;
+            color: white;
+            border: 2px solid #e0e0e0;
         }
 
         .btn-danger {
@@ -358,9 +360,9 @@
         }
 
         .country-card:hover {
-            border-color: #4caf50;
+            border-color: #e0e0e0;
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(27, 94, 32, 0.15);
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.7);
         }
 
         .card-header {
@@ -373,6 +375,8 @@
         }
 
         .card-flag {
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
             font-size: 48px;
             display: flex;
             align-items: center;
@@ -404,6 +408,17 @@
             align-items: center;
             padding: 10px 12px;
             background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .card-stat-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #f8f9fa;
+            border: 3px solid #e0e0e0;
             border-radius: 6px;
             font-size: 14px;
         }
@@ -612,7 +627,7 @@
 
         .modal-content {
             background: white;
-            border-radius: 16px;
+            border-radius: 8px;
             padding: 40px;
             max-width: 800px;
             width: 100%;
@@ -663,6 +678,9 @@
         }
 
         .modal-flag {
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(27, 94, 32, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -684,7 +702,7 @@
 
         .fact-summary {
             background: #e8f5e9;
-            border-left: 4px solid #4caf50;
+            border: 4px solid #61b763;
             padding: 16px 20px;
             border-radius: 8px;
             margin-bottom: 24px;
@@ -710,6 +728,17 @@
             border-left: 4px solid #4caf50;
             overflow: hidden;
             transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .modal-stat-total{
+            background: #f8f9fa;
+            border: 3px solid #e0e0e0;
+            border-radius: 8px;
+            border-left: 6px solid #4caf50;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
         }
 
         .modal-stat.expandable {
@@ -1301,6 +1330,11 @@
                     <div class="stat-value" id="totalAgricultural">3.4M</div>
                     <div class="stat-label">Agricultural Peatlands (ha)</div>
                 </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🍄</div>
+                    <div class="stat-value" id="totalMiscellaneous">0</div>
+                    <div class="stat-label">Other Peatlands (ha)</div>
+                </div>
             </div>
         </div>
 
@@ -1376,6 +1410,7 @@
                             <th onclick="sortTable('natural')">Natural (ha) ↕</th>
                             <th onclick="sortTable('extraction')">extraction (ha) ↕</th>
                             <th onclick="sortTable('afforested')">Afforested (ha) ↕</th>
+                            <th onclick="sortTable('agricultural')">Agricultural (ha) ↕</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody"></tbody>
@@ -1504,15 +1539,16 @@
         'natural': 3500000.0,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
-        'extraction': 95200.0,
-        'extractionSource': 'https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf ',
+        'extraction': 93200.0,
+        'extractionSource': 'https://unfccc.int/sites/default/files/resource/FI_NID_UNFCCC_BTR2_2024_2026-04-15.pdf',
         'extractionDate': 2023.0,
         'afforested': 589900,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/FI_NID_UN_2023_2025-04-15.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 427329.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 4387571.0},
         {'code': 'IE',
         'country': 'Ireland',
         'flag': '🇮🇪',
@@ -1527,19 +1563,20 @@
         'natural': 269270.0,
         'naturalSource': 'https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf',
         'naturalDate': 2015.0,
-        'extraction': 612380.0,
+        'extraction': 612380.0 ,
         'extractionSource': 'https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf',
         'extractionDate': 2015.0,
-        'afforested': 300000,
+        'afforested': 300000.0 ,
         'afforestedSource': 'https://www.npws.ie/sites/default/files/publications/pdf/NationalPeatlandsStrategy2015EnglishVers.pdf',
         'afforestedDate': 2015.0,
         'agricultural': 25356.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 259494.0},
         {'code': 'EE',
         'country': 'Estonia',
         'flag': '🇪🇪',
-        'region': 'nordic',
+        'region': 'eastern',
         'land': 4533600.0,
         'landSource': 'https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298',
         'landDate': 2026.0,
@@ -1550,15 +1587,16 @@
         'natural': 325000.0,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
-        'extraction': 27170.0,
-        'extractionSource': 'https://www.researchgate.net/profile/Hans-Joosten/publication/277272165/figure/tbl3/AS:614335726497793@1523480459662/Area-drainage-status-and-emissions-of-peatland-6-types-in-Estonia-our-GIS-overlay.png',
-        'extractionDate': null,
-        'afforested': 6920,
-        'afforestedSource': 'https://unfccc.int/sites/default/files/resource/NID_EST_1990-2023_15.04.pdf',
+        'extraction': 21271.0,
+        'extractionSource': 'Department of Mineral Resources, Ministry of Climate, Estonia',
+        'extractionDate': 2026.0,
+        'afforested': 117720.0,
+        'afforestedSource': 'https://unfccc.int/sites/default/files/resource/NID_EST_1990-2024_15.04.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 157008.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 294001.0},
         {'code': 'SE',
         'country': 'Sweden',
         'flag': '🇸🇪',
@@ -1573,19 +1611,20 @@
         'natural': 5230000.0,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
-        'extraction': 10000.0,
+        'extraction': 10000.0 ,
         'extractionSource': 'https://unfccc.int/sites/default/files/resource/NID%20SE%20submission%202025.pdf',
         'extractionDate': 2023.0,
-        'afforested': 700000,
+        'afforested': 700000.0,
         'afforestedSource': 'https://www.researchgate.net/publication/227054481_Afforestation_of_low-productivity_peatlands_in_Sweden_-_The_potential_of_natural_seeding#:~:text=In%20Sweden%2C%20peatlands%20have%20been,(Picea%20abies%20(L.)',
         'afforestedDate': 2023.0,
         'agricultural': 290312.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 414688.0},
         {'code': 'LV',
         'country': 'Latvia',
         'flag': '🇱🇻',
-        'region': 'nordic',
+        'region': 'eastern',
         'land': 6459400.0,
         'landSource': 'https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298',
         'landDate': 2026.0,
@@ -1599,16 +1638,17 @@
         'extraction': 30580.0,
         'extractionSource': 'https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf',
         'extractionDate': 2023.0,
-        'afforested': 5220,
+        'afforested': 5220.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/LV_NID_15042025.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 144053.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 255047.0},
         {'code': 'LT',
         'country': 'Lithuania',
         'flag': '🇱🇹',
-        'region': 'nordic',
+        'region': 'eastern',
         'land': 6528400.0,
         'landSource': 'https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298',
         'landDate': 2026.0,
@@ -1622,12 +1662,13 @@
         'extraction': 3854.0,
         'extractionSource': 'https://www.researchgate.net/publication/399259955/figure/tbl1/AS:11431281826093728@1767224077767/Overview-of-the-peatland-characteristic-of-the-33-extracted-quarries-in-Lithuania.png',
         'extractionDate': 2020.0,
-        'afforested': 21160,
-        'afforestedSource': 'https://unfccc.int/sites/default/files/resource/NID_2025.pdf',
+        'afforested': 112444.0,
+        'afforestedSource': 'https://www.sciencedirect.com/science/article/pii/S0301479723007405?ref=pdf_download&fr=RR-2&rr=a1358a864dd056e7',
         'afforestedDate': 2023.0,
         'agricultural': 295745.0,
         'agriculturalSource': 'https://europe.wetlands.org/wp-content/uploads/sites/6/2025/07/Lithuania.pdf',
-        'agriculturalDate': 2025.0},
+        'agriculturalDate': 2025.0,
+        'miscellaneous': 46496.0},
         {'code': 'NL',
         'country': 'Netherlands',
         'flag': '🇳🇱',
@@ -1645,12 +1686,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': 301,
-        'afforestedSource': 'https://unfccc.int/sites/default/files/resource/2025%20%28RIVM%29%20National%20Inventory%20Document%20%28NID%29%201990-2023.pdf',
+        'afforested': 340.0,
+        'afforestedSource': 'https://unfccc.int/sites/default/files/resource/2026-0022%20National%20Inventory%20Document%201990-2024%20NLD.pdf',
         'afforestedDate': 2023.0,
-        'agricultural': 223300.0,
-        'agriculturalSource': 'https://bg.copernicus.org/articles/21/4099/2024/',
-        'agriculturalDate': 2021.0},
+        'agricultural': 172638.0,
+        'agriculturalSource': 'https://unfccc.int/sites/default/files/resource/2026-0022%20National%20Inventory%20Document%201990-2024%20NLD.pdf',
+        'agriculturalDate': 2021.0,
+        'miscellaneous': 85322.0},
         {'code': 'PL',
         'country': 'Poland',
         'flag': '🇵🇱',
@@ -1665,15 +1707,16 @@
         'natural': 239000.0,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
-        'extraction': 3226.0,
-        'extractionSource': 'https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf',
+        'extraction': 3243.0,
+        'extractionSource': 'https://unfccc.int/sites/default/files/resource/NID%202026%20POL.pdf',
         'extractionDate': 2023.0,
-        'afforested': 26119,
+        'afforested': 26119.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/NID%202025%20POL%2015.04.2025.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 774834.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 451804.0},
         {'code': 'DK',
         'country': 'Denmark',
         'flag': '🇩🇰',
@@ -1691,12 +1734,13 @@
         'extraction': 11790.0,
         'extractionSource': 'https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf',
         'extractionDate': 2023.0,
-        'afforested': 0,
+        'afforested': 0.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/Denmark%27s%20National%20Inventory%20Document%202025.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 69726.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 107684.0},
         {'code': 'DE',
         'country': 'Germany',
         'flag': '🇩🇪',
@@ -1711,15 +1755,16 @@
         'natural': 25000.0,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
-        'extraction': 10544.0,
-        'extractionSource': 'https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf',
-        'extractionDate': 2023.0,
-        'afforested': 59,
-        'afforestedSource': 'https://unfccc.int/sites/default/files/resource/NID_Germany_2025.pdf',
-        'afforestedDate': 2023.0,
-        'agricultural': 557208.0,
-        'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'extraction': 148877.0,
+        'extractionSource': 'https://www.dehst.de/SharedDocs/downloads/DE/publikationen/factsheets/factsheet_Moore.pdf?__blob=publicationFile&v=3',
+        'extractionDate': 2020.0,
+        'afforested': 279145.0,
+        'afforestedSource': 'https://www.dehst.de/SharedDocs/downloads/DE/publikationen/factsheets/factsheet_Moore.pdf?__blob=publicationFile&v=3',
+        'afforestedDate': 2020.0,
+        'agricultural': 334974.0,
+        'agriculturalSource': 'https://www.dehst.de/SharedDocs/downloads/DE/publikationen/factsheets/factsheet_Moore.pdf?__blob=publicationFile&v=3',
+        'agriculturalDate': 2020.0,
+        'miscellaneous': 492004.0},
         {'code': 'RO',
         'country': 'Romania',
         'flag': '🇷🇴',
@@ -1737,12 +1782,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': null,
-        'afforestedSource': null,
+        'afforested': 676.0,
+        'afforestedSource': 'https://www.fao.org/faostat/en/#data/RL?specialgroups=5707%3E&elements=5110&items=6716,6601&years=2025&output_type=table&file_type=csv&submit=true',
         'afforestedDate': null,
         'agricultural': 16704.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 608850.0},
         {'code': 'AT',
         'country': 'Austria',
         'flag': '🇦🇹',
@@ -1760,12 +1806,13 @@
         'extraction': 38528.0,
         'extractionSource': 'https://alfawetlands.eu/wp-content/uploads/2024/12/CFS_Austria_English_final.pdf#:~:text=According%20to%20the%20Austrian%20Peatland%20Strategy%202030+%2C,of%20Lake%20Neusiedl%2C%20peatlands%20are%20less%20abundant.',
         'extractionDate': 2020.0,
-        'afforested': 8000,
+        'afforested': 8000.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/AT_NID-2025.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 3472.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 52500.0},
         {'code': 'BE',
         'country': 'Belgium',
         'flag': '🇧🇪',
@@ -1783,12 +1830,13 @@
         'extraction': 0.0,
         'extractionSource': 'https://unfccc.int/sites/default/files/resource/NID%20Belgium%20sub2025_15042025.pdf',
         'extractionDate': 2023.0,
-        'afforested': null,
-        'afforestedSource': null,
-        'afforestedDate': null,
+        'afforested': 427,
+        'afforestedSource': 'https://www.fao.org/faostat/en/#data/RL?specialgroups=5707%3E&elements=5110&items=6716,6601&years=2025&output_type=table&file_type=csv&submit=true',
+        'afforestedDate': 2025,
         'agricultural': 5176.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 13197.0},
         {'code': 'FR',
         'country': 'France',
         'flag': '🇫🇷',
@@ -1806,12 +1854,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': null,
-        'afforestedSource': null,
-        'afforestedDate': null,
+        'afforested': 2356,
+        'afforestedSource': 'https://www.fao.org/faostat/en/#data/RL?specialgroups=5707%3E&elements=5110&items=6716,6601&years=2025&output_type=table&file_type=csv&submit=true',
+        'afforestedDate': 2025,
         'agricultural': 163963.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 33681.0},
         {'code': 'SI',
         'country': 'Slovenia',
         'flag': '🇸🇮',
@@ -1826,15 +1875,16 @@
         'natural': 430.0,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
-        'extraction': 0.0,
+        'extraction': 0.0 ,
         'extractionSource': 'https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf',
         'extractionDate': 2023.0,
-        'afforested': 0,
+        'afforested': 0.0 ,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/SVN%20NID%202025%20April.pdf',
         'afforestedDate': 2023.0,
-        'agricultural': 4547.0,
+        'agricultural': 4547.0 ,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 3423.0},
         {'code': 'CZ',
         'country': 'Czechia',
         'flag': '🇨🇿',
@@ -1846,7 +1896,7 @@
         'area': 28500.0,
         'areaSource': 'https://ibn.idsi.md/sites/default/files/imag_file/map_19_22%281%29.pdf',
         'areaDate': 2017.0,
-        'natural': 15000.0,
+        'natural': 15000.0 ,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
         'extraction': null,
@@ -1855,9 +1905,10 @@
         'afforested': 0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/CZE_NID_2025-2023.pdf',
         'afforestedDate': 2023.0,
-        'agricultural': 7006.0,
+        'agricultural': 7006.0 ,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 6494.0},
         {'code': 'HU',
         'country': 'Hungary',
         'flag': '🇭🇺',
@@ -1875,12 +1926,13 @@
         'extraction': 12.0,
         'extractionSource': 'https://unfccc.int/sites/default/files/resource/HUN_NID_2023.pdf',
         'extractionDate': 2023.0,
-        'afforested': null,
-        'afforestedSource': null,
-        'afforestedDate': null,
-        'agricultural': 179368.0,
-        'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'afforested': 791,
+        'afforestedSource': 'https://www.fao.org/faostat/en/#data/RL?specialgroups=5707%3E&elements=5110&items=6716,6601&years=2025&output_type=table&file_type=csv&submit=true',
+        'afforestedDate': 2025,
+        'agricultural': null,
+        'agriculturalSource': null,
+        'agriculturalDate': null,
+        'miscellaneous': 21698.0},
         {'code': 'PT',
         'country': 'Portugal',
         'flag': '🇵🇹',
@@ -1903,7 +1955,8 @@
         'afforestedDate': 2023.0,
         'agricultural': 7158.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 18942.0},
         {'code': 'IT',
         'country': 'Italy',
         'flag': '🇮🇹',
@@ -1919,14 +1972,15 @@
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
         'extraction': null,
-        'extractionSource': 'https://unfccc.int/sites/default/files/resource/NID2025_Italy_stampa.pdf',
-        'extractionDate': 2023.0,
-        'afforested': null,
-        'afforestedSource': null,
-        'afforestedDate': null,
+        'extractionSource': null,
+        'extractionDate': null,
+        'afforested': 623,
+        'afforestedSource': 'https://www.fao.org/faostat/en/#data/RL?specialgroups=5707%3E&elements=5110&items=6716,6601&years=2025&output_type=table&file_type=csv&submit=true',
+        'afforestedDate': 2025,
         'agricultural': 23206.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 39171.0},
         {'code': 'BG',
         'country': 'Bulgaria',
         'flag': '🇧🇬',
@@ -1944,12 +1998,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': 0,
-        'afforestedSource': 'https://unfccc.int/sites/default/files/resource/BG_NID_April_2025.pdf',
-        'afforestedDate': 2023.0,
-        'agricultural': 35481.0,
-        'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'afforested': 276.0,
+        'afforestedSource': 'Ministry of Environment and Water (Bulgaria)',
+        'afforestedDate': 2026.0,
+        'agricultural': null,
+        'agriculturalSource': null,
+        'agriculturalDate': null,
+        'miscellaneous': 5123.0},
         {'code': 'LU',
         'country': 'Luxembourg',
         'flag': '🏳️',
@@ -1967,12 +2022,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': 10,
+        'afforested': 10.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/LU-NID_2025_FINAL_250415.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 89.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 291.0},
         {'code': 'SK',
         'country': 'Slovakia',
         'flag': '🇸🇰',
@@ -1990,12 +2046,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': 0,
+        'afforested': 0.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/SVK%20NID%202025.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 1902.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 1038.0},
         {'code': 'CY',
         'country': 'Cyprus',
         'flag': '🏳️',
@@ -2013,12 +2070,13 @@
         'extraction': 0.0,
         'extractionSource': 'https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf',
         'extractionDate': 2023.0,
-        'afforested': 0,
+        'afforested': 0.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/CyprusNIR2025_vUNFCCC_v1.1.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 0.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 90.0},
         {'code': 'EL',
         'country': 'Greece',
         'flag': '🏳️',
@@ -2036,12 +2094,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': 0,
+        'afforested': 0.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/2025_NIR_Greece.pdf',
         'afforestedDate': 2023.0,
-        'agricultural': 39880.0,
-        'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agricultural': null,
+        'agriculturalSource': null,
+        'agriculturalDate': null,
+        'miscellaneous': 5800.0},
         {'code': 'ES',
         'country': 'Spain',
         'flag': '🇪🇸',
@@ -2057,14 +2116,15 @@
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
         'extraction': null,
-        'extractionSource': 'https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf',
-        'extractionDate': 2023.0,
-        'afforested': 83,
+        'extractionSource': null,
+        'extractionDate': null,
+        'afforested': 83.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/ES_NID_2025.pdf',
         'afforestedDate': 2023.0,
         'agricultural': 11525.0,
         'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0},
+        'agriculturalDate': 2024.0,
+        'miscellaneous': 3392.0 },
         {'code': 'HR',
         'country': 'Croatia',
         'flag': '🇭🇷',
@@ -2082,12 +2142,13 @@
         'extraction': null,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': 0,
+        'afforested': 0.0,
         'afforestedSource': 'https://unfccc.int/sites/default/files/resource/Croatian%20NID%202025.pdf',
         'afforestedDate': 2023.0,
         'agricultural': null,
         'agriculturalSource': null,
-        'agriculturalDate': null},
+        'agriculturalDate': null,
+        'miscellaneous': 3270.0},
         {'code': 'MT',
         'country': 'Malta',
         'flag': '🏳️',
@@ -2096,21 +2157,22 @@
         'landSource': 'https://ec.europa.eu/eurostat/databrowser/view/reg_area3__custom_12528528/bookmark/table?lang=en&bookmarkId=93b20335-b0da-4c31-841a-2eea735895fc&c=1723108197298',
         'landDate': 2026.0,
         'percentage': 0.0,
-        'area': 0.0,
+        'area': 3300.0,
         'areaSource': 'https://ibn.idsi.md/sites/default/files/imag_file/map_19_22%281%29.pdf',
         'areaDate': 2017.0,
-        'natural': 0.0,
-        'naturalSource': 'X',
-        'naturalDate': null,
-        'extraction': 0.0,
-        'extractionSource': 'X',
+        'natural': 30.0,
+        'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
+        'naturalDate': 2017,
+        'extraction': null,
+        'extractionSource': null,
         'extractionDate': null,
-        'afforested': 0,
-        'afforestedSource': 'X',
+        'afforested': null,
+        'afforestedSource': null,
         'afforestedDate': null,
         'agricultural': null,
         'agriculturalSource': null,
-        'agriculturalDate': null},
+        'agriculturalDate': null,
+        'miscellaneous': null},
         {'code': 'Totals',
         'country': 'EU',
         'flag': '🏳️',
@@ -2125,24 +2187,26 @@
         'natural': 10434270.0,
         'naturalSource': 'https://www.mires-and-peat.net/article/128692-the-peatland-map-of-europe',
         'naturalDate': 2017.0,
-        'extraction': 843284.0,
+        'extraction': 983097.0,
         'extractionSource': null,
         'extractionDate': null,
-        'afforested': 957772,
+        'afforested': 2140870.0,
         'afforestedSource': null,
         'afforestedDate': null,
-        'agricultural': 3464348.0,
-        'agriculturalSource': 'https://www.fao.org/faostat/en/#data/GV?specialgroups=5707%3E&elements=5110&items=6727&years=2024&sources=3050&output_type=table&file_type=csv&submit=true',
-        'agriculturalDate': 2024.0}];
+        'agricultural': 2936723.0,
+        'agriculturalSource': null,
+        'agriculturalDate': null,
+        'miscellaneous': 7947002.0} ];
 
         let filteredData = [...countriesData];
         let currentView = 'cards';
 
-        function formatNumber(num) {
-            if (!num && num !== 0) return 'N/A';
-            if (num === 0) return '0';
-            return num.toLocaleString('en-US');
-        }
+        function formatNumber(num) { 
+            if (!num && num !== 0) 
+                return 'Data not yet Available'; 
+            if (num === 0) 
+                return '0'; 
+            return num.toLocaleString('en-US') + ' ha'; }
 
         function init() {
             renderCards();
@@ -2173,16 +2237,16 @@
                             <span class="card-stat-value">${country.percentage.toFixed(2)}%</span>
                         </div>
                         <div class="card-stat">
-                            <span class="card-stat-label">Total Peatland Area</span>
-                            <span class="card-stat-value">${formatNumber(country.area)} ha</span>
-                        </div>
-                        <div class="card-stat">
                             <span class="card-stat-label">Natural Peatlands</span>
-                            <span class="card-stat-value">${formatNumber(country.natural)} ha</span>
+                            <span class="card-stat-value">${formatNumber(country.natural)}</span>
                         </div>
                         <div class="card-stat">
                             <span class="card-stat-label">Non-Natural Peatlands</span>
-                            <span class="card-stat-value">${formatNumber(country.area - ((country.natural || 0) ))} ha</span>
+                            <span class="card-stat-value">${formatNumber(country.area - ((country.natural || 0) ))}</span>
+                        </div>
+                        <div class="card-stat-total">
+                            <span class="card-stat-label">Total Peatland Area</span>
+                            <span class="card-stat-value">${formatNumber(country.area)}</span>
                         </div>
                     </div>
                 </div>
@@ -2212,15 +2276,15 @@
                     <div class="list-flag">${getFlagHtml(country.code, 56)}</div>
                     <div class="list-main">
                         <h3>${country.country}</h3>
-                        <div class="list-subtitle">Country Code: ${country.code} • Total Land Area: ${formatNumber(country.land)} ha</div>
+                        <div class="list-subtitle">Country Code: ${country.code} • Total Land Area: ${formatNumber(country.land)}</div>
                         <div class="list-stats">
                             <div>
                                 <div class="list-stat-label">Total Peatland Coverage</div>
-                                <div class="list-stat-value">${formatNumber(country.area)} ha</div>
+                                <div class="list-stat-value">${formatNumber(country.area)}</div>
                             </div>
                             <div>
                                 <div class="list-stat-label">Natural Peatlands</div>
-                                <div class="list-stat-value">${formatNumber(country.natural)} ha</div>
+                                <div class="list-stat-value">${formatNumber(country.natural)}</div>
                             </div>
                             <div>
                                 <div class="list-stat-label">Non-Natural Peatlands</div>
@@ -2282,7 +2346,10 @@
         function updateDisplay() {
             renderCards();
             updateStats();
-            document.getElementById('resultCount').textContent = filteredData.length;
+            
+            const visibleCount = filteredData.filter(c => c.code !== "Totals").length;
+            document.getElementById('resultCount').textContent = visibleCount;
+            
 
             const emptyState = document.getElementById('emptyState');
             const cardsView  = document.getElementById('cardsView');
@@ -2320,12 +2387,20 @@
             afforested: 0,
             agricultural: 0
             });
-        
+            
+            const categorizedTotal =
+                totals.natural +
+                totals.extraction +
+                totals.afforested +
+                totals.agricultural;
+
+            const miscellaneous = Math.max(0, totals.area - categorizedTotal);
             setStat("totalArea", totals.area, "M", 1000000, 1);
             setStat("totalNatural", totals.natural, "M", 1000000, 1);
             setStat("totalExtraction", totals.extraction, "K", 1000, 0);
             setStat("totalAfforested", totals.afforested, "M", 1000000, 1);
             setStat("totalAgricultural", totals.agricultural, "M", 1000000, 1);
+            setStat("totalMiscellaneous", miscellaneous, "M", 1000000, 1);
     
         }
 
@@ -2370,14 +2445,24 @@
                 </div>
 
                 <div class="modal-stats-grid">
-                    <div class="modal-stat">
+                    <div class="modal-stat-total">
                         <div class="modal-stat-header">
                             <div class="modal-stat-main">
                                 <div class="modal-stat-label">Total Land Area</div>
-                                <div class="modal-stat-value">${formatNumber(country.land)} ha</div>
+                                <div class="modal-stat-value">${formatNumber(country.land)} </div>
                             </div>
                         </div>
                         ${createSourceInfo('Land Area', country.landSource, country.landDate)}
+                    </div>
+
+                    <div class="modal-stat-total">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Total Peatlands</div>
+                                <div class="modal-stat-value">${formatNumber(country.area)} </div>
+                            </div>
+                        </div>
+                        ${createSourceInfo('Total Peatlands', country.areaSource, country.areaDate)}
                     </div>
 
                     <div class="modal-stat featured">
@@ -2388,86 +2473,57 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                    
+                    <div class="modal-stat">
                         <div class="modal-stat-header">
                             <div class="modal-stat-main">
-                                <div class="modal-stat-label">Total Peatlands <span class="expand-indicator">▼</span></div>
-                                <div class="modal-stat-value">${formatNumber(country.area)} ha</div>
-                            </div>
-                        </div>
-                        ${createSourceInfo('Total Peatlands', country.areaSource, country.areaDate)}
-                        <div class="modal-stat-subcategories">
-                            <div class="subcategories-list">
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌾</span>Raised Bogs</span><span class="subcategory-value">${formatNumber(Math.round(country.area * 0.4))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">💧</span>Blanket Bogs</span><span class="subcategory-value">${formatNumber(Math.round(country.area * 0.45))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌿</span>Fen Peatlands</span><span class="subcategory-value">${formatNumber(Math.round(country.area * 0.15))} ha</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
-                        <div class="modal-stat-header">
-                            <div class="modal-stat-main">
-                                <div class="modal-stat-label">Natural Peatlands <span class="expand-indicator">▼</span></div>
-                                <div class="modal-stat-value">${formatNumber(country.natural)} ha</div>
+                                <div class="modal-stat-label">Natural Peatlands</div>
+                                <div class="modal-stat-value">${formatNumber(country.natural)} </div>
                             </div>
                         </div>
                         ${createSourceInfo('Natural Peatlands', country.naturalSource, country.naturalDate)}
-                        <div class="modal-stat-subcategories">
-                            <div class="subcategories-list">
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🏞️</span>Protected Natural Bogs</span><span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.33))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌲</span>Intact Peatland Forest</span><span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.16))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🦅</span>Active Natural Peatlands</span><span class="subcategory-value">${formatNumber(Math.round(country.natural * 0.51))} ha</span></div>
-                            </div>
-                        </div>
                     </div>
 
-                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                    <div class="modal-stat">
                         <div class="modal-stat-header">
                             <div class="modal-stat-main">
-                                <div class="modal-stat-label">extraction Peatlands <span class="expand-indicator">▼</span></div>
-                                <div class="modal-stat-value">${formatNumber(country.extraction)} ha</div>
+                                <div class="modal-stat-label">Extraction Peatlands</div>
+                                <div class="modal-stat-value">${formatNumber(country.extraction)} </div>
                             </div>
                         </div>
-                        ${createSourceInfo('extraction Peatlands', country.extractionSource, country.extractionDate)}
-                        <div class="modal-stat-subcategories">
-                            <div class="subcategories-list">
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🏭</span>Industrial Peat Extraction</span><span class="subcategory-value">${formatNumber(Math.round(country.extraction * 0.75))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🏠</span>Domestic Turf Cutting</span><span class="subcategory-value">${formatNumber(Math.round(country.extraction * 0.20))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">⚡</span>Energy Production Sites</span><span class="subcategory-value">${formatNumber(Math.round(country.extraction * 0.05))} ha</span></div>
-                            </div>
-                        </div>
+                        ${createSourceInfo('Extraction Peatlands', country.extractionSource, country.extractionDate)}
                     </div>
 
-                    <div class="modal-stat expandable" onclick="toggleSubcategories(this)">
+                    <div class="modal-stat">
                         <div class="modal-stat-header">
                             <div class="modal-stat-main">
-                                <div class="modal-stat-label">Afforested Peatlands <span class="expand-indicator">▼</span></div>
-                                <div class="modal-stat-value">${formatNumber(country.afforested)} ha</div>
+                                <div class="modal-stat-label">Afforested Peatlands</div>
+                                <div class="modal-stat-value">${formatNumber(country.afforested)} </div>
                             </div>
                         </div>
                         ${createSourceInfo('Afforested Peatlands', country.afforestedSource, country.afforestedDate)}
-                        <div class="modal-stat-subcategories">
-                            <div class="subcategories-list">
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌲</span>Coniferous Plantations</span><span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.75))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🍃</span>Broadleaf Plantations</span><span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.15))} ha</span></div>
-                                <div class="subcategory-item"><span class="subcategory-label"><span class="subcategory-icon">🌳</span>Mixed Forest on Peat</span><span class="subcategory-value">${formatNumber(Math.round(country.afforested * 0.10))} ha</span></div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="modal-stat">
                         <div class="modal-stat-header">
                             <div class="modal-stat-main">
                                 <div class="modal-stat-label">Agricultural Peatlands</div>
-                                <div class="modal-stat-value">${formatNumber(country.agricultural)} ha</div>
+                                <div class="modal-stat-value">${formatNumber(country.agricultural)} </div>
                             </div>
                         </div>
                         ${createSourceInfo('Agricultural Peatlands', country.agriculturalSource, country.agriculturalDate)}
                     </div>
-                </div>
-
+                    
+                    <div class="modal-stat">
+                        <div class="modal-stat-header">
+                            <div class="modal-stat-main">
+                                <div class="modal-stat-label">Other Peatlands</div>
+                                <div class="modal-stat-value">${formatNumber(country.miscellaneous)} </div>
+                            </div>
+                        </div>
+                        ${createSourceInfo('Other Peatlands', country.miscellaneousSource)}
+                    </div>
+                    
                 <div class="fact-summary">
                     <div class="fact-summary-title">${country.country} Peatland Profile</div>
                     <div class="fact-summary-text">
@@ -2478,7 +2534,8 @@
                         Agricultural peatlands account for <strong>${formatNumber(country.agricultural)} ha</strong>,
                         afforested peatlands for <strong>${formatNumber(country.afforested)} ha</strong>,
                         natural peatlands for <strong>${formatNumber(country.natural)} ha</strong>,
-                        and extraction sites for <strong>${formatNumber(country.extraction)} ha</strong>.
+                        extraction sites for <strong>${formatNumber(country.extraction)} ha</strong> 
+                        and the rest of peatlands for <strong>${formatNumber(country.miscellaneous)} ha</strong>.
                     </div>
                 </div>
 
@@ -2587,7 +2644,7 @@
         });
 
         function sortTable(column) {
-            const map = { country: 'name', percentage: 'percentage', area: 'area', natural: 'natural', extraction: 'extraction', afforested: 'afforested' };
+            const map = { country: 'name', percentage: 'percentage', area: 'area', natural: 'natural', extraction: 'extraction', afforested: 'afforested', agricultural: 'agricultural' };
             document.getElementById('sortSelect').value = map[column];
             filterData();
         }

@@ -35,11 +35,11 @@ closer.onclick = function () {
   return false;
 };
 
+
 const key = 'Get your own API key at https://www.maptiler.com/cloud/';
 const attributions =
   '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ' +
   '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>';
-
 
 map.addOverlay(overlay);
 
@@ -319,14 +319,10 @@ map.on('singleclick', function (evt) {
             success:function(result){
                 const det=result.features[0];
                 if(det){
-                    const subst=det.properties.genesis;
-                    const thick=det.properties.thickness;
-
-                    detInfo.html(`<p>Substrate: ${subst}</p>
-                        <p>Thickness: ${thick}</p>`);
+                    const soil=det.properties.eng_type;
+                    detInfo.html(`<p>Soil Type: ${soil}</p>`);
                     noFeatures.html('');
                     }
-
             }
         })
     }

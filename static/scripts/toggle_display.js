@@ -58,25 +58,24 @@ $("#a-close-btn").on('click', function(event){
 
 $("#map-layers-btn").on('click', function(event){
     ld = document.getElementById("map-lyr-box");
-    sv = document.getElementById("map-layers-svg");
+    //sv = document.getElementById("map-layers-svg");
     if(ld.style.display == 'none'){
         ld.style.display = 'block';
-        sv.style.left = `200px`;
+        //sv.style.left = `200px`;
     }else if(ld.style.display == 'block'){
         ld.style.display = 'none';
-        sv.style.left = 0;
+        //sv.style.left = 0;
     }
 });
 
 $("#map-pol-btn").on('click', function(event){
     ld = document.getElementById("map-pol-box");
-    sv = document.getElementById("map-pol-svg");
-    if(ld.style.display == 'none'){
-        ld.style.display = 'block';
-        sv.style.right = `400px`;
-    }else if(ld.style.display == 'block'){
-        ld.style.display = 'none';
-        sv.style.right = 0;
+    if(ld.classList.contains('d-none')){
+        ld.classList.remove('d-none');
+        ld.classList.add('d-flex');
+    } else {
+        ld.classList.remove('d-flex');
+        ld.classList.add('d-none');
     }
 });
 

@@ -55,12 +55,25 @@ function togglePols(polLst){
     ///////////////////////
     //console.log(polLst.length, polLst);
     polLst.forEach(pol => {
-        var element = 
-            `<a class="pol-lst-name" href=${pol["data_link"]} target="_blank" rel="noopener noreferrer">${pol["name"]}</a>
-            <p>Level: ${pol["policy_level"]}</p>
-            <p style="display: inline">Classification:</p>
-            <p style="display: inline" class="badge rounded-pill ${pillDct[pol["primary_category"]]}">${pillNames[pol["primary_category"]]}</p>
-            <br><br>`;
+        var element = `
+            <div class="mb-3 p-3 bg-light rounded border-start border-3 text-start shadow-sm" style="border-color:color:#396d85;">
+                <a class="pol-lst-name fw-bold d-block text-decoration-none mb-2" 
+                href="${pol["data_link"]}" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style="font-size: 0.9rem; line-height: 1.3; color:#396d85">
+                    ${pol["name"]} ↗
+                </a>
+                <div class="d-flex flex-wrap gap-2 align-items-center mt-2" style="font-size: 0.75rem;">
+                    <span class="badge bg-white text-dark border px-2 py-1 fw-medium">
+                        📍 ${pol["policy_level"]}
+                    </span>
+                    <span class="badge rounded-pill ${pillDct[pol["primary_category"]]} px-2 py-1">
+                        🏷️ ${pillNames[pol["primary_category"]]}
+                    </span>
+                </div>
+            </div>
+        `;
         if(pol["policy_level"]=="Local" & document.getElementById("locauth-fltr").checked==true){
             counPolInfo.append(element);
         }else if(pol["policy_level"]=="Regional" & document.getElementById("regional-fltr").checked==true){
@@ -167,13 +180,14 @@ async function parsePols(evt){
             success:function(result){
                 for (let i=0; i < result.features.length; i++){
                     const ipol=result.features[i];
+                    //console.log(ipol);
                     if(ipol){
                         polLst.push( 
                         {"name": ipol.properties.name, 
                         "policy_level": ipol.properties.policy_level, 
                         "primary_category": ipol.properties.primary_category, 
-                        "data_link": ipol.properties.data_link}
-                        );
+                        "data_link": `http://peatlandpolicyportal.eu/policy/${ipol.properties.odoo_policy_id}`
+                        });
                     }
                 };
             }
@@ -186,13 +200,16 @@ async function parsePols(evt){
 
 function displayChange(evt){
     var lb = document.getElementById("map-lyr-box");
-    var lsv = document.getElementById("map-layers-svg");
+    //var lsv = document.getElementById("map-layers-svg");
     lb.style.display = 'block';
-    lsv.style.left = `200px`;
+    //lsv.style.left = `200px`;
     var pb = document.getElementById("map-pol-box");
-    var psv = document.getElementById("map-pol-svg");
-    pb.style.display = 'block';
-    psv.style.right = `400px`;
+    //var psv = document.getElementById("map-pol-svg");
+    if(pb.classList.contains('d-none')){
+        pb.classList.remove('d-none');
+        pb.classList.add('d-flex');
+    }
+    //psv.style.right = `400px`;
 };
 
 map.addEventListener("singleclick", displayChange);

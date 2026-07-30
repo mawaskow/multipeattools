@@ -3,10 +3,10 @@
 {% block title %}Policy Page{% endblock %}
 
 {% block content %}
-<div class="container" style="min-height: 760px;">
+<div class="container py-4" style="min-height: 90vh;">
     <!-- this policy-store passes the information from the python flask app to the html for storage, so javascript can access it-->
     <div id="pol_id-store" style="display:none">{{pol_id}}</div>
-    <div id="policy_div"></div>
+    <div id="policy_div" class="card border-0 bg-white shadow-sm rounded-3 p-4 p-md-5"></div>
 </div>
 
 <script>
@@ -915,51 +915,47 @@
     };
 
     // how to display policies
-    function policyShow(policy, currentLang = 'English'){
+    function policyShow(policy, currentLang = 'English', kma_status=null){
         console.log(policy);
         const polPop = $('#policy_div');
         polPop.html('');
 
-        // get the language of the policy
-        var lang=policy['language'].split(" ");
-        var lang_pol=lang[0];
+        if(!policy || Object.keys(policy).length === 0){
+            polPop.append(`<p class="text-center my-5 text-muted fw-medium">Policy detail payload records could not be found.</p>`);
+            return;
+        }
+
+        var lang = policy['language'].split(" ");
+        var lang_pol = lang[0];
 
         var pol_title_english = policy["name"];
         var pol_title_native = policy["name_language"];
         let pol_title_to_display = (currentLang === 'English') ? pol_title_english : pol_title_native;
 
-        // categories html, gets all categories in their pill form
-        var primary_category_english= pillNames[policy["primary_category"]];
-        var primary_category_native=transl_categories[lang_pol][pillNames[policy["primary_category"]]];
+        // Categories pill builders
+        var primary_category_english = pillNames[policy["primary_category"]];
+        var primary_category_native = transl_categories[lang_pol][pillNames[policy["primary_category"]]];
         let primary_category_to_display = (currentLang === 'English') ? primary_category_english : primary_category_native;
 
-        var categ_coll = [`<p class="badge rounded-pill ${ pillDct[policy["primary_category" ]] }" style="font-size:17px; font-weight:400;margin-bottom:5px;">${ primary_category_to_display}</p>`];
+        var categ_coll = [`<span class="badge rounded-pill ${pillDct[policy["primary_category"]]} px-3 py-2 fw-medium">${primary_category_to_display}</span>`];
         var categ_lst = policy["category"].sort();
-        if(categ_lst.length > 1){
-            categ_coll.push(`|`);
-        }
+        
         for (let c=0; c < categ_lst.length; c++){
             if(categ_lst[c] != policy["primary_category"]){
                 var category_native = transl_categories[lang_pol][pillNames[categ_lst[c]]];
-                var category_english = pillNames[categ_lst[c]];
                 let category_to_display = (currentLang === 'English') ? categ_lst[c] : category_native;
-                categ_coll.push(`<p class="badge rounded-pill ${ pillDct[categ_lst[c]] }" style="font-size:17px; font-weight:400;margin-bottom:5px;">${ category_to_display }</p>`);
+                categ_coll.push(`<span class="badge rounded-pill ${pillDct[categ_lst[c]]} px-3 py-2 fw-medium">${category_to_display}</span>`);
             }
         }
         var categs_html = categ_coll.join(" ");
-        var green_goals =[];
+
+        var green_goals = [];
         var sdgs = [];
         categ_lst.forEach(categ => {
-            //green_goals.concat(policy_category_mappings[categ]["green"]);
-            //sdgs.concat(policy_category_mappings[categ]["sdg"])
             var gr = policy_category_mappings[categ]["green"];
             var sd = policy_category_mappings[categ]["sdg"];
-            gr.forEach(gr =>{
-                green_goals.push(gr);
-            });
-            sd.forEach(sd =>{
-                sdgs.push(sd);
-            });
+            gr.forEach(g => green_goals.push(g));
+            sd.forEach(s => sdgs.push(s));
         });
         let green_uniq = new Set(green_goals.sort());
         let sdg_uniq = new Set(sdgs.sort());
@@ -967,270 +963,201 @@
         var green_coll = [];
         var sdg_coll = [];
         green_uniq.forEach(goal => {
-            green_coll.push(`<p class="badge rounded-pill text-bg-secondary" style="font-size:14px; font-weight:400;margin-bottom:5px;">${ greendeal_categories[goal] }</p>`);
+            green_coll.push(`<span class="badge bg-light text-dark border rounded-pill px-2 py-1 fw-normal">${greendeal_categories[goal]}</span>`);
         });
         sdg_uniq.forEach(goal => {
-            sdg_coll.push(`<p class="badge rounded-pill text-bg-secondary" style="font-size:14px; font-weight:400;margin-bottom:5px;">${ sdg_categories[goal] }</p>`);
+            sdg_coll.push(`<span class="badge bg-light text-dark border rounded-pill px-2 py-1 fw-normal">${sdg_categories[goal]}</span>`);
         });
-        var green_html = green_coll.join(" ");
-        var sdg_html = sdg_coll.join(" ");
+        var green_html = green_coll.length ? green_coll.join(" ") : '<span class="text-muted small">None mapped</span>';
+        var sdg_html = sdg_coll.length ? sdg_coll.join(" ") : '<span class="text-muted small">None mapped</span>';
 
-        // publishers html
+        // Publishers formatting
         var publs_coll = [];
-        policy["publisher"].forEach(publisher =>
-                publs_coll.push(`<p class="d-inline">${publisher}</p>`)
-            );
-        var publs = publs_coll.join(`<br><p class="d-inline" style="font-size:16px">👤</p><p class="d-inline">`);
-        var publs_html = `<p class="d-inline publisher-icon" style="font-size:16px">👤</p>${publs}`;
+        policy["publisher"].forEach(publisher => publs_coll.push(`<span>👤 ${publisher}</span>`));
+        var publs_html = publs_coll.join('<br>');
         
-        let truncatedPublishers = '';
-        let fullPublishers = '';
-        const allPublishers = policy['publisher'];
-
-        truncatedPublishers = `<span><p class="d-inline publisher-icon" style="font-size:16px">👤</p><p class="d-inline">${allPublishers[0]}</p></span>`;
-        fullPublishers=publs_html
-        var publisher_section_html =`
-            <span class="publisher-list-container">
+        const allPublishers = policy['publisher'] || [];
+        let truncatedPublishers = `<span>👤 ${allPublishers[0]}</span>`;
+        
+        var publisher_section_html = `
+            <div class="publisher-list-container text-secondary small d-inline-flex align-items-center gap-2">
                 <span class="publisher-text truncated-version">${truncatedPublishers}</span>
-                ${ allPublishers.length > 1 ? `<span class="ellipsis-placeholder">...</span>` : '' }
-                <span class="publisher-text full-version hidden">
-                    ${fullPublishers}
-                </span>
-                <button class="publisher-more-less-button hidden"></button>
-            </span>
+                ${ allPublishers.length > 1 ? `<span class="ellipsis-placeholder fw-bold">...</span>` : '' }
+                <span class="publisher-text full-version hidden">${publs_html}</span>
+                <button class="publisher-more-less-button btn btn-link p-0 text-success text-decoration-none small fw-semibold hidden" style="font-size:0.8rem;"></button>
+            </div>
         `;
 
-        // level / sublevel html, accounts for global and european, adds emojis
+        // Regional framework strings
         var lvl_area_html = ``;
-
-        var name_country_english= policy['country'];
-        var name_country_native= '';
-        let name_country_to_display = ''
+        var name_country_english = policy['country'];
+        let name_country_to_display = '';
         if(name_country_english){
-            name_country_native= transl_countries[policy['country']][lang_pol];
+            var name_country_native = transl_countries[policy['country']][lang_pol];
             name_country_to_display = (currentLang === 'English') ? name_country_english : name_country_native;
         }
-        var lvl_area_english= policy['policy_level'];
-        var lvl_area_native= transl_scale[lang_pol][policy['policy_level']];
+        var lvl_area_english = policy['policy_level'];
+        var lvl_area_native = transl_scale[lang_pol][policy['policy_level']];
         let lvl_area_display = (currentLang === 'English') ? lvl_area_english : lvl_area_native;
 
         if(["European", "Global"].includes(policy['policy_level'])){
-            lvl_area_html = `<p class="d-inline" style="font-size:20px">${ flagmojis[lvl_area_display] }</p> <p class="d-inline">${ lvl_area_display } </p>`;
+            lvl_area_html = `<span class="badge bg-white text-dark border px-2 py-1 fw-medium me-1">${flagmojis[lvl_area_display] || '🌐'} ${lvl_area_display}</span>`;
         }else{
-            if(policy["country"] in flagmojis){
-                lvl_area_html = `<p class="d-inline" style="font-size:20px">${ flagmojis[name_country_english] }</p> <p class="d-inline" style="font-size:20px">${name_country_to_display} | ${ lvl_area_display } </p>`;
-            }else{
-                lvl_area_html = `<p style="font-size:20px"> ${ name_country_to_display } | ${ lvl_area_display } </p>`;
-            }
+            let flag = flagmojis[name_country_english] || '📍';
+            lvl_area_html = `<span class="badge bg-white text-dark border px-2 py-1 fw-medium me-1">${flag} ${name_country_to_display} (${lvl_area_display})</span>`;
         }
 
-        // duration html, accounts for missing dates
         var duratn_html = ``;
         if(policy['year_from'] && policy['year_to']){
-            duratn_html = `${policy['year_from']}-${policy['year_to']}`;
-        }else{
-            if(policy['year_from']){
-                duratn_html = `${policy['year_from']}-`;
-            }else if(policy['year_to']){
-                duratn_html = `-${policy['year_to']}`;
-            }
+            duratn_html = `<span class="badge bg-white text-dark border px-2 py-1 fw-medium">🗓️ ${policy['year_from']} - ${policy['year_to']}</span>`;
+        } else if(policy['year_from'] || policy['year_to']) {
+            duratn_html = `<span class="badge bg-white text-dark border px-2 py-1 fw-medium">🗓️ ${policy['year_from'] || ''} - ${policy['year_to'] || ''}</span>`;
         }
 
-        // excerpt html
-        if (policy['excerpt_english']) {var excerpt_html_english = `<p class="excerpt-text" align="justify"> ${policy['excerpt_english']}</p>`;}
-        if (policy['excerpt']) {var excerpt_html_native = `<p class="excerpt-text" align="justify"> ${policy['excerpt']}</p>`;}
+        // Body segments text structures
+        let excerpt_text = (currentLang === 'English') ? policy['excerpt_english'] : policy['excerpt'];
+        let excerpt_html_to_display = excerpt_text ? `<p class="lead text-secondary fs-6 border-start border-3 ps-3 py-1 my-3 italic" style="font-style: italic;">${excerpt_text}</p>` : '';
 
-        let excerpt_html_to_display = (currentLang === 'English') ? excerpt_html_english : excerpt_html_native;
-
-        // try to split abstract by \n to retain line breaks?
-        if (policy['abstract_english']) {
-            var abst_sents_english = policy['abstract_english'].split("\n");
-            var abst_ps_english = [];
-            abst_sents_english.forEach(sentence =>
-                abst_ps_english.push(`<p class="poltxt">${ sentence }</p>`)
-            );
-            var abst_html_english = abst_ps_english.join(`<p style="margin-bottom:10px;"></p>`);
-            var abst_html_section_english = `<div>
-                                        <h3 class="section-title-container"><div class="section-title-box">Overview</div></h3>
-                                        <div style="margin-bottom:10px; font-size:16px" align="justify">
-                                            ${ abst_html_english }
-                                        </div>
-                                    </div>`
-        }
-        if (policy['abstract']) {
-            var abst_sents_native = policy['abstract'].split("\n");
-            var abst_ps_native = [];
-            abst_sents_native.forEach(sentence =>
-                abst_ps_native.push(`<p class="poltxt">${ sentence }</p>`)
-            );
-            var abst_html_native = abst_ps_native.join(`<p style="margin-bottom:10px;"></p>`);
-            var abst_html_section_native = `<div>
-                                        <h3 class="section-title-container"><div class="section-title-box">${transl_overview[lang_pol]}</div></h3>
-                                        <div style="margin-bottom:10px; font-size:16px" align="justify">
-                                            ${ abst_html_native }
-                                        </div>
-                                    </div>`
+        let abstract_text = (currentLang === 'English') ? policy['abstract_english'] : policy['abstract'];
+        let abst_html_section_to_display = '';
+        if (abstract_text) {
+            let abst_html = abstract_text.split("\n").map(s => `<p class="text-secondary" style="line-height:1.6;">${s}</p>`).join("");
+            let title = (currentLang === 'English') ? "Overview" : transl_overview[lang_pol];
+            abst_html_section_to_display = `<div class="mb-4">
+                <h4 class="h6 text-uppercase fw-bold text-success tracking-wider mb-2">${title}</h4>
+                <div class="text-start">${abst_html}</div>
+            </div>`;
         }
 
-        let abst_html_section_to_display = (currentLang === 'English') ? abst_html_section_english : abst_html_section_native;
-
-        // split table of contents by \n to retain line breaks
-        var toc_html_english = ``;
-        var toc_html_section_english = ``;
-        if(policy['toc_english']){
-            var toc_lines_english = policy['toc_english'].split("\n");
-            var toc_ps_english = [];
-            toc_lines_english.forEach(line =>
-                toc_ps_english.push(`<p class="poltxt">${ line }</p>`)
-            );
-            toc_html_english = toc_ps_english.join(`<p style="margin-bottom:10px;"></p>`);
-            toc_html_section_english = `<div>
-                                    <h3 class="section-title-container"><div class="section-title-box">Table of Contents</div></h3>
-                                    <div style="margin-bottom:20px">
-                                        ${ toc_html_english }
-                                    </div>
-                                </div>`
+        let toc_text = (currentLang === 'English') ? policy['toc_english'] : policy['toc'];
+        let toc_html_section_to_display = '';
+        if(toc_text){
+            let toc_html = toc_text.split("\n").map(l => `<p class="text-muted my-1 small ps-2 border-start border-light">${l}</p>`).join("");
+            let title = (currentLang === 'English') ? "Table of Contents" : transl_toc[lang_pol];
+            toc_html_section_to_display = `<div class="mb-4">
+                <h4 class="h6 text-uppercase fw-bold text-secondary tracking-wider mb-2">${title}</h4>
+                <div class="bg-light rounded p-3" style="max-height:250px; overflow-y:auto;">${toc_html}</div>
+            </div>`;
         }
 
-        var toc_html_native = ``;
-        var toc_html_section_native = ``;
-        if(policy['toc']){
-            console.log(policy['toc']);
-            var toc_lines_native = policy['toc'].split("\n");
-            var toc_ps_native = [];
-            toc_lines_native.forEach(line =>
-                toc_ps_native.push(`<p class="poltxt">${ line }</p>`)
-            );
-            toc_html_native = toc_ps_native.join(`<p style="margin-bottom:10px;"></p>`);
-            toc_html_section_native = `<div>
-                                    <h3 class="section-title-container"><div class="section-title-box">${transl_toc[lang_pol]}</div></h3>
-                                    <div style="margin-bottom:20px">
-                                        ${ toc_html_native }
-                                    </div>
-                                </div>`
-        }else{
-            console.log("No TOC?");
-        }
-
-        let toc_html_section_to_display = (currentLang === 'English') ? toc_html_section_english : toc_html_section_native;
-           
-        // create button to switch between languages
+        var button_native = `<button data-lang="Native" class="btn btn-sm btn-outline-secondary px-3 hidden">${flagmojis[policy['country']] || '🏳️'} ${lang_pol}</button>`;
+        var button_english = `<button data-lang="English" class="btn btn-sm btn-outline-secondary px-3 hidden">${flagmojis['United Kingdom'] || '🇬🇧'} English</button>`;
         
-        var button_native=`<button data-lang="Native" class="btn btn-outline-dark hidden" style="font-size:14px" >${ flagmojis[policy['country']] } ${lang_pol}</button>`
-        var button_english=`<button data-lang="English" class="btn btn-outline-dark hidden" style="font-size:14px" >${ flagmojis['United Kingdom'] } English</button>`
-        
-        // links
-        var name_link_doc_english = 'Policy Document'
-        var name_link_doc_native = transl_policy_document[lang_pol];
-        let name_link_doc_to_display = (currentLang === 'English') ? name_link_doc_english : name_link_doc_native;
+        let name_link_doc_to_display = (currentLang === 'English') ? 'Policy Document' : transl_policy_document[lang_pol];
+        let name_link_info_to_display = (currentLang === 'English') ? 'Official Site' : transl_policy_info_page[lang_pol];
 
-        var name_link_info_english = 'Official Site'
-        var name_link_info_native = transl_policy_info_page[lang_pol];
-        let name_link_info_to_display = (currentLang === 'English') ? name_link_info_english : name_link_info_native;
-
-        var links_html = `<a href="${ policy['data_link'] }" class="polcol-lnk d-inline" target="_blank">
-                        ${name_link_doc_to_display}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                        </svg>
-                    </a> | 
-                    <a href="${ policy['documentation_link'] }" class="polcol-lnk d-inline" target="_blank">${name_link_info_to_display} ↗</a>`;
-
-        // element to append to the policy           
+        // Modern split grid element injection template blueprint assembly
         var element = `
-                    <div style="display: flex; justify-content: flex-end; align-items: flex-start;margin-top:5px;">  
-                        <div id="lang-btns">
-                            ${button_native}
-                            ${button_english}
-                        </div>       
-                    </div>
-                    <h1 id="pol-res-he" class="policy-name-header">${pol_title_to_display}</h1>
-                    <div>
-                        ${lvl_area_html}
-                        <p class="d-inline" style="font-size:20px"> | ${duratn_html} | </p> 
-                        ${links_html}
-                    </div> 
-                    <div style="margin-top:3px">
-                        ${ publisher_section_html }
-                    </div>
-                    <div style="display: flex; align-items: flex-start; gap: 20px;">
-                        <div style="flex: 1; padding-right: 20px; min-width: 300px">
-                            <div id="abstract-content">  
-                                ${abst_html_section_to_display}
-                            </div>
-                            <div id="toc-content">        
-                                ${toc_html_section_to_display}
-                            </div>
-                            <div style="margin-top:30px;">
-                                Policy Categories: ${categs_html}
-                            </div>  
-                            <div style="margin-top:20px;">
-                                Green Deal Goals: ${green_html}
-                            </div>  
-                            <div style="margin-top:20px;">
-                                Sustainable Development Goals: ${sdg_html}
-                            </div>  
-                        </div>
+            <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-4 gap-3">
+                <div class="d-flex flex-wrap gap-2 align-items-center">
+                    ${lvl_area_html}
+                    ${duratn_html}
+                </div>
+                <div id="lang-btns" class="d-flex gap-2">
+                    ${button_native}
+                    ${button_english}
+                </div>
+            </div>
+
+            <div class="row g-4 lg-g-5">
                 
-                        <div class="right-content">
-                            <div class="pdf-viewer-container">
-                                <!--<iframe src="${policy['data_link']}" class="pdf-iframe" align="center"></iframe>-->
-                                <iframe src="https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(policy['data_link'])}" class="pdf-iframe" align="center"></iframe>
-                            </div>
-                        </div>
+                <div class="col-12 col-lg-7 text-start">
+                    <h1 class="h2 fw-bold text-dark mb-3" style="line-height: 1.25;">${pol_title_to_display}</h1>
+                    
+                    <div class="mb-4">
+                        ${publisher_section_html}
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-3 my-3">
+                            <a href="${policy['data_link']}" class="btn btn-success btn-sm px-3 shadow-sm" target="_blank">
+                                <i class="bi bi-download me-1"></i> ${name_link_doc_to_display} 📥
+                            </a>
+                            <a href="${policy['documentation_link']}" class="btn btn-outline-success btn-sm px-3" target="_blank">
+                                ${name_link_info_to_display} ↗
+                            </a>
+                            ${kma_status === 'done' ? `
+                                <a href="/kmaviewer/${policy['id']}" target="_blank">
+                                    <button class="btn btn-success btn-sm">
+                                        View in Key Metric Analyser ↗
+                                    </button>
+                                </a>
+                                ` : ''}
                     </div>
                     
-                    `;
+                    ${excerpt_html_to_display}
+                    <hr class="my-4 text-black-50 opacity-25">
+
+                    <div id="abstract-content">${abst_html_section_to_display}</div>
+                    <div id="toc-content">${toc_html_section_to_display}</div>
+
+                    <div class="mt-4 pt-3 border-top">
+                        <div class="mb-3">
+                            <span class="d-block text-muted small fw-bold text-uppercase mb-2">Policy Classifications</span>
+                            <div class="d-flex flex-wrap gap-2">${categs_html}</div>
+                        </div>
+                        <div class="mb-3">
+                            <span class="d-block text-muted small fw-bold text-uppercase mb-2">Green Deal Focus</span>
+                            <div class="d-flex flex-wrap gap-1">${green_html}</div>
+                        </div>
+                        <div>
+                            <span class="d-block text-muted small fw-bold text-uppercase mb-2">Sustainable Development Goals (SDGs)</span>
+                            <div class="d-flex flex-wrap gap-1">${sdg_html}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-lg-5">
+                    <div class="card border-0 bg-light p-2 rounded-3 shadow-inner h-100 min-vh-50" style="min-height: 600px;">
+                        <iframe src="https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(policy['data_link'])}" 
+                                class="w-100 h-100 rounded border-0" 
+                                style="min-height: 580px;"
+                                allow="autoplay"></iframe>
+                    </div>
+                </div>
+
+            </div>`;
 
         polPop.append(element);
-        if(!policy){
-            polPop.append(`<p class="text-center" style="color:black;">Policy not found.</p>`);
-        }
 
-        //
+        // Setup collapsible dynamic publishers action controls
         const publisherListContainer = polPop.find('.publisher-list-container')[0];
-        if (publisherListContainer) { 
-            const allPublishers = policy['publisher'] || [];
+        if (publisherListContainer && allPublishers.length > 1) { 
+            const truncatedPublishersElement = publisherListContainer.querySelector('.publisher-text.truncated-version');
+            const fullPublishersElement = publisherListContainer.querySelector('.publisher-text.full-version');
+            const ellipsisPlaceholder = publisherListContainer.querySelector('.ellipsis-placeholder');
+            const moreLessButton = publisherListContainer.querySelector('.publisher-more-less-button');
 
-            if (allPublishers.length > 1) { 
-                const truncatedPublishersElement = publisherListContainer.querySelector('.publisher-text.truncated-version');
-                const fullPublishersElement = publisherListContainer.querySelector('.publisher-text.full-version');
-                const ellipsisPlaceholder = publisherListContainer.querySelector('.ellipsis-placeholder');
-                const moreLessButton = publisherListContainer.querySelector('.publisher-more-less-button');
+            moreLessButton.classList.remove('hidden');
+            moreLessButton.textContent = '(Show All)'; 
+            ellipsisPlaceholder.classList.remove('hidden');
 
-                moreLessButton.classList.remove('hidden');
-                moreLessButton.textContent = 'More'; 
-                ellipsisPlaceholder.classList.remove('hidden');
-
-                moreLessButton.addEventListener('click', () => {
-                    if (truncatedPublishersElement.classList.contains('hidden')) {
-                        truncatedPublishersElement.classList.remove('hidden');
-                        fullPublishersElement.classList.add('hidden');
-                        ellipsisPlaceholder.classList.remove('hidden'); 
-                        moreLessButton.textContent = 'More';
-                    } else {
-                        truncatedPublishersElement.classList.add('hidden');
-                        fullPublishersElement.classList.remove('hidden');
-                        ellipsisPlaceholder.classList.add('hidden'); 
-                        moreLessButton.textContent = 'Less';
-                    }
-                });
-            }
+            moreLessButton.addEventListener('click', () => {
+                if (truncatedPublishersElement.classList.contains('hidden')) {
+                    truncatedPublishersElement.classList.remove('hidden');
+                    fullPublishersElement.classList.add('hidden');
+                    ellipsisPlaceholder.classList.remove('hidden'); 
+                    moreLessButton.textContent = '(Show All)';
+                } else {
+                    truncatedPublishersElement.classList.add('hidden');
+                    fullPublishersElement.classList.remove('hidden');
+                    ellipsisPlaceholder.classList.add('hidden'); 
+                    moreLessButton.textContent = '(Hide)';
+                }
+            });
         }
 
-        // add event listeners to the buttons
+        // Toggle multi-language interface buttons visibility mapping
         if (lang_pol !== "English") {
-            const button_english = document.querySelector('#lang-btns button[data-lang="English"]');
-            button_english.classList.remove('hidden');
-            const button_native = document.querySelector('#lang-btns button[data-lang="Native"]');
-            button_native.classList.remove('hidden');
-            document.querySelectorAll('#lang-btns button').forEach(button => {
-            button.addEventListener('click', () => {
-                const lang = button.getAttribute('data-lang');
-                policyShow(policy, lang); 
-            });
-        });  
+            const button_english_el = polPop.find('#lang-btns button[data-lang="English"]')[0];
+            const button_native_el = polPop.find('#lang-btns button[data-lang="Native"]')[0];
+            
+            if(button_english_el) button_english_el.classList.remove('hidden');
+            if(button_native_el) button_native_el.classList.remove('hidden');
+            
+            polPop.find('#lang-btns button').on('click', function() {
+                const lang = $(this).data('lang');
+                policyShow(policy, lang, kma_status); 
+            });  
         }
     }
 
@@ -1248,7 +1175,23 @@
         } catch (error) {
             console.error(error.message);
         }
-        policyShow(pol_obj, 'English')
+        // add check for KMA
+        const url_s = `/api/policy/status/${pol_id}`;
+        var kma_status = '';
+        try {
+            const response = await fetch(url_s);
+            if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+            }
+            const json_s = await response.json();
+            //console.log(json_s);
+            kma_status= json_s["kma_status"];
+            //console.log(kma_status);
+        } catch (error) {
+            console.error(error.message);
+        }
+        //
+        policyShow(pol_obj, 'English', kma_status)
         //
         //$('#policyliststore').val(JSON.stringify(polLst));
         //

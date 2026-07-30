@@ -3,7 +3,7 @@
 {% block title %}Resources{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container my-5" style="min-height: 90vh;">
   <div class="card border-0 shadow-sm">
     <div class="card-body">
       <h2 class="card-title text-center fw-bold mb-4">Resources</h2>
@@ -15,7 +15,7 @@
           <div class="card h-100 text-center border-0 bg-light shadow-sm">
             <div class="card-body">
               <a href="{{ url_for('project_collection') }}">
-                <img src="{{url_for('static', filename='multipeat_logo.png')}}"
+                <img src="{{url_for('static', filename='images/projcol.png')}}"
                      alt="Project Collection" class="img-fluid rounded mb-3 menu-img">
               </a>
               <h5 class="fw-semibold">Project Collection</h5>
@@ -43,7 +43,7 @@
           <div class="card h-100 text-center border-0 bg-light shadow-sm">
             <div class="card-body">
               <a href="{{ url_for('best_practice') }}">
-                <img src="{{ url_for('static', filename='multipeat_logo.png') }}"
+                <img src="{{ url_for('static', filename='images/bestpract.png') }}"
                     alt="Best Practise" class="img-fluid rounded mb-3 menu-img">
               </a>
                 <h5 class="fw-semibold">Best Practise</h5>

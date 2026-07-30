@@ -158,6 +158,53 @@
         pointer-events: none;
         opacity: 0.7;
     }
+    
+    
+    /* reCAPTCHA Popup Styles */
+    .captcha-popup .popup-content::before {
+        background: #4A90D9;
+    }
+
+    .captcha-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 24px;
+        background: #4A90D9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: scaleIn 0.5s ease 0.2s both;
+    }
+
+    .captcha-icon svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+        stroke-width: 3;
+    }
+
+    .captcha-popup .popup-close-btn {
+        background: #4A90D9;
+    }
+
+    .captcha-popup .popup-close-btn:hover {
+        box-shadow: 0 8px 25px rgba(74, 144, 217, 0.3);
+    }
+
+    .captcha-error-msg {
+        color: #ef4444;
+        font-size: 13px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        min-height: 18px;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-6px); }
+        75% { transform: translateX(6px); }
+    }
 
     /* Error Popup Styles */
     .error-popup .popup-content::before {
@@ -213,35 +260,46 @@
     }
 </style>
 
-<div class="container" style="min-height: 760px;">
-    <div class="row justify-content-center">
+<div class="container my-3" style="min-height: 760px;">
+    <div class="row justify-content-center mb-5">
         <div class="col-lg-8">
-            <h4 class="text-center" style="padding:5px; padding-top:20px">POLICY SUGGESTION FORM</h4>
-            <div style="margin: 5px; margin-bottom: 10px;">
-                <p class="text-descr">
-                    Thank you for helping us grow the <a class="textab" href="https://peatlandpolicyportal.eu/">Peatland Policy Portal</a>.
-                    <br>
-                    Please use this form to <strong>suggest a missing policy</strong> or <strong>correct an existing policy</strong>.
-                    <br>
-                    We are currently collecting policies that affect EU member states and the UK. This includes:
-                </p>
-                <ul style="margin: 0px;">
-                    <li><p class="text-descr">Globally and multinationally binding agreements <em>(e.g. the Paris Agreement)</em></p></li>
-                    <li><p class="text-descr">European Union policies <em>(e.g. the Nature Restoration Regulation)</em></p></li>
-                    <li><p class="text-descr">National government policies <em>(e.g. Germany's National Peatland Protection Strategy)</em></p></li>
-                    <li><p class="text-descr">Regional and local policies <em>(e.g. Ireland's Galway County Development Plan 2022 - 2028)</em></p></li>
-                </ul>
-                <p class="text-descr">
-                    Please note that we only collect officially published policies; we do not include policies that are still in the drafting or consultation stage.
-                    <br>
-                    If you are correcting an existing policy, please clarify the correction in the "Additional information" field.
-                    <br>
-                    If you are unsure about any field, please also add a comment in "Additional information".
-                    <br>
-                    Visit the current policy collection at <a class="textab" href="https://peatlandpolicyportal.eu/policy">https://peatlandpolicyportal.eu/policy</a>.
-                    <br>
-                    EU-LIFE Multi Peat Team
-                </p>
+            <div class="card border-0 bg-white p-3 p-md-4 shadow-sm" style="margin:10px;">
+                <h3 class="card-title text-center fw-bold mb-3">Policy Suggestion & Correction Form</h3>
+                <div class="card-body px-4 px-md-5 pb-4">
+                    <p class="text-descr">
+                        Thank you for helping us grow the <a class="textab fw-semibold text-decoration-none" href="https://peatlandpolicyportal.eu/">Peatland Policy Portal</a>.
+                    </p>
+                    <p class="text-descr">
+                        Please use this form to <strong>suggest a missing policy</strong> or <strong>correct an existing policy</strong>.
+                    </p>
+                    <p class="text-descr mb-2">
+                        We are currently collecting policies that affect EU member states and the UK. This includes:
+                    </p>
+                    <ul class="mb-4 ps-3">
+                        <li class="mb-1"><p class="text-descr mb-0">Globally and multinationally binding agreements <em>(e.g. the Paris Agreement)</em></p></li>
+                        <li class="mb-1"><p class="text-descr mb-0">European Union policies <em>(e.g. the Nature Restoration Regulation)</em></p></li>
+                        <li class="mb-1"><p class="text-descr mb-0">National government policies <em>(e.g. Germany's National Peatland Protection Strategy)</em></p></li>
+                        <li class="mb-0"><p class="text-descr mb-0">Regional and local policies <em>(e.g. Ireland's Galway County Development Plan 2022 - 2028)</em></p></li>
+                    </ul>
+                    <p class="text-descr">
+                        Please note that we only collect officially published policies; we do not include policies that are still in the drafting or consultation stage.
+                    </p>
+                    <p class="text-descr">
+                        If you are correcting an existing policy, please clarify the correction in the "Additional information" field.
+                    </p>
+                    <p class="text-descr mb-4">
+                        If you are unsure about any field, please also add a comment in "Additional information".
+                    </p>
+                    <hr class="text-muted opacity-25 my-3">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 text-muted small">
+                        <div>
+                            Visit the current policy collection at <a class="textab text-decoration-none" href="https://peatlandpolicyportal.eu/policy">peatlandpolicyportal.eu/policy</a>
+                        </div>
+                        <div class="fw-semibold text-dark text-sm-end">
+                            EU-LIFE Multi Peat Team
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <h4 class="text-center" style="padding:10px; color:rgb(0, 128, 0); display: none;" id="message">{{ message }}</h4> 
@@ -506,70 +564,147 @@
     </div>
 </div>
 
+<!-- reCAPTCHA Popup -->
+<div class="popup-overlay captcha-popup" id="captchaPopup">
+    <div class="popup-content">
+        <div class="captcha-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 6.627 5.373 12 12 12s12-5.373 12-12a11.956 11.956 0 00-.598-3.75M12 2.964z"/>
+            </svg>
+        </div>
+        <h3 class="popup-title">Verify you're human</h3>
+        <p class="popup-message">Please complete the verification below to continue.</p>
+
+        <div style="display: flex; justify-content: center; margin: 20px 0;">
+            <div class="g-recaptcha" 
+                 id="recaptchaWidget"
+                 data-sitekey="6LfY0iAtAAAAAMbx2INzHx3S6ifxpgXJVvmiem66">
+            </div>
+        </div>
+
+        <p class="captcha-error-msg" id="captchaErrorMsg"></p>
+
+        <button class="popup-close-btn" onclick="submitCaptcha()">Verify & Continue</button>
+        <br><br>
+        <a href="#" onclick="closeCaptchaPopup(); return false;"
+           style="font-size:14px; color:#6b7280; text-decoration:none;">
+           Cancel
+        </a>
+    </div>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <script>
     // Wait for DOM to be fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        // Form submission with loading state and popup
+    document.addEventListener('DOMContentLoaded', function () {
         const submitBtn = document.getElementById('inputPolSub');
         const form = document.getElementById('policyForm');
-        
+
+        // Form submission
         if (submitBtn && form) {
-            submitBtn.addEventListener('click', function(e) {
+            submitBtn.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                // Validate form before submission
+
                 const validationErrors = validateForm();
-                
+
+                // If form has validation errors, show error popup directly
                 if (validationErrors.length > 0) {
                     showErrorPopup(validationErrors);
                     return;
                 }
-                
-                // Add loading state to button
-                const originalText = this.innerHTML;
-                this.innerHTML = '<span class="loading-spinner"></span>Submitting...';
-                this.classList.add('btn-loading');
-                
-                // Create form data
-                const formData = new FormData(form);
-                
-                // Submit form via fetch
-                fetch(form.action || window.location.pathname, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    // Reset button
-                    this.innerHTML = originalText;
-                    this.classList.remove('btn-loading');
-                    
-                    if (response.ok) {
-                        // Show success popup and reset form
-                        showSuccessPopup();
-                        form.reset();
-                    } else {
-                        // Handle server error
-                        return response.text().then(text => {
-                            throw new Error(`Server error: ${response.status}`);
+
+                // If form is valid, show CAPTCHA popup
+                showCaptchaPopup();
+                showSuccessPopup();
+            });
+        }
+
+        // Close CAPTCHA popup when clicking overlay
+        document.getElementById('captchaPopup').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeCaptchaPopup();
+            }
+        });
+
+        // Close success popup when clicking overlay
+        document.getElementById('successPopup').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeSuccessPopup();
+            }
+        });
+
+        // Close error popup when clicking overlay
+        document.getElementById('errorPopup').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeErrorPopup();
+            }
+        });
+
+        // Escape key closes all popups
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeSuccessPopup();
+                closeErrorPopup();
+                closeCaptchaPopup();
+            }
+        });
+
+        // Populate country dropdown
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                try {
+                    const obj = JSON.parse(this.responseText)['result']['response'];
+                    const ctrySel = document.getElementById('inputPolCtry');
+
+                    if (ctrySel) {
+                        obj.forEach(entry => {
+                            ctrySel.insertAdjacentHTML(
+                                'beforeend',
+                                `<option value="${entry['id']}">${entry['name']}</option>`
+                            );
                         });
                     }
-                })
-                .catch(error => {
-                    // Reset button
-                    this.innerHTML = originalText;
-                    this.classList.remove('btn-loading');
-                    
-                    // Show error popup
-                    console.error('Form submission error:', error);
-                    showErrorPopup(['Form submission failed. Please try again.']);
-                });
-            }.bind(submitBtn));
-        } else {
-            console.error('Submit button or form not found');
-        }
+                } catch (e) {
+                    console.error('Country data error:', e);
+                }
+            }
+        };
+
+        xhttp.open("GET", "/countrydata", true);
+        xhttp.send();
+
+        // Populate language dropdown
+        const xhttp2 = new XMLHttpRequest();
+
+        xhttp2.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                try {
+                    const obj = JSON.parse(this.responseText)['result']['response'];
+                    const langSel = document.getElementById('inputPolLang');
+
+                    if (langSel) {
+                        obj.forEach(entry => {
+                            langSel.insertAdjacentHTML(
+                                'beforeend',
+                                `<option value="${entry['id']}" label="${entry['name']}">${entry['name']}</option>`
+                            );
+                        });
+                    }
+                } catch (e) {
+                    console.error('Language data error:', e);
+                }
+            }
+        };
+
+        xhttp2.open("GET", "/languagedata", true);
+        xhttp2.send();
     });
 
-    // URL validation function
+
+    // URL validation
     function isValidURL(string) {
         try {
             const url = new URL(string);
@@ -579,143 +714,173 @@
         }
     }
 
-    // Form validation function
+
+    // Form validation
     function validateForm() {
         const errors = [];
-        
-        // Get the policy page link
-        const policyPageLink = document.getElementById('inputPolPageLnk').value.trim();
-        const policyPdfLink = document.getElementById('inputPolPdfLnk').value.trim();
-        
-        // Validate policy information page link (required)
-        if (!policyPageLink) {
+
+        const pageLink = document.getElementById('inputPolPageLnk').value.trim();
+        const pdfLink = document.getElementById('inputPolPdfLnk').value.trim();
+        const lang = document.getElementById('inputPolLang').value;
+        const natTitle = document.getElementById('inputPolNatName').value.trim();
+        const govLvl = document.getElementById('inputPolLvl').value;
+
+        if (!lang) {
+            errors.push('Original language of the policy is required');
+        }
+
+        if (!natTitle) {
+            errors.push('Policy title in original language is required');
+        }
+
+        if (!govLvl) {
+            errors.push('Governance level is required');
+        }
+
+        if (!pageLink) {
             errors.push('Policy information page link is required');
-        } else if (!isValidURL(policyPageLink)) {
-            errors.push('Policy information page link must be a valid URL (e.g. https://example.com)');
+        } else if (!isValidURL(pageLink)) {
+            errors.push('Policy information page link must be a valid URL, e.g. https://example.com');
+        } else if (new URL(pageLink).hostname.length < 3) {
+            errors.push('Policy information page URL appears to be invalid');
         }
-        
-        // Validate PDF link (optional, but if provided must be valid)
-        if (policyPdfLink && !isValidURL(policyPdfLink)) {
-            errors.push('PDF link must be a valid URL (e.g. https://example.com/document.pdf)');
-        }
-        
-        // Additional URL format checks
-        if (policyPageLink && isValidURL(policyPageLink)) {
-            const pageUrl = new URL(policyPageLink);
-            if (pageUrl.hostname.length < 3) {
-                errors.push('Policy information page URL appears to be invalid');
-            }
-        }
-        
-        if (policyPdfLink && isValidURL(policyPdfLink)) {
-            const pdfUrl = new URL(policyPdfLink);
-            if (pdfUrl.hostname.length < 3) {
+
+        if (pdfLink) {
+            if (!isValidURL(pdfLink)) {
+                errors.push('PDF link must be a valid URL, e.g. https://example.com/document.pdf');
+            } else if (new URL(pdfLink).hostname.length < 3) {
                 errors.push('PDF URL appears to be invalid');
             }
         }
-        
+
         return errors;
     }
 
+
+    // Show CAPTCHA popup
+    function showCaptchaPopup() {
+        document.getElementById('captchaErrorMsg').textContent = '';
+        document.getElementById('captchaPopup').classList.add('show');
+        document.body.style.overflow = 'hidden';
+
+        if (window.grecaptcha) {
+            grecaptcha.reset();
+        }
+    }
+
+
+    // Close CAPTCHA popup
+    function closeCaptchaPopup() {
+        document.getElementById('captchaPopup').classList.remove('show');
+        document.body.style.overflow = 'auto';
+
+        if (window.grecaptcha) {
+            grecaptcha.reset();
+        }
+    }
+
+
+    // Called by 'Verify & Continue' button
+    function submitCaptcha() {
+        if (!window.grecaptcha) {
+            document.getElementById('captchaErrorMsg').textContent =
+                'reCAPTCHA has not loaded yet. Please try again.';
+            return;
+        }
+
+        const token = grecaptcha.getResponse();
+
+        if (!token) {
+            document.getElementById('captchaErrorMsg').textContent =
+                'Please complete the reCAPTCHA verification.';
+            return;
+        }
+
+        closeCaptchaPopup();
+        submitPolicyForm(token);
+        showSuccessPopup();
+    }
+
+
+    // Submit form only after CAPTCHA is completed
+    function submitPolicyForm(captchaToken) {
+        const form = document.getElementById('policyForm');
+        const submitBtn = document.getElementById('inputPolSub');
+
+        const originalText = submitBtn.innerHTML;
+
+        submitBtn.innerHTML = '<span class="loading-spinner"></span>Submitting...';
+        submitBtn.classList.add('btn-loading');
+
+        const formData = new FormData(form);
+
+        // Send CAPTCHA token to Flask
+        formData.append('g-recaptcha-response', captchaToken);
+
+        fetch(form.action || window.location.pathname, {
+            method: 'POST',
+            body: formData
+        })
+        .then(async response => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.classList.remove('btn-loading');
+
+            let data = {};
+
+            try {
+                data = await response.json();
+            } catch (e) {
+                console.warn('Response was not JSON:', e);
+            }
+
+            if (response.ok && data.success) {
+                showSuccessPopup();
+                form.reset();
+
+                if (window.grecaptcha) {
+                    grecaptcha.reset();
+                }
+                else {
+                showErrorPopup([
+                    data.error || 'Form submission failed. Please try again.'
+                ]);
+                }
+            }
+        })
+    }
+
+
+    // Success popup
     function showSuccessPopup() {
-        const popup = document.getElementById('successPopup');
-        popup.classList.add('show');
-        
-        // Prevent body scroll when popup is open
+        document.getElementById('successPopup').classList.add('show');
         document.body.style.overflow = 'hidden';
     }
 
-    function showErrorPopup(errors) {
-        const popup = document.getElementById('errorPopup');
-        const errorList = document.getElementById('errorList');
-        
-        // Create error list HTML
-        let errorHTML = '<ul>';
-        errors.forEach(error => {
-            errorHTML += `<li>${error}</li>`;
-        });
-        errorHTML += '</ul>';
-        
-        errorList.innerHTML = errorHTML;
-        popup.classList.add('show');
-        
-        // Prevent body scroll when popup is open
-        document.body.style.overflow = 'hidden';
-    }
 
     function closeSuccessPopup() {
-        const popup = document.getElementById('successPopup');
-        popup.classList.remove('show');
-        
-        // Restore body scroll
+        document.getElementById('successPopup').classList.remove('show');
         document.body.style.overflow = 'auto';
-        
-        // Optional: Reset form (already done in submission handler)
-        // document.getElementById('policyForm').reset();
     }
+
+
+    // Error popup
+    function showErrorPopup(errors) {
+        const errorList = document.getElementById('errorList');
+
+        errorList.innerHTML =
+            '<ul>' +
+            errors.map(error => `<li>${error}</li>`).join('') +
+            '</ul>';
+
+        document.getElementById('errorPopup').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
 
     function closeErrorPopup() {
-        const popup = document.getElementById('errorPopup');
-        popup.classList.remove('show');
-        
-        // Restore body scroll
+        document.getElementById('errorPopup').classList.remove('show');
         document.body.style.overflow = 'auto';
     }
-
-    // Close popups when clicking overlay
-    document.getElementById('successPopup').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeSuccessPopup();
-        }
-    });
-
-    document.getElementById('errorPopup').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeErrorPopup();
-        }
-    });
-
-    // Close popups with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeSuccessPopup();
-            closeErrorPopup();
-        }
-    });
-
-    // Populate country selection
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText)['result']['response'];
-            obj.forEach(entry => {
-                const element = `<option value="${entry['id']}">${entry['name']}</option>`;
-                const ctry_sel = document.getElementById('inputPolCtry');
-                if (ctry_sel) {
-                    ctry_sel.insertAdjacentHTML('beforeend', element);
-                }
-            });
-        }
-    };
-    xhttp.open("GET", "/countrydata", true);
-    xhttp.send();
-
-    // Populate language selection
-    var xhttp2 = new XMLHttpRequest();
-    xhttp2.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText)['result']['response'];
-            const lang_sel = document.getElementById('inputPolLang');
-            if (lang_sel) {
-                obj.forEach(entry => {
-                    const element = `<option value="${entry['id']}" label="${entry['name']}">${entry['name']}</option>`;
-                    lang_sel.insertAdjacentHTML('beforeend', element);
-                });
-            }
-        }
-    };
-    xhttp2.open("GET", "/languagedata", true);
-    xhttp2.send();
 </script>
 
 <!--popover script-->

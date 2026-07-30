@@ -4,15 +4,22 @@
 
 {% block content %}
 
-<div class="container my-5">
-    <div class="card shadow-sm border-0">
+<div class="container my-3">
+    <div class="card shadow-sm border-0 bg-light p-3 p-md-4" style="transform: none;">
         <div class="card-body">
-            <h3 class="card-title text-center mb-4 fw-bold">European Peatland Map Data</h3>
-            <p class="card-text text-center" style="padding:5px;">
-                Our European peatland map is an approximation of the peat soils of Europe based on various types of maps across European Union member state countries and the United Kingdom.
+            <h3 class="card-title text-center mb-3 fw-bold">Peatlands and Policy Map Data</h3>
+            <p class="text-muted mx-auto" style="padding:5px;">
+                Our <a class="textab fw-semibold text-decoration-none" href="{{ url_for('map_page') }}" target="_blank">Peatlands and Policy Map</a> includes an approximation of the peat soils of Europe based on various types of maps across European Union member state countries and the United Kingdom. 
+                These peat maps provide a view of the peatlands of Europe for general reference and for added context to understanding peatland policy.
+            </p>
+            <p class="text-muted mx-auto" style="padding:5px;">
                 Not every country has a national peatlands or peat soils map, and even when they do, definitions of peatlands vary across countries, as well as the format of their data.
                 When countries have no dedicated map of national peatlands, we estimate peat soils from maps of organic soils or ecological contexts, topographic surveys, and other related fields.
                 Additionally, we use the <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> which similarly has created approximate maps of national wetlands across Europe based on various types of data. We filter layers from this dataset to only include "Peatlands."
+            </p>
+            <p class="text-muted mx-auto" style="padding:5px;">
+                Disclaimer: The peatland polygons of the map are offered as context for the peatland policy landscape, not as an authoritative map of peatland/ peat soil coverage. 
+                Additionally, some of the policies retrieved via the map tool may not affect the selected area if the policy contains sub-scoping (e.g. only affecting Natura 2000 sites) and should be regarded as false positives.
             </p>
             <div class="d-flex justify-content-center gap-2 my-3">
                 <button class="btn btn-success col-2 justify-self-right" value="expand" id="expcol_allsrc" onclick="toggle_accordions()">Expand All</button>
@@ -166,7 +173,7 @@
                     <div id="collapse-germany" class="accordion-collapse collapse" data-bs-parent="#mapDataAccordion">
                         <div class="accordion-body sourceacc">
                             <ul>
-                                <li>The <a class="textab" href="https://doi.org/10.3220/DATA20230510130443-0" target="_blank">Updated Map of Organic Soils in Germany</a> was created by the Moor Research Group at the Thünen Institute for Agricultural Climate Protection. The data was modified to exclude polygons which contain fewer than 10cm of peat or are covered by mineral substrates. This data is available under a <a class="texta" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</li>
+                                <li>The <a class="textab" href="https://doi.org/10.3220/DATA20230510130443-0" target="_blank">Updated Map of Organic Soils in Germany</a> was created by the Moor Research Group at the Thünen Institute for Agricultural Climate Protection. This data is available under a <a class="texta" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</li>
                                 <li>The <a class="textab" href="https://zenodo.org/records/14883520" target ="_blank">European Wetland Map</a> comes from the research and innovation projects "ALFAwetlands- Wetland restoration for the future", funded by the Horizon Europe Framework Program of the European Union. The data was filtered to only include peatlands. </li>
                             </ul>
                         </div>

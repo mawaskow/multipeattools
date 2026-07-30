@@ -107,7 +107,7 @@ function proj_div_pop_all() {
 
     const element = $(`
       <div class="proj-item" data-proj="${projname}" style="padding:5px; cursor:pointer;">
-        <h5>${projname}</h5>
+        <p class="pol-lst-name fw-bold d-block text-decoration-none mb-2" style="font-size: 1rem; line-height: 1.0; color:#396d85">${projname}</p>
         <p>${ref}</p>
         <p>${f.get('start_yr')}-${f.get('end_yr')}</p>
         ${projlink}
@@ -139,7 +139,7 @@ function show_single_project(f) {
 
   const element = $(`
     <div style="padding:5px;">
-      <h5>${f.get('project')}</h5>
+      <p class="pol-lst-name fw-bold d-block text-decoration-none mb-2" style="font-size: 1rem; line-height: 1.0; color:#396d85">${f.get('project')}</p>
       <p>${f.get('life_reference')}</p>
       <p>${f.get('start_yr')}-${f.get('end_yr')}</p>
       ${projlink}

@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KMA Policy Intelligence Viewer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/viewer.css') }}"/>
+
+  <!-- PDF.js (Mozilla) — pinned version -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --bg: #f0f2f5;
+        --white: #ffffff;
+        --border: #e5e7eb;
+        --text: #111827;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --accent-light: #dbeafe;
+        --green: #059669;
+        --green-light: #d1fae5;
+        --amber: #d97706;
+        --amber-light: #fef3c7;
+        --red: #dc2626;
+        --red-light: #fee2e2;
+        --purple: #7c3aed;
+        --purple-light: #ede9fe;
+        --teal: #0891b2;
+        --teal-light: #cffafe;
+        --sidebar: 320px;
+        --pdf-panel: 42%;
+      }
+      
+      footer, .footer, #footer-id, [class*="footer"] { 
+        display: none !important; 
+        height: 0 !important; 
+        padding: 0 !important; 
+        margin: 0 !important;
+      }
+
+      @media (min-width: 801px) {
+        html, body {
+          height: 100vh !important;
+          max-height: 100vh !important;
+          overflow: hidden !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        #page-container, #content-wrap, #content {
+          height: 100vh !important;
+          max-height: 100vh !important;
+          overflow: hidden !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+        }
+
+        .layout {
+          display: grid !important;
+          grid-template-columns: var(--sidebar) 1fr var(--pdf-panel);
+          background: var(--bg);
+          flex: 1 !important;
+          height: auto !important;
+          max-height: none !important;
+          min-height: 0 !important;
+          overflow: hidden !important;
+        }
+
+        #footer, footer {
+          display: none !important;
+          height: 0 !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+      }
+
+      .navdiv {
+        position: relative !important; 
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        max-height: 200px;
+        transition: max-height 0.25s ease-in-out, opacity 0.2s ease-in-out;
+        opacity: 1;
+      }
+
+      .navdiv.navbar-hidden {
+        max-height: 0 !important;
+        overflow: hidden !important;
+        opacity: 0;
+      }
+
+      /* ── SIDEBAR ─────────────────────────────────────────────────────────────── */
+      .sidebar { background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+
+      .brand { padding: 28px 28px 20px; border-bottom: 1px solid var(--border); }
+      .brand-name { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: var(--text); }
+      .brand-name span { color: var(--accent); }
+      .brand-sub { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+
+      .search-wrap { padding: 16px 20px; flex-shrink: 0;}
+      .search { width: 100%; border: 1.5px solid var(--border); background: #f9fafb; padding: 12px 16px; border-radius: 12px; outline: none; font-size: 13px; font-family: inherit; transition: 0.2s; }
+      .search:focus { border-color: var(--accent); background: var(--white); }
+
+      .filters { flex: 1; overflow-y: auto; padding: 8px 16px 24px; }
+
+      .filter-section { margin-bottom: 24px; }
+      .filter-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); padding: 8px 12px 10px; display: block; }
+
+      .f-btn { display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; border-radius: 12px; cursor: pointer; transition: 0.15s; margin-bottom: 4px; border: 1.5px solid transparent; }
+      .f-btn:hover { background: #f3f4f6; }
+      .f-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+      .f-left { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; }
+      .f-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+      .f-count { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #eef2ff; color: #4338ca; white-space: nowrap; }
+      .f-btn.active .f-count { background: rgba(255, 255, 255, 0.2); color: white; }
+
+      /* class dot colors */
+      .dot-all  { background: #6b7280; }
+      .dot-pa   { background: #2563eb; }
+      .dot-po   { background: #059669; }
+      .dot-un   { background: #d97706; }
+      .dot-area { background: #7c3aed; }
+      .dot-em   { background: #dc2626; }
+      .dot-eq   { background: #0891b2; }
+      .dot-kr   { background: #ea580c; }
+      .dot-misc { background: #9ca3af; }
+      .dot-poa  { background: #1d4ed8; }
+      .dot-pr   { background: #16a34a; }
+      .dot-site { background: #be185d; }
+      .dot-sp   { background: #ca8a04; }
+
+      /* ── CENTER ──────────────────────────────────────────────────────────────── */
+      .center { display: flex; flex-direction: column; overflow: hidden; }
+
+      .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 22px 30px; }
+      .policy-title { font-size: 22px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 8px; line-height: 1.3; }
+      .policy-meta { display: flex; flex-wrap: wrap; gap: 12px; }
+      .meta-tag { font-size: 12px; color: var(--muted); background: #f3f4f6; padding: 4px 12px; border-radius: 8px; font-weight: 500; }
+      .meta-tag b { color: var(--text); }
+
+      .chunks-wrap { flex: 1; overflow-y: auto !important; padding: 20px 24px; min-height: 0; }
+
+      /* chunk card */
+      .card { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 22px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; }
+      .card:hover { border-color: #93c5fd; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08); }
+      .card.active { border-color: var(--accent); background: #f8fbff; }
+
+      .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+      .card-page { font-size: 11px; font-weight: 700; color: var(--muted); background: #f3f4f6; padding: 4px 10px; border-radius: 8px; white-space: nowrap; }
+      .card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+      .tag { padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+      .tag-level-pa { background: var(--accent-light); color: #1d4ed8; }
+      .tag-level-po { background: var(--green-light); color: var(--green); }
+      .tag-level-un { background: var(--amber-light); color: var(--amber); }
+      .tag-class    { background: #f3f4f6; color: #374151; }
+
+      .card-text { font-size: 14px; line-height: 1.85; color: #374151; }
+      .card-text.truncated { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+      .card-foot { margin-top: 16px; padding-top: 12px; border-top: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; }
+      .conf-bars { display: flex; gap: 8px; }
+      .conf { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+      .conf-bar { width: 40px; height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
+      .conf-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+      .view-src { font-size: 12px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 4px; }
+      .kpi-badge { font-size: 10px; font-weight: 700; background: #fef3c7; color: #92400e; padding: 3px 8px; border-radius: 6px; }
+
+      /* ── PDF PANEL ───────────────────────────────────────────────────────────── */
+      .pdf-panel { background: var(--white); border-left: 1px solid var(--border); display: flex; flex-direction: column; }
+
+      .pdf-head { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+      .pdf-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .pdf-pg { font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 10px; }
+
+      .pdf-controls { display: flex; align-items: center; gap: 8px; }
+      .pdf-btn {
+        width: 30px; height: 30px;
+        border: 1.5px solid var(--border);
+        background: var(--white);
+        border-radius: 8px;
+        font-size: 16px; font-weight: 600;
+        cursor: pointer;
+        color: var(--text);
+        display: flex; align-items: center; justify-content: center;
+        transition: 0.15s;
+      }
+      .pdf-btn:hover:not(:disabled) { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+      .pdf-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+      .pdf-pageinfo { font-size: 12px; font-weight: 600; color: var(--muted); margin: 0 8px; font-family: 'JetBrains Mono', monospace; }
+
+      /* Canvas body */
+      .pdf-body {
+        flex: 1;
+        position: relative;
+        background: #e5e7eb;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        padding: 16px;
+      }
+      .pdf-canvas-wrap {
+        position: relative;
+        display: none;        /* shown after PDF loads */
+        background: white;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+        overflow: hidden;
+        height: fit-content;
+      }
+      .pdf-canvas-wrap.ready { display: block; }
+      #pdfCanvas { display: block; }
+
+      .highlight {
+        position: absolute;
+        border: 2.5px solid #f59e0b;
+        background: rgba(245, 158, 11, 0.18);
+        border-radius: 4px;
+        pointer-events: none;
+        transition: 0.25s;
+        box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.1);
+      }
+
+      .pdf-empty {
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        margin: auto;
+        color: var(--muted);
+        gap: 10px;
+        text-align: center;
+        padding: 40px;
+      }
+      .pdf-empty.hidden { display: none; }
+
+      /* empty state (chunks) */
+      .empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--muted); gap: 12px; padding: 40px; }
+      .empty-icon { font-size: 48px; }
+      .empty-title { font-size: 16px; font-weight: 600; color: var(--text); }
+      .empty-sub { font-size: 13px; text-align: center; line-height: 1.6; }
+
+      /* loading */
+      .loading { display: flex; align-items: center; justify-content: center; height: 200px; color: var(--muted); font-size: 14px; gap: 10px; }
+      .spin { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* toast */
+      .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text); color: white; padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 500; z-index: 999; opacity: 0; transform: translateY(8px); transition: 0.3s; pointer-events: none; }
+      .toast.show { opacity: 1; transform: translateY(0); }
+
+      /* responsive */
+      @media (max-width: 1200px) {
+        .layout { grid-template-columns: var(--sidebar) 1fr; }
+        .pdf-panel { display: none; }
+      }
+
+      @media (max-width: 800px) {
+        .layout { 
+          grid-template-columns: 1fr; 
+          grid-template-rows: auto 1fr;
+          overflow-y: auto !important;
+          /**/
+          height: auto !important;
+          max-height: none !important;
+        }
+        .sidebar { 
+          max-height: 350px; 
+          border-right: none; 
+          border-bottom: 1px solid var(--border); 
+        }
+        .center {
+          height: auto;
+          overflow: visible;
+        }
+        .chunks-wrap {
+          overflow-y: visible !important;
+        }
+ 
+        #pdfCanvasWrap, .pdf-panel {
+            height: 100% !important;
+            min-height: 0 !important;
+            flex: 1 !important;
+            overflow: auto !important; 
+            position: relative;
+        }
+
+        #pdfCanvas {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%; 
+            height: auto !important; 
+        }
+      }
+  </style>
+</head>
+
+<body>
+
+<div class="layout" id="mainLayout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name">KMA <span style="color:#396d85">Viewer</span></div>
+      <div class="brand-sub">Key Metric Analyser</div>
+      <p class="text-secondary small mt-2"><a class="textab fw-semibold text-decoration-none" href="{{ url_for('ai_about')}}">Click Here</a> to learn about the AI</p>
+    </div>
+
+    <div class="search-wrap">
+      <input class="search" type="text" placeholder="Search sentences..." id="searchInput"/>
+    </div>
+
+    <div class="filters" id="filterArea">
+      <!-- populated by JS -->
+    </div>
+  </aside>
+
+  <!-- CENTER -->
+  <main class="center">
+    <div class="topbar" id="topbar">
+      <div class="policy-title" id="policyTitle">Loading policy...</div>
+      <div class="policy-meta" id="policyMeta"></div>
+    </div>
+    <div class="chunks-wrap" id="chunksWrap">
+      <div class="loading"><div class="spin"></div> Loading sentences...</div>
+    </div>
+  </main>
+
+  <!-- PDF -->
+  <aside class="pdf-panel">
+    <div class="pdf-head">
+      <div class="pdf-name" id="pdfName">No PDF selected</div>
+      <div class="pdf-pg" id="pdfPg">Click a sentence to view source</div>
+      <div class="pdf-controls">
+        <button class="pdf-btn" id="prevPage" title="Previous page">‹</button>
+        <span class="pdf-pageinfo"><span id="curPage">–</span> / <span id="totPage">–</span></span>
+        <button class="pdf-btn" id="nextPage" title="Next page">›</button>
+        <button class="pdf-btn" id="zoomOut" title="Zoom out">−</button>
+        <button class="pdf-btn" id="zoomIn"  title="Zoom in">+</button>
+      </div>
+    </div>
+    <div class="pdf-body" id="pdfBody">
+      <div class="pdf-canvas-wrap" id="pdfCanvasWrap">
+        <canvas id="pdfCanvas"></canvas>
+        <div class="highlight" id="highlight" style="display:none;"></div>
+      </div>
+      <div class="pdf-empty" id="pdfEmpty">
+        <div class="empty-icon">📄</div>
+        <div class="empty-title">No PDF loaded</div>
+        <div class="empty-sub">Select a sentence to view its source page.</div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Pass server-side config to viewer.js without using inline data -->
+<script>
+  window.KMA_CONFIG = {
+    flaskBase: {{ request.host_url.rstrip('/') | tojson }},
+    policyId:  {{ policy_id | tojson }},
+    odooDb:    {{ odoo_db | tojson }}
+  };
+</script>
+<script src="{{ url_for('static', filename='scripts/kmaViewer.js') }}"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+  const navbar = document.querySelector('.navdiv'); 
+  const layout = document.getElementById('mainLayout');
+  const chunksScroll = document.getElementById('chunksWrap');
+  
+  if (!navbar || !layout) return;
+
+  const updateLayoutHeight = () => {
+    if (window.innerWidth > 800) {
+      if (navbar.classList.contains('navbar-hidden')) {
+        layout.style.setProperty('height', '100vh', 'important');
+      } else {
+        // Includes the height plus any bounding margins/paddings from base.html
+        const navHeight = navbar.offsetHeight;
+        layout.style.setProperty('height', `calc(100vh - ${navHeight}px - 8px)`, 'important');
+      }
+    } else {
+      layout.style.removeProperty('height');
+    }
+  };
+
+  updateLayoutHeight();
+  window.addEventListener('resize', updateLayoutHeight);
+
+  let lastScrollTop = 0;
+
+  const handleNavbarToggle = (scrollTop) => {
+    const mobileMenu = document.getElementById('mainNavbarMenu');
+    if (mobileMenu && mobileMenu.classList.contains('show')) return;
+
+    if (scrollTop > lastScrollTop && scrollTop > 60) {
+      navbar.classList.add('navbar-hidden');
+      layout.classList.add('navbar-is-hidden');
+    } else if (scrollTop < lastScrollTop) {
+      navbar.classList.remove('navbar-hidden');
+      layout.classList.remove('navbar-is-hidden');
+    }
+    
+    updateLayoutHeight();
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  };
+
+  if (chunksScroll && window.innerWidth > 800) {
+    chunksScroll.addEventListener('scroll', () => {
+      handleNavbarToggle(chunksScroll.scrollTop);
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 800) {
+      let globalScroll = window.pageYOffset || document.documentElement.scrollTop;
+      handleNavbarToggle(globalScroll);
+    }
+  });
+});
+</script>
+</body>
+
+{% endblock %}

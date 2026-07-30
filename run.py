@@ -1,29 +1,30 @@
 import os
 import json
-from sys import exit
-from flask import Flask
-from flask import url_for, render_template, send_file, request, redirect, session, send_from_directory, flash, jsonify, abort
-from werkzeug.utils import secure_filename
+#from sys import exit
+from flask import Flask, Response
+from flask import request, session, url_for, render_template, send_file, redirect, send_from_directory, flash, jsonify, abort, stream_with_context
+#from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-from werkzeug.utils import secure_filename
+#from flask_sqlalchemy import SQLAlchemy
+#from flask_cors import CORS
+#from werkzeug.utils import secure_filename
 from wtforms import StringField, PasswordField, SubmitField, validators
 import psycopg2
-from datetime import datetime
+#from datetime import datetime
 import csv
 import time
-import pandas as pd
+#import pandas as pd
 import glob
 import logging
 from markupsafe import Markup
 import markdown
-from flask import Flask, render_template, jsonify, send_from_directory
 import re
+
 #
 from modules import assum_json_to_dict, usrinp_json_to_dict
 import requests
+from config import ODOO_BASE, ODOO_DB, DEFAULT_POLICY_ID, REQUEST_TIMEOUT
 #added remarks for run.py
 # powershell: $env:FLASK_APP = "run"
 # bash: export FLASK_APP=run
@@ -42,6 +43,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
+#log = logging.getLogger(__name__)
 '''
 APP CONFIGURATION
 '''
@@ -314,134 +316,6 @@ def reset_password():
         print(f"Password reset error: {str(e)}")
         return jsonify({'success': False, 'message': 'An unexpected error occurred'}), 500
 
-BLOG_DIR = os.path.join(app.static_folder, 'blog')
-def parse_blog_content(country_code):
-    """Parse the content.txt file for a country"""
-    content_path = os.path.join(BLOG_DIR, country_code, 'content.txt')
-    
-    if not os.path.exists(content_path):
-        return None
-    
-    with open(content_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    # Parse metadata and sections
-    blog_data = {
-        'country_code': country_code,
-        'metadata': {},
-        'sections': []
-    }
-    
-    # Extract metadata
-    metadata_fields = ['TITLE', 'SUBTITLE', 'AUTHOR', 'DATE', 'READ_TIME', 'HERO_IMAGE']
-    for field in metadata_fields:
-        match = re.search(rf'^{field}:\s*(.+)$', content, re.MULTILINE)
-        if match:
-            blog_data['metadata'][field.lower()] = match.group(1).strip()
-    
-    # Split content into sections
-    sections = re.split(r'\n(?=SECTION:|HIGHLIGHT:|LIST:)', content)
-    
-    for section in sections:
-        section = section.strip()
-        if not section or section.startswith(('TITLE:', 'SUBTITLE:', 'AUTHOR:', 'DATE:', 'READ_TIME:', 'HERO_IMAGE:')):
-            continue
-        
-        if section.startswith('SECTION:'):
-            lines = section.split('\n', 2)
-            title = lines[0].replace('SECTION:', '').strip()
-            icon_match = re.search(r'ICON:\s*(.+)', section)
-            icon = icon_match.group(1).strip() if icon_match else '📄'
-            
-            # Remove ICON line from content
-            section_content = re.sub(r'ICON:.*\n', '', section)
-            section_content = section_content.replace(f'SECTION: {title}\n', '').strip()
-            
-            # Check for images in section
-            image_match = re.search(r'IMAGE:\s*(.+)', section_content)
-            caption_match = re.search(r'CAPTION:\s*(.+)', section_content)
-            
-            image = None
-            caption = None
-            if image_match:
-                image = image_match.group(1).strip()
-                section_content = re.sub(r'IMAGE:.*\n', '', section_content)
-            if caption_match:
-                caption = caption_match.group(1).strip()
-                section_content = re.sub(r'CAPTION:.*\n', '', section_content)
-            
-            blog_data['sections'].append({
-                'type': 'section',
-                'title': title,
-                'icon': icon,
-                'content': section_content.strip(),
-                'image': image,
-                'caption': caption
-            })
-        
-        elif section.startswith('HIGHLIGHT:'):
-            lines = section.split('\n', 1)
-            title = lines[0].replace('HIGHLIGHT:', '').strip()
-            content = lines[1].strip() if len(lines) > 1 else ''
-            
-            blog_data['sections'].append({
-                'type': 'highlight',
-                'title': title,
-                'content': content
-            })
-        
-        elif section.startswith('LIST:'):
-            lines = section.split('\n', 1)
-            title = lines[0].replace('LIST:', '').strip()
-            content = lines[1].strip() if len(lines) > 1 else ''
-            
-            # Extract list items
-            items = [line.strip('- ').strip() for line in content.split('\n') if line.strip().startswith('-')]
-            
-            blog_data['sections'].append({
-                'type': 'list',
-                'title': title,
-                'items': items
-            })
-    
-    return blog_data
-@app.route('/api/blog/<country_code>')
-def get_blog(country_code):
-    """API endpoint to get blog content for a country"""
-    blog_data = parse_blog_content(country_code)
-    
-    if blog_data is None:
-        return jsonify({'error': 'Blog not found'}), 404
-    
-    return jsonify(blog_data)
-
-@app.route('/api/blog/list')
-def list_blogs():
-    """API endpoint to list all available blog posts"""
-    blogs = []
-    
-    if os.path.exists(BLOG_DIR):
-        for country_code in os.listdir(BLOG_DIR):
-            country_path = os.path.join(BLOG_DIR, country_code)
-            if os.path.isdir(country_path):
-                content_path = os.path.join(country_path, 'content.txt')
-                if os.path.exists(content_path):
-                    blogs.append(country_code)
-    
-    return jsonify({'blogs': blogs})
-
-@app.route('/blog/images/<country_code>/<filename>')
-def serve_blog_image(country_code, filename):
-    """Serve blog images"""
-    image_dir = os.path.join(BLOG_DIR, country_code, 'images')
-    return send_from_directory(image_dir, filename)
-
-@app.route('/blog/flag/<country_code>/<filename>')
-def serve_flag_image(country_code, filename):
-    """Serve flag images"""
-    flag_dir = os.path.join(BLOG_DIR, country_code, 'flag')
-    return send_from_directory(flag_dir, filename)
-
 @app.route('/load_country/<country>', methods=['GET'])
 def load_country(country):
     country = country.lower()
@@ -557,17 +431,147 @@ def policy_keywords():
     if username is None:
         return render_template('keywords.html')
     return render_template('keywords.html', username=session['username'])
+    
 @app.route('/factsheet', methods=['GET', 'POST'])
 def policy_factsheet():
     username = session.get('username')
     if username is None:
         return render_template('factsheet.html')
     return render_template('factsheet.html', username=session['username'])
+BLOG_DIR = os.path.join(app.static_folder, 'blog')
+def parse_blog_content(country_code):
+    """Parse the content.txt file for a country"""
+    content_path = os.path.join(BLOG_DIR, country_code, 'content.txt')
+    
+    if not os.path.exists(content_path):
+        return None
+    
+    with open(content_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # Parse metadata and sections
+    blog_data = {
+        'country_code': country_code,
+        'metadata': {},
+        'sections': []
+    }
+    
+    # Extract metadata
+    metadata_fields = ['TITLE', 'SUBTITLE', 'AUTHOR', 'DATE', 'READ_TIME', 'HERO_IMAGE']
+    for field in metadata_fields:
+        match = re.search(rf'^{field}:\s*(.+)$', content, re.MULTILINE)
+        if match:
+            blog_data['metadata'][field.lower()] = match.group(1).strip()
+    
+    # Split content into sections
+    sections = re.split(r'\n(?=SECTION:|HIGHLIGHT:|LIST:)', content)
+    
+    for section in sections:
+        section = section.strip()
+        if not section or section.startswith(('TITLE:', 'SUBTITLE:', 'AUTHOR:', 'DATE:', 'READ_TIME:', 'HERO_IMAGE:')):
+            continue
+        
+        if section.startswith('SECTION:'):
+            lines = section.split('\n', 2)
+            title = lines[0].replace('SECTION:', '').strip()
+            icon_match = re.search(r'ICON:\s*(.+)', section)
+            icon = icon_match.group(1).strip() if icon_match else '📄'
+            
+            # Remove ICON line from content
+            section_content = re.sub(r'ICON:.*\n', '', section)
+            section_content = section_content.replace(f'SECTION: {title}\n', '').strip()
+            
+            # Check for images in section
+            image_match = re.search(r'IMAGE:\s*(.+)', section_content)
+            caption_match = re.search(r'CAPTION:\s*(.+)', section_content)
+            
+            image = None
+            caption = None
+            if image_match:
+                image = image_match.group(1).strip()
+                section_content = re.sub(r'IMAGE:.*\n', '', section_content)
+            if caption_match:
+                caption = caption_match.group(1).strip()
+                section_content = re.sub(r'CAPTION:.*\n', '', section_content)
+            
+            blog_data['sections'].append({
+                'type': 'section',
+                'title': title,
+                'icon': icon,
+                'content': section_content.strip(),
+                'image': image,
+                'caption': caption
+            })
+        
+        elif section.startswith('HIGHLIGHT:'):
+            lines = section.split('\n', 1)
+            title = lines[0].replace('HIGHLIGHT:', '').strip()
+            content = lines[1].strip() if len(lines) > 1 else ''
+            
+            blog_data['sections'].append({
+                'type': 'highlight',
+                'title': title,
+                'content': content
+            })
+        
+        elif section.startswith('LIST:'):
+            lines = section.split('\n', 1)
+            title = lines[0].replace('LIST:', '').strip()
+            content = lines[1].strip() if len(lines) > 1 else ''
+            
+            # Extract list items
+            items = [line.strip('- ').strip() for line in content.split('\n') if line.strip().startswith('-')]
+            
+            blog_data['sections'].append({
+                'type': 'list',
+                'title': title,
+                'items': items
+            })
+    
+    return blog_data
+
 @app.route('/policy', methods=['GET', 'POST'])
 def policy():
     if 'username' not in session:
          return render_template('policymain.html')
     return render_template('policymain.html', username=session['username'])
+
+@app.route('/api/blog/<country_code>')
+def get_blog(country_code):
+    """API endpoint to get blog content for a country"""
+    blog_data = parse_blog_content(country_code)
+    
+    if blog_data is None:
+        return jsonify({'error': 'Blog not found'}), 404
+    
+    return jsonify(blog_data)
+
+@app.route('/api/blog/list')
+def list_blogs():
+    """API endpoint to list all available blog posts"""
+    blogs = []
+    
+    if os.path.exists(BLOG_DIR):
+        for country_code in os.listdir(BLOG_DIR):
+            country_path = os.path.join(BLOG_DIR, country_code)
+            if os.path.isdir(country_path):
+                content_path = os.path.join(country_path, 'content.txt')
+                if os.path.exists(content_path):
+                    blogs.append(country_code)
+    
+    return jsonify({'blogs': blogs})
+
+@app.route('/blog/images/<country_code>/<filename>')
+def serve_blog_image(country_code, filename):
+    """Serve blog images"""
+    image_dir = os.path.join(BLOG_DIR, country_code, 'images')
+    return send_from_directory(image_dir, filename)
+
+@app.route('/blog/flag/<country_code>/<filename>')
+def serve_flag_image(country_code, filename):
+    """Serve flag images"""
+    flag_dir = os.path.join(BLOG_DIR, country_code, 'flag')
+    return send_from_directory(flag_dir, filename)
 
 @app.route('/policy-info', methods=['GET', 'POST'])
 def policy_info():
@@ -624,7 +628,12 @@ def project_map():
          return render_template('project_map.html')
     return render_template('project_map.html', username=session['username'])
 
-    
+@app.route('/about_our_ai', methods=['GET', 'POST'])
+def ai_about():
+    if 'username' not in session:
+         return render_template('ai_about.html')
+    return render_template('ai_about.html', username=session['username'])
+
 @app.route('/policy-suggestion', methods=['GET', 'POST'])
 def sub_policy():
     #
@@ -1317,6 +1326,119 @@ def fetch_field_data(file_name):
         traceback_str = traceback.format_exc()
         print(f"Error reading file {file_path}: {str(e)}\n{traceback_str}")
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
+#######################################################################
+########################### KMA #######################################
+########################################################################
+@app.route("/kmaviewer/")
+def kma_empty():
+    """Default viewer — picks up policy_id from query string."""
+    #policy_id = request.args.get("policy_id", DEFAULT_POLICY_ID, type=int)
+    return render_template(
+        "kma_viewer.html",
+        policy_id=1,
+        odoo_db=ODOO_DB,
+    )
+
+@app.route("/kmaviewer/<int:policy_id>")
+def kma_viewer(policy_id):
+    """Clean URL variant: /kmaviewer/42"""
+    return render_template(
+        "kma_viewer.html",
+        policy_id=policy_id,
+        odoo_db=ODOO_DB,
+    )
+
+#ODOO PROXY (JSON-RPC)
+def _odoo_call(path, params=None):
+    """Forward a JSON-RPC style call to Odoo and return its `result` dict."""
+    payload = {
+        "jsonrpc": "2.0",
+        "method": "call",
+        "id": 1,
+        "params": {"db": ODOO_DB, **(params or {})},
+    }
+    try:
+        r = requests.post(
+            f"{ODOO_BASE}{path}",
+            json=payload,
+            timeout=REQUEST_TIMEOUT,
+        )
+        r.raise_for_status()
+        data = r.json()
+        if "error" in data:
+            #log.warning("Odoo error on %s: %s", path, data["error"])
+            print("Odoo error on %s: %s", path, data["error"])
+            return {"error": data["error"].get("message", "Odoo error")}, 502
+        return data.get("result", {}), 200
+    except requests.exceptions.ConnectionError:
+        return {"error": f"Cannot reach Odoo at {ODOO_BASE}"}, 502
+    except requests.exceptions.Timeout:
+        return {"error": "Odoo timed out"}, 504
+    except Exception as e:
+        #log.exception("Odoo call failed: %s", path)
+        print("Odoo call failed: %s", path)
+        return {"error": str(e)}, 500
+
+@app.route("/api/policy/<int:policy_id>")
+def api_policy(policy_id):
+    result, status = _odoo_call(f"/kma/policy/{policy_id}")
+    return jsonify(result), status
+
+@app.route("/api/policy/<int:policy_id>/chunks")
+def api_chunks(policy_id):
+    limit = request.args.get("limit", 2000, type=int)
+    result, status = _odoo_call(
+        f"/kma/policy/{policy_id}/chunks",
+        params={"limit": limit},
+    )
+    return jsonify(result), status
+
+@app.route("/api/policy/status/<int:policy_id>")
+def api_status(policy_id):
+    result, status = _odoo_call(
+        f"/kma/policy/status",
+        params={"policy_id": policy_id},
+    )
+    return jsonify(result), status
+
+# PDF STREAM PROXY 
+@app.route("/api/pdf/<int:attachment_id>")
+def api_pdf(attachment_id):
+    """
+    Stream a PDF from Odoo through Flask so the browser sees a same-origin
+    URL. PDF.js will fetch this URL via XHR — no CORS, no auth headaches.
+    """
+    odoo_url = f"{ODOO_BASE}/web/content/{attachment_id}"
+    try:
+        r = requests.get(odoo_url, stream=True, timeout=REQUEST_TIMEOUT)
+        if r.status_code != 200:
+            #log.warning("Odoo PDF fetch %s -> %s", attachment_id, r.status_code)
+            print("Odoo PDF fetch %s -> %s", attachment_id, r.status_code)
+            abort(r.status_code)
+        return Response(
+            stream_with_context(r.iter_content(chunk_size=8192)),
+            content_type=r.headers.get("Content-Type", "application/pdf"),
+            headers={
+                "Content-Disposition": "inline",
+                "Cache-Control": "private, max-age=3600",
+            },
+        )
+    except requests.exceptions.ConnectionError:
+        abort(502)
+    except Exception:
+        #log.exception("PDF proxy failed for attachment %s", attachment_id)
+        print("PDF proxy failed for attachment %s", attachment_id)
+        abort(500)
+
+# HEALTH 
+@app.route("/kmahealth")
+def health():
+    return {
+        "status": "ok",
+        "odoo_base": ODOO_BASE,
+        "odoo_db": ODOO_DB,
+    }
 
 '''
 Error Handling

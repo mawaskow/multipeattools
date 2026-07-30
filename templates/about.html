@@ -3,55 +3,131 @@
 {% block title %}About{% endblock %}
 
 {% block content %}
-<div class="container" style="min-height: 700px;">
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <h4 class="text-center" style="padding: 10px; padding-top: 20px;">ABOUT US</h4>
-            <div class="row">
-                <p class="text-center">
-                    This is the home of the Peatland Policy Portal, a collaborative effort of the <a class="textab" href="https://multipeat.org/en?domain=https://multipeat.insight-centre.org/about" target="_blank">EU Life MultiPeat</a> project. The purpose of this public toolkit is to showcase and analyse peatlands, projects, and policies in order to aid the conservation of peatlands and the management of agriculture on peat soils.
-                </p>
-                <p class="text-center">
-                    Let's save the peatlands together!
-                </p>
+<div class="container my-3">
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+      <div class="card border-0 bg-light p-3 p-md-4 shadow-sm" style="transform: none;">
+        <div class="card-body">
+          <h3 class="fw-bold mb-3 text-center">About Us</h3>
+          <p class="lead text-secondary mb-3 mx-auto text-center" style="max-width: 800px;">
+            This is the home of the European Peatland Policy Portal, a collaborative effort of the 
+            <a class="textab fw-semibold text-decoration-none" href="https://multipeat.org/en?domain=https://multipeat.insight-centre.org/about" target="_blank">EU LIFE MultiPeat</a> project.
+          </p>
+          <p class="text-muted mx-auto mb-2" style="max-width: 800px;">
+            The <a class="textab fw-semibold text-decoration-none" href="https://aspect-erp.insight-centre.org/" target="_blank">ASPECT Unit</a> of the University of Galway's Data Science Institute has developed this portal as a public toolkit to showcase and analyse peatlands, projects, and policies in order to aid the conservation of peatlands and the management of agriculture on peat soils.
+          </p>
+          <p class="text-muted mx-auto mb-2" style="max-width: 800px;">
+            This development process consisted of the construction of various datasets (policies, spatial information, factual statistics), the development of web tools (the policy and project collection pages, map interfaces, calculators adapted from spreadsheets), and the creation of novel Machine Learning and Artificial Intelligence tools (Policy RAG Tool and Key Metric Analyser).
+            The final product we have created is not final-- we hope that the portal will continue to expand in future projects and that its framework will be applied to other policy landscapes, not just peatlands.
+          </p>
+          <p class="text-muted mx-auto mb-2" style="max-width: 800px;">
+            If you are interested in learning more about the development of the portal, its underlying framework, and its various datasets and tools, please see our <a class="textab fw-semibold text-decoration-none" href="https://doi.org/10.12688/openreseurope.23501.1" target="_blank">Article in Open Research Europe</a> (currently under peer review).
+          </p>
+          <p class="text-muted fw-medium mt-4 fs-5 text-center">
+            Let's save the peatlands together!
+          </p>
+        </div>
+      </div>
+  </div>
+
+  <div class="row justify-content-center" style="margin-top: 15px;">
+      <div class="col-lg-10">
+        <div class="card border-0 bg-light p-3 p-md-4 shadow-sm" style="transform: none;">
+          <div class="card-body">
+            <div class="d-flex justify-content-center mb-4">
+              <img src="{{url_for('static', filename='multipeat_logo.png')}}" alt="LIFE Multi Peat" class="img-fluid" style="max-height: 100px; width: auto; object-fit: contain;">
             </div>
-            <hr class="pol">
-        </div>
+            <div class="text-center mb-3">
+              <h3 class="fw-semibold text-dark">Our Partners</h3>
+            </div>
+
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center align-items-center">
+              
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='EU_Life_logo.png')}}" alt="EU Life" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://www.nabu.de/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='NABU_logo.svg')}}" alt="NABU" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://kp.org.pl/pl/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='KP_logo.png')}}" alt="KP" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://www.universityofgalway.ie/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='UG.png')}}" alt="University of Galway" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://www.eurosite.org/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='EUROSITE_logo.jpg')}}" alt="Eurosite" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://otop.org.pl/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='OTOP_logo.jpg')}}" alt="OTOP" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://www.natuurmonumenten.nl/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='Natuurmonumenten_logo.png')}}" alt="Natuurmonumenten" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://www.natuurpunt.be/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='Natuurpunt_logo.png')}}" alt="Natuurpunt" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://www.gov.pl/web/nfosigw-en" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='NFOSIGW_logo.jpg')}}" alt="NFOSIGW" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card h-100 border-0 bg-white text-center shadow-sm d-flex align-items-center justify-content-center p-3">
+                  <a href="https://ecorestorationfund.org/" target="_blank" class="w-100">
+                    <img src="{{url_for('static', filename='EcoRestorationFund_logo.png')}}" alt="Eco Restoration Fund" class="img-fluid" style="max-height: 45px; width: auto; object-fit: contain;">
+                  </a>
+                </div>
+              </div>
+
+            </div> 
+          </div>
+      </div>
     </div>
-    <div class="col-auto" style="padding-bottom: 20px;">
-        <h4 class="text-center" style="padding: 10px; padding-bottom: 20px;">OUR PARTNERS</h4>
-        <div class="col-10 d-flex flex-wrap justify-content-around align-items-center" style="justify-self: center;">
-            <a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank">
-                <img src="{{url_for('static', filename='EU_Life_logo.png')}}" width="203" height="45">
-            </a>
-            <a href="https://www.nabu.de/" target="_blank">
-                <img src="{{url_for('static', filename='NABU_logo.svg')}}" width="32" height="50" style="margin: 5px;">
-            </a>
-            <a href="https://kp.org.pl/pl/" target="_blank">
-                <img src="{{url_for('static', filename='KP_logo.png')}}" width="240" height="45">
-            </a>
-            <a href="https://www.universityofgalway.ie/" target="_blank">
-                <img src="{{url_for('static', filename='UG.png')}}" width="104" height="45">
-            </a>
-            <a href="https://www.eurosite.org/" target="_blank">
-                <img src="{{url_for('static', filename='EUROSITE_logo.jpg')}}" width="50" height="50" style="margin: 5px;">
-            </a>
-            <a href="https://otop.org.pl/" target="_blank">
-                <img src="{{url_for('static', filename='OTOP_logo.jpg')}}" width="109" height="45">
-            </a>
-            <a href="https://www.natuurmonumenten.nl/" target="_blank">
-                <img src="{{url_for('static', filename='Natuurmonumenten_logo.png')}}" width="231" height="45">
-            </a>
-            <a href="https://www.natuurpunt.be/" target="_blank">
-                <img src="{{url_for('static', filename='Natuurpunt_logo.png')}}" width="50" height="50" style="margin: 5px;">
-            </a>
-            <a href="https://www.gov.pl/web/nfosigw-en" target="_blank">
-                <img src="{{url_for('static', filename='NFOSIGW_logo.jpg')}}" width="130" height="45">
-            </a>
-            <a href="https://ecorestorationfund.org/" target="_blank">
-                <img src="{{url_for('static', filename='EcoRestorationFund_logo.png')}}" width="109" height="45" style="margin: 5px;">
-            </a>
-        </div>
-    </div>
+  </div>
 </div>
+
 {% endblock %}

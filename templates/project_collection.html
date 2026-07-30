@@ -3,30 +3,38 @@
 {% block title %}Project Collection{% endblock %}
 
 {% block content %}
-<div class="container" style="min-height: 760px;">
+<div class="container my-3" style="min-height: 760px;">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <h4 class="text-center" style="padding:10px; padding-top: 20px;">Project Collection</h4>
-            <p class="text-descr" style="padding-bottom:10px">
-                On this page you can explore our collection of European peatland projects.
-            </p>
-
-            <!-- Search Bar -->
-            <div class="row justify-content-center mb-3">
-                <div class="col-8">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="policy-search-input"
-                               placeholder="Search projects by title, description, or keywords..."
-                               onkeyup="filterProjects()">
-                        <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
-                            <i class="fas fa-times"></i> Clear
-                        </button>
-                    </div>
+            <div class="card border-0 bg-light p-3 p-md-4 text-center shadow-sm mb-5" style="min-height: 600px; transform: none;">
+                <div class="card-body p-0">
+                    <h3 class="fw-bold mb-3 text-dark">Project Collection</h3>
+                    <p class="lead text-secondary mx-auto mb-4" style="max-width: 800px;">
+                        On this page you can explore our collection of European peatland projects.
+                    </p>
+                    <div class="card border-0 bg-white p-4 shadow-sm mb-4">
+                        <div class="row justify-content-center text-start mb-0">
+                            <div class="col-md-10 col-lg-8">
+                                <div class="row g-0 align-items-center bg-white border" style="border-radius: 0.375rem; min-height: 42px;">
+                                    <div class="col-auto d-flex align-items-center justify-content-center px-3 border-end" style="font-size: 1.1rem; user-select: none;">
+                                        🔍
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control border-0 bg-white" id="policy-search-input" placeholder="Search projects by title, description, or keywords..." onkeyup="filterProjects()" style="box-shadow: none !important;">
+                                    </div>
+                                    <div class="col-auto p-1">
+                                        <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center px-3" type="button" onclick="clearSearch()" style="height: 32px;">
+                                            Clear
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div id="projectliststore" value="{{ [] }}" style="display:none"></div>
+                    <div class="accordion pol-coll-div text-start mt-4" id="proj-coll-ctr"></div>
                 </div>
             </div>
-
-            <div id="projectliststore" value="{{ [] }}" style="display:none"></div>
-            <div class="accordion pol-coll-div container" id="proj-coll-ctr" style="margin-bottom: 10px;"></div>
         </div>
     </div>
 </div>
@@ -77,32 +85,54 @@
         const projs_div = $('#proj-coll-ctr');
         projs_div.empty();
 
+        if (projects.length === 0) {
+            projs_div.append('<div class="text-center text-muted my-4">No matching projects found.</div>');
+            return;
+        }
+
         projects.forEach((p, i) => {
             const siteList = p.sites.length
-                ? `<ul>${p.sites.map(s => `<li>${s}</li>`).join('')}</ul>`
-                : '<p><i>No site names available</i></p>';
+                ? `<ul class="mb-0 ps-3">${p.sites.map(s => `<li class="text-muted small">${s}</li>`).join('')}</ul>`
+                : '<p class="text-muted small mb-0"><i>No site names available</i></p>';
 
             const links_html = `
-                <a href="${p.proj_link}" class="polcol-lnk d-inline" style="font-weight:600;" target="_blank">
+                <button class="btn btn-success btn-sm">
+                <a href="${p.proj_link}" class="px-3 text-white text-decoration-none fw-semibold" target="_blank">
                     Project Page ↗
-                </a>`;
+                </a>
+                </button>`;
 
+            // Completely Flat Card Configuration (immune to external stylesheet hover rules)
             projs_div.append(`
-                <div class="accordion-item polcol-acc-itm" style="margin-bottom:5px;">
-                    <div class="accordion-header polcol-acc-hdr">
-                        <button class="accordion-button collapsed polcol-acc-btn" type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#projcollapse${i}">
-                            <div class="container">
-                                <h5>${p.project}</h5>
-                                <p>${p.life_reference}</p>
+                <div class="card mb-2 border rounded text-start" style="transform: none !important; margin-top: 0 !important; margin-bottom: 8px !important; padding: 0 !important; box-shadow: none !important;">
+                    <div class="card-header bg-white p-0 border-0">
+                        <button class="accordion-button collapsed bg-white text-dark" type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#projcollapse${i}" 
+                                aria-expanded="false" 
+                                aria-controls="projcollapse${i}" 
+                                style="box-shadow: none !important; transform: none !important; padding: 1.25rem !important;">
+                            <div class="w-100">
+                                <h5 class="mb-1 text-dark fw-bold" style="font-size: 1.1rem; line-height: 1.4;">${p.project}</h5>
+                                <small class="text-secondary fw-normal d-block mt-1">${p.life_reference || 'N/A'}</small>
                             </div>
                         </button>
                     </div>
-                    <div id="projcollapse${i}" class="accordion-collapse collapse polcol-acc-coll">
-                        <div class="accordion-body polcol-acc-bdy">
-                            <p>${links_html} | ${p.start_yr}-${p.end_yr}</p>
-                            <p>Sites:</p> ${siteList}
+                    <div id="projcollapse${i}" class="accordion-collapse collapse">
+                        <div class="card-body bg-light border-top p-4">
+                            
+                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+                                <div>${links_html}</div>
+                                <div class="text-muted small fw-semibold">
+                                    📅 Duration: <span class="text-dark">${p.start_yr} — ${p.end_yr}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-3 rounded border-start border-3 shadow-sm" style="border-color: #5C93AC;">
+                                <p class="fw-bold small mb-2 text-uppercase tracking-wider" style="color: #5C93AC;">Associated Sites</p>
+                                ${siteList}
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

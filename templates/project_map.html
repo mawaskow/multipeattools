@@ -3,16 +3,30 @@
 {% block title %}Project Map{% endblock %}
 
 {% block content %}
-<div class="container-fluid" style="padding:0px; margin:0px;height:100vh; position:relative">
-    <div id="project_map" style="height:100vh;"></div>
-    <div id="map-projs-box" style="position: absolute; top: 0; right: 0; width:400px; min-height: 150px; display:block; background-color: #d3dee9; padding:5px;">
-        <div id="map-projs-default" class="row">
-            <h4 style="font-weight: bold; margin-left: 5px;">Project Information</h4>
-            <p style="margin-left: 5px;">About the project collection</p>
+<div class="container-fluid p-0 m-0 position-relative" style="height: 100vh; min-height: 500px; overflow: hidden;">
+    
+    <div id="project_map" class="w-100 h-100"></div>
+    
+    <div id="map-projs-box" 
+         class="card border-0 bg-white shadow mb-4" 
+         style="position: absolute; top: 20px; right: 20px; width: 380px; max-height: calc(100vh - 40px); z-index: 1000; border-radius: 0.5rem; display: block;">
+        
+        <div class="card-header bg-white border-0 pt-4 pb-2 px-4">
+            <h5 id="map-projs-default-title" class="fw-bold mb-1" style="color:#396d85">Project Information</h5>
+            <p id="map-projs-default-subtitle" class="text-secondary small mb-0">Select a site on the map or explore details below.</p>
         </div>
-        <div id="map-projs-div" style="margin: 5px; min-height: 75px; max-height:500px; overflow:auto; background-color: white; padding:5px;"></div>
+        
+        <div class="card-body px-4 pb-4 pt-2 d-flex flex-column" style="overflow: hidden;">
+            <div id="map-projs-div" 
+                 class="overflow-auto pe-1" 
+                 style="max-height: 500px; min-height: 100px; font-size: 0.9rem;">
+                 <p class="text-muted small my-3 text-center"><i>Click a pin on the map to display associated project data.</i></p>
+            </div>
+        </div>
+
     </div>
 </div>
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ol.css') }}">
 
 <script src="{{ url_for('static', filename='scripts/ol.js') }}"></script>
